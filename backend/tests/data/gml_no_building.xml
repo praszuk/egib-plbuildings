@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="UTF-8" ?>
+<!-- https://wms.epodgik.pl/cgi-bin/pruszkow/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=ms:budynki&SRSNAME=urn:ogc:def:crs:EPSG::4326&bbox=0.0,0.0,0.0,0.0,urn:ogc:def:crs:EPSG::4326 -->
+<!-- No building data -->
+<wfs:FeatureCollection
+   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
+   xmlns:gml="http://www.opengis.net/gml/3.2"
+   xmlns:wfs="http://www.opengis.net/wfs/2.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://mapserver.gis.umn.edu/mapserver https://wms.epodgik.pl/cgi-bin/pruszkow?SERVICE=WFS&amp;VERSION=2.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=ms:budynki&amp;OUTPUTFORMAT=application%2Fgml%2Bxml%3B%20version%3D3.2 http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+   timeStamp="2023-03-20T16:48:04" numberMatched="0" numberReturned="0">
+</wfs:FeatureCollection>
