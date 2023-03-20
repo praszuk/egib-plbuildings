@@ -62,3 +62,10 @@ class TestMultipleBuildings:
 
     def test_geojson_has_three_features(self, geojson):
         assert len(geojson['features']) == 3
+
+    def test_geojson_features_have_different_geometries(self, geojson):
+        geometries = set()
+        for feature in geojson['features']:
+            geometries.add(str(feature['geometry']['coordinates']))
+
+        assert len(geometries) == len(geojson['features'])
