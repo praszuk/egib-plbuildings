@@ -69,3 +69,10 @@ class TestMultipleBuildings:
             geometries.add(str(feature['geometry']['coordinates']))
 
         assert len(geometries) == len(geojson['features'])
+
+    def test_geojson_features_have_different_ids(self, geojson):
+        ids = set()
+        for feature in geojson['features']:
+            ids.add(str(feature['properties']['ID_BUDYNKU']))
+
+        assert len(ids) == len(geojson['features'])
