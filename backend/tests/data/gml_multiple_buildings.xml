@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding="UTF-8" ?>
+<!-- https://wms.epodgik.pl/cgi-bin/pruszkow/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=ms:budynki&SRSNAME=urn:ogc:def:crs:EPSG::4326&bbox=52.16903,20.85933,52.16954,20.86072,urn:ogc:def:crs:EPSG::4326 -->
+<!-- Multiple buildings data: townhall, police station and small outbuilding/shed (random order) -->
+<wfs:FeatureCollection
+   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
+   xmlns:gml="http://www.opengis.net/gml/3.2"
+   xmlns:wfs="http://www.opengis.net/wfs/2.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://mapserver.gis.umn.edu/mapserver https://wms.epodgik.pl/cgi-bin/pruszkow?SERVICE=WFS&amp;VERSION=2.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=ms:budynki&amp;OUTPUTFORMAT=application%2Fgml%2Bxml%3B%20version%3D3.2 http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+   timeStamp="2023-03-20T17:43:40" numberMatched="3" numberReturned="3">
+      <wfs:boundedBy>
+      	<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+      		<gml:lowerCorner>52.168816 20.859021</gml:lowerCorner>
+      		<gml:upperCorner>52.169410 20.860309</gml:upperCorner>
+      	</gml:Envelope>
+      </wfs:boundedBy>
+    <wfs:member>
+      <ms:budynki gml:id="budynki.37660866">
+        <gml:boundedBy>
+        	<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+        		<gml:lowerCorner>52.168816 20.859021</gml:lowerCorner>
+        		<gml:upperCorner>52.169364 20.859930</gml:upperCorner>
+        	</gml:Envelope>
+        </gml:boundedBy>
+        <ms:msGeometry>
+          <gml:Polygon gml:id="budynki.37660866.1" srsName="urn:ogc:def:crs:EPSG::4326">
+            <gml:exterior>
+              <gml:LinearRing>
+                <gml:posList srsDimension="2">52.168951 20.859021 52.169119 20.859111 52.169113 20.859141 52.169176 20.859175 52.169364 20.859276 52.169364 20.859285 52.169361 20.859302 52.169355 20.859316 52.169265 20.859447 52.169256 20.859457 52.169246 20.859461 52.169235 20.859460 52.169133 20.859406 52.169108 20.859442 52.169116 20.859457 52.169061 20.859538 52.169053 20.859524 52.169028 20.859560 52.168960 20.859893 52.168935 20.859930 52.168816 20.859881 52.168951 20.859021 </gml:posList>
+              </gml:LinearRing>
+            </gml:exterior>
+          </gml:Polygon>
+        </ms:msGeometry>
+        <ms:FUNKCJA>i</ms:FUNKCJA>
+        <ms:KONDYGNACJE_NADZIEMNE>3</ms:KONDYGNACJE_NADZIEMNE>
+        <ms:RODZAJ>ognioodporny</ms:RODZAJ>
+        <ms:ID_BUDYNKU>142104_2.0013.628/16.1_BUD</ms:ID_BUDYNKU>
+        <ms:KONDYGNACJE_PODZIEMNE></ms:KONDYGNACJE_PODZIEMNE>
+      </ms:budynki>
+    </wfs:member>
+    <wfs:member>
+      <ms:budynki gml:id="budynki.37661317">
+        <gml:boundedBy>
+        	<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+        		<gml:lowerCorner>52.169105 20.859957</gml:lowerCorner>
+        		<gml:upperCorner>52.169410 20.860309</gml:upperCorner>
+        	</gml:Envelope>
+        </gml:boundedBy>
+        <ms:msGeometry>
+          <gml:Polygon gml:id="budynki.37661317.1" srsName="urn:ogc:def:crs:EPSG::4326">
+            <gml:exterior>
+              <gml:LinearRing>
+                <gml:posList srsDimension="2">52.169149 20.859988 52.169151 20.859979 52.169173 20.859957 52.169179 20.859959 52.169286 20.860004 52.169316 20.860016 52.169410 20.860056 52.169400 20.860124 52.169396 20.860151 52.169383 20.860233 52.169337 20.860215 52.169294 20.860196 52.169271 20.860186 52.169228 20.860169 52.169218 20.860236 52.169206 20.860309 52.169196 20.860305 52.169105 20.860267 52.169108 20.860250 52.169125 20.860140 52.169126 20.860135 52.169149 20.859988 </gml:posList>
+              </gml:LinearRing>
+            </gml:exterior>
+          </gml:Polygon>
+        </ms:msGeometry>
+        <ms:FUNKCJA>i</ms:FUNKCJA>
+        <ms:KONDYGNACJE_NADZIEMNE>2</ms:KONDYGNACJE_NADZIEMNE>
+        <ms:RODZAJ>ognioodporny</ms:RODZAJ>
+        <ms:ID_BUDYNKU>142104_2.0013.628/17.1_BUD</ms:ID_BUDYNKU>
+        <ms:KONDYGNACJE_PODZIEMNE></ms:KONDYGNACJE_PODZIEMNE>
+      </ms:budynki>
+    </wfs:member>
+    <wfs:member>
+      <ms:budynki gml:id="budynki.37667343">
+        <gml:boundedBy>
+        	<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
+        		<gml:lowerCorner>52.169150 20.859788</gml:lowerCorner>
+        		<gml:upperCorner>52.169198 20.859846</gml:upperCorner>
+        	</gml:Envelope>
+        </gml:boundedBy>
+        <ms:msGeometry>
+          <gml:Polygon gml:id="budynki.37667343.1" srsName="urn:ogc:def:crs:EPSG::4326">
+            <gml:exterior>
+              <gml:LinearRing>
+                <gml:posList srsDimension="2">52.169150 20.859826 52.169156 20.859788 52.169198 20.859808 52.169191 20.859846 52.169150 20.859826 </gml:posList>
+              </gml:LinearRing>
+            </gml:exterior>
+          </gml:Polygon>
+        </ms:msGeometry>
+        <ms:FUNKCJA>i</ms:FUNKCJA>
+        <ms:KONDYGNACJE_NADZIEMNE>1</ms:KONDYGNACJE_NADZIEMNE>
+        <ms:RODZAJ>ognioodporny</ms:RODZAJ>
+        <ms:ID_BUDYNKU>142104_2.0013.628/16.3_BUD</ms:ID_BUDYNKU>
+        <ms:KONDYGNACJE_PODZIEMNE></ms:KONDYGNACJE_PODZIEMNE>
+      </ms:budynki>
+    </wfs:member>
+</wfs:FeatureCollection>
