@@ -25,3 +25,13 @@ class TestBasicBuilding:
         first = geojson['features'][0]['geometry']['coordinates'][0][0]
         last = geojson['features'][0]['geometry']['coordinates'][0][-1]
         assert first == last
+
+    def test_geojson_has_all_properties(self, geojson):
+        expected_properties = {
+            'FUNKCJA': 'i',
+            'KONDYGNACJE_NADZIEMNE': '3',
+            'RODZAJ': 'ognioodporny',
+            'ID_BUDYNKU': '142104_2.0013.628/16.1_BUD',
+            'KONDYGNACJE_PODZIEMNE': ''
+        }
+        assert geojson['features'][0]['properties'] == expected_properties
