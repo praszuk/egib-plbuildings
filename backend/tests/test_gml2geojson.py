@@ -17,3 +17,6 @@ class TestBasicBuilding:
 
     def test_geojson_has_one_feature(self, geojson):
         assert len(geojson['features']) == 1
+
+    def test_geojson_has_22_coordinates(self, geojson):
+        assert len(geojson['features'][0]['geometry']['coordinates'][0]) == 22
