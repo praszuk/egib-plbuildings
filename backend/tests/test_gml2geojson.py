@@ -20,3 +20,8 @@ class TestBasicBuilding:
 
     def test_geojson_has_22_coordinates(self, geojson):
         assert len(geojson['features'][0]['geometry']['coordinates'][0]) == 22
+
+    def test_geojson_coordinates_first_and_last_eq(self, geojson):
+        first = geojson['features'][0]['geometry']['coordinates'][0][0]
+        last = geojson['features'][0]['geometry']['coordinates'][0][-1]
+        assert first == last
