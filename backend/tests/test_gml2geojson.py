@@ -47,3 +47,18 @@ class TestBasicBuilding:
             'KONDYGNACJE_PODZIEMNE': ''
         }
         assert geojson['features'][0]['properties'] == expected_properties
+
+
+class TestMultipleBuildings:
+    @pytest.fixture(scope='class')
+    def gml_content(self, test_data_dir):
+        filename = path.join(test_data_dir, 'gml_multiple_buildings.xml')
+        with open(filename, 'r') as f:
+            return f.read()
+
+    @pytest.fixture(scope='class')
+    def geojson(self, gml_content):
+        return gml_to_geojson(gml_content)
+
+    def test_geojson_has_three_features(self, geojson):
+        assert len(geojson['features']) == 3
