@@ -4,6 +4,18 @@ from os import path
 from ..utils import gml_to_geojson
 
 
+class TestNoBuildingData:
+    @pytest.fixture(scope='class')
+    def gml_content(self, test_data_dir):
+        filename = path.join(test_data_dir, 'gml_no_building.xml')
+        with open(filename, 'r') as f:
+            return f.read()
+
+    def test_empty_geojson(self, gml_content):
+        geojson = gml_to_geojson(gml_content)
+        assert len(geojson['features']) == 0
+
+
 class TestBasicBuilding:
     @pytest.fixture(scope='class')
     def gml_content(self, test_data_dir):
