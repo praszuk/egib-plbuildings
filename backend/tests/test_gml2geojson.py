@@ -44,7 +44,7 @@ class TestBasicBuilding:
             'KONDYGNACJE_NADZIEMNE': '3',
             'RODZAJ': 'ognioodporny',
             'ID_BUDYNKU': '142104_2.0013.628/16.1_BUD',
-            'KONDYGNACJE_PODZIEMNE': ''
+            'KONDYGNACJE_PODZIEMNE': None
         }
         assert geojson['features'][0]['properties'] == expected_properties
 
