@@ -76,3 +76,20 @@ class TestMultipleBuildings:
             ids.add(str(feature['properties']['ID_BUDYNKU']))
 
         assert len(ids) == len(geojson['features'])
+
+
+class TestCoordinatesCorrectOrderAutoFix:
+    @pytest.mark.parametrize(
+        'test_filename',
+        [
+            'gml_coordinates_lat_lon_order.xml',
+            'gml_coordinates_lon_lat_order.xml'
+         ]
+    )
+    def test_lon_lat_as_geojson(self, test_data_dir, test_filename):
+        with open(path.join(test_data_dir, test_filename), 'r') as f:
+            gml_content = f.read()
+        geojson = gml_to_geojson(gml_content)
+        point = geojson['features'][0]['geometry']['coordinates'][0][0]
+
+        assert point[0] < point[1]
