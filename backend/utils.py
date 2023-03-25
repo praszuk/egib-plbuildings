@@ -1,5 +1,5 @@
 from lxml import etree
-from osgeo import ogr  # noqa
+from osgeo import ogr, osr  # noqa
 
 import json
 
@@ -33,9 +33,21 @@ def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
                 if len(polygons) == 0:  # not sure
                     continue
 
-                gml_poly = etree.tostring(polygons[0]).decode('utf-8')
-                geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_poly)
+                gml_geom = etree.tostring(polygons[0]).decode('utf-8')
+                geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
+
+                # fix incorrect lat lon order
+                point = geometry.GetGeometryRef(0).GetPoint(0)
+                if point[0] > point[1]:
+                    source = osr.SpatialReference()
+                    source.ImportFromEPSG(4326)
+                    target = osr.SpatialReference()
+                    target.SetWellKnownGeogCS('WGS84')
+                    transform = osr.CoordinateTransformation(source, target)
+                    geometry.Transform(transform)
+
                 geojson_str_geometry: str = geometry.ExportToJson()
+
                 feature['geometry'] = json.loads(geojson_str_geometry)
             else:
                 feature['properties'][clean_tag] = child.text
