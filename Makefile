@@ -1,5 +1,5 @@
 .ONESHELL:
-.PHONY: install test
+.PHONY: install test run clean
 
 install:
 	virtualenv -p python3 .venv
@@ -12,3 +12,6 @@ test:
 run:
 	cd backend
 	uvicorn main:app --reload
+
+clean:
+	rm -rf .pytest_cache __pycache__ .venv
