@@ -6,6 +6,14 @@ import json
 from typing import Any, Dict
 
 
+def get_powiat_teryt_at(lat: float, lon: float) -> str:
+    """
+    :return: 4 characters number of powiat
+    :raises ValueError: if location is incorrect
+    """
+    return '1421'  # TODO hardcoded 1 powiat for testing
+
+
 def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
     result = {
         'type': 'FeatureCollection',

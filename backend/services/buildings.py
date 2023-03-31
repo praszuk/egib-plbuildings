@@ -5,7 +5,7 @@ import logging
 from typing import Any, Dict, Optional
 
 from parsers.egib_to_osm import egib_to_osm
-from utils import gml_to_geojson
+from utils import get_powiat_teryt_at, gml_to_geojson
 
 
 _SRSNAME = 'EPSG:4326'
@@ -14,7 +14,7 @@ _SRSNAME = 'EPSG:4326'
 async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
     bbox = f'{lat},{lon},{lat},{lon}'
 
-    powiat_teryt = '1421'  # TODO temporary
+    powiat_teryt = get_powiat_teryt_at(lat, lon)
 
     url = 'https://wms.epodgik.pl/cgi-bin/pruszkow/wfs' \
           '?service=wfs' \
