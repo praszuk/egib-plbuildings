@@ -1,8 +1,9 @@
-.ONESHELL:
 .PHONY: install test run clean
 
+SHELL := /bin/bash
 VENV=.venv
 PYTHON=$(VENV)/bin/python3
+APP_DIR=backend
 
 install:
 	virtualenv -p python3 $(VENV)
@@ -13,8 +14,7 @@ test:
 	PYTHONPATH=backend $(PYTHON) -m pytest
 
 run:
-	cd backend
-	$(PYTHON) -m uvicorn main:app --reload
+	$(PYTHON) -m uvicorn main:app --app-dir $(APP_DIR) --reload
 
 clean:
 	rm -rf .pytest_cache __pycache__ $(VENV)
