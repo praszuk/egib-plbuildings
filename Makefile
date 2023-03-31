@@ -8,3 +8,7 @@ install:
 
 test:
 	PYTHONPATH=backend pytest
+
+run:
+	cd backend
+	uvicorn main:app --reload
