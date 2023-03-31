@@ -4,6 +4,7 @@ import logging
 
 from typing import Any, Dict, Optional
 
+from parsers.egib_to_osm import egib_to_osm
 from utils import gml_to_geojson
 
 
@@ -12,6 +13,8 @@ _SRSNAME = 'EPSG:4326'
 
 async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
     bbox = f'{lat},{lon},{lat},{lon}'
+
+    powiat_teryt = '1421'  # TODO temporary
 
     url = 'https://wms.epodgik.pl/cgi-bin/pruszkow/wfs' \
           '?service=wfs' \
@@ -26,8 +29,8 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
         try:
             response = await client.get(url)
             geojson = gml_to_geojson(response.text)
-            # TODO gugik geojson to osm geojson
-            data = geojson  # TODO temporary to test
+            egib_to_osm(geojson, powiat_teryt)
+            data = geojson
         except IOError as e:
             logging.warning(f'Error on downloading building from: {url} {e}')
         except ValueError as e:
