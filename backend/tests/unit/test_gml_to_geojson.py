@@ -1,7 +1,7 @@
 import pytest
 
 from os import path
-from ..utils import gml_to_geojson
+from utils import gml_to_geojson
 
 
 class TestNoBuildingData:
