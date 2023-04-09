@@ -11,7 +11,7 @@ install:
 	$(PYTHON) -m pip install -r requirements.txt
 
 test:
-	PYTHONPATH=backend $(PYTHON) -m pytest
+	PYTHONPATH=backend $(PYTHON) -m pytest $(ARGS)
 
 run:
 	$(PYTHON) -m uvicorn main:app --app-dir $(APP_DIR) --reload
