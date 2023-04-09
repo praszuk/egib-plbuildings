@@ -11,6 +11,19 @@ from utils import get_powiat_teryt_at, gml_to_geojson
 _SRSNAME = 'EPSG:4326'
 
 
+async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
+    """
+    Downloads GML data from URL
+    :param client: AsyncClient
+    :return: data as string or None
+    """
+    response = await client.get(url)
+    if response.status_code != 200:
+        return None
+
+    return response.text
+
+
 async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
     bbox = f'{lat},{lon},{lat},{lon}'
 
@@ -27,8 +40,11 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
     data = {}
     async with AsyncClient() as client:
         try:
-            response = await client.get(url)
-            geojson = gml_to_geojson(response.text)
+            gml_content = await _download_gml(client, url)
+            if not gml_content:
+                return
+
+            geojson = gml_to_geojson(gml_content)
             egib_to_osm(geojson, powiat_teryt)
             data = geojson
         except IOError as e:
