@@ -45,6 +45,12 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
                 return
 
             geojson = gml_to_geojson(gml_content)
+
+            # Avoid multiple buildings (it shouldn't normally occur)
+            # order/distance doesn't matter
+            if len(geojson['features']) > 1:
+                geojson['features'] = [geojson['features'][0]]
+
             egib_to_osm(geojson, powiat_teryt)
             data = geojson
         except IOError as e:
