@@ -3,7 +3,7 @@ from typing import Any, Dict
 from backend.exceptions import InvalidKeyParserError
 from backend.parsers.parser_default import (
     DEFAULT_BUILDING,
-    BUILDING_KST_CODE_TYPE
+    BUILDING_KST_CODE_TYPE,
 )
 
 
@@ -17,8 +17,7 @@ def epodgik_parser(properties: Dict[str, Any]) -> Dict[str, Any]:
 
     try:
         tags['building'] = BUILDING_KST_CODE_TYPE.get(
-            properties['FUNKCJA'],
-            DEFAULT_BUILDING
+            properties['FUNKCJA'], DEFAULT_BUILDING
         )
         if 'KONDYGNACJE_NADZIEMNE' in properties:
             tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')

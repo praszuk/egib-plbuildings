@@ -39,7 +39,7 @@ class TestBasicBuilding:
             'KONDYGNACJE_NADZIEMNE': '3',
             'RODZAJ': 'ognioodporny',
             'ID_BUDYNKU': '142104_2.0013.628/16.1_BUD',
-            'KONDYGNACJE_PODZIEMNE': None
+            'KONDYGNACJE_PODZIEMNE': None,
         }
         assert geojson['features'][0]['properties'] == expected_properties
 
@@ -76,8 +76,8 @@ class TestCoordinatesCorrectOrderAutoFix:
         'test_filename',
         [
             'gml_coordinates_lat_lon_order.xml',
-            'gml_coordinates_lon_lat_order.xml'
-         ]
+            'gml_coordinates_lon_lat_order.xml',
+        ],
     )
     def test_lon_lat_as_geojson(self, load_gml, test_filename):
         gml_content = load_gml(test_filename)

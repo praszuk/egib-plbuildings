@@ -29,13 +29,15 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
 
     powiat_teryt = get_powiat_teryt_at(lat, lon)
 
-    url = 'https://wms.epodgik.pl/cgi-bin/pruszkow/wfs' \
-          '?service=wfs' \
-          '&version=2.0.0' \
-          '&request=GetFeature' \
-          '&typeNames=ms:budynki' \
-          f'&SRSNAME={_SRSNAME}' \
-          f'&bbox={bbox},{_SRSNAME}'
+    url = (
+        'https://wms.epodgik.pl/cgi-bin/pruszkow/wfs'
+        '?service=wfs'
+        '&version=2.0.0'
+        '&request=GetFeature'
+        '&typeNames=ms:budynki'
+        f'&SRSNAME={_SRSNAME}'
+        f'&bbox={bbox},{_SRSNAME}'
+    )
 
     data = {}
     async with AsyncClient() as client:

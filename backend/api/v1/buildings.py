@@ -11,6 +11,6 @@ router = APIRouter()
 
 @router.get('/')
 async def get_building_at(
-    location: Location = Depends(Location)
+    location: Location = Depends(Location),
 ) -> Optional[Dict[str, Any]]:
     return await buildings.get_building_at(location.lat, location.lon)
