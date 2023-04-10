@@ -3,7 +3,7 @@ from osgeo import ogr, osr  # noqa
 
 import json
 
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 
 def get_powiat_teryt_at(lat: float, lon: float) -> str:
@@ -15,21 +15,24 @@ def get_powiat_teryt_at(lat: float, lon: float) -> str:
 
 
 def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
-    result = {
-        'type': 'FeatureCollection',
-        'features': []
-    }
+    features: List[Dict[str, Any]] = []
+
     root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
-    for wfs_member in root.findall('.//wfs:member', namespaces=root.nsmap):
-        bud_member = wfs_member.getchildren()[0]  # ms:budynki
-        feature = {
+    wfs_members = root.findall(
+        './/wfs:member',
+        namespaces=root.nsmap  # type: ignore[arg-type]
+    )
+    for wfs_member in wfs_members:
+        # get ms:budynki member
+        bud_member = wfs_member.getchildren()[0]  # type: ignore[attr-defined]
+        feature: Dict[str, Any] = {
             'type': 'Feature',
             'geometry': {},
             'properties': {}
         }
         for child in bud_member.getchildren():
             # Geometry and GUGIK attributes start with "ms"
-            if not child.tag.startswith('{' + root.nsmap.get('ms')):
+            if not child.tag.startswith('{' + str(root.nsmap.get('ms'))):
                 continue
 
             clean_tag = child.tag.replace(root.nsmap.get('ms'), '')[2:]
@@ -60,6 +63,6 @@ def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
             else:
                 feature['properties'][clean_tag] = child.text
 
-        result['features'].append(feature)
+        features.append(feature)
 
-    return result
+    return {'type': 'FeatureCollection', 'features': features}
