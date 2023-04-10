@@ -4,3 +4,7 @@ target-version = ['py310', 'py311']
 include = '\.pyi?$'
 skip-numeric-underscore-normalization = true
 skip-string-normalization = true
+
+[tool.isort]
+profile = 'black'
+line_length = 79
