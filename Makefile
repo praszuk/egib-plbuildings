@@ -1,4 +1,4 @@
-.PHONY: install test mypy black black-check isort isort-check run clean
+.PHONY: install test mypy black black-check isort isort-check format format-check run clean
 
 SHELL := /bin/bash
 VENV=.venv
@@ -27,6 +27,10 @@ black-check:
 
 black:
 	$(PYTHON) -m black $(APP_DIR)
+
+format: isort black
+
+format-check: isort-check black-check
 
 run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --reload
