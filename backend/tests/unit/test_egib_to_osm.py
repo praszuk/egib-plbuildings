@@ -1,17 +1,13 @@
 import pytest
 
-from os import path
-
 from exceptions import ParserNotFound
 from parsers.egib_to_osm import egib_to_osm
 from utils import gml_to_geojson
 
 
 @pytest.fixture(scope='class')
-def gml_content(test_data_dir):
-    filename = path.join(test_data_dir, 'gml_multiple_buildings.xml')
-    with open(filename, 'r') as f:
-        return f.read()
+def gml_content(load_gml):
+    return load_gml('gml_multiple_buildings.xml')
 
 
 @pytest.fixture(scope='function')

@@ -1,7 +1,5 @@
 import pytest
 
-from os import path
-
 from exceptions import InvalidKeyParserError
 from parsers.parser_epodgik import epodgik_parser
 from utils import gml_to_geojson
@@ -21,11 +19,8 @@ def test_only_funkcja_attribute_in_params():
     assert len(tags) == 1
 
 
-def test_all_available_attributes_with_basic_building(test_data_dir):
-    filename = path.join(test_data_dir, 'gml_basic_building.xml')
-    with open(filename, 'r') as f:
-        gml_data = f.read()
-
+def test_all_available_attributes_with_basic_building(load_gml):
+    gml_data = load_gml('gml_basic_building.xml')
     geojson = gml_to_geojson(gml_data)
 
     tags = epodgik_parser(geojson['features'][0]['properties'])
