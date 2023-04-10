@@ -2,8 +2,8 @@ from typing import Any, Dict
 
 from backend.exceptions import InvalidKeyParserError
 from backend.parsers.parser_default import (
-    DEFAULT_BUILDING,
     BUILDING_KST_CODE_TYPE,
+    DEFAULT_BUILDING,
 )
 
 

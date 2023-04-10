@@ -1,6 +1,6 @@
-import pytest
-
 from os import path
+
+import pytest
 
 from backend.services import buildings
 

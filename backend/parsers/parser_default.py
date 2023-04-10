@@ -1,6 +1,5 @@
 from typing import Final
 
-
 DEFAULT_BUILDING: Final = 'yes'
 
 # EGiB KST classification "EGB_RodzajWgKSTType"

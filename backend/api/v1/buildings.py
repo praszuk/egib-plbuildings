@@ -1,10 +1,9 @@
-from fastapi import APIRouter, Depends
-
 from typing import Any, Dict, Optional
+
+from fastapi import APIRouter, Depends
 
 from backend.api.v1.deps import Location
 from backend.services import buildings
-
 
 router = APIRouter()
 

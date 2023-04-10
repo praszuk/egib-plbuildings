@@ -1,9 +1,8 @@
+import json
+from typing import Any, Dict, List
+
 from lxml import etree
 from osgeo import ogr, osr  # noqa
-
-import json
-
-from typing import Any, Dict, List
 
 
 def get_powiat_teryt_at(lat: float, lon: float) -> str:
