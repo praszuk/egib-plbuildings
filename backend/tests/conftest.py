@@ -1,3 +1,4 @@
+import httpx
 import pytest
 
 from fastapi.testclient import TestClient
@@ -23,6 +24,13 @@ def test_client():
     client = TestClient(app)
     client.base_url = client.base_url.join(settings.API_V1_STR)
     yield client
+
+
+@pytest.fixture(name='async_client')
+async def test_async_client(test_data_dir):
+    async with httpx.AsyncClient(app=app, base_url='http://test') as client:
+        client.base_url = client.base_url.join(settings.API_V1_STR)
+        yield client
 
 
 @pytest.fixture(scope='session')

@@ -1,10 +1,7 @@
-import httpx
 import pytest
 
 from os import path
 
-from main import app
-from core.config import settings
 from services import buildings
 
 
@@ -17,13 +14,6 @@ def test_invalid_lat_lon(client):
 
     response = client.get('buildings/', params={'lat': 91.0, 'lon': 181.0})
     assert response.status_code == 422
-
-
-@pytest.fixture(name='async_client')
-async def test_async_client(test_data_dir):
-    async with httpx.AsyncClient(app=app, base_url='http://test') as client:
-        client.base_url = client.base_url.join(settings.API_V1_STR)
-        yield client
 
 
 async def mock_download_gml(test_data_dir, filename: str) -> str:
