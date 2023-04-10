@@ -1,8 +1,8 @@
 import pytest
 
-from exceptions import ParserNotFound
-from parsers.egib_to_osm import egib_to_osm
-from utils import gml_to_geojson
+from backend.exceptions import ParserNotFound
+from backend.parsers.egib_to_osm import egib_to_osm
+from backend.utils import gml_to_geojson
 
 
 @pytest.fixture(scope='class')

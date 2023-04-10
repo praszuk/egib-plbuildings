@@ -1,7 +1,10 @@
 from typing import Any, Dict
 
-from exceptions import InvalidKeyParserError
-from .parser_default import DEFAULT_BUILDING, BUILDING_KST_CODE_TYPE
+from backend.exceptions import InvalidKeyParserError
+from backend.parsers.parser_default import (
+    DEFAULT_BUILDING,
+    BUILDING_KST_CODE_TYPE
+)
 
 
 def epodgik_parser(properties: Dict[str, Any]) -> Dict[str, Any]:

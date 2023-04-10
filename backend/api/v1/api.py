@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .buildings import router as buildings_router
+from backend.api.v1.buildings import router as buildings_router
 
 
 api_router = APIRouter()

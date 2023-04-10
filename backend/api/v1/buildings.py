@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 
-from services import buildings
+from backend.services import buildings
 
-from .deps import Location
+from backend.api.v1.deps import Location
 
 
 router = APIRouter()
