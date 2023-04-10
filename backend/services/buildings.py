@@ -42,7 +42,7 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
         try:
             gml_content = await _download_gml(client, url)
             if not gml_content:
-                return
+                return None
 
             geojson = gml_to_geojson(gml_content)
 
@@ -60,6 +60,6 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
 
     # empty response or unexpected server error
     if 'features' not in data:
-        return
+        return None
 
     return data

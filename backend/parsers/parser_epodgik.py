@@ -13,7 +13,7 @@ def epodgik_parser(properties: Dict[str, Any]) -> Dict[str, Any]:
     :param properties: GeoJSON raw properties
     :return: OSM tags
     """
-    tags = {}
+    tags: Dict[str, Any] = {}
 
     try:
         tags['building'] = BUILDING_KST_CODE_TYPE.get(
