@@ -1,6 +1,6 @@
 import pytest
 
-from utils import gml_to_geojson
+from backend.utils import gml_to_geojson
 
 
 class TestNoBuildingData:

@@ -2,7 +2,7 @@ import pytest
 
 from os import path
 
-from services import buildings
+from backend.services import buildings
 
 
 def test_invalid_lat_lon(client):

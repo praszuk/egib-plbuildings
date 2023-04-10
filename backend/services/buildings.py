@@ -4,8 +4,8 @@ import logging
 
 from typing import Any, Dict, Optional
 
-from parsers.egib_to_osm import egib_to_osm
-from utils import get_powiat_teryt_at, gml_to_geojson
+from backend.parsers.egib_to_osm import egib_to_osm
+from backend.utils import get_powiat_teryt_at, gml_to_geojson
 
 
 _SRSNAME = 'EPSG:4326'

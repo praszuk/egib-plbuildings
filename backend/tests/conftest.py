@@ -5,8 +5,8 @@ from fastapi.testclient import TestClient
 
 from os import path
 
-from core.config import settings
-from main import app
+from backend.core.config import settings
+from backend.main import app
 
 
 @pytest.fixture

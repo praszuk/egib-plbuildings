@@ -1,7 +1,7 @@
 from typing import Any, Dict, Final
 
-from exceptions import ParserNotFound
-from .parser_epodgik import epodgik_parser
+from backend.exceptions import ParserNotFound
+from backend.parsers.parser_epodgik import epodgik_parser
 
 
 TERYT_PARSER: Final = {
