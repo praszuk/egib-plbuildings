@@ -1,4 +1,4 @@
-.PHONY: install test mypy run clean
+.PHONY: install test mypy black black-check run clean
 
 SHELL := /bin/bash
 VENV=.venv
@@ -15,6 +15,12 @@ test:
 
 mypy:
 	$(PYTHON) -m mypy --install-types --non-interactive $(APP_DIR)
+
+black-check:
+	$(PYTHON) -m black --check --diff $(APP_DIR)
+
+black:
+	$(PYTHON) -m black $(APP_DIR)
 
 run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --reload
