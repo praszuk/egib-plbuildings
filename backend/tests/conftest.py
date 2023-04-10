@@ -23,3 +23,12 @@ def test_client():
     client = TestClient(app)
     client.base_url = client.base_url.join(settings.API_V1_STR)
     yield client
+
+
+@pytest.fixture(scope='session')
+def load_gml(test_data_dir):
+    def inner(filename: str) -> str:
+        with open(path.join(test_data_dir, filename), 'r') as f:
+            return f.read()
+
+    return inner

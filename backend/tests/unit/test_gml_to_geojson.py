@@ -1,15 +1,12 @@
 import pytest
 
-from os import path
 from utils import gml_to_geojson
 
 
 class TestNoBuildingData:
     @pytest.fixture(scope='class')
-    def gml_content(self, test_data_dir):
-        filename = path.join(test_data_dir, 'gml_no_building.xml')
-        with open(filename, 'r') as f:
-            return f.read()
+    def gml_content(self, load_gml):
+        return load_gml('gml_no_building.xml')
 
     def test_empty_geojson(self, gml_content):
         geojson = gml_to_geojson(gml_content)
@@ -18,10 +15,8 @@ class TestNoBuildingData:
 
 class TestBasicBuilding:
     @pytest.fixture(scope='class')
-    def gml_content(self, test_data_dir):
-        filename = path.join(test_data_dir, 'gml_basic_building.xml')
-        with open(filename, 'r') as f:
-            return f.read()
+    def gml_content(self, load_gml):
+        return load_gml('gml_basic_building.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
@@ -51,10 +46,8 @@ class TestBasicBuilding:
 
 class TestMultipleBuildings:
     @pytest.fixture(scope='class')
-    def gml_content(self, test_data_dir):
-        filename = path.join(test_data_dir, 'gml_multiple_buildings.xml')
-        with open(filename, 'r') as f:
-            return f.read()
+    def gml_content(self, load_gml):
+        return load_gml('gml_multiple_buildings.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
@@ -86,9 +79,8 @@ class TestCoordinatesCorrectOrderAutoFix:
             'gml_coordinates_lon_lat_order.xml'
          ]
     )
-    def test_lon_lat_as_geojson(self, test_data_dir, test_filename):
-        with open(path.join(test_data_dir, test_filename), 'r') as f:
-            gml_content = f.read()
+    def test_lon_lat_as_geojson(self, load_gml, test_filename):
+        gml_content = load_gml(test_filename)
         geojson = gml_to_geojson(gml_content)
         point = geojson['features'][0]['geometry']['coordinates'][0][0]
 
