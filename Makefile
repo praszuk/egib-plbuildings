@@ -11,10 +11,10 @@ install:
 	$(PYTHON) -m pip install -r requirements.txt
 
 test:
-	PYTHONPATH=backend $(PYTHON) -m pytest $(ARGS)
+	$(PYTHON) -m pytest $(ARGS) $(APP_DIR)
 
 run:
-	$(PYTHON) -m uvicorn main:app --app-dir $(APP_DIR) --reload
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --reload
 
 clean:
 	rm -rf .pytest_cache __pycache__ $(VENV)
