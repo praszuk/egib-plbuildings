@@ -8,6 +8,11 @@ from core.config import settings
 from main import app
 
 
+@pytest.fixture
+def anyio_backend():  # without it tests are executed twice
+    return 'trio'
+
+
 @pytest.fixture(scope='session')
 def test_data_dir():
     return path.join(path.dirname(__file__), 'data')
