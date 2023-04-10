@@ -1,9 +1,8 @@
+from os import path
+
 import httpx
 import pytest
-
 from fastapi.testclient import TestClient
-
-from os import path
 
 from backend.core.config import settings
 from backend.main import app

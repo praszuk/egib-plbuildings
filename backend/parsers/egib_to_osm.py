@@ -3,7 +3,6 @@ from typing import Any, Dict, Final
 from backend.exceptions import ParserNotFound
 from backend.parsers.parser_epodgik import epodgik_parser
 
-
 TERYT_PARSER: Final = {
     '1421': epodgik_parser,
 }

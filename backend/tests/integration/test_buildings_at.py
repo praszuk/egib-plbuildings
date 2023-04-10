@@ -1,6 +1,6 @@
-import pytest
-
 from os import path
+
+import pytest
 
 from backend.services import buildings
 
@@ -33,14 +33,12 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
         buildings,
         '_download_gml',
         lambda client, url: mock_download_gml(
-            test_data_dir,
-            'gml_basic_building.xml'
-        )
+            test_data_dir, 'gml_basic_building.xml'
+        ),
     )
 
     response = await async_client.get(
-        'buildings/',
-        params={'lat': 50, 'lon': 20}
+        'buildings/', params={'lat': 50, 'lon': 20}
     )
 
     assert response.status_code == 200
@@ -52,22 +50,18 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
 
 @pytest.mark.anyio
 async def test_multiple_buildings_data_returns_only_one(
-    async_client,
-    monkeypatch,
-    test_data_dir
+    async_client, monkeypatch, test_data_dir
 ):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
         lambda client, url: mock_download_gml(
-            test_data_dir,
-            'gml_multiple_buildings.xml'
-        )
+            test_data_dir, 'gml_multiple_buildings.xml'
+        ),
     )
 
     response = await async_client.get(
-        'buildings/',
-        params={'lat': 50, 'lon': 20}
+        'buildings/', params={'lat': 50, 'lon': 20}
     )
 
     assert response.status_code == 200
@@ -83,14 +77,12 @@ async def test_no_building_data(async_client, monkeypatch, test_data_dir):
         buildings,
         '_download_gml',
         lambda client, url: mock_download_gml(
-            test_data_dir,
-            'gml_no_building.xml'
-        )
+            test_data_dir, 'gml_no_building.xml'
+        ),
     )
 
     response = await async_client.get(
-        'buildings/',
-        params={'lat': 50, 'lon': 20}
+        'buildings/', params={'lat': 50, 'lon': 20}
     )
 
     assert response.status_code == 200
