@@ -8,3 +8,7 @@ class ParserNotFound(ParserError):
 
 class InvalidKeyParserError(ParserError):
     pass
+
+
+class PowiatNotFound(Exception):
+    pass
