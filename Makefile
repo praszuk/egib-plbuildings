@@ -9,6 +9,7 @@ install:
 	virtualenv -p python3 $(VENV)
 	source $(VENV)/bin/activate
 	$(PYTHON) -m pip install -r requirements.txt
+	$(PYTHON) -m pre_commit install
 
 test:
 	$(PYTHON) -m pytest $(ARGS) $(APP_DIR)
@@ -36,4 +37,5 @@ run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --reload
 
 clean:
+	$(PYTHON) -m pre_commit uninstall
 	rm -rf .pytest_cache .mypy_cache __pycache__ $(VENV)
