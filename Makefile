@@ -35,7 +35,7 @@ format: isort black
 format-check: isort-check black-check
 
 run:
-	$(PYTHON) -m uvicorn $(APP_DIR).main:app --reload
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
