@@ -10,6 +10,6 @@ repos:
       - id: black
         name: black
         language: system
-        types: [ python ]
+        types: [python]
         entry: make -s black
         pass_filenames: false
