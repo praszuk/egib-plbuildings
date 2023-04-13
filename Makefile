@@ -8,6 +8,7 @@ APP_DIR=backend
 install:
 	virtualenv -p python3 $(VENV)
 	source $(VENV)/bin/activate
+	$(PYTHON) -m pip install GDAL==`gdal-config --version`
 	$(PYTHON) -m pip install -r requirements.txt
 	$(PYTHON) -m pre_commit install
 
