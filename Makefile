@@ -2,14 +2,15 @@
 
 SHELL := /bin/bash
 VENV=.venv
-PYTHON=$(VENV)/bin/python3
+PYTHON=$(VENV)/bin/python
 APP_DIR=backend
 
 install:
 	virtualenv -p python3 $(VENV)
 	source $(VENV)/bin/activate
+	$(PYTHON) -m pip install GDAL==`gdal-config --version`
 	$(PYTHON) -m pip install -r requirements.txt
-	$(PYTHON) -m pre_commit install
+	if [ -d ".git" ]; then $(PYTHON) -m pre_commit install; fi
 
 test:
 	$(PYTHON) -m pytest $(ARGS) $(APP_DIR)
@@ -34,8 +35,8 @@ format: isort black
 format-check: isort-check black-check
 
 run:
-	$(PYTHON) -m uvicorn $(APP_DIR).main:app --reload
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload
 
 clean:
-	$(PYTHON) -m pre_commit uninstall
+	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
 	rm -rf .pytest_cache .mypy_cache __pycache__ $(VENV)
