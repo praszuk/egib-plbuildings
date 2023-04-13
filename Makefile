@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 VENV=.venv
-PYTHON=$(VENV)/bin/python3
+PYTHON=$(VENV)/bin/python
 APP_DIR=backend
 
 install:
