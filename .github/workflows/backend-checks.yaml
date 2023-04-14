@@ -1,0 +1,37 @@
+name: Checks (build, tests, quality)
+
+on: [push, pull_request]
+
+jobs:
+  checks:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ['3.10']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install virtualenv
+          sudo apt-get install -y libgdal-dev
+          make install
+      - name: Test (unit and integration tests)
+        run: |
+          make test
+      - name: Quality check – isort
+        if: success() || failure()
+        run: |
+          make isort-check
+      - name: Quality check – black
+        if: success() || failure()
+        run: |
+          make black-check
+      - name: Quality check – mypy
+        if: success() || failure()
+        run: |
+          make mypy
