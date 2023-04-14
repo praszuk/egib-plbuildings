@@ -22,7 +22,7 @@ isort:
 	$(PYTHON) -m isort $(APP_DIR)
 
 isort-check:
-	$(PYTHON) -m isort --check $(APP_DIR)
+	$(PYTHON) -m isort --check --diff $(APP_DIR)
 
 black-check:
 	$(PYTHON) -m black --check --diff $(APP_DIR)
