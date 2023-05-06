@@ -1,16 +1,22 @@
-.PHONY: install test mypy black black-check isort isort-check format format-check run clean
+.PHONY: base-install install prod-install test mypy black black-check isort isort-check format format-check prod-run run clean
 
 SHELL := /bin/bash
 VENV=.venv
 PYTHON=$(VENV)/bin/python
 APP_DIR=backend
 
-install:
+base-install:
 	virtualenv -p python3 $(VENV)
 	source $(VENV)/bin/activate
 	$(PYTHON) -m pip install GDAL==`gdal-config --version`
 	$(PYTHON) -m pip install -r requirements.txt
+
+install: base-install
+	$(PYTHON) -m pip install -r requirements-dev.txt
+	$(PYTHON) -m pip install -r requirements-test.txt
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit install; fi
+
+prod-install: base-install
 
 test:
 	$(PYTHON) -m pytest $(ARGS) $(APP_DIR)
@@ -36,6 +42,9 @@ format-check: isort-check black-check
 
 run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload
+
+prod-run:
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
