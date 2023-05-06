@@ -3,10 +3,3 @@ uvicorn[standard]~=0.21
 httpx~=0.23
 lxml~=4.9.2
 # GDAL – must be same as OS lib "libgdal-dev", so it's declared in Makefile
-pytest~=7.2
-pytest-mock~=3.10
-trio~=0.22  # for pytest anyio tests
-mypy~=1.2
-black~=23.3
-isort~=5.12
-pre-commit~=3.2

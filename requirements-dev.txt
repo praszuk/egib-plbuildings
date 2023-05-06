@@ -1,0 +1,4 @@
+mypy~=1.2
+black~=23.3
+isort~=5.12
+pre-commit~=3.2
