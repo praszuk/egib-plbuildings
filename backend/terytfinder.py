@@ -1,9 +1,10 @@
 import json
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from osgeo import ogr, osr  # noqa
 
 from backend.core.config import settings
+from backend.exceptions import PowiatDataNotFound, PowiatNotFound
 
 MAX_TILE_ZOOM = 11
 TERYT_KEY = 'JPT_KOD_JE'
@@ -17,14 +18,16 @@ class PowiatFinder:
         geojson = json.load(open(powiat_data_filename, 'r'))
         self._powiats_geom = self.parse_powiat_geojson_to_ogr_geom(geojson)
 
-    def powiat_at(self, lat, lon) -> Optional[str]:
+    def powiat_at(self, lat: float, lon: float) -> str:
         """
         :param lat: latitude
         :param lon: longitude
-        :return: teryt id where lat/lon is within or return None if not found
+        :return: teryt id where lat/lon is within
+        :raises PowiatDataNotFound – if powiat data is not loaded,
+        PowiatNotFound if not found powiat for given coordinates
         """
         if not self._powiats_geom:
-            return None
+            raise PowiatDataNotFound()
 
         pt = ogr.Geometry(ogr.wkbPoint)
         sr = osr.SpatialReference()
@@ -36,7 +39,7 @@ class PowiatFinder:
             if pt.Within(geom):
                 return teryt
 
-        return None
+        raise PowiatNotFound(f'Not found powiat at: {lat} {lon}')
 
     @staticmethod
     def parse_powiat_geojson_to_ogr_geom(
