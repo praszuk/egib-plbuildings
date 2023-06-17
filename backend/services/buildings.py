@@ -5,7 +5,8 @@ from httpx import AsyncClient
 
 from backend.exceptions import PowiatNotFound
 from backend.parsers.egib_to_osm import egib_to_osm
-from backend.utils import get_powiat_teryt_at, gml_to_geojson
+from backend.terytfinder import powiat_finder
+from backend.utils import gml_to_geojson
 
 _SRSNAME = 'EPSG:4326'
 
@@ -49,8 +50,8 @@ def _get_powiat_url(
 
 
 async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
-    powiat_teryt = get_powiat_teryt_at(lat, lon)
     try:
+        powiat_teryt = powiat_finder.powiat_at(lat, lon)
         url = _get_powiat_url(powiat_teryt, (lat, lon, lat, lon))
     except PowiatNotFound:
         return None
