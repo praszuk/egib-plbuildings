@@ -1,8 +1,8 @@
 import pytest
-from powiats.parsers.utils import gml_to_geojson
 
 from backend.exceptions import ParserNotFound
 from backend.powiats.egib_to_osm import egib_to_osm
+from backend.powiats.parsers.utils import gml_to_geojson
 
 
 @pytest.fixture(scope='class')

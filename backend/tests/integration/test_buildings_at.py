@@ -2,7 +2,10 @@ from os import path
 
 import pytest
 
+from backend.powiats.finder import powiat_finder
 from backend.services import buildings
+
+MOCK_POWIAT_TERYT_VALUE = '1421'
 
 
 def test_invalid_lat_lon(client):
@@ -36,6 +39,9 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
             test_data_dir, 'gml_basic_building.xml'
         ),
     )
+    monkeypatch.setattr(
+        powiat_finder, 'powiat_at', lambda lat, lon: MOCK_POWIAT_TERYT_VALUE
+    )
 
     response = await async_client.get(
         'buildings/', params={'lat': 50, 'lon': 20}
@@ -59,6 +65,9 @@ async def test_multiple_buildings_data_returns_only_one(
             test_data_dir, 'gml_multiple_buildings.xml'
         ),
     )
+    monkeypatch.setattr(
+        powiat_finder, 'powiat_at', lambda lat, lon: MOCK_POWIAT_TERYT_VALUE
+    )
 
     response = await async_client.get(
         'buildings/', params={'lat': 50, 'lon': 20}
@@ -79,6 +88,9 @@ async def test_no_building_data(async_client, monkeypatch, test_data_dir):
         lambda client, url: mock_download_gml(
             test_data_dir, 'gml_no_building.xml'
         ),
+    )
+    monkeypatch.setattr(
+        powiat_finder, 'powiat_at', lambda lat, lon: MOCK_POWIAT_TERYT_VALUE
     )
 
     response = await async_client.get(
