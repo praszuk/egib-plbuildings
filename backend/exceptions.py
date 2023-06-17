@@ -12,3 +12,7 @@ class InvalidKeyParserError(ParserError):
 
 class PowiatNotFound(Exception):
     pass
+
+
+class PowiatDataNotFound(Exception):
+    pass
