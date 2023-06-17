@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 
 from osgeo import ogr, osr  # noqa
 
-from .core.config import settings
+from backend.core.config import settings
 
 MAX_TILE_ZOOM = 11
 TERYT_KEY = 'JPT_KOD_JE'
