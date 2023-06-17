@@ -59,3 +59,6 @@ class PowiatFinder:
             powiats[teryt] = geometry
 
         return powiats
+
+
+powiat_finder = PowiatFinder()
