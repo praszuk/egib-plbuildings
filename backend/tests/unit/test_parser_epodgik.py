@@ -1,8 +1,8 @@
 import pytest
+from powiats.parsers.utils import gml_to_geojson
 
 from backend.exceptions import InvalidKeyParserError
-from backend.parsers.parser_epodgik import epodgik_parser
-from backend.utils import gml_to_geojson
+from backend.powiats.parsers.epodgik import epodgik_parser
 
 EXPECTED_KEYS = {'building', 'building:levels', 'building:levels:underground'}
 

@@ -4,9 +4,9 @@ from typing import Any, Dict, Optional, Tuple
 from httpx import AsyncClient
 
 from backend.exceptions import PowiatNotFound
-from backend.parsers.egib_to_osm import egib_to_osm
-from backend.terytfinder import powiat_finder
-from backend.utils import gml_to_geojson
+from backend.powiats.egib_to_osm import egib_to_osm
+from backend.powiats.finder import powiat_finder
+from backend.powiats.parsers.utils import gml_to_geojson
 
 _SRSNAME = 'EPSG:4326'
 
