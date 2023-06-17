@@ -11,12 +11,16 @@ TERYT_KEY = 'JPT_KOD_JE'
 
 
 class PowiatFinder:
-    def __init__(self):
-        self._powiats_geom = {}
+    def __init__(self) -> None:
+        self._powiats_geom: Dict[str, ogr.Geometry] = {}
 
-    def load_data(self, powiat_data_filename=settings.POWIAT_DATA_FILENAME):
+    def load_data(
+        self, powiat_data_filename: str = settings.POWIAT_DATA_FILENAME
+    ) -> None:
         geojson = json.load(open(powiat_data_filename, 'r'))
-        self._powiats_geom = self.parse_powiat_geojson_to_ogr_geom(geojson)
+        self._powiats_geom.update(
+            self.parse_powiat_geojson_to_ogr_geom(geojson)
+        )
 
     def powiat_at(self, lat: float, lon: float) -> str:
         """

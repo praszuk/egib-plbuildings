@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 from backend.exceptions import InvalidKeyParserError
-from backend.parsers.parser_default import (
+from backend.powiats.parsers.common import (
     BUILDING_KST_CODE_TYPE,
     DEFAULT_BUILDING,
 )

@@ -2,12 +2,12 @@ from fastapi import FastAPI
 
 from backend.api.v1.api import api_router
 from backend.core.config import settings
-from backend.terytfinder import powiat_finder
+from backend.powiats.finder import powiat_finder
 
 app = FastAPI()
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 @app.on_event('startup')
-def load_powiats_data():
+def load_powiats_data() -> None:
     powiat_finder.load_data()
