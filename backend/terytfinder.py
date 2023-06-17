@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from osgeo import ogr, osr  # noqa
 
@@ -16,6 +16,27 @@ class PowiatFinder:
     def load_data(self, powiat_data_filename=settings.POWIAT_DATA_FILENAME):
         geojson = json.load(open(powiat_data_filename, 'r'))
         self._powiats_geom = self.parse_powiat_geojson_to_ogr_geom(geojson)
+
+    def powiat_at(self, lat, lon) -> Optional[str]:
+        """
+        :param lat: latitude
+        :param lon: longitude
+        :return: teryt id where lat/lon is within or return None if not found
+        """
+        if not self._powiats_geom:
+            return None
+
+        pt = ogr.Geometry(ogr.wkbPoint)
+        sr = osr.SpatialReference()
+        sr.SetWellKnownGeogCS('WGS84')
+        pt.AssignSpatialReference(sr)
+        pt.SetPoint_2D(0, lon, lat)
+
+        for teryt, geom in self._powiats_geom.items():
+            if pt.Within(geom):
+                return teryt
+
+        return None
 
     @staticmethod
     def parse_powiat_geojson_to_ogr_geom(
