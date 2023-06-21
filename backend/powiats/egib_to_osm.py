@@ -1,11 +1,7 @@
-from typing import Any, Dict, Final
+from typing import Any, Dict
 
-from backend.exceptions import ParserNotFound
-from backend.powiats.parsers.epodgik import epodgik_parser
-
-TERYT_PARSER: Final = {
-    '1421': epodgik_parser,
-}
+from backend.exceptions import PowiatNotSupported
+from backend.powiats.config import all_powiats
 
 
 def egib_to_osm(geojson: Dict[str, Any], teryt: str) -> None:
@@ -16,9 +12,9 @@ def egib_to_osm(geojson: Dict[str, Any], teryt: str) -> None:
     :raises ParserNotFound, InvalidKeyParserError, ParserError:
     """
     try:
-        parser = TERYT_PARSER[teryt]
+        parser = all_powiats[teryt].data_parser
     except KeyError:
-        raise ParserNotFound(teryt)
+        raise PowiatNotSupported(teryt)
 
     for index, feature in enumerate(geojson['features']):
         osm_tags = parser(feature['properties'])

@@ -2,10 +2,6 @@ class ParserError(Exception):
     pass
 
 
-class ParserNotFound(ParserError):
-    pass
-
-
 class InvalidKeyParserError(ParserError):
     pass
 
@@ -15,4 +11,8 @@ class PowiatNotFound(Exception):
 
 
 class PowiatDataNotFound(Exception):
+    pass
+
+
+class PowiatNotSupported(Exception):
     pass
