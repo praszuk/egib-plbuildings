@@ -1,6 +1,6 @@
 import pytest
 
-from backend.exceptions import ParserNotFound
+from backend.exceptions import PowiatNotSupported
 from backend.powiats.egib_to_osm import egib_to_osm
 from backend.powiats.parsers.utils import gml_to_geojson
 
@@ -24,7 +24,7 @@ def test_multiple_building_exists_powiat(geojson):
 def test_multiple_building_in_not_exists_powiat_raise_error(geojson):
     assert not any('building' in f['properties'] for f in geojson['features'])
 
-    with pytest.raises(ParserNotFound):
+    with pytest.raises(PowiatNotSupported):
         egib_to_osm(geojson, '0000')
 
     assert not any('building' in f['properties'] for f in geojson['features'])

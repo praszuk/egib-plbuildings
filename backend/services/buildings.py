@@ -1,14 +1,13 @@
 import logging
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Optional
 
 from httpx import AsyncClient
 
-from backend.exceptions import PowiatNotFound
+from backend.exceptions import PowiatNotFound, PowiatNotSupported
+from backend.powiats.config import all_powiats
 from backend.powiats.egib_to_osm import egib_to_osm
 from backend.powiats.finder import powiat_finder
 from backend.powiats.parsers.utils import gml_to_geojson
-
-_SRSNAME = 'EPSG:4326'
 
 
 async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
@@ -24,38 +23,20 @@ async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
     return response.text
 
 
-def _get_powiat_url(
-    powiat_teryt: str, bbox: Tuple[float, float, float, float]
-) -> str:
-    """
-    Creates URL string to download building data for give powiat area.
-
-    :param powiat_teryt: 4 digit as string1
-    :param bbox: lat, lon, lat, lon comma EPSG:4326 (WSG84)
-    :raises: PowiatNotFound
-    :return: build URL string to download data
-    """
-    if powiat_teryt == '1421':
-        return (
-            'https://wms.epodgik.pl/cgi-bin/pruszkow/wfs'
-            '?service=wfs'
-            '&version=2.0.0'
-            '&request=GetFeature'
-            '&typeNames=ms:budynki'
-            f'&SRSNAME={_SRSNAME}'
-            f'&bbox={",".join(map(str, bbox))},{_SRSNAME}'
-        )
-
-    raise PowiatNotFound()
-
-
 async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
     try:
         powiat_teryt = powiat_finder.powiat_at(lat, lon)
-        url = _get_powiat_url(powiat_teryt, (lat, lon, lat, lon))
+        if powiat_teryt not in all_powiats:
+            raise PowiatNotSupported(powiat_teryt)
+
     except PowiatNotFound:
+        logging.exception(f'Error finding powiat at {lat} {lon}')
+        return None
+    except PowiatNotSupported as msg:
+        logging.exception(msg)
         return None
 
+    url = all_powiats[powiat_teryt].build_url(lat, lon)
     data = {}
     async with AsyncClient() as client:
         try:
