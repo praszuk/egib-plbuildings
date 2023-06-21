@@ -17,4 +17,10 @@ all_powiats: Dict[str, Powiat] = {
         url_builder=epodgik_url,
         url_extras={'area_name': 'pruszkow'},
     ),
+    '1438': Powiat(
+        name='żyrardowski',
+        data_parser=epodgik_parser,
+        url_builder=epodgik_url,
+        url_extras={'area_name': 'zyrardow'},
+    ),
 }
