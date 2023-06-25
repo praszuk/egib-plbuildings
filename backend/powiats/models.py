@@ -13,3 +13,17 @@ class Powiat:
 
     def build_url(self, lat: float, lon: float) -> str:
         return self.url_builder(self, lat=lat, lon=lon)  # type: ignore
+
+
+@dataclass(frozen=True)
+class HealthCheckPowiatReport:
+    status_code: int
+    building_data: bool = False
+    expected_building_data: bool = False
+
+
+@dataclass(frozen=True)
+class HealthCheckReport:
+    start_dt: str
+    end_dt: str
+    powiats: Dict[str, HealthCheckPowiatReport]
