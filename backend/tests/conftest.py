@@ -18,6 +18,11 @@ def test_data_dir():
     return path.join(path.dirname(__file__), 'data')
 
 
+@pytest.fixture(scope='session')
+def project_data_dir():
+    return settings.DATA_DIR
+
+
 @pytest.fixture(name='client', scope='session')
 def test_client():
     client = TestClient(app)
