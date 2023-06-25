@@ -1,8 +1,9 @@
-.PHONY: base-install install prod-install test mypy black black-check isort isort-check format format-check prod-run run clean
+.PHONY: base-install install prod-install test mypy black black-check isort isort-check format format-check prod-run run clean healthcheck
 
 SHELL := /bin/bash
 VENV=.venv
 PYTHON=$(VENV)/bin/python
+PROJECT_DIR=$(shell pwd)
 APP_DIR=backend
 
 base-install:
@@ -45,6 +46,10 @@ run:
 
 prod-run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0
+
+healthcheck:
+	export PYTHONPATH=$(PROJECT_DIR) && \
+	$(PYTHON) $(APP_DIR)/powiats/healthcheck.py
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
