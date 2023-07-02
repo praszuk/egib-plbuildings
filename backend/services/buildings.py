@@ -23,7 +23,8 @@ async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
     return response.text
 
 
-async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
+async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
+    data = {'type': 'FeatureCollection', 'features': []}
     try:
         powiat_teryt = powiat_finder.powiat_at(lat, lon)
         if powiat_teryt not in all_powiats:
@@ -31,18 +32,17 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
 
     except PowiatNotFound:
         logger.exception(f'Error finding powiat at {lat} {lon}')
-        return None
+        return data
     except PowiatNotSupported as msg:
         logger.exception(msg)
-        return None
+        return data
 
     url = all_powiats[powiat_teryt].build_url(lat, lon)
-    data = {}
     async with AsyncClient() as client:
         try:
             gml_content = await _download_gml(client, url)
             if not gml_content:
-                return None
+                return data
 
             geojson = gml_to_geojson(gml_content)
 
@@ -57,9 +57,5 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
             logger.warning(f'Error on downloading building from: {url} {e}')
         except ValueError as e:
             logger.warning(f'Error on parsing response: {data} {e}')
-
-    # empty response or unexpected server error
-    if 'features' not in data:
-        return None
 
     return data

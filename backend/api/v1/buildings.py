@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from fastapi import APIRouter, Depends
 
@@ -11,5 +11,5 @@ router = APIRouter()
 @router.get('/')
 async def get_building_at(
     location: Location = Depends(Location),
-) -> Optional[Dict[str, Any]]:
+) -> Dict[str, Any]:
     return await buildings.get_building_at(location.lat, location.lon)
