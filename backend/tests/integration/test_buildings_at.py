@@ -51,7 +51,9 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
     data = response.json()
 
     assert len(data['features']) == 1
-    assert 'building' in data['features'][0]['properties']
+    tags = data['features'][0]['properties']
+    assert 'building' in tags
+    assert all(v is not None for v in tags.values())
 
 
 @pytest.mark.anyio
