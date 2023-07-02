@@ -65,7 +65,7 @@ def report_all_powiats(
             building_feature = response_data['features'][0]
             building_tags = building_feature['properties']
 
-            if expected_tags := powiat.get('tags', {}) == building_tags:
+            if (expected_tags := powiat.get('tags', {})) == building_tags:
                 expected_building_data = True
             else:
                 expected_building_data = False
