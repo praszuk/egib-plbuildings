@@ -31,7 +31,7 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
             raise PowiatNotSupported(powiat_teryt)
 
     except PowiatNotFound:
-        logger.exception(f'Error finding powiat at {lat} {lon}')
+        logger.warning(f'Error finding powiat at {lat} {lon}')
         return data
     except PowiatNotSupported as msg:
         logger.exception(msg)
