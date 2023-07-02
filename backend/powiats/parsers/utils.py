@@ -55,3 +55,10 @@ def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
         features.append(feature)
 
     return {'type': 'FeatureCollection', 'features': features}
+
+
+def clean_empty_tags(osm_tags: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Removes tags without values
+    """
+    return {k: v for k, v in osm_tags.items() if v is not None}
