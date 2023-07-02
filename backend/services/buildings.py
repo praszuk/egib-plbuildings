@@ -1,8 +1,8 @@
-import logging
 from typing import Any, Dict, Optional
 
 from httpx import AsyncClient
 
+from backend.core.logger import logger
 from backend.exceptions import PowiatNotFound, PowiatNotSupported
 from backend.powiats.config import all_powiats
 from backend.powiats.egib_to_osm import egib_to_osm
@@ -30,10 +30,10 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
             raise PowiatNotSupported(powiat_teryt)
 
     except PowiatNotFound:
-        logging.exception(f'Error finding powiat at {lat} {lon}')
+        logger.exception(f'Error finding powiat at {lat} {lon}')
         return None
     except PowiatNotSupported as msg:
-        logging.exception(msg)
+        logger.exception(msg)
         return None
 
     url = all_powiats[powiat_teryt].build_url(lat, lon)
@@ -54,9 +54,9 @@ async def get_building_at(lat: float, lon: float) -> Optional[Dict[str, Any]]:
             egib_to_osm(geojson, powiat_teryt)
             data = geojson
         except IOError as e:
-            logging.warning(f'Error on downloading building from: {url} {e}')
+            logger.warning(f'Error on downloading building from: {url} {e}')
         except ValueError as e:
-            logging.warning(f'Error on parsing response: {data} {e}')
+            logger.warning(f'Error on parsing response: {data} {e}')
 
     # empty response or unexpected server error
     if 'features' not in data:

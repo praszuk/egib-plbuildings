@@ -1,11 +1,11 @@
 import json
-import logging
 import pickle
 from typing import Any, Dict
 
 from osgeo import ogr, osr  # noqa
 
 from backend.core.config import settings
+from backend.core.logger import logger
 from backend.exceptions import PowiatDataNotFound, PowiatNotFound
 from backend.powiats.models import PowiatGeometry
 
@@ -20,16 +20,18 @@ class PowiatFinder:
     def load_data(
         self, powiat_data_filename: str = settings.POWIAT_DATA_FILENAME
     ) -> None:
+        logger.info('Loading powiat geometries...')
         try:
             with open(settings.POWIAT_GEOM_CACHE_FILENAME, 'rb') as f:
                 self._powiat_geoms.update(pickle.load(f))
+                logger.info('Completed loading powiat geometries.')
                 return
         except FileNotFoundError:
-            logging.info('Cache file with powiat geometries not found.')
+            logger.info('Cache file with powiat geometries not found.')
         except (pickle.PickleError, TypeError, AttributeError):
-            logging.exception('Cache file with powiat geometries is damaged.')
+            logger.exception('Cache file with powiat geometries is damaged.')
 
-        logging.info(
+        logger.info(
             'Generating powiat geometries using GeoJSON '
             f'{powiat_data_filename}'
         )
@@ -38,14 +40,15 @@ class PowiatFinder:
             self.parse_powiat_geojson_to_powiat_geoms(geojson)
         )
         self.save_data()
+        logger.info('Completed loading powiat geometries.')
 
     def save_data(self) -> None:
-        logging.info('Saving powiat geometries to cache file.')
+        logger.info('Saving powiat geometries to cache file.')
         try:
             with open(settings.POWIAT_GEOM_CACHE_FILENAME, 'wb') as f:
                 pickle.dump(self._powiat_geoms, f)
         except (IOError, pickle.PickleError):
-            logging.exception(
+            logger.exception(
                 'Error at serializing powiat geometries to cache file.'
             )
 

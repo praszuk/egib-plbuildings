@@ -5,6 +5,7 @@ VENV=.venv
 PYTHON=$(VENV)/bin/python
 PROJECT_DIR=$(shell pwd)
 APP_DIR=backend
+LOG_CONFIG=$(APP_DIR)/core/log_config.yaml
 
 base-install:
 	virtualenv -p python3 $(VENV)
@@ -42,10 +43,10 @@ format: isort black
 format-check: isort-check black-check
 
 run:
-	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload --log-config $(LOG_CONFIG)
 
 prod-run:
-	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --log-config $(LOG_CONFIG)
 
 healthcheck:
 	export PYTHONPATH=$(PROJECT_DIR) && \
