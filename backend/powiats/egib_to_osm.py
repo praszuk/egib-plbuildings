@@ -2,6 +2,7 @@ from typing import Any, Dict
 
 from backend.exceptions import PowiatNotSupported
 from backend.powiats.config import all_powiats
+from backend.powiats.parsers.utils import clean_empty_tags
 
 
 def egib_to_osm(geojson: Dict[str, Any], teryt: str) -> None:
@@ -18,4 +19,5 @@ def egib_to_osm(geojson: Dict[str, Any], teryt: str) -> None:
 
     for index, feature in enumerate(geojson['features']):
         osm_tags = parser(feature['properties'])
+        osm_tags = clean_empty_tags(osm_tags)
         geojson['features'][index]['properties'] = osm_tags
