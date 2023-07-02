@@ -20,9 +20,11 @@ class PowiatFinder:
     def load_data(
         self, powiat_data_filename: str = settings.POWIAT_DATA_FILENAME
     ) -> None:
+        logger.info('Loading powiat geometries...')
         try:
             with open(settings.POWIAT_GEOM_CACHE_FILENAME, 'rb') as f:
                 self._powiat_geoms.update(pickle.load(f))
+                logger.info('Completed loading powiat geometries.')
                 return
         except FileNotFoundError:
             logger.info('Cache file with powiat geometries not found.')
@@ -38,6 +40,7 @@ class PowiatFinder:
             self.parse_powiat_geojson_to_powiat_geoms(geojson)
         )
         self.save_data()
+        logger.info('Completed loading powiat geometries.')
 
     def save_data(self) -> None:
         logger.info('Saving powiat geometries to cache file.')
