@@ -1,5 +1,4 @@
 import json
-import logging
 from datetime import datetime
 from os import getenv, path
 from typing import Dict
@@ -8,6 +7,7 @@ from urllib.parse import urljoin
 import httpx
 
 from backend.core.config import settings
+from backend.core.logger import logger
 from backend.powiats.models import HealthCheckPowiatReport, HealthCheckReport
 
 ALL_POWIATS_DATA_FILENAME = path.join(
@@ -55,10 +55,10 @@ def report_all_powiats(
                 status_code = response.status_code
                 response_data = response.json()
         except IOError:
-            logging.exception('Error at connecting for reporting powiats')
+            logger.exception('Error at connecting for reporting powiats')
         except (TypeError, json.JSONDecodeError):
-            logging.exception('Incorrect data returned from server')
-            logging.debug(response.content)
+            logger.exception('Incorrect data returned from server')
+            logger.debug(response.content)
 
         if response_data and response_data['features']:
             building_data = True
@@ -69,7 +69,7 @@ def report_all_powiats(
                 expected_building_data = True
             else:
                 expected_building_data = False
-                logging.debug(
+                logger.debug(
                     f'Expected: {expected_tags}, got: {building_tags}'
                 )
 
@@ -86,10 +86,8 @@ def report_all_powiats(
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
-
     report = report_all_powiats(getenv('server_uri', 'http://0.0.0.0:8000'))
-    logging.info(report)
+    logger.info(report)
     success = all(
         p_report.expected_building_data for p_report in report.powiats.values()
     )
