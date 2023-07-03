@@ -40,8 +40,8 @@ class PowiatGeometry:
 @dataclass(frozen=True)
 class HealthCheckPowiatReport:
     status_code: int
-    building_data: bool = False
-    expected_building_data: bool = False
+    is_building_data: bool = False
+    is_expected_building_data: bool = False
 
 
 @dataclass(frozen=True)

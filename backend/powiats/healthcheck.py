@@ -75,8 +75,8 @@ def report_all_powiats(
 
         powiats_reports[teryt] = HealthCheckPowiatReport(
             status_code=status_code,
-            building_data=building_data,
-            expected_building_data=expected_building_data,
+            is_building_data=building_data,
+            is_expected_building_data=expected_building_data,
         )
 
     end_report_dt = datetime.utcnow().isoformat()
@@ -95,6 +95,7 @@ if __name__ == '__main__':
 
     logger.info(report)
     success = all(
-        p_report.expected_building_data for p_report in report.powiats.values()
+        p_report.is_expected_building_data
+        for p_report in report.powiats.values()
     )
     exit(0 if success else 1)
