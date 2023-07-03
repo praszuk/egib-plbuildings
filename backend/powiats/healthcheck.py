@@ -86,7 +86,13 @@ def report_all_powiats(
 
 
 if __name__ == '__main__':
+    import logging
+
+    logging.basicConfig(level=logging.INFO)
+    logger = logging  # type:ignore
+
     report = report_all_powiats(getenv('server_uri', 'http://0.0.0.0:8000'))
+
     logger.info(report)
     success = all(
         p_report.expected_building_data for p_report in report.powiats.values()
