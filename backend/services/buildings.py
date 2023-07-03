@@ -43,7 +43,7 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
             gml_content = await _download_gml(client, url)
             if not gml_content:
                 return data
-
+            logger.debug(gml_content)
             geojson = gml_to_geojson(gml_content)
 
             # Avoid multiple buildings (it shouldn't normally occur)
