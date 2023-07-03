@@ -5,7 +5,7 @@
         "lon": 21.03090,
         "tags": {
             "building": "office",
-            "building:levels": 2
+            "building:levels": "2"
         }
     },
     {
@@ -14,7 +14,7 @@
         "lon": 20.80185,
         "tags": {
             "building": "office",
-            "building:levels": 5
+            "building:levels": "5"
         }
     },
     {
@@ -23,7 +23,7 @@
         "lon": 20.43519,
         "tags": {
             "building": "office",
-            "building:levels": 4
+            "building:levels": "4"
         }
     }
 ]
