@@ -54,4 +54,4 @@ healthcheck:
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
-	rm -rf .pytest_cache .mypy_cache __pycache__ $(VENV)
+	rm -rf .pytest_cache .mypy_cache .powiat_geoms.pickle __pycache__ $(VENV)
