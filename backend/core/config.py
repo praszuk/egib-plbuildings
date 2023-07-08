@@ -1,7 +1,7 @@
 from os import path
 from typing import Final
 
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
