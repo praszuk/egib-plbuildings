@@ -50,8 +50,8 @@ prod-run:
 
 healthcheck:
 	export PYTHONPATH=$(PROJECT_DIR) && \
-	$(PYTHON) $(APP_DIR)/powiats/healthcheck.py
+	$(PYTHON) $(APP_DIR)/counties/healthcheck.py
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
-	rm -rf .pytest_cache .mypy_cache .powiat_geoms.pickle __pycache__ $(VENV)
+	rm -rf .pytest_cache .mypy_cache .counties_geoms.pickle __pycache__ $(VENV)

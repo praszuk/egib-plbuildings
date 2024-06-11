@@ -6,13 +6,13 @@ class InvalidKeyParserError(ParserError):
     pass
 
 
-class PowiatNotFound(Exception):
+class CountyNotFound(Exception):
     pass
 
 
-class PowiatDataNotFound(Exception):
+class CountyDataNotFound(Exception):
     pass
 
 
-class PowiatNotSupported(Exception):
+class CountyNotSupported(Exception):
     pass

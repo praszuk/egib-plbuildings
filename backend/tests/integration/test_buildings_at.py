@@ -2,10 +2,10 @@ from os import path
 
 import pytest
 
-from backend.powiats.finder import powiat_finder
+from backend.counties.finder import county_finder
 from backend.services import buildings
 
-MOCK_POWIAT_TERYT_VALUE = '1421'
+MOCK_COUNTY_TERYT_VALUE = '1421'
 
 
 def test_invalid_lat_lon(client):
@@ -40,7 +40,7 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
         ),
     )
     monkeypatch.setattr(
-        powiat_finder, 'powiat_at', lambda lat, lon: MOCK_POWIAT_TERYT_VALUE
+        county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE
     )
 
     response = await async_client.get(
@@ -68,7 +68,7 @@ async def test_multiple_buildings_data_returns_only_one(
         ),
     )
     monkeypatch.setattr(
-        powiat_finder, 'powiat_at', lambda lat, lon: MOCK_POWIAT_TERYT_VALUE
+        county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE
     )
 
     response = await async_client.get(
@@ -92,7 +92,7 @@ async def test_no_building_data(async_client, monkeypatch, test_data_dir):
         ),
     )
     monkeypatch.setattr(
-        powiat_finder, 'powiat_at', lambda lat, lon: MOCK_POWIAT_TERYT_VALUE
+        county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE
     )
 
     response = await async_client.get(
