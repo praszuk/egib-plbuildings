@@ -1,6 +1,6 @@
 import pytest
 
-from backend.powiats.parsers.utils import gml_to_geojson
+from backend.counties.parsers.utils import gml_to_geojson
 
 
 class TestNoBuildingData:

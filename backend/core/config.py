@@ -12,8 +12,10 @@ class Settings(BaseSettings):
         path.join(path.dirname(__file__), '..', '..')
     )
     DATA_DIR: Final[str] = path.join(PROJECT_ROOT_DIR, 'data')
-    POWIAT_DATA_FILENAME: Final[str] = path.join(DATA_DIR, 'powiats.geojson')
-    POWIAT_GEOM_CACHE_FILENAME: Final[str] = '.powiat_geoms.pickle'
+    COUNTIES_DATA_FILENAME: Final[str] = path.join(
+        DATA_DIR, 'counties.geojson'
+    )
+    COUNTIES_GEOM_CACHE_FILENAME: Final[str] = '.counties_geoms.pickle'
 
 
 settings = Settings()

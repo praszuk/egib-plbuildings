@@ -1,10 +1,10 @@
 from typing import Any, Dict
 
-from backend.exceptions import InvalidKeyParserError
-from backend.powiats.parsers.common import (
+from backend.counties.parsers.common import (
     BUILDING_KST_CODE_TYPE,
     DEFAULT_BUILDING,
 )
+from backend.exceptions import InvalidKeyParserError
 
 
 def epodgik_parser(properties: Dict[str, Any]) -> Dict[str, Any]:

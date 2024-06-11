@@ -3,11 +3,11 @@ from typing import Any, Dict, Optional
 from httpx import AsyncClient
 
 from backend.core.logger import logger
-from backend.exceptions import PowiatNotFound, PowiatNotSupported
-from backend.powiats.config import all_powiats
-from backend.powiats.egib_to_osm import egib_to_osm
-from backend.powiats.finder import powiat_finder
-from backend.powiats.parsers.utils import gml_to_geojson
+from backend.counties.config import all_counties
+from backend.counties.egib_to_osm import egib_to_osm
+from backend.counties.finder import county_finder
+from backend.counties.parsers.utils import gml_to_geojson
+from backend.exceptions import CountyNotFound, CountyNotSupported
 
 
 async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
@@ -26,18 +26,18 @@ async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
 async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
     data = {'type': 'FeatureCollection', 'features': []}
     try:
-        powiat_teryt = powiat_finder.powiat_at(lat, lon)
-        if powiat_teryt not in all_powiats:
-            raise PowiatNotSupported(powiat_teryt)
+        county_teryt = county_finder.county_at(lat, lon)
+        if county_teryt not in all_counties:
+            raise CountyNotSupported(county_teryt)
 
-    except PowiatNotFound:
-        logger.warning(f'Error finding powiat at {lat} {lon}')
+    except CountyNotFound:
+        logger.warning(f'Error finding county at {lat} {lon}')
         return data
-    except PowiatNotSupported as msg:
+    except CountyNotSupported as msg:
         logger.exception(msg)
         return data
 
-    url = all_powiats[powiat_teryt].build_url(lat, lon)
+    url = all_counties[county_teryt].build_url(lat, lon)
     async with AsyncClient() as client:
         try:
             gml_content = await _download_gml(client, url)
@@ -51,7 +51,7 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
             if len(geojson['features']) > 1:
                 geojson['features'] = [geojson['features'][0]]
 
-            egib_to_osm(geojson, powiat_teryt)
+            egib_to_osm(geojson, county_teryt)
             data = geojson
         except IOError as e:
             logger.warning(f'Error on downloading building from: {url} {e}')

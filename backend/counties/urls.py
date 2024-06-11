@@ -1,12 +1,12 @@
-from backend.powiats.models import Powiat
+from backend.counties.models import County
 
 _SRSNAME = 'EPSG:4326'
 
 
 def epodgik_url(
-    powiat: Powiat, lat: float, lon: float, srsname: str = _SRSNAME
+    county: County, lat: float, lon: float, srsname: str = _SRSNAME
 ) -> str:
-    if not (area_name := powiat.url_extras.get('area_name', None)):
+    if not (area_name := county.url_extras.get('area_name', None)):
         raise ValueError('Missing area_name for epodgik url builder!')
 
     bbox = ','.join(map(str, [lat, lon, lat, lon]))
