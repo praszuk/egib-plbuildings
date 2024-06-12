@@ -1,4 +1,4 @@
-.PHONY: base-install install prod-install test mypy black black-check isort isort-check format format-check prod-run run clean healthcheck
+.PHONY: base-install install prod-install test mypy format format-check lint lint-check prod-run run clean healthcheck
 
 SHELL := /bin/bash
 VENV=.venv
@@ -26,21 +26,17 @@ test:
 mypy:
 	$(PYTHON) -m mypy --install-types --non-interactive $(APP_DIR)
 
-isort:
-	$(PYTHON) -m isort $(APP_DIR)
+format:
+	$(PYTHON) -m ruff format $(APP_DIR)
 
-isort-check:
-	$(PYTHON) -m isort --check --diff $(APP_DIR)
+format-check:
+	$(PYTHON) -m ruff format --diff $(APP_DIR)
 
-black-check:
-	$(PYTHON) -m black --check --diff $(APP_DIR)
+lint:
+	$(PYTHON) -m ruff check $(APP_DIR)
 
-black:
-	$(PYTHON) -m black $(APP_DIR)
-
-format: isort black
-
-format-check: isort-check black-check
+lint-check:
+	$(PYTHON) -m ruff check --diff $(APP_DIR)
 
 run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload --log-config $(LOG_CONFIG)

@@ -23,14 +23,14 @@ jobs:
       - name: Test (unit and integration tests)
         run: |
           make test
-      - name: Quality check – isort
+      - name: Quality check – format
         if: success() || failure()
         run: |
-          make isort-check
-      - name: Quality check – black
+          make format-check
+      - name: Quality check – lint
         if: success() || failure()
         run: |
-          make black-check
+          make lint-check
       - name: Quality check – mypy
         if: success() || failure()
         run: |

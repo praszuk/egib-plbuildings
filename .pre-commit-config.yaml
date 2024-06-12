@@ -1,15 +1,9 @@
 repos:
   - repo: local
     hooks:
-      - id: isort
-        name: isort
+      - id: format-check
+        name: Format-check
         language: system
         types: [python]
-        entry: make -s isort
-        pass_filenames: false
-      - id: black
-        name: black
-        language: system
-        types: [python]
-        entry: make -s black
+        entry: make -s format-check
         pass_filenames: false
