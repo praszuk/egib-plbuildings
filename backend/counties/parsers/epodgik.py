@@ -16,16 +16,12 @@ def epodgik_parser(properties: Dict[str, Any]) -> Dict[str, Any]:
     tags: Dict[str, Any] = {}
 
     try:
-        tags['building'] = BUILDING_KST_CODE_TYPE.get(
-            properties['FUNKCJA'], DEFAULT_BUILDING
-        )
+        tags['building'] = BUILDING_KST_CODE_TYPE.get(properties['FUNKCJA'], DEFAULT_BUILDING)
         if 'KONDYGNACJE_NADZIEMNE' in properties:
             tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
 
         if 'KONDYGNACJE_PODZIEMNE' in properties:
-            tags['building:levels:underground'] = properties.get(
-                'KONDYGNACJE_PODZIEMNE'
-            )
+            tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
 
         # RODZAJ and ID_BUDYNKU skipped
 

@@ -10,9 +10,7 @@ from backend.core.config import settings
 from backend.core.logger import logger
 from backend.counties.models import HealthCheckCountyReport, HealthCheckReport
 
-ALL_COUNTIES_DATA_FILENAME = path.join(
-    settings.DATA_DIR, 'healtcheck_all_counties_buildings.json'
-)
+ALL_COUNTIES_DATA_FILENAME = path.join(settings.DATA_DIR, 'healtcheck_all_counties_buildings.json')
 
 
 def report_all_counties(
@@ -69,9 +67,7 @@ def report_all_counties(
                 expected_building_data = True
             else:
                 expected_building_data = False
-                logger.debug(
-                    f'Expected: {expected_tags}, got: {building_tags}'
-                )
+                logger.debug(f'Expected: {expected_tags}, got: {building_tags}')
 
         counties_reports[teryt] = HealthCheckCountyReport(
             status_code=status_code,
@@ -96,8 +92,5 @@ if __name__ == '__main__':
     report = report_all_counties(getenv('server_uri', 'http://0.0.0.0:8000'))
 
     logger.info(report)
-    success = all(
-        p_report.is_expected_building_data
-        for p_report in report.counties.values()
-    )
+    success = all(p_report.is_expected_building_data for p_report in report.counties.values())
     exit(0 if success else 1)

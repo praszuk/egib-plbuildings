@@ -10,7 +10,8 @@ def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
 
     root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
     wfs_members = root.findall(
-        './/wfs:member', namespaces=root.nsmap  # type: ignore[arg-type]
+        './/wfs:member',
+        namespaces=root.nsmap,  # type: ignore[arg-type]
     )
     for wfs_member in wfs_members:
         # get ms:budynki member
@@ -27,9 +28,7 @@ def gml_to_geojson(gml_content: str) -> Dict[Any, Any]:
 
             clean_tag = child.tag.replace(root.nsmap.get('ms'), '')[2:]
             if clean_tag == 'msGeometry':
-                polygons = bud_member.findall(
-                    './/gml:Polygon', namespaces=root.nsmap
-                )
+                polygons = bud_member.findall('.//gml:Polygon', namespaces=root.nsmap)
                 if len(polygons) == 0:  # not sure
                     continue
 
