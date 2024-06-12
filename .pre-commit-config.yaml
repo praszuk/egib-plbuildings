@@ -7,3 +7,9 @@ repos:
         types: [python]
         entry: make -s format-check
         pass_filenames: false
+      - id: lint-check
+        name: Lint-check
+        language: system
+        types: [ python ]
+        entry: make -s lint-check
+        pass_filenames: false
