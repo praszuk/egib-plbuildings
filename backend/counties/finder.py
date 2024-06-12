@@ -17,9 +17,7 @@ class CountyFinder:
     def __init__(self) -> None:
         self._county_geoms: Dict[str, CountyGeometry] = {}
 
-    def load_data(
-        self, counties_data_filename: str = settings.COUNTIES_DATA_FILENAME
-    ) -> None:
+    def load_data(self, counties_data_filename: str = settings.COUNTIES_DATA_FILENAME) -> None:
         logger.info('Loading counties geometries...')
         try:
             with open(settings.COUNTIES_GEOM_CACHE_FILENAME, 'rb') as f:
@@ -31,14 +29,9 @@ class CountyFinder:
         except (pickle.PickleError, TypeError, AttributeError):
             logger.exception('Cache file with counties geometries is damaged.')
 
-        logger.info(
-            'Generating counties geometries using GeoJSON '
-            f'{counties_data_filename}'
-        )
+        logger.info('Generating counties geometries using GeoJSON ' f'{counties_data_filename}')
         geojson = json.load(open(counties_data_filename, 'r'))
-        self._county_geoms.update(
-            self.parse_county_geojson_to_county_geoms(geojson)
-        )
+        self._county_geoms.update(self.parse_county_geojson_to_county_geoms(geojson))
         self.save_data()
         logger.info('Completed loading counties geometries.')
 
@@ -48,9 +41,7 @@ class CountyFinder:
             with open(settings.COUNTIES_GEOM_CACHE_FILENAME, 'wb') as f:
                 pickle.dump(self._county_geoms, f)
         except (IOError, pickle.PickleError):
-            logger.exception(
-                'Error at serializing counties geometries to cache file.'
-            )
+            logger.exception('Error at serializing counties geometries to cache file.')
 
     def county_at(self, lat: float, lon: float) -> str:
         """
@@ -90,9 +81,7 @@ class CountyFinder:
         counties = {}
         for feature in geojson['features']:
             teryt = feature['properties'][teryt_key]
-            geometry: ogr.Geometry = ogr.CreateGeometryFromJson(
-                json.dumps(feature['geometry'])
-            )
+            geometry: ogr.Geometry = ogr.CreateGeometryFromJson(json.dumps(feature['geometry']))
             counties[teryt] = CountyGeometry(geometry)
 
         return counties

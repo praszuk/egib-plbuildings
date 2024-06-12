@@ -35,17 +35,11 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
-        lambda client, url: mock_download_gml(
-            test_data_dir, 'gml_basic_building.xml'
-        ),
+        lambda client, url: mock_download_gml(test_data_dir, 'gml_basic_building.xml'),
     )
-    monkeypatch.setattr(
-        county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE
-    )
+    monkeypatch.setattr(county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE)
 
-    response = await async_client.get(
-        'buildings/', params={'lat': 50, 'lon': 20}
-    )
+    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
 
     assert response.status_code == 200
     data = response.json()
@@ -57,23 +51,15 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
 
 
 @pytest.mark.anyio
-async def test_multiple_buildings_data_returns_only_one(
-    async_client, monkeypatch, test_data_dir
-):
+async def test_multiple_buildings_data_returns_only_one(async_client, monkeypatch, test_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
-        lambda client, url: mock_download_gml(
-            test_data_dir, 'gml_multiple_buildings.xml'
-        ),
+        lambda client, url: mock_download_gml(test_data_dir, 'gml_multiple_buildings.xml'),
     )
-    monkeypatch.setattr(
-        county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE
-    )
+    monkeypatch.setattr(county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE)
 
-    response = await async_client.get(
-        'buildings/', params={'lat': 50, 'lon': 20}
-    )
+    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
 
     assert response.status_code == 200
     data = response.json()
@@ -87,17 +73,11 @@ async def test_no_building_data(async_client, monkeypatch, test_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
-        lambda client, url: mock_download_gml(
-            test_data_dir, 'gml_no_building.xml'
-        ),
+        lambda client, url: mock_download_gml(test_data_dir, 'gml_no_building.xml'),
     )
-    monkeypatch.setattr(
-        county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE
-    )
+    monkeypatch.setattr(county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE)
 
-    response = await async_client.get(
-        'buildings/', params={'lat': 50, 'lon': 20}
-    )
+    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
 
     assert response.status_code == 200
     data = response.json()

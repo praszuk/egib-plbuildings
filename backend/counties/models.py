@@ -32,9 +32,7 @@ class CountyGeometry:
         return {'geom': self.geom.ExportToWkb()}
 
     def __setstate__(self, state: Dict[str, Any]) -> None:
-        object.__setattr__(
-            self, 'geom', ogr.CreateGeometryFromWkb(state['geom'])
-        )
+        object.__setattr__(self, 'geom', ogr.CreateGeometryFromWkb(state['geom']))
 
 
 @dataclass(frozen=True)
