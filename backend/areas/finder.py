@@ -16,30 +16,44 @@ TERYT_KEY = 'JPT_KOD_JE'
 class AreaFinder:
     def __init__(self) -> None:
         self._county_geoms: Dict[str, AreaGeometry] = {}
+        self._commune_geoms: Dict[str, AreaGeometry] = {}
 
-    def load_data(self, counties_data_filename: str = settings.COUNTIES_DATA_FILENAME) -> None:
-        logger.info('Loading areas geometries...')
-        try:
-            with open(settings.COUNTIES_GEOM_CACHE_FILENAME, 'rb') as f:
-                self._county_geoms.update(pickle.load(f))
-                logger.info('Completed loading areas geometries.')
-                return
-        except FileNotFoundError:
-            logger.info('Cache file with areas geometries not found.')
-        except (pickle.PickleError, TypeError, AttributeError):
-            logger.exception('Cache file with areas geometries is damaged.')
+    def load_data(self) -> None:
+        def _load(area_type, cache_file, data_file):
+            logger.info(f'Loading {area_type} geometries...')
+            try:
+                with open(cache_file, 'rb') as f:
+                    return pickle.load(f)
+            except FileNotFoundError:
+                logger.info(f'Cache file with {area_type} geometries not found.')
+            except (pickle.PickleError, ModuleNotFoundError, TypeError, AttributeError):
+                logger.exception(f'Cache file with {area_type} geometries is damaged.')
 
-        logger.info('Generating areas geometries using GeoJSON ' f'{counties_data_filename}')
-        geojson = json.load(open(counties_data_filename, 'r'))
-        self._county_geoms.update(self.parse_county_geojson_to_county_geoms(geojson))
+            logger.info(f'Generating {area_type} geometries using GeoJSON {data_file}')
+            geojson = json.load(open(data_file, 'r'))
+            return self.parse_area_geojson_to_area_geoms(geojson)
+
+        self._county_geoms.update(
+            _load(
+                'counties', settings.COUNTIES_GEOM_CACHE_FILENAME, settings.COUNTIES_DATA_FILENAME
+            )
+        )
+        self._commune_geoms.update(
+            _load(
+                'communes', settings.COMMUNES_GEOM_CACHE_FILENAME, settings.COMMUNES_DATA_FILENAME
+            )
+        )
         self.save_data()
-        logger.info('Completed loading areas geometries.')
+        logger.info(f'Completed loading {len(self._county_geoms)} counties geometries.')
+        logger.info(f'Completed loading {len(self._commune_geoms)} communes geometries.')
 
     def save_data(self) -> None:
         logger.info('Saving areas geometries to cache file.')
         try:
             with open(settings.COUNTIES_GEOM_CACHE_FILENAME, 'wb') as f:
                 pickle.dump(self._county_geoms, f)
+            with open(settings.COMMUNES_GEOM_CACHE_FILENAME, 'wb') as f:
+                pickle.dump(self._commune_geoms, f)
         except (IOError, pickle.PickleError):
             logger.exception('Error at serializing areas geometries to cache file.')
 
