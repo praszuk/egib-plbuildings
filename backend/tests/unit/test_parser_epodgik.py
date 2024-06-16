@@ -1,7 +1,7 @@
 import pytest
 
-from backend.counties.parsers.epodgik import epodgik_parser
-from backend.counties.parsers.utils import gml_to_geojson
+from backend.areas.parsers.epodgik import epodgik_parser
+from backend.areas.parsers.utils import gml_to_geojson
 from backend.exceptions import InvalidKeyParserError
 
 EXPECTED_KEYS = {'building', 'building:levels', 'building:levels:underground'}

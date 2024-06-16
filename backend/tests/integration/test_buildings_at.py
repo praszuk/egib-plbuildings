@@ -2,10 +2,10 @@ from os import path
 
 import pytest
 
-from backend.counties.finder import county_finder
+from backend.areas.finder import area_finder
 from backend.services import buildings
 
-MOCK_COUNTY_TERYT_VALUE = '1421'
+MOCK_AREA_TERYT_VALUE = '1421'
 
 
 def test_invalid_lat_lon(client):
@@ -37,7 +37,7 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
         '_download_gml',
         lambda client, url: mock_download_gml(test_data_dir, 'gml_basic_building.xml'),
     )
-    monkeypatch.setattr(county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE)
+    monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
     response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
 
@@ -57,7 +57,7 @@ async def test_multiple_buildings_data_returns_only_one(async_client, monkeypatc
         '_download_gml',
         lambda client, url: mock_download_gml(test_data_dir, 'gml_multiple_buildings.xml'),
     )
-    monkeypatch.setattr(county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE)
+    monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
     response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
 
@@ -75,7 +75,7 @@ async def test_no_building_data(async_client, monkeypatch, test_data_dir):
         '_download_gml',
         lambda client, url: mock_download_gml(test_data_dir, 'gml_no_building.xml'),
     )
-    monkeypatch.setattr(county_finder, 'county_at', lambda lat, lon: MOCK_COUNTY_TERYT_VALUE)
+    monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
     response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
 

@@ -7,7 +7,7 @@ from osgeo import ogr  # noqa
 
 
 @dataclass(frozen=True)
-class County:
+class Area:
     name: str
     data_parser: Callable  # type: ignore
     url_builder: Callable  # type: ignore
@@ -18,7 +18,7 @@ class County:
 
 
 @dataclass(frozen=True)
-class CountyGeometry:
+class AreaGeometry:
     """
     Wrapper class for OGR Geometry to handle serialization properly.
     """
@@ -36,7 +36,7 @@ class CountyGeometry:
 
 
 @dataclass(frozen=True)
-class HealthCheckCountyReport:
+class HealthCheckAreaReport:
     status_code: int
     is_building_data: bool = False
     is_expected_building_data: bool = False
@@ -46,4 +46,4 @@ class HealthCheckCountyReport:
 class HealthCheckReport:
     start_dt: str
     end_dt: str
-    counties: Dict[str, HealthCheckCountyReport]
+    areas: Dict[str, HealthCheckAreaReport]

@@ -1,21 +1,21 @@
 from typing import Any, Dict
 
-from backend.counties.config import all_counties
-from backend.counties.parsers.utils import clean_empty_tags
-from backend.exceptions import CountyNotSupported
+from backend.areas.config import all_areas
+from backend.areas.parsers.utils import clean_empty_tags
+from backend.exceptions import AreaNotSupported
 
 
 def egib_to_osm(geojson: Dict[str, Any], teryt: str) -> None:
     """
     Change EGiB properties to OSM tags
-    :param geojson: raw EGIB GeoJSON from one wfs service/county
-    :param teryt: 4 digit county ("Powiat") number as str
+    :param geojson: raw EGIB GeoJSON from one wfs service/area
+    :param teryt: 4 digit area ("Powiat") number as str
     :raises ParserNotFound, InvalidKeyParserError, ParserError:
     """
     try:
-        parser = all_counties[teryt].data_parser
+        parser = all_areas[teryt].data_parser
     except KeyError:
-        raise CountyNotSupported(teryt)
+        raise AreaNotSupported(teryt)
 
     for index, feature in enumerate(geojson['features']):
         osm_tags = parser(feature['properties'])

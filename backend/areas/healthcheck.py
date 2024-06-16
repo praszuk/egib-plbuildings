@@ -8,15 +8,12 @@ import httpx
 
 from backend.core.config import settings
 from backend.core.logger import logger
-from backend.counties.models import HealthCheckCountyReport, HealthCheckReport
+from backend.areas.models import HealthCheckAreaReport, HealthCheckReport
 
-ALL_COUNTIES_DATA_FILENAME = path.join(settings.DATA_DIR, 'healtcheck_all_counties_buildings.json')
+ALL_AREAS_DATA_FILENAME = path.join(settings.DATA_DIR, 'healtcheck_all_areas_buildings.json')
 
 
-def report_all_counties(
-    server_uri: str,
-    filename: str = ALL_COUNTIES_DATA_FILENAME,
-) -> HealthCheckReport:
+def report_all_areas(server_uri: str, filename: str = ALL_AREAS_DATA_FILENAME) -> HealthCheckReport:
     """
     It sends requests to all defined servers to check:
      - connection
@@ -30,14 +27,14 @@ def report_all_counties(
     """
 
     with open(filename, 'r') as f:
-        counties_coordinates_buildings = json.load(f)
+        areas_coordinates_buildings = json.load(f)
 
     endpoint = urljoin(server_uri, 'api/v1/buildings/')
     start_report_dt = datetime.utcnow().isoformat()
-    counties_reports: Dict[str, HealthCheckCountyReport] = {}
+    areas_reports: Dict[str, HealthCheckAreaReport] = {}
 
-    for county in counties_coordinates_buildings:
-        teryt = county['teryt']
+    for area in areas_coordinates_buildings:
+        teryt = area['teryt']
 
         status_code = -1
         building_data = False
@@ -48,12 +45,12 @@ def report_all_counties(
             with httpx.Client() as client:
                 response = client.get(
                     endpoint,
-                    params={'lat': county['lat'], 'lon': county['lon']},
+                    params={'lat': area['lat'], 'lon': area['lon']},
                 )
                 status_code = response.status_code
                 response_data = response.json()
         except IOError:
-            logger.exception('Error at connecting for reporting counties')
+            logger.exception('Error at connecting for reporting areas')
         except (TypeError, json.JSONDecodeError):
             logger.exception('Incorrect data returned from server')
             logger.debug(response.content)
@@ -63,13 +60,13 @@ def report_all_counties(
             building_feature = response_data['features'][0]
             building_tags = building_feature['properties']
 
-            if (expected_tags := county.get('tags', {})) == building_tags:
+            if (expected_tags := area.get('tags', {})) == building_tags:
                 expected_building_data = True
             else:
                 expected_building_data = False
                 logger.debug(f'Expected: {expected_tags}, got: {building_tags}')
 
-        counties_reports[teryt] = HealthCheckCountyReport(
+        areas_reports[teryt] = HealthCheckAreaReport(
             status_code=status_code,
             is_building_data=building_data,
             is_expected_building_data=expected_building_data,
@@ -79,7 +76,7 @@ def report_all_counties(
     return HealthCheckReport(
         start_dt=start_report_dt,
         end_dt=end_report_dt,
-        counties=counties_reports,
+        areas=areas_reports,
     )
 
 
@@ -89,8 +86,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     logger = logging  # type:ignore
 
-    report = report_all_counties(getenv('server_uri', 'http://0.0.0.0:8000'))
+    report = report_all_areas(getenv('server_uri', 'http://0.0.0.0:8000'))
 
     logger.info(report)
-    success = all(p_report.is_expected_building_data for p_report in report.counties.values())
+    success = all(p_report.is_expected_building_data for p_report in report.areas.values())
     exit(0 if success else 1)

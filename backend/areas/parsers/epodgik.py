@@ -1,6 +1,6 @@
 from typing import Any, Dict
 
-from backend.counties.parsers.common import (
+from backend.areas.parsers.common import (
     BUILDING_KST_CODE_TYPE,
     DEFAULT_BUILDING,
 )

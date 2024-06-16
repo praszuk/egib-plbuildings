@@ -46,7 +46,7 @@ prod-run:
 
 healthcheck:
 	export PYTHONPATH=$(PROJECT_DIR) && \
-	$(PYTHON) $(APP_DIR)/counties/healthcheck.py
+	$(PYTHON) $(APP_DIR)/areas/healthcheck.py
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
