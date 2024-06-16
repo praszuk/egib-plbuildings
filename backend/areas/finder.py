@@ -1,6 +1,6 @@
 import json
 import pickle
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from osgeo import ogr, osr  # noqa
 
@@ -17,6 +17,7 @@ class AreaFinder:
     def __init__(self) -> None:
         self._county_geoms: Dict[str, AreaGeometry] = {}
         self._commune_geoms: Dict[str, AreaGeometry] = {}
+        self._county_communes: Dict[str, List[str]] = {}
 
     def load_data(self) -> None:
         def _load(area_type, cache_file, data_file):
@@ -44,8 +45,17 @@ class AreaFinder:
             )
         )
         self.save_data()
+        self.generate_county_communes()
         logger.info(f'Completed loading {len(self._county_geoms)} counties geometries.')
         logger.info(f'Completed loading {len(self._commune_geoms)} communes geometries.')
+
+    def generate_county_communes(self):
+        for commune_teryt in self._commune_geoms.keys():
+            county_teryt = commune_teryt[:4]
+            if county_teryt not in self._county_communes:
+                self._county_communes[county_teryt] = []
+
+            self._county_communes[county_teryt].append(commune_teryt)
 
     def save_data(self) -> None:
         logger.info('Saving areas geometries to cache file.')
@@ -61,7 +71,7 @@ class AreaFinder:
         """
         :param lat: latitude
         :param lon: longitude
-        :return: teryt id where lat/lon is within
+        :return: teryt id where lat/lon is within, it can be county or commune value
         :raises AreaDataNotFound – if area data is not loaded,
         AreaNotFound if not found area for given coordinates
         """
@@ -74,9 +84,22 @@ class AreaFinder:
         pt.AssignSpatialReference(sr)
         pt.SetPoint_2D(0, lon, lat)
 
+        county_teryt = None
         for teryt, county_geom in self._county_geoms.items():
             if pt.Within(county_geom.geom):
-                return teryt
+                county_teryt = teryt
+                break
+
+        if county_teryt is not None and county_teryt not in self._county_communes:
+            return county_teryt
+
+        elif county_teryt in self._county_communes:
+            # point might be in a commune which is also in a county
+            for commune_teryt in self._county_communes.get(county_teryt):
+                if pt.Within(self._commune_geoms[commune_teryt].geom):
+                    return commune_teryt
+
+            return county_teryt
 
         raise AreaNotFound(f'Not found area at: {lat} {lon}')
 
