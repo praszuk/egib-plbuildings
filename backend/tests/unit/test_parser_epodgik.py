@@ -18,8 +18,8 @@ def test_only_funkcja_attribute_in_params():
     assert len(tags) == 1
 
 
-def test_all_available_attributes_with_basic_building(load_gml):
-    gml_data = load_gml('gml_basic_building.xml')
+def test_all_available_attributes_with_basic_building(load_epodgik_gml):
+    gml_data = load_epodgik_gml('gml_basic_building.xml')
     geojson = gml_to_geojson(gml_data)
 
     tags = epodgik_parser(geojson['features'][0]['properties'])

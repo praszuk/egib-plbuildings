@@ -1,13 +1,13 @@
 import pytest
-
+from os import path
 from backend.areas.egib_to_osm import egib_to_osm
 from backend.areas.parsers.utils import gml_to_geojson
 from backend.exceptions import AreaNotSupported
 
 
 @pytest.fixture(scope='class')
-def gml_content(load_gml):
-    return load_gml('gml_multiple_buildings.xml')
+def gml_content(test_epodgik_data_dir, load_gml):
+    return load_gml(path.join(test_epodgik_data_dir, 'gml_multiple_buildings.xml'))
 
 
 @pytest.fixture(scope='function')

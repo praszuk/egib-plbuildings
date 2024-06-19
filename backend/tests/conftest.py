@@ -14,8 +14,13 @@ def anyio_backend():  # without it tests are executed twice
 
 
 @pytest.fixture(scope='session')
-def test_data_dir():
-    return path.join(path.dirname(__file__), 'data')
+def test_epodgik_data_dir():
+    return path.join(path.dirname(__file__), 'data', 'epodgik')
+
+
+@pytest.fixture(scope='session')
+def test_geoportal2_data_dir():
+    return path.join(path.dirname(__file__), 'data', 'geoportal2')
 
 
 @pytest.fixture(scope='session')
@@ -31,16 +36,16 @@ def test_client():
 
 
 @pytest.fixture(name='async_client')
-async def test_async_client(test_data_dir):
+async def test_async_client():
     async with httpx.AsyncClient(app=app, base_url='http://test') as client:
         client.base_url = client.base_url.join(settings.API_V1_STR)
         yield client
 
 
 @pytest.fixture(scope='session')
-def load_gml(test_data_dir):
+def load_epodgik_gml(test_epodgik_data_dir):
     def inner(filename: str) -> str:
-        with open(path.join(test_data_dir, filename), 'r') as f:
+        with open(path.join(test_epodgik_data_dir, filename), 'r') as f:
             return f.read()
 
     return inner

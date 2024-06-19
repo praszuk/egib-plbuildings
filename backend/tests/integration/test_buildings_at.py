@@ -19,23 +19,23 @@ def test_invalid_lat_lon(client):
     assert response.status_code == 422
 
 
-async def mock_download_gml(test_data_dir, filename: str) -> str:
+async def mock_download_gml(test_epodgik_data_dir, filename: str) -> str:
     """
     Override _download_gml from services buildings to return gml content
     from file
     :return: gml_content as string
     """
-    filename = path.join(test_data_dir, filename)
+    filename = path.join(test_epodgik_data_dir, filename)
     with open(filename, 'r') as f:
         return f.read()
 
 
 @pytest.mark.anyio
-async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
+async def test_simple_building_data(async_client, monkeypatch, test_epodgik_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
-        lambda client, url: mock_download_gml(test_data_dir, 'gml_basic_building.xml'),
+        lambda client, url: mock_download_gml(test_epodgik_data_dir, 'gml_basic_building.xml'),
     )
     monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
@@ -51,11 +51,13 @@ async def test_simple_building_data(async_client, monkeypatch, test_data_dir):
 
 
 @pytest.mark.anyio
-async def test_multiple_buildings_data_returns_only_one(async_client, monkeypatch, test_data_dir):
+async def test_multiple_buildings_data_returns_only_one(
+    async_client, monkeypatch, test_epodgik_data_dir
+):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
-        lambda client, url: mock_download_gml(test_data_dir, 'gml_multiple_buildings.xml'),
+        lambda client, url: mock_download_gml(test_epodgik_data_dir, 'gml_multiple_buildings.xml'),
     )
     monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
@@ -69,11 +71,11 @@ async def test_multiple_buildings_data_returns_only_one(async_client, monkeypatc
 
 
 @pytest.mark.anyio
-async def test_no_building_data(async_client, monkeypatch, test_data_dir):
+async def test_no_building_data(async_client, monkeypatch, test_epodgik_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
-        lambda client, url: mock_download_gml(test_data_dir, 'gml_no_building.xml'),
+        lambda client, url: mock_download_gml(test_epodgik_data_dir, 'gml_no_building.xml'),
     )
     monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
