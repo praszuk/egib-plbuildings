@@ -4,9 +4,7 @@ from httpx import AsyncClient
 
 from backend.core.logger import logger
 from backend.areas.config import all_areas
-from backend.areas.egib_to_osm import egib_to_osm
 from backend.areas.finder import area_finder
-from backend.areas.parsers.utils import gml_to_geojson
 from backend.exceptions import AreaNotFound, AreaNotSupported
 
 
@@ -37,21 +35,24 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
         logger.exception(msg)
         return data
 
-    url = all_areas[area_teryt].build_url(lat, lon)
+    area = all_areas[area_teryt]
+    url = area.build_url(lat, lon)
+
     async with AsyncClient() as client:
         try:
             gml_content = await _download_gml(client, url)
             if not gml_content:
                 return data
+
             logger.debug(gml_content)
-            geojson = gml_to_geojson(gml_content)
+            geojson = area.parse_gml_to_geojson(gml_content)
 
             # Avoid multiple buildings (it shouldn't normally occur)
             # order/distance doesn't matter
             if len(geojson['features']) > 1:
                 geojson['features'] = [geojson['features'][0]]
 
-            egib_to_osm(geojson, area_teryt)
+            area.replace_properties_with_osm_tags(geojson)
             data = geojson
         except IOError as e:
             logger.warning(f'Error on downloading building from: {url} {e}')

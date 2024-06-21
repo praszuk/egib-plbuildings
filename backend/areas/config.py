@@ -1,92 +1,27 @@
-from typing import Dict
+from typing import Dict, TypeVar
 
-from backend.areas.models import Area
-from backend.areas.parsers.epodgik import epodgik_parser
-from backend.areas.urls import epodgik_url
+from backend.areas.models import AreaParser
+from backend.areas.parsers import EpodgikAreaParser
 
-all_counties: Dict[str, Area] = {
+BaseAreaParser = TypeVar('BaseAreaParser', bound=AreaParser)
+all_counties: Dict[str, BaseAreaParser] = {
     # 06 – "lubelskie"
-    '0619': Area(
-        name='włodawski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'wlodawa'},
-    ),
-    '0662': Area(
-        name='miasto Chełm',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'mchelm'},
-    ),
+    '0619': EpodgikAreaParser(name='włodawski', url_code='wlodawa'),
+    '0662': EpodgikAreaParser(name='miasto Chełm', url_code='mchelm'),
     # 14 – "mazowieckie"
-    '1412': Area(
-        name='miński',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'minsk'},
-    ),
-    '1418': Area(
-        name='piaseczyński',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'piaseczno'},
-    ),
-    '1421': Area(
-        name='pruszkowski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'pruszkow'},
-    ),
-    '1433': Area(
-        name='węgrowski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'wegrow'},
-    ),
-    '1434': Area(
-        name='wołomiński',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'wolomin'},
-    ),
-    '1438': Area(
-        name='żyrardowski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'zyrardow'},
-    ),
+    '1412': EpodgikAreaParser(name='miński', url_code='minsk'),
+    '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
+    '1421': EpodgikAreaParser(name='pruszkowski', url_code='pruszkow'),
+    '1433': EpodgikAreaParser(name='węgrowski', url_code='wegrow'),
+    '1434': EpodgikAreaParser(name='wołomiński', url_code='wolomin'),
+    '1438': EpodgikAreaParser(name='żyrardowski', url_code='zyrardow'),
     # 22 – "pomorskie"
-    '2215': Area(
-        name='wejherowski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'wejherowo'},
-    ),
+    '2215': EpodgikAreaParser(name='wejherowski', url_code='wejherowo'),
     # 28 – "warmińsko-mazurskie"
-    '2806': Area(
-        name='giżycki',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'gizycko'},
-    ),
-    '2810': Area(
-        name='mrągowski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'mragowo'},
-    ),
-    '2819': Area(
-        name='węgorzewski',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'wegorzewo'},
-    ),
+    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
+    '2810': EpodgikAreaParser(name='mrągowski', url_code='mragowo'),
+    '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
     # 30 – "wielkopolskie"
-    '3014': Area(
-        name='międzychodzki',
-        data_parser=epodgik_parser,
-        url_builder=epodgik_url,
-        url_extras={'area_name': 'miedzychod'},
-    ),
+    '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
 }
 all_areas = all_counties
