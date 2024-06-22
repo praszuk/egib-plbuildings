@@ -106,3 +106,78 @@ class EpodgikAreaParser(AreaParser):
             raise InvalidKeyParserError(e)
 
         return tags
+
+
+class Geoportal2AreaParser(AreaParser):
+    def build_url(self, lat: float, lon: float) -> str:
+        offset = 0.00001
+        # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
+        bbox = ','.join(map(str, [lat, lon, lat + offset, lon + offset]))
+        return (
+            f'https://{self.url_code}.geoportal2.pl/map/geoportal/wfs.php'
+            f'?service=WFS'
+            f'&REQUEST=GetFeature'
+            f'&TYPENAMES=ewns:budynki'
+            f'&SRSNAME={self.SRS_NAME}'
+            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
+        features: List[Dict[str, Any]] = []
+
+        root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
+        wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)  # type: ignore[arg-type]
+
+        for wfs_member in wfs_members:
+            # get ewns:budynki member
+            bud_member = wfs_member.getchildren()[0]  # type: ignore[attr-defined]
+            feature: Dict[str, Any] = {
+                'type': 'Feature',
+                'geometry': {},
+                'properties': {},
+            }
+            for child in bud_member.getchildren():
+                # Geometry and GUGIK attributes start with "ewns"
+                if not child.tag.startswith('{' + str(root.nsmap.get('ewns'))):
+                    continue
+
+                clean_tag = child.tag.replace(root.nsmap.get('ewns'), '')[2:]
+                if clean_tag == 'geometria':
+                    polygons = bud_member.findall('.//gml:Polygon', namespaces=root.nsmap)
+                    if len(polygons) == 0:  # not sure
+                        continue
+
+                    gml_geom = etree.tostring(polygons[0]).decode('utf-8')
+                    geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
+
+                    # fix incorrect lat lon order
+                    point = geometry.GetGeometryRef(0).GetPoint(0)
+                    if point[0] > point[1]:
+                        source = osr.SpatialReference()
+                        source.ImportFromEPSG(4326)
+                        target = osr.SpatialReference()
+                        target.SetWellKnownGeogCS('WGS84')
+                        transform = osr.CoordinateTransformation(source, target)
+                        geometry.Transform(transform)
+
+                    geojson_str_geometry: str = geometry.ExportToJson()
+
+                    feature['geometry'] = json.loads(geojson_str_geometry)
+                else:
+                    feature['properties'][clean_tag] = child.text
+
+            features.append(feature)
+
+        return {'type': 'FeatureCollection', 'features': features}
+
+    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(properties['RODZAJ'], DEFAULT_BUILDING)
+            # ID_BUDYNKU skipped
+            # Levels and underground levels are visible in WMS but not in WFS yet
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
