@@ -49,3 +49,12 @@ def load_epodgik_gml(test_epodgik_data_dir):
             return f.read()
 
     return inner
+
+
+@pytest.fixture(scope='session')
+def load_geoportal2_gml(test_geoportal2_data_dir):
+    def inner(filename: str) -> str:
+        with open(path.join(test_geoportal2_data_dir, filename), 'r') as f:
+            return f.read()
+
+    return inner
