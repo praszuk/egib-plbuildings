@@ -1,0 +1,7 @@
+fastapi
+pydantic
+pydantic-settings
+uvicorn[standard]
+httpx
+lxml
+# GDAL – must be same as OS lib "libgdal-dev", so it's declared in Makefile
