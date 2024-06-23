@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://miastocieszyn.geoportal2.pl/map/geoportal/wfs.php?service=WFS&REQUEST=GetFeature&TYPENAMES=ewns:budynki&SRSNAME=EPSG:4326&bbox=49.77167,18.63988,49.77268,18.63989,EPSG:4326 -->
+<!-- City Cieszyn ('2403011') Townhall and Mall-->
+<wfs:FeatureCollection timeStamp="2024-06-18T02:03:16" numberMatched="2"
+                       numberReturned="2"
+                       xmlns:ewns="http://xsd.geoportal2.pl/ewns"
+                       xmlns:wfs="http://www.opengis.net/wfs/2.0"
+                       xmlns:gml="http://www.opengis.net/gml/3.2"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xmlns:xlink="http://www.w3.org/1999/xlink"
+                       xsi:schemaLocation="http://xsd.geoportal2.pl/ewns http://miastocieszyn.geoportal2.pl/map/geoportal/wfs.php?service=WFS&amp;version=2.0.0&amp;request=DescribeFeatureType&amp;typeName=ewns:budynki http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd">
+    <wfs:member>
+        <ewns:budynki gml:id="Ibebea9401e4308c0977e05c76c7d08f5.21079">
+            <gml:boundedBy>
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326"
+                              srsDimension="2">
+                    <gml:lowerCorner>49.7513468 18.6396767</gml:lowerCorner>
+                    <gml:upperCorner>49.7520153 18.6400243</gml:upperCorner>
+                </gml:Envelope>
+            </gml:boundedBy>
+            <ewns:ID_BUDYNKU>240301_1.0033.2_BUD</ewns:ID_BUDYNKU>
+            <ewns:RODZAJ>b</ewns:RODZAJ>
+            <ewns:geometria>
+                <gml:MultiSurface srsName="urn:ogc:def:crs:EPSG::4326"
+                                  srsDimension="2"
+                                  gml:id="Ibebea9401e4308c0977e05c76c7d08f5.21079_1">
+                    <gml:surfaceMember>
+                        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::4326"
+                                     srsDimension="2"
+                                     gml:id="Ibebea9401e4308c0977e05c76c7d08f5.21079_1_0">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>49.7520144 18.6398460
+                                        49.7519031 18.6398264 49.7519088
+                                        18.6397484 49.7518588 18.6397394
+                                        49.7518523 18.6398171 49.7516007
+                                        18.6397706 49.7516068 18.6396927
+                                        49.7515325 18.6396791 49.7515261
+                                        18.6397574 49.7513603 18.6397281
+                                        49.7513474 18.6399096 49.7515141
+                                        18.6399386 49.7515159 18.6399145
+                                        49.7516191 18.6399326 49.7516173
+                                        18.6399567 49.7520013 18.6400242
+                                        49.7520144 18.6398460
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </ewns:geometria>
+        </ewns:budynki>
+    </wfs:member>
+    <wfs:member>
+        <ewns:budynki gml:id="Ibebea9401e4308c0977e05c76c7d08f5.41393">
+            <gml:boundedBy>
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326"
+                              srsDimension="2">
+                    <gml:lowerCorner>49.7496272 18.6391396</gml:lowerCorner>
+                    <gml:upperCorner>49.7503450 18.6401167</gml:upperCorner>
+                </gml:Envelope>
+            </gml:boundedBy>
+            <ewns:ID_BUDYNKU>240301_1.0034.37_BUD</ewns:ID_BUDYNKU>
+            <ewns:RODZAJ>h</ewns:RODZAJ>
+            <ewns:geometria>
+                <gml:MultiSurface srsName="urn:ogc:def:crs:EPSG::4326"
+                                  srsDimension="2"
+                                  gml:id="Ibebea9401e4308c0977e05c76c7d08f5.41393_1">
+                    <gml:surfaceMember>
+                        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::4326"
+                                     srsDimension="2"
+                                     gml:id="Ibebea9401e4308c0977e05c76c7d08f5.41393_1_0">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>49.7497362 18.6400900
+                                        49.7500786 18.6401133 49.7501940
+                                        18.6400987 49.7501980 18.6399212
+                                        49.7503393 18.6399189 49.7503395
+                                        18.6399110 49.7503413 18.6398258
+                                        49.7502987 18.6396336 49.7503000
+                                        18.6395115 49.7502971 18.6395070
+                                        49.7502909 18.6394970 49.7502849
+                                        18.6394867 49.7502791 18.6394761
+                                        49.7502734 18.6394653 49.7502680
+                                        18.6394542 49.7502628 18.6394429
+                                        49.7502578 18.6394314 49.7502529
+                                        18.6394197 49.7502483 18.6394078
+                                        49.7502440 18.6393956 49.7502398
+                                        18.6393833 49.7502359 18.6393709
+                                        49.7502322 18.6393582 49.7502287
+                                        18.6393454 49.7502254 18.6393325
+                                        49.7502224 18.6393194 49.7502196
+                                        18.6393062 49.7502171 18.6392929
+                                        49.7502148 18.6392795 49.7502127
+                                        18.6392660 49.7502118 18.6392592
+                                        49.7502142 18.6392537 49.7501096
+                                        18.6391459 49.7501064 18.6391532
+                                        49.7500780 18.6391782 49.7500460
+                                        18.6392509 49.7498922 18.6396010
+                                        49.7497377 18.6395925 49.7497383
+                                        18.6395631 49.7496696 18.6395593
+                                        49.7496691 18.6395794 49.7496382
+                                        18.6395776 49.7496277 18.6400345
+                                        49.7496324 18.6400352 49.7496555
+                                        18.6400729 49.7496555 18.6400803
+                                        49.7497364 18.6400854 49.7497362
+                                        18.6400900
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </ewns:geometria>
+        </ewns:budynki>
+    </wfs:member>
+</wfs:FeatureCollection>

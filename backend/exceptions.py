@@ -6,13 +6,13 @@ class InvalidKeyParserError(ParserError):
     pass
 
 
-class CountyNotFound(Exception):
+class AreaNotFound(Exception):
     pass
 
 
-class CountyDataNotFound(Exception):
+class AreaDataNotFound(Exception):
     pass
 
 
-class CountyNotSupported(Exception):
+class AreaNotSupported(Exception):
     pass

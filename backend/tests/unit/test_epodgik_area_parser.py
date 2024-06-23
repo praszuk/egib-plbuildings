@@ -1,26 +1,29 @@
 import pytest
 
-from backend.counties.parsers.utils import gml_to_geojson
+from backend.areas.parsers import EpodgikAreaParser
+
+
+area = EpodgikAreaParser('test_area', 'test_url_code')
 
 
 class TestNoBuildingData:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_gml):
-        return load_gml('gml_no_building.xml')
+    def gml_content(self, load_epodgik_gml):
+        return load_epodgik_gml('gml_no_building.xml')
 
     def test_empty_geojson(self, gml_content):
-        geojson = gml_to_geojson(gml_content)
+        geojson = area.parse_gml_to_geojson(gml_content)
         assert len(geojson['features']) == 0
 
 
 class TestBasicBuilding:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_gml):
-        return load_gml('gml_basic_building.xml')
+    def gml_content(self, load_epodgik_gml):
+        return load_epodgik_gml('gml_basic_building.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
-        return gml_to_geojson(gml_content)
+        return area.parse_gml_to_geojson(gml_content)
 
     def test_geojson_has_one_feature(self, geojson):
         assert len(geojson['features']) == 1
@@ -46,12 +49,12 @@ class TestBasicBuilding:
 
 class TestMultipleBuildings:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_gml):
-        return load_gml('gml_multiple_buildings.xml')
+    def gml_content(self, load_epodgik_gml):
+        return load_epodgik_gml('gml_multiple_buildings.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
-        return gml_to_geojson(gml_content)
+        return area.parse_gml_to_geojson(gml_content)
 
     def test_geojson_has_three_features(self, geojson):
         assert len(geojson['features']) == 3
@@ -79,9 +82,9 @@ class TestCoordinatesCorrectOrderAutoFix:
             'gml_coordinates_lon_lat_order.xml',
         ],
     )
-    def test_lon_lat_as_geojson(self, load_gml, test_filename):
-        gml_content = load_gml(test_filename)
-        geojson = gml_to_geojson(gml_content)
+    def test_lon_lat_as_geojson(self, load_epodgik_gml, test_filename):
+        gml_content = load_epodgik_gml(test_filename)
+        geojson = area.parse_gml_to_geojson(gml_content)
         point = geojson['features'][0]['geometry']['coordinates'][0][0]
 
         assert point[0] < point[1]

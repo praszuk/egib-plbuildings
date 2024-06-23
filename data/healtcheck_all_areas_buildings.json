@@ -80,6 +80,14 @@
         }
     },
     {
+        "teryt": "2403",
+        "lat": 49.73631,
+        "lon": 18.73886,
+        "tags": {
+            "building": "office"
+        }
+    },
+    {
         "teryt": "2806",
         "lat": 54.03585,
         "lon": 21.76786,
@@ -113,6 +121,14 @@
         "tags": {
             "building": "office",
             "building:levels": "3"
+        }
+    },
+    {
+        "teryt": "2403011",
+        "lat": 49.75167,
+        "lon": 18.63988,
+        "tags": {
+            "building": "office"
         }
     }
 ]

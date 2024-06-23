@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://miastocieszyn.geoportal2.pl/map/geoportal/wfs.php?service=WFS&REQUEST=GetFeature&TYPENAMES=ewns:budynki&SRSNAME=EPSG:4326&bbox=49.77167,18.63988,49.77168,18.63989,EPSG:4326 -->
+<!-- City Cieszyn ('2403011') bo building data -->
+<wfs:FeatureCollection timeStamp="2024-06-18T02:03:16" numberMatched="0"
+                       numberReturned="0"
+                       xmlns:ewns="http://xsd.geoportal2.pl/ewns"
+                       xmlns:wfs="http://www.opengis.net/wfs/2.0"
+                       xmlns:gml="http://www.opengis.net/gml/3.2"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xmlns:xlink="http://www.w3.org/1999/xlink"
+                       xsi:schemaLocation="http://xsd.geoportal2.pl/ewns http://miastocieszyn.geoportal2.pl/map/geoportal/wfs.php?service=WFS&amp;version=2.0.0&amp;request=DescribeFeatureType&amp;typeName=ewns:budynki http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd">
+</wfs:FeatureCollection>
