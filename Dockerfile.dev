@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y python3 python3-pip libgdal-dev
 RUN pip install virtualenv
 
 WORKDIR /app
-ADD requirements.txt Makefile /app
+ADD requirements /app/requirements
+ADD Makefile /app
 
 RUN make install
 

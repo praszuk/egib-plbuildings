@@ -11,11 +11,11 @@ base-install:
 	virtualenv -p python3 $(VENV)
 	source $(VENV)/bin/activate
 	$(PYTHON) -m pip install GDAL==`gdal-config --version`
-	$(PYTHON) -m pip install -r requirements.txt
+	$(PYTHON) -m pip install -r requirements/requirements.txt
 
 install: base-install
-	$(PYTHON) -m pip install -r requirements-dev.txt
-	$(PYTHON) -m pip install -r requirements-test.txt
+	$(PYTHON) -m pip install -r requirements/requirements-dev.txt
+	$(PYTHON) -m pip install -r requirements/requirements-test.txt
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit install; fi
 
 prod-install: base-install

@@ -1,3 +1,0 @@
-mypy~=1.4.1
-ruff~=0.4.8
-pre-commit~=3.3.3
