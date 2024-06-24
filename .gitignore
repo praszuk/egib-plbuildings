@@ -1,8 +1,10 @@
 .*
+.cache/*
 !.gitattributes
 !.gitignore
 !.gitkeep
 !.dockerignore
 !.github/
 !.pre-commit-config.yaml
+!.cache/
 __pycache__/
