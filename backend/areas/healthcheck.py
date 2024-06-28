@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from dataclasses import asdict
 from os import getenv, path
 from typing import Dict
 from urllib.parse import urljoin
@@ -94,6 +95,8 @@ if __name__ == '__main__':
     logger = logging  # type:ignore
 
     report = report_all_areas(getenv('server_uri', 'http://0.0.0.0:8000'))
+    with open(settings.AREAS_HEALTHCHECK_CACHE_FILENAME, 'w') as f:
+        json.dump(asdict(report), f)
 
     logger.info(report)
     all_reports = list(report.counties.values()) + list(report.communes.values())
