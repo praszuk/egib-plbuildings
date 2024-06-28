@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     PROJECT_ROOT_DIR: Final[str] = path.realpath(path.join(path.dirname(__file__), '..', '..'))
     APP_DIR: Final[str] = path.realpath(path.join(path.dirname(__file__), '..'))
 
+    TEMPLATES_DIR: Final[str] = path.join(APP_DIR, 'templates')
     STATIC_DIR: Final[str] = path.join(APP_DIR, 'static')
 
     DATA_DIR: Final[str] = path.join(PROJECT_ROOT_DIR, 'data')
