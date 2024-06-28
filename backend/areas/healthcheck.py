@@ -73,9 +73,9 @@ def report_all_areas(server_uri: str, filename: str = ALL_AREAS_DATA_FILENAME) -
             is_building_data=building_data,
             is_expected_building_data=expected_building_data,
         )
-    
+
         if len(teryt) == 4:
-            areas_reports_counties[teryt] = area_report 
+            areas_reports_counties[teryt] = area_report
         else:
             areas_reports_communes[teryt] = area_report
 
