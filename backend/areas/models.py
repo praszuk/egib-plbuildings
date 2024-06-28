@@ -69,4 +69,5 @@ class HealthCheckAreaReport:
 class HealthCheckReport:
     start_dt: str
     end_dt: str
-    areas: Dict[str, HealthCheckAreaReport]
+    counties: Dict[str, HealthCheckAreaReport]
+    communes: Dict[str, HealthCheckAreaReport]

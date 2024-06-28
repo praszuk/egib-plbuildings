@@ -31,7 +31,8 @@ def report_all_areas(server_uri: str, filename: str = ALL_AREAS_DATA_FILENAME) -
 
     endpoint = urljoin(server_uri, 'api/v1/buildings/')
     start_report_dt = datetime.utcnow().isoformat()
-    areas_reports: Dict[str, HealthCheckAreaReport] = {}
+    areas_reports_counties: Dict[str, HealthCheckAreaReport] = {}
+    areas_reports_communes: Dict[str, HealthCheckAreaReport] = {}
 
     for area in areas_coordinates_buildings:
         teryt = area['teryt']
@@ -66,17 +67,23 @@ def report_all_areas(server_uri: str, filename: str = ALL_AREAS_DATA_FILENAME) -
                 expected_building_data = False
                 logger.debug(f'Expected: {expected_tags}, got: {building_tags}')
 
-        areas_reports[teryt] = HealthCheckAreaReport(
+        area_report = HealthCheckAreaReport(
             status_code=status_code,
             is_building_data=building_data,
             is_expected_building_data=expected_building_data,
         )
+    
+        if len(teryt) == 4:
+            areas_reports_counties[teryt] = area_report 
+        else:
+            areas_reports_communes[teryt] = area_report
 
     end_report_dt = datetime.utcnow().isoformat()
     return HealthCheckReport(
         start_dt=start_report_dt,
         end_dt=end_report_dt,
-        areas=areas_reports,
+        counties=areas_reports_counties,
+        communes=areas_reports_communes,
     )
 
 
@@ -89,5 +96,6 @@ if __name__ == '__main__':
     report = report_all_areas(getenv('server_uri', 'http://0.0.0.0:8000'))
 
     logger.info(report)
-    success = all(p_report.is_expected_building_data for p_report in report.areas.values())
+    all_reports = list(report.counties.values()) + list(report.communes.values())
+    success = all(p_report.is_expected_building_data for p_report in all_reports)
     exit(0 if success else 1)
