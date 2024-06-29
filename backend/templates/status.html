@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EGiB areas statuses</title>
+    <style>
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            opacity: 85%;
+            padding: 5px;
+            border-radius: 3px;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .tooltip-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+<span>Last healthcheck: {{ healthcheck_report.end_dt }}</span>
+<br>
+<object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
+<div id="tooltip" class="tooltip"></div>
+</body>
+<script>
+    const counties = {{ healthcheck_report.counties | tojson | safe }};
+
+    const tooltip = document.getElementById('tooltip');
+    document.getElementById('counties-svg').addEventListener('load', function() {
+        const svgDoc = this.contentDocument;
+
+        function fillCounty(pathElement, color) {
+            pathElement.style.fill = color;
+        };
+
+        function addTooltip(pathElement, htmlElement) {
+            pathElement.addEventListener('mouseover', (event) => {
+                tooltip.style.visibility = 'visible';
+                tooltip.innerHTML = htmlElement;
+            });
+
+            pathElement.addEventListener('mousemove', (event) => {
+                tooltip.style.top = event.clientY + 10 + 'px';
+                tooltip.style.left = event.clientX + 10 + 'px';
+            });
+
+            pathElement.addEventListener('mouseout', () => {
+                tooltip.style.visibility = 'hidden';
+            });
+        };
+
+        Object.entries(counties).forEach(([countyTeryt, county]) => {
+            const countyPathElement = svgDoc.getElementById(countyTeryt);
+
+            const tooltipHTMLContent = `
+                <div class="tooltip-content">
+                    <span>${countyTeryt}</span>
+                    <ul>
+                        <li>Status code: ${county.status_code}</li>
+                        <li>Is building data: ${county.is_building_data}</li>
+                        <li>Expected building data: ${county.is_expected_building_data}</li>
+                    </ul>
+                </div>
+            `;
+            if (county.is_expected_building_data) {
+                fillCounty(countyPathElement, '#00ff00');
+                addTooltip(countyPathElement, tooltipHTMLContent);
+            } else {
+                fillCounty(countyPathElement, '#ff0000');
+                addTooltip(countyPathElement, tooltipHTMLContent);
+            }
+        });
+    });
+</script>
+</html>
