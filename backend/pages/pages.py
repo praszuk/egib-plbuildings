@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 
 from fastapi import APIRouter, Request
@@ -9,6 +10,13 @@ from backend.areas.models import HealthCheckReport
 
 templates = Jinja2Templates(directory=settings.TEMPLATES_DIR)
 pages_router = APIRouter()
+
+
+def format_dt(utc_dt: str, dt_format: str) -> str:
+    return datetime.fromisoformat(utc_dt).strftime(dt_format)
+
+
+templates.env.filters['format_dt'] = format_dt
 
 
 @pages_router.get('/status', response_class=HTMLResponse)

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>EGiB areas statuses</title>
     <style>
+        ul span {
+          display: inline-block;
+          width: 43px;
+          text-align: left;
+        }
         .tooltip {
             position: absolute;
             background-color: #333;
@@ -25,8 +30,11 @@
     </style>
 </head>
 <body>
-<span>Last healthcheck: {{ healthcheck_report.end_dt }}</span>
-<br>
+<p>Last healthcheck:</p>
+<ul>
+    <li><span>Start: </span>{{ healthcheck_report.start_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
+    <li><span>End: </span>{{ healthcheck_report.end_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
+</ul>
 <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
 <div id="tooltip" class="tooltip"></div>
 </body>
