@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from osgeo import ogr, osr  # noqa
 from abc import ABC, abstractmethod
@@ -58,11 +58,22 @@ class AreaGeometry:
         object.__setattr__(self, 'geom', ogr.CreateGeometryFromWkb(state['geom']))
 
 
+@dataclass
+class HealtCheckTestAreaData:
+    teryt: str
+    name: str
+    lat: float
+    lon: float
+    expected_tags: Dict[str, Any]
+
+
 @dataclass(frozen=True)
 class HealthCheckAreaReport:
+    test_area_data: HealtCheckTestAreaData
     status_code: int
     is_building_data: bool = False
     is_expected_building_data: bool = False
+    result_tags: Optional[Dict[str, Any]] = None
 
 
 @dataclass(frozen=True)
