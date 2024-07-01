@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-<h1>Last healthcheck:</h1>
+<h1>Latest healthcheck:</h1>
 <div class="status-summary">
     <ul>
         <li><strong>Start: </strong>{{ healthcheck_report.start_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
@@ -39,6 +39,7 @@
         <li><strong>Communes: </strong><span id="communes-li-status"></span></li>
     </ul>
 </div>
+<h2>Counties:</h2>
 <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
 <div id="tooltip" class="tooltip"></div>
 </body>
