@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>EGiB areas statuses</title>
     <style>
-        ul span {
+        .status-summary ul strong {
           display: inline-block;
-          width: 43px;
+          width: 110px;
           text-align: left;
         }
         .tooltip {
@@ -30,20 +30,26 @@
     </style>
 </head>
 <body>
-<p>Last healthcheck:</p>
-<ul>
-    <li><span>Start: </span>{{ healthcheck_report.start_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
-    <li><span>End: </span>{{ healthcheck_report.end_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
-</ul>
+<h1>Last healthcheck:</h1>
+<div class="status-summary">
+    <ul>
+        <li><strong>Start: </strong>{{ healthcheck_report.start_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
+        <li><strong>End: </strong>{{ healthcheck_report.end_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
+        <li><strong>Counties: </strong><span id="counties-li-status"></span></li>
+        <li><strong>Communes: </strong><span id="communes-li-status"></span></li>
+    </ul>
+</div>
 <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
 <div id="tooltip" class="tooltip"></div>
 </body>
 <script>
     const counties = {{ healthcheck_report.counties | tojson | safe }};
+    const communes = {{ healthcheck_report.communes | tojson | safe }};
 
     const tooltip = document.getElementById('tooltip');
     document.getElementById('counties-svg').addEventListener('load', function() {
         const svgDoc = this.contentDocument;
+        const svgElement = this;
 
         function fillCounty(pathElement, color) {
             pathElement.style.fill = color;
@@ -57,8 +63,10 @@
             });
 
             pathElement.addEventListener('mousemove', (event) => {
-                tooltip.style.top = event.clientY + 10 + 'px';
-                tooltip.style.left = event.clientX + 10 + 'px';
+                const svgRect = svgElement.getBoundingClientRect();
+
+                tooltip.style.top = svgRect.top + event.clientY + 10 + 'px';
+                tooltip.style.left = svgRect.left + event.clientX  + 10 + 'px';
             });
 
             pathElement.addEventListener('mouseout', () => {
@@ -130,16 +138,26 @@
             }
             return tooltipContentDiv;
         }
+        let successCounties = 0;
+        let successCommunes = 0;
         Object.entries(counties).forEach(([countyTeryt, county]) => {
             const countyPathElement = svgDoc.getElementById(countyTeryt);
             if (county.is_expected_building_data) {
                 fillCounty(countyPathElement, '#00ff00');
                 addTooltip(countyPathElement, createTooltipHTMLContentOnSuccess(countyTeryt, county));
+                successCounties += 1;
             } else {
                 fillCounty(countyPathElement, '#ff0000');
                 addTooltip(countyPathElement, createTooltipHTMLContentOnFailure(countyTeryt, county));
             }
         });
+        Object.entries(communes).forEach(([communeTeryt, commune]) => {
+            if (commune.is_expected_building_data) {
+                successCommunes += 1;
+            }
+        });
+        document.getElementById('counties-li-status').textContent = `${successCounties}/${Object.keys(counties).length} (${successCounties}/~380)`;
+        document.getElementById('communes-li-status').textContent = `${successCommunes}/${Object.keys(communes).length}`;
     });
 </script>
 </html>
