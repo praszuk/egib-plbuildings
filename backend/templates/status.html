@@ -115,7 +115,7 @@
             ulElement.appendChild(liExpectedBuildingData);
             tooltipContentDiv.appendChild(ulElement);
 
-            if (!county.is_expected_building_data) {
+            if (county.is_buildings_data && !county.is_expected_building_data) {
                 tooltipContentDiv.appendChild(document.createElement('hr'));
 
                 const divExpectedVsReceivedTags = document.createElement('div');
