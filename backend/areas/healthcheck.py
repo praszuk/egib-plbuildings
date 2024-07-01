@@ -42,8 +42,9 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
                 response = client.get(endpoint, params={'lat': area.lat, 'lon': area.lon})
                 status_code = response.status_code
                 response_data = response.json()
-        except IOError:
+        except (IOError, httpx.ReadTimeout):
             logger.warning('Error at connecting for reporting areas')
+            status_code = 500
         except (TypeError, json.JSONDecodeError):
             logger.warning('Incorrect data returned from server')
             logger.debug(response.content)
