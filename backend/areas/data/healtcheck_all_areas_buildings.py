@@ -201,6 +201,56 @@ counties = [
         lon=23.26218,
         expected_tags={'building': 'office'},
     ),
+    # 08 – "lubuskie"
+    HealtCheckTestAreaData(
+        name='gorzowski',
+        teryt='0801',
+        lat=52.68771,
+        lon=15.06554,
+        expected_tags={'building': 'yes'},
+    ),
+    HealtCheckTestAreaData(
+        name='międzyrzecki',
+        teryt='0803',
+        lat=52.45234,
+        lon=15.58436,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='słubicki',
+        teryt='0805',
+        lat=52.35435,
+        lon=14.56661,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='strzelecko-drezdenecki',
+        teryt='0806',
+        lat=52.83937,
+        lon=15.83148,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='sulęciński',
+        teryt='0807',
+        lat=52.45082,
+        lon=15.11709,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='żarski',
+        teryt='0811',
+        lat=51.63995,
+        lon=15.14602,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='wschowski',
+        teryt='0812',
+        lat=51.80707,
+        lon=16.32648,
+        expected_tags={'building': 'office'},
+    ),
     # 14 – "mazowieckie"
     HealtCheckTestAreaData(
         name='miński',
