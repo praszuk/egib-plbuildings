@@ -253,6 +253,13 @@ counties = [
     ),
     # 14 – "mazowieckie"
     HealtCheckTestAreaData(
+        name='makowski',
+        teryt='1411',
+        lat=52.86438,
+        lon=21.10171,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(
         name='miński',
         teryt='1412',
         lat=52.18138,
@@ -260,11 +267,60 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': '3'},
     ),
     HealtCheckTestAreaData(
+        name='mławski',
+        teryt='1413',
+        lat=53.11343,
+        lon=20.37635,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='nowodworski',
+        teryt='1414',
+        lat=52.42623,
+        lon=20.71989,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(  # gmina Kadzidło
+        name='ostrołęcki',
+        teryt='1415',
+        lat=53.23725,
+        lon=21.46296,
+        expected_tags={'building': 'yes'},
+    ),
+    HealtCheckTestAreaData(
+        name='ostrowski',
+        teryt='1416',
+        lat=52.80074,
+        lon=21.89161,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    # HealtCheckTestAreaData(
+    #     name='otwocki',
+    #     teryt='1417',
+    #     lat=52.11460,
+    #     lon=21.24505,
+    #     expected_tags={'building': 'yes'},
+    # ),
+    HealtCheckTestAreaData(
         name='piaseczyński',
         teryt='1418',
         lat=52.07573,
         lon=21.03090,
         expected_tags={'building': 'office', 'building:levels': '3'},
+    ),
+    HealtCheckTestAreaData(  # gmina Gąbin
+        name='płocki',
+        teryt='1419',
+        lat=52.39784,
+        lon=19.73537,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='płoński',
+        teryt='1420',
+        lat=52.62211,
+        lon=20.37045,
+        expected_tags={'building': 'office'},
     ),
     HealtCheckTestAreaData(
         name='pruszkowski',
@@ -272,6 +328,69 @@ counties = [
         lat=52.16323,
         lon=20.80185,
         expected_tags={'building': 'office', 'building:levels': '5'},
+    ),
+    HealtCheckTestAreaData(
+        name='przasnyski',
+        teryt='1422',
+        lat=53.02142,
+        lon=20.88117,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='przysuski',
+        teryt='1423',
+        lat=51.35985,
+        lon=20.63267,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='pułtuski',
+        teryt='1424',
+        lat=52.69295,
+        lon=21.07318,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(  # gmina Skaryszew
+        name='radomski',
+        teryt='1425',
+        lat=51.31167,
+        lon=21.25196,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(  # gmina Mordy
+        name='siedlecki',
+        teryt='1426',
+        lat=52.21030,
+        lon=22.51887,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='sierpecki',
+        teryt='1427',
+        lat=52.84623,
+        lon=19.66917,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='sochaczewski',
+        teryt='1428',
+        lat=52.21864,
+        lon=20.24261,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='sokołowski',
+        teryt='1429',
+        lat=52.40667,
+        lon=22.24197,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='szydłowiecki',
+        teryt='1430',
+        lat=51.22660,
+        lon=20.85913,
+        expected_tags={'building': 'yes'},  # empty
     ),
     HealtCheckTestAreaData(
         name='węgrowski',
@@ -288,11 +407,46 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': '3'},
     ),
     HealtCheckTestAreaData(
+        name='wyszkowski',
+        teryt='1435',
+        lat=52.58949,
+        lon=21.45153,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='zwoleński',
+        teryt='1436',
+        lat=51.35618,
+        lon=21.58246,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='żuromiński',
+        teryt='1437',
+        lat=53.06682,
+        lon=19.90922,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
         name='żyrardowski',
         teryt='1438',
         lat=52.05622,
         lon=20.43519,
         expected_tags={'building': 'office', 'building:levels': '4'},
+    ),
+    HealtCheckTestAreaData(
+        name='miasto Ostrołęka',
+        teryt='1461',
+        lat=53.08379,
+        lon=21.56682,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='miasto Siedlce',
+        teryt='1464',
+        lat=52.16863,
+        lon=22.27664,
+        expected_tags={'building': 'office'},
     ),
     # 22 – "pomorskie"
     HealtCheckTestAreaData(
