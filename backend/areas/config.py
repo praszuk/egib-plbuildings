@@ -55,7 +55,8 @@ all_counties: Dict[str, BaseAreaParser] = {
     '1414': Geoportal2AreaParser(name='nowodworski', url_code='nowodworski'),
     '1415': Geoportal2AreaParser(name='ostrołęcki', url_code='powiatostrolecki'),
     '1416': Geoportal2AreaParser(name='ostrowski', url_code='ostrowmaz'),
-    '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
+    # 1417 not work
+    # '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
     '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
     '1419': Geoportal2AreaParser(name='płocki', url_code='powiat-plock'),
     '1420': Geoportal2AreaParser(name='płoński', url_code='plonski'),
