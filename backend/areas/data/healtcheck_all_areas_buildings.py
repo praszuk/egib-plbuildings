@@ -181,6 +181,13 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealtCheckTestAreaData(
+        name='zamojski',
+        teryt='0620',
+        lat=50.54360,
+        lon=23.21745,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
         name='miasto Biała Podlaska',
         teryt='0661',
         lat=52.03496,
@@ -294,13 +301,13 @@ counties = [
         lon=21.89161,
         expected_tags={'building': 'yes'},  # empty
     ),
-    # HealtCheckTestAreaData(
-    #     name='otwocki',
-    #     teryt='1417',
-    #     lat=52.11460,
-    #     lon=21.24505,
-    #     expected_tags={'building': 'yes'},
-    # ),
+    HealtCheckTestAreaData(
+        name='otwocki',
+        teryt='1417',
+        lat=52.11460,
+        lon=21.24505,
+        expected_tags={'building': 'office'},
+    ),
     HealtCheckTestAreaData(
         name='piaseczyński',
         teryt='1418',

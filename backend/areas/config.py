@@ -33,8 +33,7 @@ all_counties: Dict[str, BaseAreaParser] = {
     '0617': Geoportal2AreaParser(name='świdnicki', url_code='powiatswidnik'),
     '0618': Geoportal2AreaParser(name='tomaszowski', url_code='tomaszowlubelski'),
     '0619': EpodgikAreaParser(name='włodawski', url_code='wlodawa'),
-    # 0620 it works but cannot find any building data
-    # '0620': Geoportal2AreaParser(name='zamojski', url_code='powiatzamojski'),
+    '0620': Geoportal2AreaParser(name='zamojski', url_code='powiatzamojski'),
     '0661': Geoportal2AreaParser(name='miasto Biała Podlaska', url_code='bialapodlaska'),
     '0662': EpodgikAreaParser(name='miasto Chełm', url_code='mchelm'),
     '0664': Geoportal2AreaParser(name='miasto Zamość', url_code='zamosc'),
@@ -55,8 +54,7 @@ all_counties: Dict[str, BaseAreaParser] = {
     '1414': Geoportal2AreaParser(name='nowodworski', url_code='nowodworski'),
     '1415': Geoportal2AreaParser(name='ostrołęcki', url_code='powiatostrolecki'),
     '1416': Geoportal2AreaParser(name='ostrowski', url_code='ostrowmaz'),
-    # 1417 not work
-    # '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
+    '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
     '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
     '1419': Geoportal2AreaParser(name='płocki', url_code='powiat-plock'),
     '1420': Geoportal2AreaParser(name='płoński', url_code='plonski'),
