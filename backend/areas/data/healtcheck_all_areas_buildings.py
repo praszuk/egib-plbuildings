@@ -667,7 +667,7 @@ counties = [
         teryt='2411',
         lat=50.09915,
         lon=18.22350,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'yes'},
     ),
     HealtCheckTestAreaData(  # gmina Jejkowice
         name='rybnicki',
