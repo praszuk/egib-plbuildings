@@ -92,7 +92,19 @@ if __name__ == '__main__':
     with open(settings.AREAS_HEALTHCHECK_CACHE_FILENAME, 'w') as f:
         json.dump(asdict(report), f)
 
-    logger.info(report)
     all_reports = list(report.counties.values()) + list(report.communes.values())
-    success = all(p_report.is_expected_building_data for p_report in all_reports)
-    exit(0 if success else 1)
+    success_reports_num = sum(1 for report in all_reports if report.is_expected_building_data)
+    logging.info(f'Success: {success_reports_num}/{len(all_reports)}')
+    if len(all_reports) != success_reports_num:
+        failed_teryt = ', '.join(
+            [
+                report.test_area_data.teryt
+                for report in all_reports
+                if not report.is_expected_building_data
+            ]
+        )
+
+        logging.error(f'Failed teryt: {failed_teryt}')
+        exit(1)
+
+    exit(0)
