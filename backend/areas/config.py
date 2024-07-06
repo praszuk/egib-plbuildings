@@ -155,6 +155,6 @@ all_counties: Dict[str, BaseAreaParser] = {
 }
 # Few exception which counties are already defined but these communes has own servive for the data
 communes = {
-    '2403011': Geoportal2AreaParser(name='cieszyn', url_code='miastocieszyn'),
+    '2403011': Geoportal2AreaParser(name='miasto Cieszyn', url_code='miastocieszyn'),
 }
 all_areas = all_counties | communes

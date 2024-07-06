@@ -858,7 +858,7 @@ counties = [
 # Few exception which counties are already defined but these communes has own service for the data
 communes = [
     HealtCheckTestAreaData(
-        name='międzychodzki',
+        name='miasto Cieszyn',
         teryt='2403011',
         lat=49.75167,
         lon=18.63988,
