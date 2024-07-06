@@ -183,3 +183,80 @@ class Geoportal2AreaParser(AreaParser):
             raise InvalidKeyParserError(e)
 
         return tags
+
+
+class WarszawaAreaParser(AreaParser):
+    def build_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return (
+            f'https://wms2.um.warszawa.pl/geoserver/wfs/wfs'
+            '?service=wfs'
+            '&version=2.0.0'
+            '&request=GetFeature'
+            '&typeNames=wfs:budynki'
+            f'&SRSNAME={self.SRS_NAME}'
+            f'&bbox={bbox},{self.FULL_SRS_NAME}'
+        )
+
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
+        features: List[Dict[str, Any]] = []
+
+        root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
+        wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)  # type: ignore[arg-type]
+
+        for wfs_member in wfs_members:
+            bud_member = wfs_member.getchildren()[0]  # type: ignore[attr-defined]
+            feature: Dict[str, Any] = {
+                'type': 'Feature',
+                'geometry': {},
+                'properties': {},
+            }
+            for child in bud_member.getchildren():
+                if not child.tag.startswith('{' + str(root.nsmap.get('Q1'))):
+                    continue
+
+                clean_tag = child.tag.replace(root.nsmap.get('Q1'), '')[2:]
+                if clean_tag == 'GEOMETRY':
+                    polygons = bud_member.findall('.//gml:Polygon', namespaces=root.nsmap)
+                    if len(polygons) == 0:  # not sure
+                        continue
+
+                    gml_geom = etree.tostring(polygons[0]).decode('utf-8')
+                    geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
+
+                    # fix incorrect lat lon order
+                    point = geometry.GetGeometryRef(0).GetPoint(0)
+                    if point[0] > point[1]:
+                        source = osr.SpatialReference()
+                        source.ImportFromEPSG(4326)
+                        target = osr.SpatialReference()
+                        target.SetWellKnownGeogCS('WGS84')
+                        transform = osr.CoordinateTransformation(source, target)
+                        geometry.Transform(transform)
+
+                    geojson_str_geometry: str = geometry.ExportToJson()
+
+                    feature['geometry'] = json.loads(geojson_str_geometry)
+                else:
+                    feature['properties'][clean_tag] = child.text
+
+            features.append(feature)
+
+        return {'type': 'FeatureCollection', 'features': features}
+
+    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('RODZAJ'), DEFAULT_BUILDING
+            )
+            if 'KONDYGNACJE_NADZIEMNE' in properties:
+                tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
+
+            if 'KONDYGNACJE_PODZIEMNE' in properties:
+                tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags

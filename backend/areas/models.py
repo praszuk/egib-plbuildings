@@ -13,6 +13,7 @@ class AreaParser(ABC):
     url_code: str
 
     SRS_NAME: str = 'EPSG:4326'
+    FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
 
     @abstractmethod
     def build_url(self, lat: float, lon: float) -> str:
