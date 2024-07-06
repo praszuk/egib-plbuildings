@@ -704,6 +704,84 @@ counties = [
         lon=18.93156,
         expected_tags={'building': 'office'},
     ),
+    # 26 – "świętokrzyskie"
+    HealtCheckTestAreaData(
+        name='jędrzejowski',
+        teryt='2602',
+        lat=50.64594,
+        lon=20.29360,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='kazimierski',
+        teryt='2603',
+        lat=50.26743,
+        lon=20.48658,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='konecki',
+        teryt='2605',
+        lat=51.19947,
+        lon=20.40838,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='opatowski',
+        teryt='2606',
+        lat=50.80023,
+        lon=21.43040,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='ostrowiecki',
+        teryt='2607',
+        lat=50.94305,
+        lon=21.38686,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='pińczowski',
+        teryt='2608',
+        lat=50.51864,
+        lon=20.52370,
+        expected_tags={'building': 'office'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='sandomierski',
+        teryt='2609',
+        lat=50.68592,
+        lon=21.74037,
+        expected_tags={'building': 'office'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='skarżyski',
+        teryt='2610',
+        lat=51.11726,
+        lon=20.86594,
+        expected_tags={'building': 'office'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='starachowicki',
+        teryt='2611',
+        lat=51.05088,
+        lon=21.06875,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='staszowski',
+        teryt='2612',
+        lat=50.56410,
+        lon=21.16478,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='włoszczowski',
+        teryt='2613',
+        lat=50.84963,
+        lon=19.97492,
+        expected_tags={'building': 'yes'},  # empty
+    ),
     # 28 – "warmińsko-mazurskie"
     HealtCheckTestAreaData(
         name='bartoszycki',
