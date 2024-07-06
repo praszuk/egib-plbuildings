@@ -206,7 +206,7 @@ counties = [
         teryt='0662',
         lat=51.13321,
         lon=23.49482,
-        expected_tags={'building': 'yes', 'building:levels': '4'},
+        expected_tags={'building': 'yes', 'building:levels': 4},
     ),
     HealtCheckTestAreaData(
         name='miasto Zamość',
@@ -278,7 +278,7 @@ counties = [
         teryt='1412',
         lat=52.18138,
         lon=21.55919,
-        expected_tags={'building': 'office', 'building:levels': '3'},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     HealtCheckTestAreaData(
         name='mławski',
@@ -320,7 +320,7 @@ counties = [
         teryt='1418',
         lat=52.07573,
         lon=21.03090,
-        expected_tags={'building': 'office', 'building:levels': '3'},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     HealtCheckTestAreaData(  # gmina Gąbin
         name='płocki',
@@ -341,7 +341,7 @@ counties = [
         teryt='1421',
         lat=52.16323,
         lon=20.80185,
-        expected_tags={'building': 'office', 'building:levels': '5'},
+        expected_tags={'building': 'office', 'building:levels': 5},
     ),
     HealtCheckTestAreaData(
         name='przasnyski',
@@ -411,14 +411,14 @@ counties = [
         teryt='1433',
         lat=52.39642,
         lon=22.01390,
-        expected_tags={'building': 'office', 'building:levels': '4'},
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     HealtCheckTestAreaData(
         name='wołomiński',
         teryt='1434',
         lat=52.34413,
         lon=21.23856,
-        expected_tags={'building': 'office', 'building:levels': '3'},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     HealtCheckTestAreaData(
         name='wyszkowski',
@@ -446,7 +446,7 @@ counties = [
         teryt='1438',
         lat=52.05622,
         lon=20.43519,
-        expected_tags={'building': 'office', 'building:levels': '4'},
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     HealtCheckTestAreaData(
         name='miasto Ostrołęka',
@@ -467,7 +467,7 @@ counties = [
         teryt='1465',
         lat=52.23051,
         lon=21.03144,
-        expected_tags={'building': 'office', 'building:levels': '7'},
+        expected_tags={'building': 'office', 'building:levels': 7},
     ),
     # 18 – "podkarpackie"
     HealtCheckTestAreaData(
@@ -659,7 +659,7 @@ counties = [
         teryt='2215',
         lat=54.60103,
         lon=18.23298,
-        expected_tags={'building': 'office', 'building:levels': '3'},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     # 24 - "śląskie"
     HealtCheckTestAreaData(
@@ -830,7 +830,7 @@ counties = [
         teryt='2806',
         lat=54.03585,
         lon=21.76786,
-        expected_tags={'building': 'office', 'building:levels': '5'},
+        expected_tags={'building': 'office', 'building:levels': 5},
     ),
     HealtCheckTestAreaData(
         name='iławski',
@@ -858,7 +858,7 @@ counties = [
         teryt='2810',
         lat=53.87659,
         lon=21.30455,
-        expected_tags={'building': 'office', 'building:levels': '2'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     HealtCheckTestAreaData(
         name='nidzicki',
@@ -921,7 +921,7 @@ counties = [
         teryt='2819',
         lat=54.20739,
         lon=21.73810,
-        expected_tags={'building': 'office', 'building:levels': '2'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 30 – "wielkopolskie"
     HealtCheckTestAreaData(  # gmina Opatówek
@@ -943,7 +943,7 @@ counties = [
         teryt='3014',
         lat=52.60663,
         lon=15.90180,
-        expected_tags={'building': 'office', 'building:levels': '3'},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
 ]
 
