@@ -206,3 +206,38 @@ class WarszawaAreaParser(BaseAreaParser):
             raise InvalidKeyParserError(e)
 
         return tags
+
+
+class WroclawAreaParser(BaseAreaParser):
+    def build_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return (
+            f'https://iwms.zgkikm.wroc.pl/wroclaw-egib'
+            '?service=wfs'
+            '&version=2.0.0'
+            '&request=GetFeature'
+            '&typeNames=ms:budynki'
+            f'&SRSNAME={self.SRS_NAME}'
+            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
+        return self._gml_to_geojson(gml_content, prefix='ms', geometry_tag='msGeometry')
+
+    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('RODZAJ'), DEFAULT_BUILDING
+            )
+            if 'KONDYGNACJE_NADZIEMNE' in properties:
+                tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
+
+            if 'KONDYGNACJE_PODZIEMNE' in properties:
+                tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
