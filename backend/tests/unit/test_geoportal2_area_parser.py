@@ -53,7 +53,8 @@ class TestBuildingNoBuildingType:
         return area.parse_gml_to_geojson(gml_content)
 
     def test_geojson_parsed_to_default_building_value(self, geojson):
-        tags = area.parse_feature_properties_to_osm_tags(geojson)
+        area.replace_properties_with_osm_tags(geojson)
+        tags = geojson['features'][0]['properties']
         assert tags == {'building': DEFAULT_BUILDING}
 
 

@@ -1,6 +1,6 @@
 from backend.areas.config import all_areas
-from backend.areas.data.healtcheck_all_areas_buildings import all_areas_data as all_areas_hc_data
-from backend.areas.data.healtcheck_all_areas_buildings import counties as counties_hc_data
+from backend.areas.data.healthcheck_all_areas_buildings import all_areas_data as all_areas_hc_data
+from backend.areas.data.healthcheck_all_areas_buildings import counties as counties_hc_data
 
 
 def test_meta_config_counties_have_building_test():

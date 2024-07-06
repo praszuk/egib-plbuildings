@@ -5,6 +5,7 @@ from backend.areas.parsers import (
     EpodgikAreaParser,
     Geoportal2AreaParser,
     WarszawaAreaParser,
+    WroclawAreaParser,
 )
 
 AreaParser = TypeVar('AreaParser', bound=BaseAreaParser)
@@ -13,6 +14,7 @@ all_counties: Dict[str, AreaParser] = {
     '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
     '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),
     '0205': Geoportal2AreaParser(name='jaworski', url_code='jawor'),
+    '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
     # 04 – "kujawsko-pomorskie"
     '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
     '0411': Geoportal2AreaParser(name='radziejowski', url_code='radziejow'),
