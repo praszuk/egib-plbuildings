@@ -4,41 +4,13 @@ from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 from osgeo import ogr, osr  # noqa
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 @dataclass(frozen=True)
-class AreaParser(ABC):
+class Area(ABC):
     name: str
     url_code: str
-
-    SRS_NAME: str = 'EPSG:4326'
-    FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
-
-    @abstractmethod
-    def build_url(self, lat: float, lon: float) -> str:
-        pass
-
-    @abstractmethod
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        pass
-
-    @abstractmethod
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        pass
-
-    def replace_properties_with_osm_tags(self, geojson: Dict[str, Any]) -> None:
-        for index, feature in enumerate(geojson['features']):
-            properties = feature['properties']
-            tags = self.parse_feature_properties_to_osm_tags(properties)
-            geojson['features'][index]['properties'] = self.clean_empty_tags(tags)
-
-    @staticmethod
-    def clean_empty_tags(osm_tags: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Removes tags without values
-        """
-        return {k: v for k, v in osm_tags.items() if v is not None}
 
 
 @dataclass(frozen=True)

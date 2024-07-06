@@ -1,10 +1,14 @@
 from typing import Dict, TypeVar
 
-from backend.areas.models import AreaParser
-from backend.areas.parsers import EpodgikAreaParser, Geoportal2AreaParser, WarszawaAreaParser
+from backend.areas.parsers import (
+    BaseAreaParser,
+    EpodgikAreaParser,
+    Geoportal2AreaParser,
+    WarszawaAreaParser,
+)
 
-BaseAreaParser = TypeVar('BaseAreaParser', bound=AreaParser)
-all_counties: Dict[str, BaseAreaParser] = {
+AreaParser = TypeVar('AreaParser', bound=BaseAreaParser)
+all_counties: Dict[str, AreaParser] = {
     # 02 – "dolnośląskie"
     '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
     '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),

@@ -7,7 +7,8 @@ from lxml import etree
 from osgeo import ogr, osr  # noqa
 
 from backend.exceptions import InvalidKeyParserError
-from backend.areas.models import AreaParser
+from backend.areas.models import Area
+from abc import abstractmethod
 
 from typing import Final
 
@@ -29,7 +30,40 @@ BUILDING_KST_CODE_TYPE: Final = {
 }
 
 
-class EpodgikAreaParser(AreaParser):
+class BaseAreaParser(Area):
+    SRS_NAME: str = 'EPSG:4326'
+    FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
+
+    SRS_NAME: str = 'EPSG:4326'
+    FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
+
+    @abstractmethod
+    def build_url(self, lat: float, lon: float) -> str:
+        pass
+
+    @abstractmethod
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
+        pass
+
+    @abstractmethod
+    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        pass
+
+    def replace_properties_with_osm_tags(self, geojson: Dict[str, Any]) -> None:
+        for index, feature in enumerate(geojson['features']):
+            properties = feature['properties']
+            tags = self.parse_feature_properties_to_osm_tags(properties)
+            geojson['features'][index]['properties'] = self.clean_empty_tags(tags)
+
+    @staticmethod
+    def clean_empty_tags(osm_tags: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Removes tags without values
+        """
+        return {k: v for k, v in osm_tags.items() if v is not None}
+
+
+class EpodgikAreaParser(BaseAreaParser):
     def build_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return (
@@ -108,7 +142,7 @@ class EpodgikAreaParser(AreaParser):
         return tags
 
 
-class Geoportal2AreaParser(AreaParser):
+class Geoportal2AreaParser(BaseAreaParser):
     def build_url(self, lat: float, lon: float) -> str:
         offset = 0.00001
         # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
@@ -185,7 +219,7 @@ class Geoportal2AreaParser(AreaParser):
         return tags
 
 
-class WarszawaAreaParser(AreaParser):
+class WarszawaAreaParser(BaseAreaParser):
     def build_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return (
