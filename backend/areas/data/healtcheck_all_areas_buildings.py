@@ -24,6 +24,13 @@ counties = [
         lon=16.20572,
         expected_tags={'building': 'office'},
     ),
+    HealtCheckTestAreaData(
+        name='miasto Wrocław',
+        teryt='0264',
+        lat=51.11019,
+        lon=17.03139,
+        expected_tags={'building': 'office'},
+    ),
     # 04 – "kujawsko-pomorskie"
     HealtCheckTestAreaData(
         name='lipnowski',
