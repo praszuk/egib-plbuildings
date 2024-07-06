@@ -1,7 +1,6 @@
 import pytest
 
-from backend.areas.parsers import Geoportal2AreaParser
-
+from backend.areas.parsers import Geoportal2AreaParser, DEFAULT_BUILDING
 
 area = Geoportal2AreaParser('test_area', 'test_url_code')
 
@@ -42,6 +41,20 @@ class TestBasicBuilding:
             'ID_BUDYNKU': '240301_1.0033.2_BUD',
         }
         assert geojson['features'][0]['properties'] == expected_properties
+
+
+class TestBuildingNoBuildingType:
+    @pytest.fixture(scope='class')
+    def gml_content(self, load_geoportal2_gml):
+        return load_geoportal2_gml('gml_building_no_building_type.xml')
+
+    @pytest.fixture(scope='class')
+    def geojson(self, gml_content):
+        return area.parse_gml_to_geojson(gml_content)
+
+    def test_geojson_parsed_to_default_building_value(self, geojson):
+        tags = area.parse_feature_properties_to_osm_tags(geojson)
+        assert tags == {'building': DEFAULT_BUILDING}
 
 
 class TestMultipleBuildings:
