@@ -10,7 +10,7 @@ import httpx
 from backend.core.config import settings
 from backend.core.logger import logger
 from backend.areas.models import HealthCheckAreaReport, HealthCheckReport
-from backend.areas.data.healtcheck_all_areas_buildings import all_areas_data
+from backend.areas.data.healthcheck_all_areas_buildings import all_areas_data
 
 
 def report_all_areas(server_uri: str) -> HealthCheckReport:
