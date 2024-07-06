@@ -455,6 +455,13 @@ counties = [
         lon=22.27664,
         expected_tags={'building': 'office'},
     ),
+    HealtCheckTestAreaData(
+        name='miasto Warszawa',
+        teryt='1465',
+        lat=52.23051,
+        lon=21.03144,
+        expected_tags={'building': 'office', 'building:levels': '7'},
+    ),
     # 18 – "podkarpackie"
     HealtCheckTestAreaData(
         name='dębicki',
