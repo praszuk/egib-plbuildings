@@ -98,14 +98,28 @@ class BaseAreaParser(Area):
         for index, feature in enumerate(geojson['features']):
             properties = feature['properties']
             tags = self.parse_feature_properties_to_osm_tags(properties)
-            geojson['features'][index]['properties'] = self.clean_empty_tags(tags)
+            geojson['features'][index]['properties'] = self.clean_tags(tags)
 
     @staticmethod
-    def clean_empty_tags(osm_tags: Dict[str, Any]) -> Dict[str, Any]:
+    def clean_tags(osm_tags: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Removes tags without values
+        Skip empty tags.
+        Parse building levels as numbers and reject errors.
         """
-        return {k: v for k, v in osm_tags.items() if v is not None}
+        tags = {}
+        for k, v in osm_tags.items():
+            if not k or not v:
+                continue
+
+            if k in ('building:levels', 'building:levels:underground'):
+                try:
+                    v = int(v)
+                except ValueError:
+                    continue
+
+            tags[k] = v
+
+        return tags
 
 
 class EpodgikAreaParser(BaseAreaParser):
