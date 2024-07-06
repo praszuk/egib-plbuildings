@@ -173,7 +173,9 @@ class Geoportal2AreaParser(AreaParser):
     def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
-            tags['building'] = BUILDING_KST_CODE_TYPE.get(properties['RODZAJ'], DEFAULT_BUILDING)
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('RODZAJ'), DEFAULT_BUILDING
+            )
             # ID_BUDYNKU skipped
             # Levels and underground levels are visible in WMS but not in WFS yet
 

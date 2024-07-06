@@ -1,25 +1,12 @@
-import json
-from os import path
-
-import pytest
-
 from backend.areas.config import all_areas
-from backend.areas.healthcheck import ALL_AREAS_DATA_FILENAME
+from backend.areas.data.healtcheck_all_areas_buildings import all_areas_data as all_areas_hc_data
+from backend.areas.data.healtcheck_all_areas_buildings import counties as counties_hc_data
 
 
-@pytest.fixture(scope='class')
-def counties_coordinates_buildings(project_data_dir) -> dict:
-    filename = path.join(project_data_dir, ALL_AREAS_DATA_FILENAME)
-    return json.load(open(filename, 'r'))
-
-
-def test_meta_config_counties_have_building_test(counties_coordinates_buildings):
+def test_meta_config_counties_have_building_test():
     """
     Meta test to check if all config areas have defined test for e2e tests
     areas config – tests data
     """
-    assert len(all_areas) == len(counties_coordinates_buildings)
-    assert all(
-        test_data_county['teryt'] in all_areas
-        for test_data_county in counties_coordinates_buildings
-    )
+    assert len(all_areas) == len(all_areas_hc_data)
+    assert all(test_data_county.teryt in all_areas for test_data_county in counties_hc_data)

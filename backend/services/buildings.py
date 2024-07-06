@@ -38,7 +38,7 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
     area = all_areas[area_teryt]
     url = area.build_url(lat, lon)
 
-    async with AsyncClient() as client:
+    async with AsyncClient(verify=False) as client:
         try:
             gml_content = await _download_gml(client, url)
             if not gml_content:
