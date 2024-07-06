@@ -576,12 +576,12 @@ counties = [
         lon=22.98439,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Łapy
+    HealtCheckTestAreaData(  # gmina Supraśl – Ogrodniczki OSP
         name='białostocki',
         teryt='2002',
-        lat=52.99340,
-        lon=22.88745,
-        expected_tags={'building': 'office'},
+        lat=53.18865,
+        lon=23.26800,
+        expected_tags={'building': 'yes'},
     ),
     HealtCheckTestAreaData(
         name='bielski',
