@@ -745,21 +745,21 @@ counties = [
         teryt='2608',
         lat=50.51864,
         lon=20.52370,
-        expected_tags={'building': 'office'},  # empty
+        expected_tags={'building': 'yes'},  # empty
     ),
     HealtCheckTestAreaData(
         name='sandomierski',
         teryt='2609',
         lat=50.68592,
         lon=21.74037,
-        expected_tags={'building': 'office'},  # empty
+        expected_tags={'building': 'yes'},  # empty
     ),
     HealtCheckTestAreaData(
         name='skarżyski',
         teryt='2610',
         lat=51.11726,
         lon=20.86594,
-        expected_tags={'building': 'office'},  # empty
+        expected_tags={'building': 'yes'},  # empty
     ),
     HealtCheckTestAreaData(
         name='starachowicki',
