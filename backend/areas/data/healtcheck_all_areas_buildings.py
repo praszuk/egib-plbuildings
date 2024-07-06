@@ -832,6 +832,20 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': '2'},
     ),
     # 30 – "wielkopolskie"
+    HealtCheckTestAreaData(  # gmina Opatówek
+        name='kaliski',
+        teryt='3007',
+        lat=51.73951,
+        lon=18.21598,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(  # gmina Sompolno
+        name='koniński',
+        teryt='3010',
+        lat=52.38779,
+        lon=18.49674,
+        expected_tags={'building': 'office'},
+    ),
     HealtCheckTestAreaData(
         name='międzychodzki',
         teryt='3014',
