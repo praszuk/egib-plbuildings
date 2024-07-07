@@ -115,41 +115,57 @@
             ulElement.appendChild(liExpectedBuildingData);
             tooltipContentDiv.appendChild(ulElement);
 
-            if (county.is_building_data && !county.is_expected_building_data) {
-                tooltipContentDiv.appendChild(document.createElement('hr'));
-
-                const divExpectedVsReceivedTags = document.createElement('div');
-
-                const divTitleTags = document.createElement('div');
-                divTitleTags.textContent = 'Expected vs received tags:';
-
-                const divExpectedTags = document.createElement('div');
-                divExpectedTags.className = 'tags';
-                divExpectedTags.textContent = tagsObjectToString(county.test_area_data.expected_tags);
-
-                const divResultTags = document.createElement('div');
-                divResultTags.className = 'tags';
-                divResultTags.textContent = tagsObjectToString(county.result_tags);
-
-                divExpectedVsReceivedTags.appendChild(divTitleTags);
-                divExpectedVsReceivedTags.appendChild(divExpectedTags);
-                divExpectedVsReceivedTags.appendChild(divResultTags);
-
-                tooltipContentDiv.appendChild(divExpectedVsReceivedTags);
-            }
             return tooltipContentDiv;
+        }
+
+        function appendTagsElementToTooltipDiv(tooltipContentDiv, county) {
+            tooltipContentDiv.appendChild(document.createElement('hr'));
+            const divExpectedVsReceivedTags = document.createElement('div');
+
+            const divTitleTags = document.createElement('div');
+            divTitleTags.textContent = 'Expected vs received tags:';
+
+            const divExpectedTags = document.createElement('div');
+            divExpectedTags.className = 'tags';
+            divExpectedTags.textContent = tagsObjectToString(county.test_area_data.expected_tags);
+
+            const divResultTags = document.createElement('div');
+            divResultTags.className = 'tags';
+            divResultTags.textContent = tagsObjectToString(county.result_tags);
+
+            divExpectedVsReceivedTags.appendChild(divTitleTags);
+            divExpectedVsReceivedTags.appendChild(divExpectedTags);
+            divExpectedVsReceivedTags.appendChild(divResultTags);
+
+            tooltipContentDiv.appendChild(divExpectedVsReceivedTags);
+        }
+        function getFillColor(county) {
+            if (county.is_expected_building_data) {
+                return '#00ff00';
+            } else if (county.is_building_data) {
+                return '#ffd700';
+            } else if (!county.is_building_data && county.status_code == '200') {
+                return '#fcaf89';
+            } else {
+                return '#ff0000';
+            }
         }
         let successCounties = 0;
         let successCommunes = 0;
         Object.entries(counties).forEach(([countyTeryt, county]) => {
             const countyPathElement = svgDoc.getElementById(countyTeryt);
+            const fillColor = getFillColor(county);
+            fillCounty(countyPathElement, fillColor);
+
             if (county.is_expected_building_data) {
-                fillCounty(countyPathElement, '#00ff00');
                 addTooltip(countyPathElement, createTooltipHTMLContentOnSuccess(countyTeryt, county));
                 successCounties += 1;
             } else {
-                fillCounty(countyPathElement, '#ff0000');
-                addTooltip(countyPathElement, createTooltipHTMLContentOnFailure(countyTeryt, county));
+                let tooltipDivElem = createTooltipHTMLContentOnFailure(countyTeryt, county);
+                if (county.is_building_data) {
+                    appendTagsElementToTooltipDiv(tooltipDivElem, county);
+                }
+                addTooltip(countyPathElement, tooltipDivElem);
             }
         });
         Object.entries(communes).forEach(([communeTeryt, commune]) => {
