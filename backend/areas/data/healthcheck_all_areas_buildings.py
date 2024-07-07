@@ -430,6 +430,76 @@ counties = [
     ),
     # 14 – "mazowieckie"
     HealtCheckTestAreaData(
+        name='białobrzeski',
+        teryt='1401',
+        lat=51.64372,
+        lon=20.95368,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='ciechanowski',
+        teryt='1402',
+        lat=52.88146,
+        lon=20.61543,
+        expected_tags={'building': 'residential'},
+    ),
+    HealtCheckTestAreaData(
+        name='garwoliński',
+        teryt='1403',
+        lat=51.89989,
+        lon=21.60509,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='gostyniński',
+        teryt='1404',
+        lat=52.42128,
+        lon=19.46098,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='grodziski',
+        teryt='1405',
+        lat=52.09660,
+        lon=20.61700,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='grójecki',
+        teryt='1406',
+        lat=51.86451,
+        lon=20.88053,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='kozienicki',
+        teryt='1407',
+        lat=51.58557,
+        lon=21.54723,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='legionowski',
+        teryt='1408',
+        lat=52.42186,
+        lon=20.93909,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='lipski',
+        teryt='1409',
+        lat=51.15888,
+        lon=21.64981,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='łosicki',
+        teryt='1410',
+        lat=52.21031,
+        lon=22.71361,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
         name='makowski',
         teryt='1411',
         lat=52.86438,
