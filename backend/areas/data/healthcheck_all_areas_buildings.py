@@ -385,7 +385,7 @@ counties = [
         lon=18.32722,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmian Jeżów (Brzeziny no data yet)
+    HealtCheckTestAreaData(  # gmina Jeżów (Brzeziny no data yet)
         name='brzeziński',
         teryt='1021',
         lat=51.81382,
@@ -397,6 +397,35 @@ counties = [
         teryt='1063',
         lat=51.96031,
         lon=20.14489,
+        expected_tags={'building': 'office'},
+    ),
+    # 12 – "małopolskie"
+    HealtCheckTestAreaData(
+        name='brzeski',
+        teryt='1202',
+        lat=49.96808,
+        lon=20.61328,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='miechowski',
+        teryt='1208',
+        lat=50.35614,
+        lon=20.03211,
+        expected_tags={'building': 'office'},
+    ),
+    HealtCheckTestAreaData(
+        name='nowotarski',
+        teryt='1211',
+        lat=49.47819,
+        lon=20.03440,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealtCheckTestAreaData(
+        name='suski',
+        teryt='1215',
+        lat=49.73853,
+        lon=19.60326,
         expected_tags={'building': 'office'},
     ),
     # 14 – "mazowieckie"

@@ -72,6 +72,10 @@ all_counties: Dict[str, AreaParser] = {
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
+    '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
+    '1208': Geoportal2AreaParser(name='miechowski', url_code='miechow'),
+    '1211': Geoportal2AreaParser(name='nowotarski', url_code='nowotarski'),
+    '1215': Geoportal2AreaParser(name='suski', url_code='powiatsuski'),
     # 14 – "mazowieckie"
     '1411': Geoportal2AreaParser(name='makowski', url_code='makow'),
     '1412': EpodgikAreaParser(name='miński', url_code='minsk'),
