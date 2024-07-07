@@ -32,7 +32,7 @@ class AreaGeometry:
 
 
 @dataclass
-class HealtCheckTestAreaData:
+class HealthCheckTestAreaData:
     teryt: str
     name: str
     lat: float
@@ -42,7 +42,7 @@ class HealtCheckTestAreaData:
 
 @dataclass(frozen=True)
 class HealthCheckAreaReport:
-    test_area_data: HealtCheckTestAreaData
+    test_area_data: HealthCheckTestAreaData
     status_code: int
     is_building_data: bool = False
     is_expected_building_data: bool = False
