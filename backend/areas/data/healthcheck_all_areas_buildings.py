@@ -1,30 +1,30 @@
-from backend.areas.models import HealtCheckTestAreaData
+from backend.areas.models import HealthCheckTestAreaData
 
 
 counties = [
     # 02 – "dolnośląskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='głogowski',
         teryt='0203',
         lat=51.66531,
         lon=16.07441,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='górowski',
         teryt='0204',
         lat=51.66517,
         lon=16.54239,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='jaworski',
         teryt='0205',
         lat=51.05149,
         lon=16.20572,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Wrocław',
         teryt='0264',
         lat=51.11019,
@@ -32,35 +32,35 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 04 – "kujawsko-pomorskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='lipnowski',
         teryt='0408',
         lat=52.84022,
         lon=19.17100,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='radziejowski',
         teryt='0411',
         lat=52.62279,
         lon=18.52755,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='rypiński',
         teryt='0412',
         lat=53.06290,
         lon=19.41146,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='wąbrzeski',
         teryt='0417',
         lat=53.27565,
         lon=18.94620,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Kowal
+    HealthCheckTestAreaData(  # gmina Kowal
         name='włocławski',
         teryt='0418',
         lat=52.53273,
@@ -68,147 +68,147 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 06 – "lubelskie"
-    HealtCheckTestAreaData(  # gmina Konstantynów
+    HealthCheckTestAreaData(  # gmina Konstantynów
         name='bialski',
         teryt='0601',
         lat=52.20697,
         lon=23.08980,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(  # gmina Tarnogród
+    HealthCheckTestAreaData(  # gmina Tarnogród
         name='biłgorajski',
         teryt='0602',
         lat=50.35931,
         lon=22.74292,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='hrubieszowski',
         teryt='0604',
         lat=50.80644,
         lon=23.88755,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='janowski',
         teryt='0605',
         lat=50.70261,
         lon=22.41879,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='krasnostawski',
         teryt='0606',
         lat=50.98220,
         lon=23.16148,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='lubartowski',
         teryt='0608',
         lat=51.46557,
         lon=22.60975,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='lubelski',
         teryt='0609',
         lat=50.44727,
         lon=23.41521,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='łęczyński',
         teryt='0610',
         lat=51.29881,
         lon=22.88610,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='łukowski',
         teryt='0611',
         lat=51.93003,
         lon=22.37824,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='opolski',
         teryt='0612',
         lat=51.14870,
         lon=21.97042,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='parczewski',
         teryt='0613',
         lat=51.63985,
         lon=22.89702,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='puławski',
         teryt='0614',
         lat=51.41358,
         lon=21.96274,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='radzyński',
         teryt='0615',
         lat=51.78286,
         lon=22.61551,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='rycki',
         teryt='0616',
         lat=51.62444,
         lon=21.92719,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='świdnicki',
         teryt='0617',
         lat=51.21957,
         lon=22.69944,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='tomaszowski',
         teryt='0618',
         lat=50.44727,
         lon=23.41522,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='włodawski',
         teryt='0619',
         lat=51.54789,
         lon=23.55561,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='zamojski',
         teryt='0620',
         lat=50.54360,
         lon=23.21745,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Biała Podlaska',
         teryt='0661',
         lat=52.03496,
         lon=23.12653,
         expected_tags={'building': 'yes'},  # empty,
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Chełm',
         teryt='0662',
         lat=51.13321,
         lon=23.49482,
         expected_tags={'building': 'yes', 'building:levels': 4},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Zamość',
         teryt='0664',
         lat=50.72284,
@@ -216,253 +216,486 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 08 – "lubuskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='gorzowski',
         teryt='0801',
         lat=52.68771,
         lon=15.06554,
         expected_tags={'building': 'yes'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='międzyrzecki',
         teryt='0803',
         lat=52.45234,
         lon=15.58436,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='słubicki',
         teryt='0805',
         lat=52.35435,
         lon=14.56661,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='strzelecko-drezdenecki',
         teryt='0806',
         lat=52.83937,
         lon=15.83148,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sulęciński',
         teryt='0807',
         lat=52.45082,
         lon=15.11709,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='żarski',
         teryt='0811',
         lat=51.63995,
         lon=15.14602,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='wschowski',
         teryt='0812',
         lat=51.80707,
         lon=16.32648,
         expected_tags={'building': 'office'},
     ),
+    # 10 – "łódzkie"
+    HealthCheckTestAreaData(
+        name='bełchatowski',
+        teryt='1001',
+        lat=51.36902,
+        lon=19.36951,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='kutnowski',
+        teryt='1002',
+        lat=52.23309,
+        lon=19.35668,
+        expected_tags={'building': 'yes'},
+    ),
+    HealthCheckTestAreaData(
+        name='łaski',
+        teryt='1003',
+        lat=51.58935,
+        lon=19.14069,
+        expected_tags={'building': 'yes'},
+    ),
+    HealthCheckTestAreaData(
+        name='łęczycki',
+        teryt='1004',
+        lat=52.05824,
+        lon=19.20195,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='łowicki',
+        teryt='1005',
+        lat=52.10208,
+        lon=19.93199,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='łódzki wschodni',
+        teryt='1006',
+        lat=51.74589,
+        lon=19.81314,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(  # gmina Sławno (Opoczno no data yet)
+        name='opoczyński',
+        teryt='1007',
+        lat=51.39029,
+        lon=20.14479,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='pabianicki',
+        teryt='1008',
+        lat=51.66984,
+        lon=19.35591,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='pajęczański',
+        teryt='1009',
+        lat=51.14729,
+        lon=18.99222,
+        expected_tags={'building': 'yes'},
+    ),
+    HealthCheckTestAreaData(  # gmina Rozprza
+        name='piotrkowski',
+        teryt='1010',
+        lat=51.30226,
+        lon=19.64704,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='poddębicki',
+        teryt='1011',
+        lat=51.89282,
+        lon=18.95548,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(  # gmina Gomunice (Radomsko no data yet)
+        name='radomszczański',
+        teryt='1012',
+        lat=51.16869,
+        lon=19.48889,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='sieradzki',
+        teryt='1014',
+        lat=51.59329,
+        lon=18.73318,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(  # gmina Bolimów
+        name='skierniewicki',
+        teryt='1015',
+        lat=52.07606,
+        lon=20.16143,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='tomaszowski',
+        teryt='1016',
+        lat=51.52672,
+        lon=20.01414,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='wieluński',
+        teryt='1017',
+        lat=51.21927,
+        lon=18.57156,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(  # gmina Sokolniki (Wieruszów no data yet)
+        name='wieruszowski',
+        teryt='1018',
+        lat=51.30600,
+        lon=18.32722,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(  # gmina Jeżów (Brzeziny no data yet)
+        name='brzeziński',
+        teryt='1021',
+        lat=51.81382,
+        lon=19.97494,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Skierniewice',
+        teryt='1063',
+        lat=51.96031,
+        lon=20.14489,
+        expected_tags={'building': 'office'},
+    ),
+    # 12 – "małopolskie"
+    HealthCheckTestAreaData(
+        name='brzeski',
+        teryt='1202',
+        lat=49.96808,
+        lon=20.61328,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='miechowski',
+        teryt='1208',
+        lat=50.35614,
+        lon=20.03211,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='nowotarski',
+        teryt='1211',
+        lat=49.47819,
+        lon=20.03440,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='suski',
+        teryt='1215',
+        lat=49.73853,
+        lon=19.60326,
+        expected_tags={'building': 'office'},
+    ),
     # 14 – "mazowieckie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
+        name='białobrzeski',
+        teryt='1401',
+        lat=51.64372,
+        lon=20.95368,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='ciechanowski',
+        teryt='1402',
+        lat=52.88146,
+        lon=20.61543,
+        expected_tags={'building': 'residential'},
+    ),
+    HealthCheckTestAreaData(
+        name='garwoliński',
+        teryt='1403',
+        lat=51.89989,
+        lon=21.60509,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='gostyniński',
+        teryt='1404',
+        lat=52.42128,
+        lon=19.46098,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='grodziski',
+        teryt='1405',
+        lat=52.09660,
+        lon=20.61700,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='grójecki',
+        teryt='1406',
+        lat=51.86451,
+        lon=20.88053,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='kozienicki',
+        teryt='1407',
+        lat=51.58557,
+        lon=21.54723,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='legionowski',
+        teryt='1408',
+        lat=52.42186,
+        lon=20.93909,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='lipski',
+        teryt='1409',
+        lat=51.15888,
+        lon=21.64981,
+        expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='łosicki',
+        teryt='1410',
+        lat=52.21031,
+        lon=22.71361,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='makowski',
         teryt='1411',
         lat=52.86438,
         lon=21.10171,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miński',
         teryt='1412',
         lat=52.18138,
         lon=21.55919,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='mławski',
         teryt='1413',
         lat=53.11343,
         lon=20.37635,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='nowodworski',
         teryt='1414',
         lat=52.42623,
         lon=20.71989,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Kadzidło
+    HealthCheckTestAreaData(  # gmina Kadzidło
         name='ostrołęcki',
         teryt='1415',
         lat=53.23725,
         lon=21.46296,
         expected_tags={'building': 'yes'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='ostrowski',
         teryt='1416',
         lat=52.80074,
         lon=21.89161,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='otwocki',
         teryt='1417',
         lat=52.11460,
         lon=21.24505,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='piaseczyński',
         teryt='1418',
         lat=52.07573,
         lon=21.03090,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    HealtCheckTestAreaData(  # gmina Gąbin
+    HealthCheckTestAreaData(  # gmina Gąbin
         name='płocki',
         teryt='1419',
         lat=52.39784,
         lon=19.73537,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='płoński',
         teryt='1420',
         lat=52.62211,
         lon=20.37045,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='pruszkowski',
         teryt='1421',
         lat=52.16323,
         lon=20.80185,
         expected_tags={'building': 'office', 'building:levels': 5},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='przasnyski',
         teryt='1422',
         lat=53.02142,
         lon=20.88117,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='przysuski',
         teryt='1423',
         lat=51.35985,
         lon=20.63267,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='pułtuski',
         teryt='1424',
         lat=52.69295,
         lon=21.07318,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Skaryszew
+    HealthCheckTestAreaData(  # gmina Skaryszew
         name='radomski',
         teryt='1425',
         lat=51.31167,
         lon=21.25196,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(  # gmina Mordy
+    HealthCheckTestAreaData(  # gmina Mordy
         name='siedlecki',
         teryt='1426',
         lat=52.21030,
         lon=22.51887,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sierpecki',
         teryt='1427',
         lat=52.84623,
         lon=19.66917,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sochaczewski',
         teryt='1428',
         lat=52.21864,
         lon=20.24261,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sokołowski',
         teryt='1429',
         lat=52.40667,
         lon=22.24197,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='szydłowiecki',
         teryt='1430',
         lat=51.22660,
         lon=20.85913,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='węgrowski',
         teryt='1433',
         lat=52.39642,
         lon=22.01390,
         expected_tags={'building': 'office', 'building:levels': 4},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='wołomiński',
         teryt='1434',
         lat=52.34413,
         lon=21.23856,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='wyszkowski',
         teryt='1435',
         lat=52.58949,
         lon=21.45153,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='zwoleński',
         teryt='1436',
         lat=51.35618,
         lon=21.58246,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='żuromiński',
         teryt='1437',
         lat=53.06682,
         lon=19.90922,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='żyrardowski',
         teryt='1438',
         lat=52.05622,
         lon=20.43519,
         expected_tags={'building': 'office', 'building:levels': 4},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Ostrołęka',
         teryt='1461',
         lat=53.08379,
         lon=21.56682,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Siedlce',
         teryt='1464',
         lat=52.16863,
         lon=22.27664,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Warszawa',
         teryt='1465',
         lat=52.23051,
@@ -470,112 +703,112 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': 7},
     ),
     # 18 – "podkarpackie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='dębicki',
         teryt='1803',
         lat=50.05006,
         lon=21.39883,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='kolbuszowski',
         teryt='1806',
         lat=50.24625,
         lon=21.78305,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='leżajski',
         teryt='1808',
         lat=50.26073,
         lon=22.41724,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='lubaczowski',
         teryt='1809',
         lat=50.15840,
         lon=23.12114,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='łańcucki',
         teryt='1810',
         lat=50.06589,
         lon=22.22916,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='mielecki',
         teryt='1811',
         lat=50.29110,
         lon=21.43813,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='niżański',
         teryt='1812',
         lat=50.51866,
         lon=22.14059,
         expected_tags={'building': 'yes'},
     ),
-    HealtCheckTestAreaData(  # gmina Bircza
+    HealthCheckTestAreaData(  # gmina Bircza
         name='przemyski',
         teryt='1813',
         lat=49.69127,
         lon=22.48149,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='ropczycko-sędziszowski',
         teryt='1815',
         lat=50.05217,
         lon=21.61632,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Dynów
+    HealthCheckTestAreaData(  # gmina Dynów
         name='rzeszowski',
         teryt='1816',
         lat=49.81522,
         lon=22.23309,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='stalowowolski',
         teryt='1818',
         lat=50.56822,
         lon=22.04806,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='strzyżowski',
         teryt='1819',
         lat=49.86989,
         lon=21.78849,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Nowa Dęba
+    HealthCheckTestAreaData(  # gmina Nowa Dęba
         name='tarnobrzeski',
         teryt='1820',
         lat=50.41325,
         lon=21.75351,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='leski',
         teryt='1821',
         lat=49.46849,
         lon=22.33074,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # skipping 'starostwo' building (multipolygon)
+    HealthCheckTestAreaData(  # skipping 'starostwo' building (multipolygon)
         name='miasto Przemyśl',
         teryt='1862',
         lat=49.78250,
         lon=22.76595,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Tarnobrzeg',
         teryt='1864',
         lat=50.57108,
@@ -583,70 +816,70 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 20 – "podlaskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='augustowski',
         teryt='2001',
         lat=53.84272,
         lon=22.98439,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Supraśl – Ogrodniczki OSP
+    HealthCheckTestAreaData(  # gmina Supraśl – Ogrodniczki OSP
         name='białostocki',
         teryt='2002',
         lat=53.18865,
         lon=23.26800,
         expected_tags={'building': 'yes'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='bielski',
         teryt='2003',
         lat=52.76896,
         lon=23.19215,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='grajewski',
         teryt='2004',
         lat=53.65017,
         lon=22.44924,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='hajnowski',
         teryt='2005',
         lat=52.73750,
         lon=23.58943,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='moniecki',
         teryt='2008',
         lat=53.40685,
         lon=22.79880,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sejneński',
         teryt='2009',
         lat=54.10473,
         lon=23.35161,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sokólski',
         teryt='2011',
         lat=53.40854,
         lon=23.49573,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Sokoły (main city just missing data yet)
+    HealthCheckTestAreaData(  # gmina Sokoły (main city just missing data yet)
         name='wysokomazowiecki',
         teryt='2013',
         lat=52.99272,
         lon=22.70002,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='zambrowski',
         teryt='2014',
         lat=52.97547,
@@ -654,7 +887,7 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 22 – "pomorskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='wejherowski',
         teryt='2215',
         lat=54.60103,
@@ -662,56 +895,56 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
     # 24 - "śląskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='cieszyński',
         teryt='2403',
         lat=49.73631,
         lon=18.73886,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Blachownia
+    HealthCheckTestAreaData(  # gmina Blachownia
         name='częstochowski',
         teryt='2404',
         lat=50.78412,
         lon=18.96250,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='raciborski',
         teryt='2411',
         lat=50.09915,
         lon=18.22350,
         expected_tags={'building': 'yes'},
     ),
-    HealtCheckTestAreaData(  # gmina Jejkowice
+    HealthCheckTestAreaData(  # gmina Jejkowice
         name='rybnicki',
         teryt='2412',
         lat=50.10582,
         lon=18.47469,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Jastrzębie-Zdrój',
         teryt='2467',
         lat=49.95270,
         lon=18.61205,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Ruda Śląska',
         teryt='2472',
         lat=50.28607,
         lon=18.87506,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Siemianowice Śląskie',
         teryt='2474',
         lat=50.31834,
         lon=19.01100,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Świętochłowice',
         teryt='2476',
         lat=50.28523,
@@ -719,77 +952,77 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 26 – "świętokrzyskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='jędrzejowski',
         teryt='2602',
         lat=50.64594,
         lon=20.29360,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='kazimierski',
         teryt='2603',
         lat=50.26743,
         lon=20.48658,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='konecki',
         teryt='2605',
         lat=51.19947,
         lon=20.40838,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='opatowski',
         teryt='2606',
         lat=50.80023,
         lon=21.43040,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='ostrowiecki',
         teryt='2607',
         lat=50.94305,
         lon=21.38686,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='pińczowski',
         teryt='2608',
         lat=50.51864,
         lon=20.52370,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='sandomierski',
         teryt='2609',
         lat=50.68592,
         lon=21.74037,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='skarżyski',
         teryt='2610',
         lat=51.11726,
         lon=20.86594,
         expected_tags={'building': 'yes'},  # empty
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='starachowicki',
         teryt='2611',
         lat=51.05088,
         lon=21.06875,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='staszowski',
         teryt='2612',
         lat=50.56410,
         lon=21.16478,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='włoszczowski',
         teryt='2613',
         lat=50.84963,
@@ -797,126 +1030,126 @@ counties = [
         expected_tags={'building': 'yes'},  # empty
     ),
     # 28 – "warmińsko-mazurskie"
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='bartoszycki',
         teryt='2801',
         lat=54.25088,
         lon=20.81538,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='braniewski',
         teryt='2802',
         lat=54.38462,
         lon=19.82769,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='działdowski',
         teryt='2803',
         lat=53.23374,
         lon=20.17793,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='ełcki',
         teryt='2805',
         lat=53.82544,
         lon=22.34810,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='giżycki',
         teryt='2806',
         lat=54.03585,
         lon=21.76786,
         expected_tags={'building': 'office', 'building:levels': 5},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='iławski',
         teryt='2807',
         lat=53.58708,
         lon=19.56808,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='kętrzyński',
         teryt='2808',
         lat=54.07646,
         lon=21.37290,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='lidzbarski',
         teryt='2809',
         lat=54.12577,
         lon=20.58888,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='mrągowski',
         teryt='2810',
         lat=53.87659,
         lon=21.30455,
         expected_tags={'building': 'office', 'building:levels': 2},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='nidzicki',
         teryt='2811',
         lat=53.36145,
         lon=20.41899,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='nowomiejski',
         teryt='2812',
         lat=53.42353,
         lon=19.59211,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='olecki',
         teryt='2813',
         lat=54.03454,
         lon=22.49916,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Olsztynek
+    HealthCheckTestAreaData(  # gmina Olsztynek
         name='olsztyński',
         teryt='2814',
         lat=53.58243,
         lon=20.28226,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='ostródzki',
         teryt='2815',
         lat=53.69441,
         lon=19.96285,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='piski',
         teryt='2816',
         lat=53.62797,
         lon=21.80788,
         expected_tags={'building': 'yes'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='szczycieński',
         teryt='2817',
         lat=53.56667,
         lon=20.99027,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='gołdapski',
         teryt='2818',
         lat=54.30893,
         lon=22.30057,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='węgorzewski',
         teryt='2819',
         lat=54.20739,
@@ -924,21 +1157,21 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 30 – "wielkopolskie"
-    HealtCheckTestAreaData(  # gmina Opatówek
+    HealthCheckTestAreaData(  # gmina Opatówek
         name='kaliski',
         teryt='3007',
         lat=51.73951,
         lon=18.21598,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(  # gmina Sompolno
+    HealthCheckTestAreaData(  # gmina Sompolno
         name='koniński',
         teryt='3010',
         lat=52.38779,
         lon=18.49674,
         expected_tags={'building': 'office'},
     ),
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='międzychodzki',
         teryt='3014',
         lat=52.60663,
@@ -949,7 +1182,7 @@ counties = [
 
 # Few exception which counties are already defined but these communes has own service for the data
 communes = [
-    HealtCheckTestAreaData(
+    HealthCheckTestAreaData(
         name='miasto Cieszyn',
         teryt='2403011',
         lat=49.75167,
