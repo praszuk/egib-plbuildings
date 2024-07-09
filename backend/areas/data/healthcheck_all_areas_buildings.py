@@ -370,7 +370,7 @@ counties = [
         teryt='1008',
         lat=51.66984,
         lon=19.35591,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
         name='pajęczański',
