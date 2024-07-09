@@ -1,9 +1,11 @@
+# flake8: noqa
 from typing import Dict, TypeVar
 
 from backend.areas.parsers import (
     BaseAreaParser,
     EpodgikAreaParser,
     Geoportal2AreaParser,
+    GIPortalAreaParser,
     WarszawaAreaParser,
     WroclawAreaParser,
 )
@@ -14,6 +16,22 @@ all_counties: Dict[str, AreaParser] = {
     '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
     '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),
     '0205': Geoportal2AreaParser(name='jaworski', url_code='jawor'),
+    '0206': GIPortalAreaParser(
+        name='karkonoski', base_url='https://wms.podgik.jgora.pl/jeleniagora-egib'
+    ),
+    '0207': GIPortalAreaParser(
+        name='kamiennogórski', base_url='https://wms.kamienna-gora.pl/kamiennagora-egib'
+    ),
+    '0210': GIPortalAreaParser(name='lubański', base_url='https://iegib.powiatluban.pl/luban-egib'),
+    '0212': GIPortalAreaParser(
+        name='lwówecki', base_url='https://ikerg.powiatlwowecki.pl/lwowekslaski-egib'
+    ),
+    '0225': GIPortalAreaParser(
+        name='zgorzelecki', base_url='https://iegib.powiat.zgorzelec.pl/zgorzelec-egib'
+    ),
+    '0226': GIPortalAreaParser(
+        name='złotoryjski', base_url='https://wms.powiat-zlotoryja.pl/zlotoryja-egib'
+    ),
     '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
     # 04 – "kujawsko-pomorskie"
     '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
