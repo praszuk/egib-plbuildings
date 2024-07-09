@@ -129,6 +129,9 @@ class BaseAreaParser(Area):
                 except ValueError:
                     continue
 
+                if v <= 0:
+                    continue
+
             tags[k] = v
 
         return tags
