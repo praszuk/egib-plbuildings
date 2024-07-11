@@ -274,11 +274,32 @@ counties = [
         expected_tags={'building': 'yes'},
     ),
     HealthCheckTestAreaData(
+        name='krośnieński',
+        teryt='0802',
+        lat=51.95139,
+        lon=14.72222,
+        expected_tags={
+            'building': 'yes',
+            'building:levels': 5,
+        },
+    ),
+    HealthCheckTestAreaData(
         name='międzyrzecki',
         teryt='0803',
         lat=52.45234,
         lon=15.58436,
         expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='nowosolski',
+        teryt='0804',
+        lat=51.80238,
+        lon=15.71958,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     HealthCheckTestAreaData(
         name='słubicki',
@@ -300,6 +321,28 @@ counties = [
         lat=52.45082,
         lon=15.11709,
         expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='świebodziński',
+        teryt='0808',
+        lat=52.24746,
+        lon=15.53576,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='zielonogórski',
+        teryt='0809',
+        lat=52.08546,
+        lon=15.62652,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     HealthCheckTestAreaData(
         name='żarski',

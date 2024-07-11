@@ -63,10 +63,22 @@ all_counties: Dict[str, AreaParser] = {
     '0664': Geoportal2AreaParser(name='miasto Zamość', url_code='zamosc'),
     # 08 – "lubuskie"
     '0801': Geoportal2AreaParser(name='gorzowski', url_code='powiatgorzowski'),
+    '0802': GIPortalAreaParser(
+        name='krośnieński', base_url='https://wms.powiatkrosnienski.pl/krosno-egib'
+    ),
     '0803': Geoportal2AreaParser(name='międzyrzecki', url_code='powiat-miedzyrzecki'),
+    '0804': GIPortalAreaParser(
+        name='nowosolski', base_url='https://wms.powiat-nowosolski.pl/nowasol-egib'
+    ),
     '0805': Geoportal2AreaParser(name='słubicki', url_code='slubice'),
     '0806': Geoportal2AreaParser(name='strzelecko-drezdenecki', url_code='fsd'),
     '0807': Geoportal2AreaParser(name='sulęciński', url_code='sulecin'),
+    '0808': GIPortalAreaParser(
+        name='świebodziński', base_url='https://giportal2.powiat.swiebodzin.pl/swiebodzin-egib'
+    ),
+    '0809': GIPortalAreaParser(
+        name='zielonogórski', base_url='https://giportal.powiat-zielonogorski.pl/zielonagora-egib'
+    ),
     '0811': Geoportal2AreaParser(name='żarski', url_code='zary'),
     '0812': Geoportal2AreaParser(name='wschowski', url_code='wschowa'),
     # 10 – "łódzkie"
