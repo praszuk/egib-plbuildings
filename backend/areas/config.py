@@ -100,6 +100,9 @@ all_counties: Dict[str, AreaParser] = {
     '1017': Geoportal2AreaParser(name='wieluński', url_code='wielun'),
     '1018': Geoportal2AreaParser(name='wieruszowski', url_code='wieruszow'),
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
+    '1062': GIPortalAreaParser(
+        name='miasto Piotrków Trybunalski', base_url='https://ikerg.piotrkow.pl/piotrkow-egib'
+    ),
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),

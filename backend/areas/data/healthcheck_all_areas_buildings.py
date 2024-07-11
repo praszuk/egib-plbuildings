@@ -486,6 +486,17 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='miasto Piotrków Trybunalski',
+        teryt='1062',
+        lat=51.40820,
+        lon=19.68899,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
         name='miasto Skierniewice',
         teryt='1063',
         lat=51.96031,
