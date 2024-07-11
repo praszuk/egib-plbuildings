@@ -232,6 +232,9 @@ all_counties: Dict[str, AreaParser] = {
     '2801': Geoportal2AreaParser(name='bartoszycki', url_code='powiatbartoszyce'),
     '2802': Geoportal2AreaParser(name='braniewski', url_code='powiat-braniewo'),
     '2803': Geoportal2AreaParser(name='działdowski', url_code='powiatdzialdowski'),
+    '2804': GIPortalAreaParser(
+        name='elbląski', base_url='https://ikerg.powiat.elblag.pl/elblaski-egib'
+    ),
     '2805': Geoportal2AreaParser(name='ełcki', url_code='powiatelk'),
     '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
     '2807': Geoportal2AreaParser(name='iławski', url_code='ilawa'),

@@ -1292,6 +1292,16 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='elbląski',
+        teryt='2804',
+        lat=54.06694,
+        lon=19.65912,
+        expected_tags={
+            'building': 'yes',
+            'building:levels': 3,
+        },
+    ),
+    HealthCheckTestAreaData(
         name='ełcki',
         teryt='2805',
         lat=53.82544,
