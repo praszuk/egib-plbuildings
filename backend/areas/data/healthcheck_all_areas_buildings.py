@@ -813,6 +813,92 @@ counties = [
         lon=21.03144,
         expected_tags={'building': 'office', 'building:levels': 7},
     ),
+    # 16 – "opolskie"
+    HealthCheckTestAreaData(
+        name='brzeski',
+        teryt='1601',
+        lat=50.86140,
+        lon=17.46175,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='głubczycki',
+        teryt='1602',
+        lat=50.20120,
+        lon=17.82206,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='kluczborski',
+        teryt='1604',
+        lat=50.97278,
+        lon=18.22016,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='krapkowicki',
+        teryt='1605',
+        lat=50.49033,
+        lon=17.95680,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='nyski',
+        teryt='1607',
+        lat=50.47758,
+        lon=17.33416,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='oleski',
+        teryt='1608',
+        lat=50.88062,
+        lon=18.41957,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='prudnicki',
+        teryt='1610',
+        lat=50.32144,
+        lon=17.56392,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Opole',
+        teryt='1661',
+        lat=50.66355,
+        lon=17.93054,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
     # 18 – "podkarpackie"
     HealthCheckTestAreaData(
         name='dębicki',

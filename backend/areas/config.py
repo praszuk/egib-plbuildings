@@ -153,6 +153,20 @@ all_counties: Dict[str, AreaParser] = {
     '1464': Geoportal2AreaParser(name='miasto Siedlce', url_code='siedlce'),
     '1465': WarszawaAreaParser(name='miasto Warszawa', url_code=''),
     # 16 – "opolskie"
+    '1601': GIPortalAreaParser(name='brzeski', base_url='https://imapa.brzeg-powiat.pl/brzeg-egib'),
+    '1602': GIPortalAreaParser(
+        name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
+    ),
+    '1604': GIPortalAreaParser(name='kluczborski', base_url='http://185.108.68.134/kluczbork-egib'),
+    '1605': GIPortalAreaParser(
+        name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
+    ),
+    '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
+    '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
+    '1610': GIPortalAreaParser(
+        name='prudnicki', base_url='https://ikerg2.powiatprudnicki.pl/prudnik-egib'
+    ),
+    '1661': GIPortalAreaParser(name='miasto Opole', base_url='https://wms.um.opole.pl/opole-egib'),
     # 18 – "podkarpackie"
     '1803': Geoportal2AreaParser(name='dębicki', url_code='debica'),
     '1806': Geoportal2AreaParser(name='kolbuszowski', url_code='kolbuszowa'),
