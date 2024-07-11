@@ -202,7 +202,17 @@ all_counties: Dict[str, AreaParser] = {
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
     '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
     '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),
+    '2416': GIPortalAreaParser(
+        name='zawierciański', base_url='https://ikerg.zawiercie.powiat.pl/powiatzawiercianski-egib'
+    ),
+    '2461': GIPortalAreaParser(
+        name='miasto Bielsko-Biała', base_url='https://ikerg.bielsko-biala.pl/bielsko-egib'
+    ),
+    '2462': GIPortalAreaParser(name='miasto Bytom', base_url='https://iwms.um.bytom.pl/bytom-egib'),
     '2467': Geoportal2AreaParser(name='miasto Jastrzębie-Zdrój', url_code='jastrzebie'),
+    '2470': GIPortalAreaParser(
+        name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
+    ),
     '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),

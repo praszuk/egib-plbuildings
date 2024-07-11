@@ -1121,11 +1121,54 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='zawierciański',
+        teryt='2416',
+        lat=50.44820,
+        lon=19.51899,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Bielsko-Biała',
+        teryt='2461',
+        lat=49.82640,
+        lon=19.03118,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 7,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Bytom',
+        teryt='2462',
+        lat=50.35023,
+        lon=18.91192,
+        expected_tags={
+            'building': 'office',  # multipolygon
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
         name='miasto Jastrzębie-Zdrój',
         teryt='2467',
         lat=49.95270,
         lon=18.61205,
         expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Mysłowice',
+        teryt='2470',
+        lat=50.24092,
+        lon=19.14159,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
     ),
     HealthCheckTestAreaData(
         name='miasto Ruda Śląska',
