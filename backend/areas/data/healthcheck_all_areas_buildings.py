@@ -532,6 +532,13 @@ counties = [
         lon=19.60326,
         expected_tags={'building': 'office'},
     ),
+    HealthCheckTestAreaData(
+        name='miasto Kraków',
+        teryt='1261',
+        lat=50.07115,
+        lon=19.92802,
+        expected_tags={'building': 'office'},
+    ),
     # 14 – "mazowieckie"
     HealthCheckTestAreaData(
         name='białobrzeski',

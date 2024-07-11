@@ -109,6 +109,9 @@ all_counties: Dict[str, AreaParser] = {
     '1208': Geoportal2AreaParser(name='miechowski', url_code='miechow'),
     '1211': Geoportal2AreaParser(name='nowotarski', url_code='nowotarski'),
     '1215': Geoportal2AreaParser(name='suski', url_code='powiatsuski'),
+    '1261': GIPortalAreaParser(
+        name='miasto Kraków', base_url='https://geodezja.eco.um.krakow.pl/krakow-egib'
+    ),
     # 14 – "mazowieckie"
     '1401': Geoportal2AreaParser(name='białobrzeski', url_code='bialobrzegi'),
     '1402': Geoportal2AreaParser(name='ciechanowski', url_code='ciechanow'),
