@@ -17,16 +17,28 @@ DEFAULT_BUILDING: Final = 'yes'
 # EGiB KST classification "EGB_RodzajWgKSTType"
 # XSD: http://www.gugik.gov.pl/bip/prawo/schematy-aplikacyjne
 BUILDING_KST_CODE_TYPE: Final = {
-    'm': 'residential',  # "mieszkalny"
-    'g': DEFAULT_BUILDING,  # "produkcyjnoUslugowyIGospodarczy"
-    't': DEFAULT_BUILDING,  # "transportuILacznosci"
-    'k': DEFAULT_BUILDING,  # "oswiatyNaukiIKulturyOrazSportu"
-    'z': DEFAULT_BUILDING,  # "szpitalaIInneBudynkiOpiekiZdrowotnej"
-    'b': 'office',  # "biurowy"
-    'h': 'retail',  # "handlowoUslugowy"
-    'p': 'industrial',  # "przemyslowy"
-    's': DEFAULT_BUILDING,  # "zbiornikSilosIBudynekMagazynowy"
-    'i': DEFAULT_BUILDING,  # "budynekNiemieszkalny"
+    'm': 'residential',
+    'g': DEFAULT_BUILDING,
+    't': DEFAULT_BUILDING,
+    'k': DEFAULT_BUILDING,
+    'z': DEFAULT_BUILDING,
+    'b': 'office',
+    'h': 'retail',
+    'p': 'industrial',
+    's': DEFAULT_BUILDING,
+    'i': DEFAULT_BUILDING,
+}
+KST_NAME_CODE: Final = {
+    'mieszkalny': 'm',
+    'produkcyjnoUslugowyIGospodarczy': 'g',
+    'transportuILacznosci': 't',
+    'oswiatyNaukiIKulturyOrazSportu': 'k',
+    'szpitalaIInneBudynkiOpiekiZdrowotnej': 'z',
+    'biurowy': 'b',
+    'handlowoUslugowy': 'h',
+    'przemyslowy': 'p',
+    'zbiornikSilosIBudynekMagazynowy': 's',
+    'budynekNiemieszkalny': 'i',
 }
 
 
@@ -117,6 +129,9 @@ class BaseAreaParser(Area):
                 except ValueError:
                     continue
 
+                if v <= 0:
+                    continue
+
             tags[k] = v
 
         return tags
@@ -181,6 +196,40 @@ class Geoportal2AreaParser(BaseAreaParser):
             )
             # ID_BUDYNKU skipped
             # Levels and underground levels are visible in WMS but not in WFS yet
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
+
+
+class GIPortalAreaParser(BaseAreaParser):
+    def build_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return (
+            f'{self.base_url}'
+            f'?service=WFS'
+            f'&version=2.0.0'
+            f'&REQUEST=GetFeature'
+            f'&TYPENAMES=ms:budynki'
+            f'&SRSNAME={self.SRS_NAME}'
+            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
+        return self._gml_to_geojson(gml_content, prefix='ms', geometry_tag='msGeometry')
+
+    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                KST_NAME_CODE.get(properties.get('RODZAJ'), None), DEFAULT_BUILDING
+            )
+            if 'KONDYGNACJE_NADZIEMNE' in properties:
+                tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
+
+            if 'KONDYGNACJE_PODZIEMNE' in properties:
+                tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
 
         except KeyError as e:
             raise InvalidKeyParserError(e)

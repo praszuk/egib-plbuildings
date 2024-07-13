@@ -10,7 +10,8 @@ from abc import ABC
 @dataclass(frozen=True)
 class Area(ABC):
     name: str
-    url_code: str
+    url_code: str = ''
+    base_url: str = ''
 
 
 @dataclass(frozen=True)

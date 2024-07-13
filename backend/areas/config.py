@@ -1,9 +1,11 @@
+# flake8: noqa
 from typing import Dict, TypeVar
 
 from backend.areas.parsers import (
     BaseAreaParser,
     EpodgikAreaParser,
     Geoportal2AreaParser,
+    GIPortalAreaParser,
     WarszawaAreaParser,
     WroclawAreaParser,
 )
@@ -14,6 +16,22 @@ all_counties: Dict[str, AreaParser] = {
     '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
     '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),
     '0205': Geoportal2AreaParser(name='jaworski', url_code='jawor'),
+    '0206': GIPortalAreaParser(
+        name='karkonoski', base_url='https://wms.podgik.jgora.pl/jeleniagora-egib'
+    ),
+    '0207': GIPortalAreaParser(
+        name='kamiennogórski', base_url='https://wms.kamienna-gora.pl/kamiennagora-egib'
+    ),
+    '0210': GIPortalAreaParser(name='lubański', base_url='https://iegib.powiatluban.pl/luban-egib'),
+    '0212': GIPortalAreaParser(
+        name='lwówecki', base_url='https://ikerg.powiatlwowecki.pl/lwowekslaski-egib'
+    ),
+    '0225': GIPortalAreaParser(
+        name='zgorzelecki', base_url='https://iegib.powiat.zgorzelec.pl/zgorzelec-egib'
+    ),
+    '0226': GIPortalAreaParser(
+        name='złotoryjski', base_url='https://wms.powiat-zlotoryja.pl/zlotoryja-egib'
+    ),
     '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
     # 04 – "kujawsko-pomorskie"
     '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
@@ -45,10 +63,22 @@ all_counties: Dict[str, AreaParser] = {
     '0664': Geoportal2AreaParser(name='miasto Zamość', url_code='zamosc'),
     # 08 – "lubuskie"
     '0801': Geoportal2AreaParser(name='gorzowski', url_code='powiatgorzowski'),
+    '0802': GIPortalAreaParser(
+        name='krośnieński', base_url='https://wms.powiatkrosnienski.pl/krosno-egib'
+    ),
     '0803': Geoportal2AreaParser(name='międzyrzecki', url_code='powiat-miedzyrzecki'),
+    '0804': GIPortalAreaParser(
+        name='nowosolski', base_url='https://wms.powiat-nowosolski.pl/nowasol-egib'
+    ),
     '0805': Geoportal2AreaParser(name='słubicki', url_code='slubice'),
     '0806': Geoportal2AreaParser(name='strzelecko-drezdenecki', url_code='fsd'),
     '0807': Geoportal2AreaParser(name='sulęciński', url_code='sulecin'),
+    '0808': GIPortalAreaParser(
+        name='świebodziński', base_url='https://giportal2.powiat.swiebodzin.pl/swiebodzin-egib'
+    ),
+    '0809': GIPortalAreaParser(
+        name='zielonogórski', base_url='https://giportal.powiat-zielonogorski.pl/zielonagora-egib'
+    ),
     '0811': Geoportal2AreaParser(name='żarski', url_code='zary'),
     '0812': Geoportal2AreaParser(name='wschowski', url_code='wschowa'),
     # 10 – "łódzkie"
@@ -70,12 +100,18 @@ all_counties: Dict[str, AreaParser] = {
     '1017': Geoportal2AreaParser(name='wieluński', url_code='wielun'),
     '1018': Geoportal2AreaParser(name='wieruszowski', url_code='wieruszow'),
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
+    '1062': GIPortalAreaParser(
+        name='miasto Piotrków Trybunalski', base_url='https://ikerg.piotrkow.pl/piotrkow-egib'
+    ),
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
     '1208': Geoportal2AreaParser(name='miechowski', url_code='miechow'),
     '1211': Geoportal2AreaParser(name='nowotarski', url_code='nowotarski'),
     '1215': Geoportal2AreaParser(name='suski', url_code='powiatsuski'),
+    '1261': GIPortalAreaParser(
+        name='miasto Kraków', base_url='https://geodezja.eco.um.krakow.pl/krakow-egib'
+    ),
     # 14 – "mazowieckie"
     '1401': Geoportal2AreaParser(name='białobrzeski', url_code='bialobrzegi'),
     '1402': Geoportal2AreaParser(name='ciechanowski', url_code='ciechanow'),
@@ -117,6 +153,20 @@ all_counties: Dict[str, AreaParser] = {
     '1464': Geoportal2AreaParser(name='miasto Siedlce', url_code='siedlce'),
     '1465': WarszawaAreaParser(name='miasto Warszawa', url_code=''),
     # 16 – "opolskie"
+    '1601': GIPortalAreaParser(name='brzeski', base_url='https://imapa.brzeg-powiat.pl/brzeg-egib'),
+    '1602': GIPortalAreaParser(
+        name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
+    ),
+    '1604': GIPortalAreaParser(name='kluczborski', base_url='http://185.108.68.134/kluczbork-egib'),
+    '1605': GIPortalAreaParser(
+        name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
+    ),
+    '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
+    '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
+    '1610': GIPortalAreaParser(
+        name='prudnicki', base_url='https://ikerg2.powiatprudnicki.pl/prudnik-egib'
+    ),
+    '1661': GIPortalAreaParser(name='miasto Opole', base_url='https://wms.um.opole.pl/opole-egib'),
     # 18 – "podkarpackie"
     '1803': Geoportal2AreaParser(name='dębicki', url_code='debica'),
     '1806': Geoportal2AreaParser(name='kolbuszowski', url_code='kolbuszowa'),
@@ -152,7 +202,17 @@ all_counties: Dict[str, AreaParser] = {
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
     '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
     '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),
+    '2416': GIPortalAreaParser(
+        name='zawierciański', base_url='https://ikerg.zawiercie.powiat.pl/powiatzawiercianski-egib'
+    ),
+    '2461': GIPortalAreaParser(
+        name='miasto Bielsko-Biała', base_url='https://ikerg.bielsko-biala.pl/bielsko-egib'
+    ),
+    '2462': GIPortalAreaParser(name='miasto Bytom', base_url='https://iwms.um.bytom.pl/bytom-egib'),
     '2467': Geoportal2AreaParser(name='miasto Jastrzębie-Zdrój', url_code='jastrzebie'),
+    '2470': GIPortalAreaParser(
+        name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
+    ),
     '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
@@ -172,6 +232,9 @@ all_counties: Dict[str, AreaParser] = {
     '2801': Geoportal2AreaParser(name='bartoszycki', url_code='powiatbartoszyce'),
     '2802': Geoportal2AreaParser(name='braniewski', url_code='powiat-braniewo'),
     '2803': Geoportal2AreaParser(name='działdowski', url_code='powiatdzialdowski'),
+    '2804': GIPortalAreaParser(
+        name='elbląski', base_url='https://ikerg.powiat.elblag.pl/elblaski-egib'
+    ),
     '2805': Geoportal2AreaParser(name='ełcki', url_code='powiatelk'),
     '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
     '2807': Geoportal2AreaParser(name='iławski', url_code='ilawa'),
@@ -188,10 +251,65 @@ all_counties: Dict[str, AreaParser] = {
     '2818': Geoportal2AreaParser(name='gołdapski', url_code='powiatgoldap'),
     '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
     # 30 – "wielkopolskie"
+    '3003': GIPortalAreaParser(
+        name='gnieźnieński', base_url='https://wms.geodezjagniezno.pl/gniezno-egib'
+    ),
+    '3004': GIPortalAreaParser(
+        name='gostyński', base_url='https://imapa.powiat.gostyn.pl/gostyn-egib'
+    ),
+    '3005': GIPortalAreaParser(name='grodziski', base_url='https://ikerg.pgw.pl/grodziskwlkp-egib'),
+    '3006': GIPortalAreaParser(
+        name='jarociński', base_url='https://ikerg.powiat-jarocinski.pl/jarocin-egib'
+    ),
     '3007': Geoportal2AreaParser(name='kaliski', url_code='kalisz'),
+    '3008': GIPortalAreaParser(name='kępiński', base_url='https://ikerg.powiatkepno.pl/kepno-egib'),
+    '3009': GIPortalAreaParser(
+        name='kolski', base_url='https://ikerg.starostwokolskie.pl/powiatkolski-egib'
+    ),
     '3010': Geoportal2AreaParser(name='koniński', url_code='konin'),
     '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
+    '3015': GIPortalAreaParser(
+        name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
+    ),
+    '3017': GIPortalAreaParser(
+        name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
+    ),
+    '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
+    '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
+    '3028': GIPortalAreaParser(
+        name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
+    ),
+    '3029': GIPortalAreaParser(
+        name='wolsztyński', base_url='https://ikerg.powiatwolsztyn.pl/wolsztyn-egib'
+    ),
+    '3031': GIPortalAreaParser(
+        name='złotowski', base_url='https://ikerg.zlotow-powiat.pl/zlotow-egib'
+    ),
+    '3061': GIPortalAreaParser(
+        name='miasto Kalisz', base_url='https://ikerg.um.kalisz.pl/kalisz-egib'
+    ),
+    '3062': GIPortalAreaParser(
+        name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
+    ),
     # 32 – "zachodniopomorskie"
+    '3202': GIPortalAreaParser(
+        name='choszczeński', base_url='https://ikerg.geopowiatchoszczno.pl/choszczno-egib'
+    ),
+    '3205': GIPortalAreaParser(
+        name='gryficki', base_url='https://ikerg.podgikgryfice.pl/gryfice-egib'
+    ),
+    '3210': GIPortalAreaParser(
+        name='myśliborski', base_url='https://wms.powiatmysliborski.com.pl/mysliborz-egib'
+    ),
+    '3211': GIPortalAreaParser(name='policki', base_url='https://wgkik.policki.pl/police-egib'),
+    '3212': GIPortalAreaParser(name='pyrzycki', base_url='https://ikerg.pyrzyce.pl/pyrzyce-egib'),
+    '3214': GIPortalAreaParser(
+        name='stargardzki', base_url='https://ikerg2.powiatstargardzki.eu/stargard-egib'
+    ),
+    '3218': GIPortalAreaParser(name='łobeski', base_url='https://wms.powiatlobeski.pl/lobez-egib'),
+    '3262': GIPortalAreaParser(
+        name='miasto Szczecin', base_url='https://wms.e-osrodek.szczecin.pl/szczecin-egib'
+    ),
 }
 # Few exception which counties are already defined but these communes has own servive for the data
 communes = {
