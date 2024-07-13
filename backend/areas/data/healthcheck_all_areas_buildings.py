@@ -1585,6 +1585,94 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
+    # 32 – "zachodniopomorskie"
+    HealthCheckTestAreaData(
+        name='choszczeński',
+        teryt='3202',
+        lat=53.16596,
+        lon=15.40869,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='gryficki',
+        teryt='3205',
+        lat=53.91462,
+        lon=15.19969,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 5,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='myśliborski',
+        teryt='3210',
+        lat=52.92713,
+        lon=14.86139,
+        expected_tags={
+            'building': 'yes',
+            'building:levels': 5,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='policki',
+        teryt='3211',
+        lat=53.55142,
+        lon=14.55332,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='pyrzycki',
+        teryt='3212',
+        lat=53.13796,
+        lon=14.89251,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='stargardzki',
+        teryt='3214',
+        lat=53.33419,
+        lon=15.03866,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='łobeski',
+        teryt='3218',
+        lat=53.63377,
+        lon=15.61337,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 2,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Szczecin',
+        teryt='3262',
+        lat=53.43819,
+        lon=14.54228,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 5,
+        },
+    ),
 ]
 
 # Few exception which counties are already defined but these communes has own service for the data

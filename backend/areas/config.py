@@ -292,6 +292,24 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
     ),
     # 32 – "zachodniopomorskie"
+    '3202': GIPortalAreaParser(
+        name='choszczeński', base_url='https://ikerg.geopowiatchoszczno.pl/choszczno-egib'
+    ),
+    '3205': GIPortalAreaParser(
+        name='gryficki', base_url='https://ikerg.podgikgryfice.pl/gryfice-egib'
+    ),
+    '3210': GIPortalAreaParser(
+        name='myśliborski', base_url='https://wms.powiatmysliborski.com.pl/mysliborz-egib'
+    ),
+    '3211': GIPortalAreaParser(name='policki', base_url='https://wgkik.policki.pl/police-egib'),
+    '3212': GIPortalAreaParser(name='pyrzycki', base_url='https://ikerg.pyrzyce.pl/pyrzyce-egib'),
+    '3214': GIPortalAreaParser(
+        name='stargardzki', base_url='https://ikerg2.powiatstargardzki.eu/stargard-egib'
+    ),
+    '3218': GIPortalAreaParser(name='łobeski', base_url='https://wms.powiatlobeski.pl/lobez-egib'),
+    '3262': GIPortalAreaParser(
+        name='miasto Szczecin', base_url='https://wms.e-osrodek.szczecin.pl/szczecin-egib'
+    ),
 }
 # Few exception which counties are already defined but these communes has own servive for the data
 communes = {
