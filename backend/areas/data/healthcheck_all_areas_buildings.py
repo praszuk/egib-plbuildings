@@ -1540,7 +1540,6 @@ counties = [
         expected_tags={
             'building': 'office',
             'building:levels': 3,
-            'building:levels:underground': 1,
         },
     ),
     HealthCheckTestAreaData(
