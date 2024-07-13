@@ -1407,12 +1407,73 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 30 – "wielkopolskie"
+    HealthCheckTestAreaData(
+        name='gnieźnieński',
+        teryt='3003',
+        lat=52.535909,
+        lon=17.603401,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='gostyński',
+        teryt='3004',
+        lat=51.87562,
+        lon=17.01130,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='grodziski',
+        teryt='3005',
+        lat=52.22720,
+        lon=16.36340,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='jarociński',
+        teryt='3006',
+        lat=51.97248,
+        lon=17.49728,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
     HealthCheckTestAreaData(  # gmina Opatówek
         name='kaliski',
         teryt='3007',
         lat=51.73951,
         lon=18.21598,
         expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='kępiński',
+        teryt='3008',
+        lat=51.27589,
+        lon=17.98657,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 2,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='kolski',
+        teryt='3009',
+        lat=52.20050,
+        lon=18.63869,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+        },
     ),
     HealthCheckTestAreaData(  # gmina Sompolno
         name='koniński',
@@ -1427,6 +1488,102 @@ counties = [
         lat=52.60663,
         lon=15.90180,
         expected_tags={'building': 'office', 'building:levels': 3},
+    ),
+    HealthCheckTestAreaData(
+        name='nowotomyski',
+        teryt='3015',
+        lat=52.31644,
+        lon=16.13853,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='ostrowski',
+        teryt='3017',
+        lat=51.64720,
+        lon=17.81990,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='pleszewski',
+        teryt='3020',
+        lat=51.89576,
+        lon=17.78653,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='śremski',
+        teryt='3026',
+        lat=52.08819,
+        lon=17.01912,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='wągrowiecki',
+        teryt='3028',
+        lat=52.81105,
+        lon=17.19926,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='wolsztyński',
+        teryt='3029',
+        lat=52.11394,
+        lon=16.10789,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='złotowski',
+        teryt='3031',
+        lat=53.36165,
+        lon=17.04817,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Kalisz',
+        teryt='3061',
+        lat=51.76280,
+        lon=18.09311,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Konin',
+        teryt='3062',
+        lat=52.22799,
+        lon=18.25381,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
     ),
 ]
 

@@ -251,9 +251,46 @@ all_counties: Dict[str, AreaParser] = {
     '2818': Geoportal2AreaParser(name='gołdapski', url_code='powiatgoldap'),
     '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
     # 30 – "wielkopolskie"
+    '3003': GIPortalAreaParser(
+        name='gnieźnieński', base_url='https://wms.geodezjagniezno.pl/gniezno-egib'
+    ),
+    '3004': GIPortalAreaParser(
+        name='gostyński', base_url='https://imapa.powiat.gostyn.pl/gostyn-egib'
+    ),
+    '3005': GIPortalAreaParser(name='grodziski', base_url='https://ikerg.pgw.pl/grodziskwlkp-egib'),
+    '3006': GIPortalAreaParser(
+        name='jarociński', base_url='https://ikerg.powiat-jarocinski.pl/jarocin-egib'
+    ),
     '3007': Geoportal2AreaParser(name='kaliski', url_code='kalisz'),
+    '3008': GIPortalAreaParser(name='kępiński', base_url='https://ikerg.powiatkepno.pl/kepno-egib'),
+    '3009': GIPortalAreaParser(
+        name='kolski', base_url='https://ikerg.starostwokolskie.pl/powiatkolski-egib'
+    ),
     '3010': Geoportal2AreaParser(name='koniński', url_code='konin'),
     '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
+    '3015': GIPortalAreaParser(
+        name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
+    ),
+    '3017': GIPortalAreaParser(
+        name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
+    ),
+    '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
+    '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
+    '3028': GIPortalAreaParser(
+        name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
+    ),
+    '3029': GIPortalAreaParser(
+        name='wolsztyński', base_url='https://ikerg.powiatwolsztyn.pl/wolsztyn-egib'
+    ),
+    '3031': GIPortalAreaParser(
+        name='złotowski', base_url='https://ikerg.zlotow-powiat.pl/zlotow-egib'
+    ),
+    '3061': GIPortalAreaParser(
+        name='miasto Kalisz', base_url='https://ikerg.um.kalisz.pl/kalisz-egib'
+    ),
+    '3062': GIPortalAreaParser(
+        name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
+    ),
     # 32 – "zachodniopomorskie"
 }
 # Few exception which counties are already defined but these communes has own servive for the data
