@@ -1201,11 +1201,32 @@ counties = [
     ),
     # 22 – "pomorskie"
     HealthCheckTestAreaData(
+        name='lęborski',
+        teryt='2208',
+        lat=54.53907,
+        lon=17.74075,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='nowodworski',
+        teryt='2210',
+        lat=52.42621,
+        lon=20.71990,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='wejherowski',
         teryt='2215',
         lat=54.60103,
         lon=18.23298,
         expected_tags={'building': 'office', 'building:levels': 3},
+    ),
+    HealthCheckTestAreaData(
+        name='sztumski',
+        teryt='2216',
+        lat=53.91887,
+        lon=19.03212,
+        expected_tags={'building': 'office'},
     ),
     # 24 - "śląskie"
     HealthCheckTestAreaData(

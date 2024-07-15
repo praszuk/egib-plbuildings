@@ -213,7 +213,10 @@ all_counties: Dict[str, AreaParser] = {
     '2013': Geoportal2AreaParser(name='wysokomazowiecki', url_code='wysokomazowiecki'),
     '2014': Geoportal2AreaParser(name='zambrowski', url_code='powiatzambrowski'),
     # 22 – "pomorskie"
+    '2208': GeoportalAreaParser(name='lęborski', url_code='2208', default_crs=2180),
+    '2210': GeoportalAreaParser(name='nowodworski', url_code='2210', default_crs=2180),
     '2215': EpodgikAreaParser(name='wejherowski', url_code='wejherowo'),
+    '2216': GeoportalAreaParser(name='sztumski', url_code='2216', default_crs=2180),
     # 24 – "śląskie"
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
