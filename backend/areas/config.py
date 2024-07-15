@@ -107,6 +107,8 @@ all_counties: Dict[str, AreaParser] = {
     '1016': Geoportal2AreaParser(name='tomaszowski', url_code='powiat-tomaszowski'),
     '1017': Geoportal2AreaParser(name='wieluński', url_code='wielun'),
     '1018': Geoportal2AreaParser(name='wieruszowski', url_code='wieruszow'),
+    '1019': GeoportalAreaParser(name='zduńskowolski', url_code='1019', default_crs=2180),
+    '1020': GeoportalAreaParser(name='zgierski', url_code='1020', default_crs=2180),
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
     '1062': GIPortalAreaParser(
         name='miasto Piotrków Trybunalski', base_url='https://ikerg.piotrkow.pl/piotrkow-egib'

@@ -527,6 +527,20 @@ counties = [
         lon=18.32722,
         expected_tags={'building': 'office'},
     ),
+    HealthCheckTestAreaData(
+        name='zduńskowolski',
+        teryt='1019',
+        lat=51.59866,
+        lon=18.93762,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='zgierski',
+        teryt='1020',
+        lat=51.84012,
+        lon=19.42342,
+        expected_tags={'building': 'office'},
+    ),
     HealthCheckTestAreaData(  # gmina Jeżów (Brzeziny no data yet)
         name='brzeziński',
         teryt='1021',
