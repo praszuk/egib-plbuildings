@@ -103,6 +103,20 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 04 – "kujawsko-pomorskie"
+    HealthCheckTestAreaData(  # gmina Koronowo
+        name='bydgoski',
+        teryt='0403',
+        lat=53.31413,
+        lon=17.93781,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(  # gmina Łasin
+        name='grudziądzki',
+        teryt='0406',
+        lat=53.51820,
+        lon=19.08286,
+        expected_tags={'building': 'office'},
+    ),
     HealthCheckTestAreaData(
         name='lipnowski',
         teryt='0408',
@@ -125,6 +139,13 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='sępoleński',
+        teryt='0413',
+        lat=53.45663,
+        lon=17.53797,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='wąbrzeski',
         teryt='0417',
         lat=53.27565,
@@ -136,6 +157,13 @@ counties = [
         teryt='0418',
         lat=52.53273,
         lon=19.15530,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Bydgoszcz',
+        teryt='0461',
+        lat=53.13446,
+        lon=17.99335,
         expected_tags={'building': 'office'},
     ),
     # 06 – "lubelskie"

@@ -38,11 +38,15 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
     # 04 – "kujawsko-pomorskie"
+    '0403': GeoportalAreaParser(name='bydgoski', url_code='0403', default_crs=2180),
+    '0406': GeoportalAreaParser(name='grudziądzki', url_code='0406', default_crs=2180),
     '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
     '0411': Geoportal2AreaParser(name='radziejowski', url_code='radziejow'),
     '0412': Geoportal2AreaParser(name='rypiński', url_code='rypin'),
+    '0413': GeoportalAreaParser(name='sępoleński', url_code='0413', default_crs=2180),
     '0417': Geoportal2AreaParser(name='wąbrzeski', url_code='wabrzezno'),
     '0418': Geoportal2AreaParser(name='włocławski', url_code='wloclawek'),
+    '0461': GeoportalAreaParser(name='miasto Bydgoszcz', url_code='0461', default_crs=2180),
     # 06 – "lubelskie"
     '0601': Geoportal2AreaParser(name='bialski', url_code='powiatbialski'),
     '0602': Geoportal2AreaParser(name='biłgorajski', url_code='bilgorajski'),
