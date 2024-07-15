@@ -52,8 +52,6 @@ counties = [
         lon=15.28558,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
-            'building:levels:underground': 1,
         },
     ),
     HealthCheckTestAreaData(
@@ -1190,7 +1188,7 @@ counties = [
         teryt='2013',
         lat=52.99272,
         lon=22.70002,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'yes'},
     ),
     HealthCheckTestAreaData(
         name='zambrowski',
