@@ -209,6 +209,7 @@ all_counties: Dict[str, AreaParser] = {
     '2008': Geoportal2AreaParser(name='moniecki', url_code='monki'),
     '2009': Geoportal2AreaParser(name='sejneński', url_code='sejny'),
     '2011': Geoportal2AreaParser(name='sokólski', url_code='powiatsokolski'),
+    '2012': GeoportalAreaParser(name='suwalski', url_code='2012', default_crs=2180),
     '2013': Geoportal2AreaParser(name='wysokomazowiecki', url_code='wysokomazowiecki'),
     '2014': Geoportal2AreaParser(name='zambrowski', url_code='powiatzambrowski'),
     # 22 – "pomorskie"

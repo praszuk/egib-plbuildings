@@ -1178,6 +1178,13 @@ counties = [
         lon=23.49573,
         expected_tags={'building': 'office'},
     ),
+    HealthCheckTestAreaData(  # gmina Raczki
+        name='suwalski',
+        teryt='2012',
+        lat=53.98874,
+        lon=22.78396,
+        expected_tags={'building': 'office'},
+    ),
     HealthCheckTestAreaData(  # gmina Sokoły (main city just missing data yet)
         name='wysokomazowiecki',
         teryt='2013',
