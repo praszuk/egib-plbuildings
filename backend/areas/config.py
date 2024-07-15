@@ -4,6 +4,7 @@ from typing import Dict, TypeVar
 from backend.areas.parsers import (
     BaseAreaParser,
     EpodgikAreaParser,
+    GeoportalAreaParser,
     Geoportal2AreaParser,
     GIPortalAreaParser,
     WarszawaAreaParser,
@@ -13,6 +14,7 @@ from backend.areas.parsers import (
 AreaParser = TypeVar('AreaParser', bound=BaseAreaParser)
 all_counties: Dict[str, AreaParser] = {
     # 02 – "dolnośląskie"
+    '0201': GeoportalAreaParser(name='bolesławiecki', url_code='0201', default_crs=2180),
     '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
     '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),
     '0205': Geoportal2AreaParser(name='jaworski', url_code='jawor'),
@@ -26,6 +28,8 @@ all_counties: Dict[str, AreaParser] = {
     '0212': GIPortalAreaParser(
         name='lwówecki', base_url='https://ikerg.powiatlwowecki.pl/lwowekslaski-egib'
     ),
+    '0218': GeoportalAreaParser(name='średzki', url_code='0218', default_crs=2180),
+    '0221': GeoportalAreaParser(name='wałbrzyski', url_code='0221', default_crs=2180),
     '0225': GIPortalAreaParser(
         name='zgorzelecki', base_url='https://iegib.powiat.zgorzelec.pl/zgorzelec-egib'
     ),

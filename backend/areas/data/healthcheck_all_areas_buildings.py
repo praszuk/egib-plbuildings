@@ -4,6 +4,13 @@ from backend.areas.models import HealthCheckTestAreaData
 counties = [
     # 02 – "dolnośląskie"
     HealthCheckTestAreaData(
+        name='bolesławiecki',
+        teryt='0201',
+        lat=51.26230,
+        lon=15.56843,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='głogowski',
         teryt='0203',
         lat=51.66531,
@@ -55,6 +62,20 @@ counties = [
         lat=51.11181,
         lon=15.58348,
         expected_tags={'building': 'yes', 'building:levels': 3},
+    ),
+    HealthCheckTestAreaData(
+        name='średzki',
+        teryt='0218',
+        lat=51.26230,
+        lon=15.56843,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(  # gmina Głuszyca
+        name='wałbrzyski',
+        teryt='0221',
+        lat=50.69437,
+        lon=16.37008,
+        expected_tags={'building': 'yes'},
     ),
     HealthCheckTestAreaData(
         name='zgorzelecki',
