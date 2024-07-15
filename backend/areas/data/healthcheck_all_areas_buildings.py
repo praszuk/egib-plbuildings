@@ -927,6 +927,15 @@ counties = [
         },
     ),
     HealthCheckTestAreaData(
+        name='kędzierzyńsko-kozielski',
+        teryt='1603',
+        lat=50.34456,
+        lon=18.21140,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
+    HealthCheckTestAreaData(
         name='kluczborski',
         teryt='1604',
         lat=50.97278,
@@ -945,6 +954,15 @@ counties = [
         expected_tags={
             'building': 'office',
             'building:levels': 4,
+        },
+    ),
+    HealthCheckTestAreaData(
+        name='namysłowski',
+        teryt='1606',
+        lat=51.07402,
+        lon=17.72067,
+        expected_tags={
+            'building': 'office',
         },
     ),
     HealthCheckTestAreaData(

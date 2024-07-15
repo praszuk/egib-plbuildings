@@ -171,10 +171,12 @@ all_counties: Dict[str, AreaParser] = {
     '1602': GIPortalAreaParser(
         name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
     ),
+    '1603': GeoportalAreaParser(name='kędzierzyńsko-kozielski', url_code='1603', default_crs=2180),
     '1604': GIPortalAreaParser(name='kluczborski', base_url='http://185.108.68.134/kluczbork-egib'),
     '1605': GIPortalAreaParser(
         name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
     ),
+    '1606': GeoportalAreaParser(name='namysłowski', url_code='1606', default_crs=2180),
     '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
     '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
     '1610': GIPortalAreaParser(
