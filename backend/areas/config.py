@@ -251,6 +251,7 @@ all_counties: Dict[str, AreaParser] = {
     '2611': Geoportal2AreaParser(name='starachowicki', url_code='starachowice'),
     '2612': Geoportal2AreaParser(name='staszowski', url_code='staszow'),
     '2613': Geoportal2AreaParser(name='włoszczowski', url_code='wloszczowa'),
+    '2661': GeoportalAreaParser(name='miasto Kielce', url_code='2661', default_crs=2180),
     # 28 – "warmińsko-mazurskie"
     '2801': Geoportal2AreaParser(name='bartoszycki', url_code='powiatbartoszyce'),
     '2802': Geoportal2AreaParser(name='braniewski', url_code='powiat-braniewo'),

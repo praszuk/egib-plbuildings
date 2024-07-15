@@ -1427,6 +1427,13 @@ counties = [
         lon=19.97492,
         expected_tags={'building': 'yes'},  # empty
     ),
+    HealthCheckTestAreaData(
+        name='miasto Kielce',
+        teryt='2661',
+        lat=50.84528,
+        lon=20.63407,
+        expected_tags={'building': 'office'},
+    ),
     # 28 – "warmińsko-mazurskie"
     HealthCheckTestAreaData(
         name='bartoszycki',
