@@ -337,7 +337,9 @@ all_counties: Dict[str, AreaParser] = {
     '3214': GIPortalAreaParser(
         name='stargardzki', base_url='https://ikerg2.powiatstargardzki.eu/stargard-egib'
     ),
+    '3216': GeoportalAreaParser(name='świdwiński', url_code='3216', default_crs=2180),
     '3218': GIPortalAreaParser(name='łobeski', base_url='https://wms.powiatlobeski.pl/lobez-egib'),
+    '3261': GeoportalAreaParser(name='miasto Koszalin', url_code='3261', default_crs=2180),
     '3262': GIPortalAreaParser(
         name='miasto Szczecin', base_url='https://wms.e-osrodek.szczecin.pl/szczecin-egib'
     ),

@@ -1866,6 +1866,13 @@ counties = [
         },
     ),
     HealthCheckTestAreaData(
+        name='świdwiński',
+        teryt='3216',
+        lat=53.77331,
+        lon=15.77030,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='łobeski',
         teryt='3218',
         lat=53.63377,
@@ -1875,6 +1882,13 @@ counties = [
             'building:levels': 2,
             'building:levels:underground': 1,
         },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Koszalin',
+        teryt='3261',
+        lat=54.18817,
+        lon=16.19333,
+        expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
         name='miasto Szczecin',
