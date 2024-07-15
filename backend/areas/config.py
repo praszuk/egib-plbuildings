@@ -275,6 +275,7 @@ all_counties: Dict[str, AreaParser] = {
     '2818': Geoportal2AreaParser(name='gołdapski', url_code='powiatgoldap'),
     '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
     # 30 – "wielkopolskie"
+    '3001': GeoportalAreaParser(name='chodzieski', url_code='3001', default_crs=2180),
     '3003': GIPortalAreaParser(
         name='gnieźnieński', base_url='https://wms.geodezjagniezno.pl/gniezno-egib'
     ),
@@ -291,14 +292,19 @@ all_counties: Dict[str, AreaParser] = {
         name='kolski', base_url='https://ikerg.starostwokolskie.pl/powiatkolski-egib'
     ),
     '3010': Geoportal2AreaParser(name='koniński', url_code='konin'),
+    '3012': GeoportalAreaParser(name='krotoszyński', url_code='3012', default_crs=2180),
     '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
     '3015': GIPortalAreaParser(
         name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
     ),
+    '3016': GeoportalAreaParser(name='obornicki', url_code='3016', default_crs=2180),
     '3017': GIPortalAreaParser(
         name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
     ),
+    '3019': GeoportalAreaParser(name='pilski', url_code='3019', default_crs=2180),
     '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
+    '3022': GeoportalAreaParser(name='rawicki', url_code='3022', default_crs=2180),
+    '3023': GeoportalAreaParser(name='słupecki', url_code='3023', default_crs=2180),
     '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
     '3028': GIPortalAreaParser(
         name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
@@ -315,6 +321,7 @@ all_counties: Dict[str, AreaParser] = {
     '3062': GIPortalAreaParser(
         name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
     ),
+    '3063': GeoportalAreaParser(name='miasto Leszno', url_code='3063', default_crs=2180),
     # 32 – "zachodniopomorskie"
     '3202': GIPortalAreaParser(
         name='choszczeński', base_url='https://ikerg.geopowiatchoszczno.pl/choszczno-egib'

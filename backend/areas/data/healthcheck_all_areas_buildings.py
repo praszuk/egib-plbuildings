@@ -1573,6 +1573,13 @@ counties = [
     ),
     # 30 – "wielkopolskie"
     HealthCheckTestAreaData(
+        name='chodzieski',
+        teryt='3001',
+        lat=52.99566,
+        lon=16.91908,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='gnieźnieński',
         teryt='3003',
         lat=52.535909,
@@ -1648,6 +1655,13 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='krotoszyński',
+        teryt='3012',
+        lat=51.69203,
+        lon=17.43794,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='międzychodzki',
         teryt='3014',
         lat=52.60663,
@@ -1666,6 +1680,13 @@ counties = [
         },
     ),
     HealthCheckTestAreaData(
+        name='obornicki',
+        teryt='3016',
+        lat=52.64746,
+        lon=16.81732,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='ostrowski',
         teryt='3017',
         lat=51.64720,
@@ -1677,6 +1698,13 @@ counties = [
         },
     ),
     HealthCheckTestAreaData(
+        name='pilski',
+        teryt='3019',
+        lat=53.15593,
+        lon=16.73798,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='pleszewski',
         teryt='3020',
         lat=51.89576,
@@ -1685,6 +1713,20 @@ counties = [
             'building': 'office',
             'building:levels': 3,
         },
+    ),
+    HealthCheckTestAreaData(
+        name='rawicki',
+        teryt='3022',
+        lat=51.60858,
+        lon=16.85871,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='słupecki',
+        teryt='3023',
+        lat=52.28927,
+        lon=17.86798,
+        expected_tags={'building': 'yes'},
     ),
     HealthCheckTestAreaData(
         name='śremski',
@@ -1748,6 +1790,13 @@ counties = [
             'building:levels': 4,
             'building:levels:underground': 1,
         },
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Leszno',
+        teryt='3063',
+        lat=51.84684,
+        lon=16.57777,
+        expected_tags={'building': 'office'},
     ),
     # 32 – "zachodniopomorskie"
     HealthCheckTestAreaData(
