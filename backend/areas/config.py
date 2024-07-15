@@ -163,6 +163,7 @@ all_counties: Dict[str, AreaParser] = {
     '1437': Geoportal2AreaParser(name='żuromiński', url_code='zuromin-powiat'),
     '1438': EpodgikAreaParser(name='żyrardowski', url_code='zyrardow'),
     '1461': Geoportal2AreaParser(name='miasto Ostrołęka', url_code='ostroleka'),
+    '1463': GeoportalAreaParser(name='miasto Radom', url_code='1463', default_crs=2180),
     '1464': Geoportal2AreaParser(name='miasto Siedlce', url_code='siedlce'),
     '1465': WarszawaAreaParser(name='miasto Warszawa', url_code=''),
     # 16 – "opolskie"

@@ -884,6 +884,13 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='miasto Radom',
+        teryt='1463',
+        lat=51.39118,
+        lon=21.16101,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='miasto Siedlce',
         teryt='1464',
         lat=52.16863,
