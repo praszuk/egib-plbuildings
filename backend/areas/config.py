@@ -220,6 +220,7 @@ all_counties: Dict[str, AreaParser] = {
     # 24 – "śląskie"
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
+    '2409': GeoportalAreaParser(name='myszkowski', url_code='2409', default_crs=2180),
     '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
     '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),
     '2416': GIPortalAreaParser(
@@ -234,7 +235,9 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
     ),
     '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
+    '2473': GeoportalAreaParser(name='miasto Rybnik', url_code='2473', default_crs=2180),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
+    '2475': GeoportalAreaParser(name='miasto Sosnowiec', url_code='2475', default_crs=2180),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
     # 26 – "świętokrzyskie"
     '2602': Geoportal2AreaParser(name='jędrzejowski', url_code='jedrzejow'),

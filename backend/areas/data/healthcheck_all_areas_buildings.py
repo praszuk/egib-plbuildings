@@ -1244,6 +1244,13 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='myszkowski',
+        teryt='2409',
+        lat=50.57383,
+        lon=19.32037,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='raciborski',
         teryt='2411',
         lat=50.09915,
@@ -1315,10 +1322,24 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='miasto Rybnik',
+        teryt='2473',
+        lat=50.08986,
+        lon=18.54475,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='miasto Siemianowice Śląskie',
         teryt='2474',
         lat=50.31834,
         lon=19.01100,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='miasto Sosnowiec',
+        teryt='2475',
+        lat=50.27840,
+        lon=19.12948,
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
