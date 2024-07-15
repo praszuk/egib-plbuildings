@@ -59,7 +59,9 @@ class BaseAreaParser(Area):
         pass
 
     @staticmethod
-    def _gml_to_geojson(gml_content: str, prefix: str, geometry_tag: str) -> dict[str, Any]:
+    def _gml_to_geojson(
+        gml_content: str, prefix: str, geometry_tag: str, custom_input_crs: int = None
+    ) -> dict[str, Any]:
         features: List[Dict[str, Any]] = []
 
         root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
@@ -85,6 +87,15 @@ class BaseAreaParser(Area):
 
                     gml_geom = etree.tostring(polygons[0]).decode('utf-8')
                     geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
+
+                    # Reproject to 4326
+                    if custom_input_crs:
+                        source = osr.SpatialReference()
+                        source.ImportFromEPSG(custom_input_crs)
+                        target = osr.SpatialReference()
+                        target.SetWellKnownGeogCS('WGS84')
+                        transform = osr.CoordinateTransformation(source, target)
+                        geometry.Transform(transform)
 
                     # fix incorrect lat lon order
                     point = geometry.GetGeometryRef(0).GetPoint(0)
@@ -136,6 +147,32 @@ class BaseAreaParser(Area):
 
         return tags
 
+    @staticmethod
+    def reproject_coordinates(lat: float, lon: float, dest_epsg: int) -> (float, float):
+        """
+        :param lat: in EPSG:4326
+        :param lon: in EPSG:4326
+        :param dest_epsg: destination projection from EPSG code e.g. 2180
+        :return: x, y
+        """
+
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(4326)
+
+        target = osr.SpatialReference()
+        target.ImportFromEPSG(dest_epsg)
+
+        # Create a coordinate transformation
+        transform = osr.CoordinateTransformation(source, target)
+
+        # Transform the point
+        point = ogr.Geometry(ogr.wkbPoint)
+        point.AddPoint(lat, lon)
+
+        point.Transform(transform)
+
+        return point.GetX(), point.GetY()
+
 
 class EpodgikAreaParser(BaseAreaParser):
     def build_url(self, lat: float, lon: float) -> str:
@@ -164,6 +201,42 @@ class EpodgikAreaParser(BaseAreaParser):
                 tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
 
             # RODZAJ and ID_BUDYNKU skipped
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
+
+
+class GeoportalAreaParser(BaseAreaParser):
+    def build_url(self, lat: float, lon: float) -> str:
+        x, y = self.reproject_coordinates(lat, lon, self.default_crs)
+        bbox = ','.join(map(str, [x, y, x, y]))
+        return (
+            f'https://mapy.geoportal.gov.pl/wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'
+            f'?service=WFS'
+            f'&version=2.0.0'
+            f'&REQUEST=GetFeature'
+            f'&TYPENAMES=ms:budynki'
+            f'&bbox={bbox}'
+        )
+
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
+        return self._gml_to_geojson(
+            gml_content, prefix='ms', geometry_tag='msGeometry', custom_input_crs=self.default_crs
+        )
+
+    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('RODZAJ'), DEFAULT_BUILDING
+            )
+            if 'KONDYGNACJE_NADZIEMNE' in properties:
+                tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
+
+            if 'KONDYGNACJE_PODZIEMNE' in properties:
+                tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
 
         except KeyError as e:
             raise InvalidKeyParserError(e)

@@ -4,6 +4,7 @@ from typing import Dict, TypeVar
 from backend.areas.parsers import (
     BaseAreaParser,
     EpodgikAreaParser,
+    GeoportalAreaParser,
     Geoportal2AreaParser,
     GIPortalAreaParser,
     WarszawaAreaParser,
@@ -13,6 +14,7 @@ from backend.areas.parsers import (
 AreaParser = TypeVar('AreaParser', bound=BaseAreaParser)
 all_counties: Dict[str, AreaParser] = {
     # 02 – "dolnośląskie"
+    '0201': GeoportalAreaParser(name='bolesławiecki', url_code='0201', default_crs=2180),
     '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
     '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),
     '0205': Geoportal2AreaParser(name='jaworski', url_code='jawor'),
@@ -26,6 +28,8 @@ all_counties: Dict[str, AreaParser] = {
     '0212': GIPortalAreaParser(
         name='lwówecki', base_url='https://ikerg.powiatlwowecki.pl/lwowekslaski-egib'
     ),
+    '0218': GeoportalAreaParser(name='średzki', url_code='0218', default_crs=2180),
+    '0221': GeoportalAreaParser(name='wałbrzyski', url_code='0221', default_crs=2180),
     '0225': GIPortalAreaParser(
         name='zgorzelecki', base_url='https://iegib.powiat.zgorzelec.pl/zgorzelec-egib'
     ),
@@ -34,11 +38,15 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
     # 04 – "kujawsko-pomorskie"
+    '0403': GeoportalAreaParser(name='bydgoski', url_code='0403', default_crs=2180),
+    '0406': GeoportalAreaParser(name='grudziądzki', url_code='0406', default_crs=2180),
     '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
     '0411': Geoportal2AreaParser(name='radziejowski', url_code='radziejow'),
     '0412': Geoportal2AreaParser(name='rypiński', url_code='rypin'),
+    '0413': GeoportalAreaParser(name='sępoleński', url_code='0413', default_crs=2180),
     '0417': Geoportal2AreaParser(name='wąbrzeski', url_code='wabrzezno'),
     '0418': Geoportal2AreaParser(name='włocławski', url_code='wloclawek'),
+    '0461': GeoportalAreaParser(name='miasto Bydgoszcz', url_code='0461', default_crs=2180),
     # 06 – "lubelskie"
     '0601': Geoportal2AreaParser(name='bialski', url_code='powiatbialski'),
     '0602': Geoportal2AreaParser(name='biłgorajski', url_code='bilgorajski'),
@@ -99,6 +107,8 @@ all_counties: Dict[str, AreaParser] = {
     '1016': Geoportal2AreaParser(name='tomaszowski', url_code='powiat-tomaszowski'),
     '1017': Geoportal2AreaParser(name='wieluński', url_code='wielun'),
     '1018': Geoportal2AreaParser(name='wieruszowski', url_code='wieruszow'),
+    '1019': GeoportalAreaParser(name='zduńskowolski', url_code='1019', default_crs=2180),
+    '1020': GeoportalAreaParser(name='zgierski', url_code='1020', default_crs=2180),
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
     '1062': GIPortalAreaParser(
         name='miasto Piotrków Trybunalski', base_url='https://ikerg.piotrkow.pl/piotrkow-egib'
@@ -106,8 +116,11 @@ all_counties: Dict[str, AreaParser] = {
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
+    '1205': GeoportalAreaParser(name='gorlicki', url_code='1205', default_crs=2180),
     '1208': Geoportal2AreaParser(name='miechowski', url_code='miechow'),
+    '1209': GeoportalAreaParser(name='myślenicki', url_code='1209', default_crs=2180),
     '1211': Geoportal2AreaParser(name='nowotarski', url_code='nowotarski'),
+    '1214': GeoportalAreaParser(name='proszowicki', url_code='1214', default_crs=2180),
     '1215': Geoportal2AreaParser(name='suski', url_code='powiatsuski'),
     '1261': GIPortalAreaParser(
         name='miasto Kraków', base_url='https://geodezja.eco.um.krakow.pl/krakow-egib'
@@ -150,6 +163,7 @@ all_counties: Dict[str, AreaParser] = {
     '1437': Geoportal2AreaParser(name='żuromiński', url_code='zuromin-powiat'),
     '1438': EpodgikAreaParser(name='żyrardowski', url_code='zyrardow'),
     '1461': Geoportal2AreaParser(name='miasto Ostrołęka', url_code='ostroleka'),
+    '1463': GeoportalAreaParser(name='miasto Radom', url_code='1463', default_crs=2180),
     '1464': Geoportal2AreaParser(name='miasto Siedlce', url_code='siedlce'),
     '1465': WarszawaAreaParser(name='miasto Warszawa', url_code=''),
     # 16 – "opolskie"
@@ -157,10 +171,12 @@ all_counties: Dict[str, AreaParser] = {
     '1602': GIPortalAreaParser(
         name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
     ),
+    '1603': GeoportalAreaParser(name='kędzierzyńsko-kozielski', url_code='1603', default_crs=2180),
     '1604': GIPortalAreaParser(name='kluczborski', base_url='http://185.108.68.134/kluczbork-egib'),
     '1605': GIPortalAreaParser(
         name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
     ),
+    '1606': GeoportalAreaParser(name='namysłowski', url_code='1606', default_crs=2180),
     '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
     '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
     '1610': GIPortalAreaParser(
@@ -193,13 +209,18 @@ all_counties: Dict[str, AreaParser] = {
     '2008': Geoportal2AreaParser(name='moniecki', url_code='monki'),
     '2009': Geoportal2AreaParser(name='sejneński', url_code='sejny'),
     '2011': Geoportal2AreaParser(name='sokólski', url_code='powiatsokolski'),
+    '2012': GeoportalAreaParser(name='suwalski', url_code='2012', default_crs=2180),
     '2013': Geoportal2AreaParser(name='wysokomazowiecki', url_code='wysokomazowiecki'),
     '2014': Geoportal2AreaParser(name='zambrowski', url_code='powiatzambrowski'),
     # 22 – "pomorskie"
+    '2208': GeoportalAreaParser(name='lęborski', url_code='2208', default_crs=2180),
+    '2210': GeoportalAreaParser(name='nowodworski', url_code='2210', default_crs=2180),
     '2215': EpodgikAreaParser(name='wejherowski', url_code='wejherowo'),
+    '2216': GeoportalAreaParser(name='sztumski', url_code='2216', default_crs=2180),
     # 24 – "śląskie"
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
+    '2409': GeoportalAreaParser(name='myszkowski', url_code='2409', default_crs=2180),
     '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
     '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),
     '2416': GIPortalAreaParser(
@@ -214,7 +235,9 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
     ),
     '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
+    '2473': GeoportalAreaParser(name='miasto Rybnik', url_code='2473', default_crs=2180),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
+    '2475': GeoportalAreaParser(name='miasto Sosnowiec', url_code='2475', default_crs=2180),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
     # 26 – "świętokrzyskie"
     '2602': Geoportal2AreaParser(name='jędrzejowski', url_code='jedrzejow'),
@@ -228,6 +251,7 @@ all_counties: Dict[str, AreaParser] = {
     '2611': Geoportal2AreaParser(name='starachowicki', url_code='starachowice'),
     '2612': Geoportal2AreaParser(name='staszowski', url_code='staszow'),
     '2613': Geoportal2AreaParser(name='włoszczowski', url_code='wloszczowa'),
+    '2661': GeoportalAreaParser(name='miasto Kielce', url_code='2661', default_crs=2180),
     # 28 – "warmińsko-mazurskie"
     '2801': Geoportal2AreaParser(name='bartoszycki', url_code='powiatbartoszyce'),
     '2802': Geoportal2AreaParser(name='braniewski', url_code='powiat-braniewo'),
@@ -251,6 +275,7 @@ all_counties: Dict[str, AreaParser] = {
     '2818': Geoportal2AreaParser(name='gołdapski', url_code='powiatgoldap'),
     '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
     # 30 – "wielkopolskie"
+    '3001': GeoportalAreaParser(name='chodzieski', url_code='3001', default_crs=2180),
     '3003': GIPortalAreaParser(
         name='gnieźnieński', base_url='https://wms.geodezjagniezno.pl/gniezno-egib'
     ),
@@ -267,14 +292,19 @@ all_counties: Dict[str, AreaParser] = {
         name='kolski', base_url='https://ikerg.starostwokolskie.pl/powiatkolski-egib'
     ),
     '3010': Geoportal2AreaParser(name='koniński', url_code='konin'),
+    '3012': GeoportalAreaParser(name='krotoszyński', url_code='3012', default_crs=2180),
     '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
     '3015': GIPortalAreaParser(
         name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
     ),
+    '3016': GeoportalAreaParser(name='obornicki', url_code='3016', default_crs=2180),
     '3017': GIPortalAreaParser(
         name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
     ),
+    '3019': GeoportalAreaParser(name='pilski', url_code='3019', default_crs=2180),
     '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
+    '3022': GeoportalAreaParser(name='rawicki', url_code='3022', default_crs=2180),
+    '3023': GeoportalAreaParser(name='słupecki', url_code='3023', default_crs=2180),
     '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
     '3028': GIPortalAreaParser(
         name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
@@ -291,6 +321,7 @@ all_counties: Dict[str, AreaParser] = {
     '3062': GIPortalAreaParser(
         name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
     ),
+    '3063': GeoportalAreaParser(name='miasto Leszno', url_code='3063', default_crs=2180),
     # 32 – "zachodniopomorskie"
     '3202': GIPortalAreaParser(
         name='choszczeński', base_url='https://ikerg.geopowiatchoszczno.pl/choszczno-egib'
@@ -306,7 +337,9 @@ all_counties: Dict[str, AreaParser] = {
     '3214': GIPortalAreaParser(
         name='stargardzki', base_url='https://ikerg2.powiatstargardzki.eu/stargard-egib'
     ),
+    '3216': GeoportalAreaParser(name='świdwiński', url_code='3216', default_crs=2180),
     '3218': GIPortalAreaParser(name='łobeski', base_url='https://wms.powiatlobeski.pl/lobez-egib'),
+    '3261': GeoportalAreaParser(name='miasto Koszalin', url_code='3261', default_crs=2180),
     '3262': GIPortalAreaParser(
         name='miasto Szczecin', base_url='https://wms.e-osrodek.szczecin.pl/szczecin-egib'
     ),

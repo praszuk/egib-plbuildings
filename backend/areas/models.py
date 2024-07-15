@@ -12,6 +12,7 @@ class Area(ABC):
     name: str
     url_code: str = ''
     base_url: str = ''
+    default_crs: int = 4326  # used only if server failing bbox reprojection to 4326 (mapserver)
 
 
 @dataclass(frozen=True)
