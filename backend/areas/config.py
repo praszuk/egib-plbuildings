@@ -116,8 +116,11 @@ all_counties: Dict[str, AreaParser] = {
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
+    '1205': GeoportalAreaParser(name='gorlicki', url_code='1205', default_crs=2180),
     '1208': Geoportal2AreaParser(name='miechowski', url_code='miechow'),
+    '1209': GeoportalAreaParser(name='myślenicki', url_code='1209', default_crs=2180),
     '1211': Geoportal2AreaParser(name='nowotarski', url_code='nowotarski'),
+    '1214': GeoportalAreaParser(name='proszowicki', url_code='1214', default_crs=2180),
     '1215': Geoportal2AreaParser(name='suski', url_code='powiatsuski'),
     '1261': GIPortalAreaParser(
         name='miasto Kraków', base_url='https://geodezja.eco.um.krakow.pl/krakow-egib'

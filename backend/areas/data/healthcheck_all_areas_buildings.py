@@ -575,10 +575,24 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='gorlicki',
+        teryt='1205',
+        lat=49.66297,
+        lon=21.16089,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
         name='miechowski',
         teryt='1208',
         lat=50.35614,
         lon=20.03211,
+        expected_tags={'building': 'office'},
+    ),
+    HealthCheckTestAreaData(
+        name='myślenicki',
+        teryt='1209',
+        lat=49.83607,
+        lon=19.94218,
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
@@ -587,6 +601,13 @@ counties = [
         lat=49.47819,
         lon=20.03440,
         expected_tags={'building': 'yes'},  # empty
+    ),
+    HealthCheckTestAreaData(
+        name='proszowicki',
+        teryt='1214',
+        lat=50.19172,
+        lon=20.29443,
+        expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
         name='suski',
