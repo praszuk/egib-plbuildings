@@ -1,4 +1,4 @@
-.PHONY: base-install install prod-install test mypy format format-check lint lint-check prod-run run clean healthcheck
+.PHONY: base-install install prod-install test mypy format format-check lint lint-check prod-run run clean healthcheck update
 
 SHELL := /bin/bash
 VENV=.venv
@@ -51,3 +51,7 @@ healthcheck:
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
 	rm -rf .pytest_cache .mypy_cache .counties_geoms.pickle __pycache__ $(VENV)
+
+update:
+	for filename in requirements/*.in; do pur -r $$filename; done
+	pip-compile-multi
