@@ -1,4 +1,5 @@
-mypy
-ruff
-pre-commit
-pip-compile-multi
+mypy==1.10.0
+ruff==0.4.10
+pre-commit==3.7.1
+pip-compile-multi==2.6.4
+pur==7.3.2
