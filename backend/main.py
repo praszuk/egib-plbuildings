@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
@@ -8,12 +10,13 @@ from backend.areas.finder import area_finder
 from backend.pages.pages import pages_router
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(_):
+    area_finder.load_data()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 app.mount('/static', StaticFiles(directory=settings.STATIC_DIR), name='static')
 app.include_router(api_router, prefix=settings.API_V1_STR)
 app.include_router(pages_router)
-
-
-@app.on_event('startup')
-def load_areas_data() -> None:
-    area_finder.load_data()
