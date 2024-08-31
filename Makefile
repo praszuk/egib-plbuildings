@@ -42,7 +42,7 @@ run:
 	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --reload --log-config $(LOG_CONFIG)
 
 prod-run:
-	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --log-config $(LOG_CONFIG)
+	$(PYTHON) -m uvicorn $(APP_DIR).main:app --host 0.0.0.0 --log-config $(LOG_CONFIG) --forwarded-allow-ips=*
 
 healthcheck:
 	export PYTHONPATH=$(PROJECT_DIR) && \
