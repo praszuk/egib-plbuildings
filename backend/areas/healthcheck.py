@@ -63,8 +63,8 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
         area_report = HealthCheckAreaReport(
             test_area_data=area,
             status_code=status_code,
-            is_building_data=building_data,
-            is_expected_building_data=expected_building_data,
+            has_building_data=building_data,
+            has_expected_building_data=expected_building_data,
             result_tags=building_tags,
         )
 
@@ -93,14 +93,14 @@ if __name__ == '__main__':
         json.dump(asdict(report), f)
 
     all_reports = list(report.counties.values()) + list(report.communes.values())
-    success_reports_num = sum(1 for report in all_reports if report.is_expected_building_data)
+    success_reports_num = sum(1 for report in all_reports if report.has_expected_building_data)
     logging.info(f'Success: {success_reports_num}/{len(all_reports)}')
     if len(all_reports) != success_reports_num:
         failed_teryt = ', '.join(
             [
                 report.test_area_data.teryt
                 for report in all_reports
-                if not report.is_expected_building_data
+                if not report.has_expected_building_data
             ]
         )
 
