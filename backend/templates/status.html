@@ -105,10 +105,10 @@
             liStatusCode.textContent = `Status code: ${county.status_code}`;
 
             const liIsBuildingData = document.createElement('li');
-            liIsBuildingData.textContent = `Is building data: ${county.is_building_data}`;
+            liIsBuildingData.textContent = `Is building data: ${county.has_building_data}`;
 
             const liExpectedBuildingData = document.createElement('li');
-            liExpectedBuildingData.textContent = `Expected building data: ${county.is_expected_building_data}`;
+            liExpectedBuildingData.textContent = `Expected building data: ${county.has_expected_building_data}`;
 
             ulElement.appendChild(liStatusCode);
             ulElement.appendChild(liIsBuildingData);
@@ -140,11 +140,11 @@
             tooltipContentDiv.appendChild(divExpectedVsReceivedTags);
         }
         function getFillColor(county) {
-            if (county.is_expected_building_data) {
+            if (county.has_expected_building_data) {
                 return '#00ff00';
-            } else if (county.is_building_data) {
+            } else if (county.has_building_data) {
                 return '#ffd700';
-            } else if (!county.is_building_data && county.status_code == '200') {
+            } else if (!county.has_building_data && county.status_code == '200') {
                 return '#fcaf89';
             } else {
                 return '#ff0000';
@@ -157,19 +157,19 @@
             const fillColor = getFillColor(county);
             fillCounty(countyPathElement, fillColor);
 
-            if (county.is_expected_building_data) {
+            if (county.has_expected_building_data) {
                 addTooltip(countyPathElement, createTooltipHTMLContentOnSuccess(countyTeryt, county));
                 successCounties += 1;
             } else {
                 let tooltipDivElem = createTooltipHTMLContentOnFailure(countyTeryt, county);
-                if (county.is_building_data) {
+                if (county.has_building_data) {
                     appendTagsElementToTooltipDiv(tooltipDivElem, county);
                 }
                 addTooltip(countyPathElement, tooltipDivElem);
             }
         });
         Object.entries(communes).forEach(([communeTeryt, commune]) => {
-            if (commune.is_expected_building_data) {
+            if (commune.has_expected_building_data) {
                 successCommunes += 1;
             }
         });

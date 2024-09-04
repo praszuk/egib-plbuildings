@@ -46,8 +46,8 @@ class HealthCheckTestAreaData:
 class HealthCheckAreaReport:
     test_area_data: HealthCheckTestAreaData
     status_code: int
-    is_building_data: bool = False
-    is_expected_building_data: bool = False
+    has_building_data: bool = False
+    has_expected_building_data: bool = False
     result_tags: Optional[Dict[str, Any]] = None
 
 
