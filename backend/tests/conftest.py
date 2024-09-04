@@ -14,6 +14,11 @@ def anyio_backend():  # without it tests are executed twice
 
 
 @pytest.fixture(scope='session')
+def test_data_dir():
+    return path.join(path.dirname(__file__), 'data')
+
+
+@pytest.fixture(scope='session')
 def test_epodgik_data_dir():
     return path.join(path.dirname(__file__), 'data', 'epodgik')
 
