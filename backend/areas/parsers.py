@@ -70,50 +70,56 @@ class BaseAreaParser(Area):
         for wfs_member in wfs_members:
             # get ms:budynki member
             bud_member = wfs_member.getchildren()[0]  # type: ignore[attr-defined]
-            feature: Dict[str, Any] = {
-                'type': 'Feature',
-                'geometry': {},
-                'properties': {},
-            }
+
+            geometries = []
+            properties = {}
             for child in bud_member.getchildren():
                 if not child.tag.startswith('{' + str(root.nsmap.get(prefix))):
                     continue
 
                 clean_tag = child.tag.replace(root.nsmap.get(prefix), '')[2:]
                 if clean_tag == geometry_tag:
+                    # 1 bud_member object (multisurface), can contain multiple polygons
                     polygons = bud_member.findall('.//gml:Polygon', namespaces=root.nsmap)
-                    if len(polygons) == 0:  # not sure
-                        continue
 
-                    gml_geom = etree.tostring(polygons[0]).decode('utf-8')
-                    geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
+                    for polygon in polygons:
+                        gml_geom = etree.tostring(polygon).decode('utf-8')
+                        geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
 
-                    # Reproject to 4326
-                    if custom_input_crs:
-                        source = osr.SpatialReference()
-                        source.ImportFromEPSG(custom_input_crs)
-                        target = osr.SpatialReference()
-                        target.SetWellKnownGeogCS('WGS84')
-                        transform = osr.CoordinateTransformation(source, target)
-                        geometry.Transform(transform)
+                        # Reproject to 4326
+                        if custom_input_crs:
+                            source = osr.SpatialReference()
+                            source.ImportFromEPSG(custom_input_crs)
+                            target = osr.SpatialReference()
+                            target.SetWellKnownGeogCS('WGS84')
+                            transform = osr.CoordinateTransformation(source, target)
+                            geometry.Transform(transform)
 
-                    # fix incorrect lat lon order
-                    point = geometry.GetGeometryRef(0).GetPoint(0)
-                    if point[0] > point[1]:
-                        source = osr.SpatialReference()
-                        source.ImportFromEPSG(4326)
-                        target = osr.SpatialReference()
-                        target.SetWellKnownGeogCS('WGS84')
-                        transform = osr.CoordinateTransformation(source, target)
-                        geometry.Transform(transform)
+                        # fix incorrect lat lon order
+                        point = geometry.GetGeometryRef(0).GetPoint(0)
+                        if point[0] > point[1]:
+                            source = osr.SpatialReference()
+                            source.ImportFromEPSG(4326)
+                            target = osr.SpatialReference()
+                            target.SetWellKnownGeogCS('WGS84')
+                            transform = osr.CoordinateTransformation(source, target)
+                            geometry.Transform(transform)
 
-                    geojson_str_geometry: str = geometry.ExportToJson()
+                        geojson_str_geometry: str = geometry.ExportToJson()
 
-                    feature['geometry'] = json.loads(geojson_str_geometry)
+                        geometries.append(json.loads(geojson_str_geometry))
+
                 else:
-                    feature['properties'][clean_tag] = child.text
+                    properties[clean_tag] = child.text
 
-            features.append(feature)
+            for geometry in geometries:
+                features.append(
+                    {
+                        'type': 'Feature',
+                        'geometry': geometry,
+                        'properties': properties,  # ignoring duplicated building_id etc.
+                    }
+                )
 
         return {'type': 'FeatureCollection', 'features': features}
 
