@@ -4,7 +4,7 @@ from httpx import AsyncClient
 
 from backend.core.logger import logger
 from backend.areas.config import all_areas
-from backend.areas.finder import area_finder
+from backend.areas.finder import area_finder, find_nearest_feature
 from backend.exceptions import AreaNotFound, AreaNotSupported
 
 
@@ -47,10 +47,8 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
             logger.debug(gml_content)
             geojson = area.parse_gml_to_geojson(gml_content)
 
-            # Avoid multiple buildings (it shouldn't normally occur)
-            # order/distance doesn't matter
             if len(geojson['features']) > 1:
-                geojson['features'] = [geojson['features'][0]]
+                geojson['features'] = [find_nearest_feature(lat, lon, geojson)]
 
             area.replace_properties_with_osm_tags(geojson)
             data = geojson
