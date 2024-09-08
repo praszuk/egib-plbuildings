@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EGiB areas statuses</title>
+    <title>EGiB stan powiatów</title>
     <style>
         .status-summary ul strong {
           display: inline-block;
@@ -30,16 +30,16 @@
     </style>
 </head>
 <body>
-<h1>Latest healthcheck:</h1>
+<h1>Najświeższy raport:</h1>
 <div class="status-summary">
     <ul>
         <li><strong>Start: </strong>{{ healthcheck_report.start_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
-        <li><strong>End: </strong>{{ healthcheck_report.end_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
-        <li><strong>Counties: </strong><span id="counties-li-status"></span></li>
-        <li><strong>Communes: </strong><span id="communes-li-status"></span></li>
+        <li><strong>Koniec: </strong>{{ healthcheck_report.end_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
+        <li><strong>Powiaty: </strong><span id="counties-li-status"></span></li>
+        <li><strong>Gminy: </strong><span id="communes-li-status"></span></li>
     </ul>
 </div>
-<h2>Counties:</h2>
+<h2>Powiaty:</h2>
 <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
 <div id="tooltip" class="tooltip"></div>
 </body>
@@ -102,13 +102,13 @@
             const ulElement = document.createElement('ul');
 
             const liStatusCode = document.createElement('li');
-            liStatusCode.textContent = `Status code: ${county.status_code}`;
+            liStatusCode.textContent = `Kod statusu: ${county.status_code}`;
 
             const liIsBuildingData = document.createElement('li');
-            liIsBuildingData.textContent = `Is building data: ${county.has_building_data}`;
+            liIsBuildingData.textContent = `Czy zawiera dane budynków: ${county.has_building_data ? 'tak':'nie'}`;
 
             const liExpectedBuildingData = document.createElement('li');
-            liExpectedBuildingData.textContent = `Expected building data: ${county.has_expected_building_data}`;
+            liExpectedBuildingData.textContent = `Czy zawiera oczekiwane dane: ${county.has_expected_building_data ? 'tak':'nie'}`;
 
             ulElement.appendChild(liStatusCode);
             ulElement.appendChild(liIsBuildingData);
@@ -123,7 +123,7 @@
             const divExpectedVsReceivedTags = document.createElement('div');
 
             const divTitleTags = document.createElement('div');
-            divTitleTags.textContent = 'Expected vs received tags:';
+            divTitleTags.textContent = 'Oczekiwane, a otrzymane:';
 
             const divExpectedTags = document.createElement('div');
             divExpectedTags.className = 'tags';
