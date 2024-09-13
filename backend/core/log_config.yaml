@@ -4,15 +4,29 @@ formatters:
   default:
     (): 'uvicorn.logging.DefaultFormatter'
     fmt: '%(asctime)s %(levelprefix)-9s %(name)s -: %(message)s'
+    use_colors: False
   access:
     (): 'uvicorn.logging.AccessFormatter'
     fmt: '%(asctime)s %(levelprefix)-9s %(name)s -: %(client_addr)s - "%(request_line)s" %(status_code)s'
+    use_colors: False
 handlers:
   default:
+    class: logging.handlers.RotatingFileHandler
+    formatter: default
+    filename: .logs/data.log
+    maxBytes: 5242880  # 5 MB max file size
+    backupCount: 1  # Keep only one file (current + 1 backup)
+  access:
+    class: logging.handlers.RotatingFileHandler
+    formatter: access
+    filename: .logs/data.log
+    maxBytes: 5242880  # 5 MB max file size
+    backupCount: 1  # Keep only one file (current + 1 backup)
+  console_default:
     class: logging.StreamHandler
     formatter: default
-    stream: ext://sys.stderr
-  access:
+    stream: ext://sys.stdout
+  console_access:
     class: logging.StreamHandler
     formatter: access
     stream: ext://sys.stdout
@@ -21,6 +35,7 @@ loggers:
     level: INFO
     handlers:
       - default
+      - console_default
   uvicorn.error:
     level: INFO
   uvicorn.access:
@@ -28,7 +43,9 @@ loggers:
     propagate: False
     handlers:
       - access
+      - console_access
   egib-plbuildings:
     level: INFO
     handlers:
       - default
+      - console_default

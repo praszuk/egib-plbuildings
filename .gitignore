@@ -1,5 +1,6 @@
 .*
 .cache/*
+.logs/*
 !.gitattributes
 !.gitignore
 !.gitkeep
@@ -7,4 +8,5 @@
 !.github/
 !.pre-commit-config.yaml
 !.cache/
+!.logs/
 __pycache__/
