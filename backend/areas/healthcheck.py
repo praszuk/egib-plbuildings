@@ -31,25 +31,16 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
     areas_reports_communes: Dict[str, HealthCheckAreaReport] = {}
 
     for area in all_areas_data:
-        status_code = -1
         building_data = False
         expected_building_data = False
         building_tags = None
 
-        response_data = None
-        try:
-            with httpx.Client() as client:
-                response = client.get(endpoint, params={'lat': area.lat, 'lon': area.lon})
-                status_code = response.status_code
-                response_data = response.json()
-        except (IOError, httpx.ReadTimeout):
-            logger.warning('Error at connecting for reporting areas')
-            status_code = 500
-        except (TypeError, json.JSONDecodeError):
-            logger.warning('Incorrect data returned from server')
-            logger.debug(response.content)
+        with httpx.Client() as client:
+            response = client.get(endpoint, params={'lat': area.lat, 'lon': area.lon}, timeout=30)
+            status_code = response.status_code
+            response_data = response.json()
 
-        if response_data and response_data['features']:
+        if status_code == 200 and response_data['features']:
             building_data = True
             building_feature = response_data['features'][0]
             building_tags = building_feature['properties']
