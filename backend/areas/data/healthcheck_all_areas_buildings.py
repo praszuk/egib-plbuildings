@@ -453,7 +453,7 @@ counties = [
         teryt='1007',
         lat=51.39029,
         lon=20.14479,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
         name='pabianicki',
@@ -1188,7 +1188,7 @@ counties = [
         teryt='2013',
         lat=52.99272,
         lon=22.70002,
-        expected_tags={'building': 'yes'},
+        expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
         name='zambrowski',
@@ -1504,7 +1504,7 @@ counties = [
         teryt='2810',
         lat=53.87659,
         lon=21.30455,
-        expected_tags={'building': 'office', 'building:levels': 2},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     HealthCheckTestAreaData(
         name='nidzicki',
@@ -1567,7 +1567,7 @@ counties = [
         teryt='2819',
         lat=54.20739,
         lon=21.73810,
-        expected_tags={'building': 'office', 'building:levels': 2},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     # 30 – "wielkopolskie"
     HealthCheckTestAreaData(
@@ -1664,7 +1664,7 @@ counties = [
         teryt='3014',
         lat=52.60663,
         lon=15.90180,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     HealthCheckTestAreaData(
         name='nowotomyski',
