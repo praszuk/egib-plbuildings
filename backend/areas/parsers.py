@@ -4,9 +4,10 @@ import json
 from typing import Any, List, Dict
 
 from lxml import etree
+from lxml.etree import XMLSyntaxError
 from osgeo import ogr, osr  # noqa
 
-from backend.exceptions import InvalidKeyParserError
+from backend.exceptions import InvalidKeyParserError, ParserError
 from backend.areas.models import Area
 from abc import abstractmethod
 
@@ -64,7 +65,11 @@ class BaseAreaParser(Area):
     ) -> dict[str, Any]:
         features: List[Dict[str, Any]] = []
 
-        root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
+        try:
+            root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
+        except XMLSyntaxError:
+            raise ParserError('Cannot parse root of GML content')
+
         wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)  # type: ignore[arg-type]
 
         for wfs_member in wfs_members:

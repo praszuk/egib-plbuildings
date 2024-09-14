@@ -12,7 +12,3 @@ class AreaNotFound(Exception):
 
 class AreaDataNotFound(Exception):
     pass
-
-
-class AreaNotSupported(Exception):
-    pass

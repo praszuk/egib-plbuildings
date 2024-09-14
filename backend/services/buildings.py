@@ -1,11 +1,13 @@
+from tarfile import StreamError
 from typing import Any, Dict, Optional
 
-from httpx import AsyncClient
+from fastapi import HTTPException
+from httpx import AsyncClient, TimeoutException, NetworkError
 
 from backend.core.logger import logger
 from backend.areas.config import all_areas
 from backend.areas.finder import area_finder, find_nearest_feature
-from backend.exceptions import AreaNotFound, AreaNotSupported
+from backend.exceptions import AreaNotFound, ParserError
 
 
 async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
@@ -22,18 +24,17 @@ async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
 
 
 async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
-    data = {'type': 'FeatureCollection', 'features': []}
     try:
         area_teryt = area_finder.area_at(lat, lon)
         if area_teryt not in all_areas:
-            raise AreaNotSupported(area_teryt)
+            logger.warning(f'Area not supported ({area_teryt})')
+            raise HTTPException(
+                status_code=501, headers={'X-Error': f'Area not supported ({area_teryt})'}
+            )
 
     except AreaNotFound:
-        logger.warning(f'Error finding area at {lat} {lon}')
-        return data
-    except AreaNotSupported as msg:
-        logger.exception(msg)
-        return data
+        logger.warning(f'Area not found at {lat} {lon}')
+        raise HTTPException(status_code=404, headers={'X-Error': f'Area not found at {lat} {lon}'})
 
     area = all_areas[area_teryt]
     url = area.build_url(lat, lon)
@@ -42,7 +43,9 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
         try:
             gml_content = await _download_gml(client, url)
             if not gml_content:
-                return data
+                raise HTTPException(
+                    status_code=502, headers={'X-Error': 'Incorrect data from external server'}
+                )
 
             logger.debug(gml_content)
             geojson = area.parse_gml_to_geojson(gml_content)
@@ -51,10 +54,12 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
                 geojson['features'] = [find_nearest_feature(lat, lon, geojson)]
 
             area.replace_properties_with_osm_tags(geojson)
-            data = geojson
-        except IOError as e:
-            logger.warning(f'Error on downloading building from: {url} {e}')
-        except ValueError as e:
-            logger.warning(f'Error on parsing response: {data} {e}')
 
-    return data
+            return geojson
+        except (TimeoutException, NetworkError, StreamError):
+            raise HTTPException(status_code=503, headers={'X-Error': 'Server not respond'})
+        except ParserError as e:
+            logger.warning(f'Error on parsing response: {e}')
+            raise HTTPException(
+                status_code=502, headers={'X-Error': 'Error at parsing data from server'}
+            )
