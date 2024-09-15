@@ -13,13 +13,13 @@ handlers:
   default:
     class: logging.handlers.RotatingFileHandler
     formatter: default
-    filename: .logs/data.log
+    filename: .logs/default.log
     maxBytes: 5242880  # 5 MB max file size
     backupCount: 1  # Keep only one file (current + 1 backup)
   access:
     class: logging.handlers.RotatingFileHandler
     formatter: access
-    filename: .logs/data.log
+    filename: .logs/access.log
     maxBytes: 5242880  # 5 MB max file size
     backupCount: 1  # Keep only one file (current + 1 backup)
   console_default:
