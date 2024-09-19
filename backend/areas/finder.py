@@ -5,7 +5,7 @@ from typing import Any, Dict, List
 from osgeo import ogr, osr  # noqa
 
 from backend.core.config import settings
-from backend.core.logger import logger
+from backend.core.logger import default_logger
 from backend.areas.models import AreaGeometry
 from backend.exceptions import AreaDataNotFound, AreaNotFound
 
@@ -21,16 +21,16 @@ class AreaFinder:
 
     def load_data(self) -> None:
         def _load(area_type, cache_file, data_file):
-            logger.info(f'Loading {area_type} geometries...')
+            default_logger.info(f'Loading {area_type} geometries...')
             try:
                 with open(cache_file, 'rb') as f:
                     return pickle.load(f)
             except FileNotFoundError:
-                logger.info(f'Cache file with {area_type} geometries not found.')
+                default_logger.info(f'Cache file with {area_type} geometries not found.')
             except (pickle.PickleError, ModuleNotFoundError, TypeError, AttributeError):
-                logger.exception(f'Cache file with {area_type} geometries is damaged.')
+                default_logger.exception(f'Cache file with {area_type} geometries is damaged.')
 
-            logger.info(f'Generating {area_type} geometries using GeoJSON {data_file}')
+            default_logger.info(f'Generating {area_type} geometries using GeoJSON {data_file}')
             geojson = json.load(open(data_file, 'r'))
             return self.parse_area_geojson_to_area_geoms(geojson)
 
@@ -46,8 +46,8 @@ class AreaFinder:
         )
         self.save_data()
         self.generate_county_communes()
-        logger.info(f'Completed loading {len(self._county_geoms)} counties geometries.')
-        logger.info(f'Completed loading {len(self._commune_geoms)} communes geometries.')
+        default_logger.info(f'Completed loading {len(self._county_geoms)} counties geometries.')
+        default_logger.info(f'Completed loading {len(self._commune_geoms)} communes geometries.')
 
     def generate_county_communes(self):
         for commune_teryt in self._commune_geoms.keys():
@@ -58,14 +58,14 @@ class AreaFinder:
             self._county_communes[county_teryt].append(commune_teryt)
 
     def save_data(self) -> None:
-        logger.info('Saving areas geometries to cache file.')
+        default_logger.info('Saving areas geometries to cache file.')
         try:
             with open(settings.COUNTIES_GEOM_CACHE_FILENAME, 'wb') as f:
                 pickle.dump(self._county_geoms, f)
             with open(settings.COMMUNES_GEOM_CACHE_FILENAME, 'wb') as f:
                 pickle.dump(self._commune_geoms, f)
         except (IOError, pickle.PickleError):
-            logger.exception('Error at serializing areas geometries to cache file.')
+            default_logger.exception('Error at serializing areas geometries to cache file.')
 
     def area_at(self, lat: float, lon: float) -> str:
         """

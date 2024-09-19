@@ -1,5 +1,6 @@
-import logging
+from logging import getLogger
 
 from backend.core.config import settings
 
-logger = logging.getLogger(settings.PROJECT_NAME)
+access_logger = getLogger(settings.ACCESS_LOGGER)
+default_logger = getLogger(settings.DEFAULT_LOGGER)
