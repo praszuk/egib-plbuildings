@@ -25,5 +25,8 @@ class Settings(BaseSettings):
         CACHE_DIR, '.areas_healthcheck_result.json'
     )
 
+    ACCESS_LOGGER: Final[str] = 'egib_access'
+    DEFAULT_LOGGER: Final[str] = 'egib_default'
+
 
 settings = Settings()
