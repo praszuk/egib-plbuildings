@@ -8,7 +8,6 @@ from urllib.parse import urljoin
 import httpx
 
 from backend.core.config import settings
-from backend.core.logger import logger
 from backend.areas.models import HealthCheckAreaReport, HealthCheckReport
 from backend.areas.data.healthcheck_all_areas_buildings import all_areas_data
 
@@ -49,7 +48,7 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
                 expected_building_data = True
             else:
                 expected_building_data = False
-                logger.debug(f'Expected: {area.expected_tags}, got: {building_tags}')
+                logging.debug(f'Expected: {area.expected_tags}, got: {building_tags}')
 
         area_report = HealthCheckAreaReport(
             test_area_data=area,
@@ -77,7 +76,6 @@ if __name__ == '__main__':
     import logging
 
     logging.basicConfig(level=logging.INFO)
-    logger = logging  # type:ignore
 
     report = report_all_areas(getenv('server_uri', 'http://0.0.0.0:8000'))
     with open(settings.AREAS_HEALTHCHECK_CACHE_FILENAME, 'w') as f:
