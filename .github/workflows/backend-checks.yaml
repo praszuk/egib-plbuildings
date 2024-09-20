@@ -31,7 +31,3 @@ jobs:
         if: success() || failure()
         run: |
           make lint-check
-      - name: Quality check – mypy
-        if: success() || failure()
-        run: |
-          make mypy

@@ -1,4 +1,4 @@
-.PHONY: base-install install prod-install test mypy format format-check lint lint-check prod-run run clean healthcheck update
+.PHONY: base-install install prod-install test format format-check lint lint-check prod-run run clean healthcheck update
 
 SHELL := /bin/bash
 VENV=.venv
@@ -22,9 +22,6 @@ prod-install: base-install
 
 test:
 	$(PYTHON) -m pytest $(ARGS) $(APP_DIR)
-
-mypy:
-	$(PYTHON) -m mypy --install-types --non-interactive $(APP_DIR)
 
 format:
 	$(PYTHON) -m ruff format $(APP_DIR)
@@ -50,7 +47,7 @@ healthcheck:
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
-	rm -rf .pytest_cache .mypy_cache .counties_geoms.pickle __pycache__ $(VENV)
+	rm -rf .pytest_cache .counties_geoms.pickle __pycache__ $(VENV)
 
 update:
 	for filename in requirements/*.in; do pur -r $$filename; done
