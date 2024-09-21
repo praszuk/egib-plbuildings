@@ -1,37 +1,34 @@
 import pytest
 
-from os import path
-from ..utils import gml_to_geojson
+from backend.areas.parsers import Geoportal2AreaParser, DEFAULT_BUILDING
+
+area = Geoportal2AreaParser('test_area', 'test_url_code')
 
 
 class TestNoBuildingData:
     @pytest.fixture(scope='class')
-    def gml_content(self, test_data_dir):
-        filename = path.join(test_data_dir, 'gml_no_building.xml')
-        with open(filename, 'r') as f:
-            return f.read()
+    def gml_content(self, load_geoportal2_gml):
+        return load_geoportal2_gml('gml_no_building.xml')
 
     def test_empty_geojson(self, gml_content):
-        geojson = gml_to_geojson(gml_content)
+        geojson = area.parse_gml_to_geojson(gml_content)
         assert len(geojson['features']) == 0
 
 
 class TestBasicBuilding:
     @pytest.fixture(scope='class')
-    def gml_content(self, test_data_dir):
-        filename = path.join(test_data_dir, 'gml_basic_building.xml')
-        with open(filename, 'r') as f:
-            return f.read()
+    def gml_content(self, load_geoportal2_gml):
+        return load_geoportal2_gml('gml_basic_building.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
-        return gml_to_geojson(gml_content)
+        return area.parse_gml_to_geojson(gml_content)
 
     def test_geojson_has_one_feature(self, geojson):
         assert len(geojson['features']) == 1
 
-    def test_geojson_has_22_coordinates(self, geojson):
-        assert len(geojson['features'][0]['geometry']['coordinates'][0]) == 22
+    def test_geojson_has_17_coordinates(self, geojson):
+        assert len(geojson['features'][0]['geometry']['coordinates'][0]) == 17
 
     def test_geojson_coordinates_first_and_last_eq(self, geojson):
         first = geojson['features'][0]['geometry']['coordinates'][0][0]
@@ -40,28 +37,38 @@ class TestBasicBuilding:
 
     def test_geojson_has_all_properties(self, geojson):
         expected_properties = {
-            'FUNKCJA': 'i',
-            'KONDYGNACJE_NADZIEMNE': '3',
-            'RODZAJ': 'ognioodporny',
-            'ID_BUDYNKU': '142104_2.0013.628/16.1_BUD',
-            'KONDYGNACJE_PODZIEMNE': ''
+            'RODZAJ': 'b',
+            'ID_BUDYNKU': '240301_1.0033.2_BUD',
         }
         assert geojson['features'][0]['properties'] == expected_properties
 
 
-class TestMultipleBuildings:
+class TestBuildingNoBuildingType:
     @pytest.fixture(scope='class')
-    def gml_content(self, test_data_dir):
-        filename = path.join(test_data_dir, 'gml_multiple_buildings.xml')
-        with open(filename, 'r') as f:
-            return f.read()
+    def gml_content(self, load_geoportal2_gml):
+        return load_geoportal2_gml('gml_building_no_building_type.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
-        return gml_to_geojson(gml_content)
+        return area.parse_gml_to_geojson(gml_content)
+
+    def test_geojson_parsed_to_default_building_value(self, geojson):
+        area.replace_properties_with_osm_tags(geojson)
+        tags = geojson['features'][0]['properties']
+        assert tags == {'building': DEFAULT_BUILDING}
+
+
+class TestMultipleBuildings:
+    @pytest.fixture(scope='class')
+    def gml_content(self, load_geoportal2_gml):
+        return load_geoportal2_gml('gml_multiple_buildings.xml')
+
+    @pytest.fixture(scope='class')
+    def geojson(self, gml_content):
+        return area.parse_gml_to_geojson(gml_content)
 
     def test_geojson_has_three_features(self, geojson):
-        assert len(geojson['features']) == 3
+        assert len(geojson['features']) == 2
 
     def test_geojson_features_have_different_geometries(self, geojson):
         geometries = set()

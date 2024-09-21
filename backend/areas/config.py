@@ -1,0 +1,351 @@
+# flake8: noqa
+from typing import Dict, TypeVar
+
+from backend.areas.parsers import (
+    BaseAreaParser,
+    EpodgikAreaParser,
+    GeoportalAreaParser,
+    Geoportal2AreaParser,
+    GIPortalAreaParser,
+    WarszawaAreaParser,
+    WroclawAreaParser,
+)
+
+AreaParser = TypeVar('AreaParser', bound=BaseAreaParser)
+all_counties: Dict[str, AreaParser] = {
+    # 02 – "dolnośląskie"
+    '0201': GeoportalAreaParser(name='bolesławiecki', url_code='0201', default_crs=2180),
+    '0203': Geoportal2AreaParser(name='głogowski', url_code='glogow'),
+    '0204': Geoportal2AreaParser(name='górowski', url_code='gora'),
+    '0205': Geoportal2AreaParser(name='jaworski', url_code='jawor'),
+    '0206': GIPortalAreaParser(
+        name='karkonoski', base_url='https://wms.podgik.jgora.pl/jeleniagora-egib'
+    ),
+    '0207': GIPortalAreaParser(
+        name='kamiennogórski', base_url='https://wms.kamienna-gora.pl/kamiennagora-egib'
+    ),
+    '0210': GIPortalAreaParser(name='lubański', base_url='https://iegib.powiatluban.pl/luban-egib'),
+    '0212': GIPortalAreaParser(
+        name='lwówecki', base_url='https://ikerg.powiatlwowecki.pl/lwowekslaski-egib'
+    ),
+    '0218': GeoportalAreaParser(name='średzki', url_code='0218', default_crs=2180),
+    '0221': GeoportalAreaParser(name='wałbrzyski', url_code='0221', default_crs=2180),
+    '0225': GIPortalAreaParser(
+        name='zgorzelecki', base_url='https://iegib.powiat.zgorzelec.pl/zgorzelec-egib'
+    ),
+    '0226': GIPortalAreaParser(
+        name='złotoryjski', base_url='https://wms.powiat-zlotoryja.pl/zlotoryja-egib'
+    ),
+    '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
+    # 04 – "kujawsko-pomorskie"
+    '0403': GeoportalAreaParser(name='bydgoski', url_code='0403', default_crs=2180),
+    '0406': GeoportalAreaParser(name='grudziądzki', url_code='0406', default_crs=2180),
+    '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
+    '0411': Geoportal2AreaParser(name='radziejowski', url_code='radziejow'),
+    '0412': Geoportal2AreaParser(name='rypiński', url_code='rypin'),
+    '0413': GeoportalAreaParser(name='sępoleński', url_code='0413', default_crs=2180),
+    '0417': Geoportal2AreaParser(name='wąbrzeski', url_code='wabrzezno'),
+    '0418': Geoportal2AreaParser(name='włocławski', url_code='wloclawek'),
+    '0461': GeoportalAreaParser(name='miasto Bydgoszcz', url_code='0461', default_crs=2180),
+    # 06 – "lubelskie"
+    '0601': Geoportal2AreaParser(name='bialski', url_code='powiatbialski'),
+    '0602': Geoportal2AreaParser(name='biłgorajski', url_code='bilgorajski'),
+    '0604': Geoportal2AreaParser(name='hrubieszowski', url_code='hrubieszow'),
+    '0605': Geoportal2AreaParser(name='janowski', url_code='janow'),
+    '0606': Geoportal2AreaParser(name='krasnostawski', url_code='powiatkrasnostawski'),
+    '0608': Geoportal2AreaParser(name='lubartowski', url_code='powiatlubartowski'),
+    '0609': Geoportal2AreaParser(name='lubelski', url_code='powiatlubelski'),
+    '0610': Geoportal2AreaParser(name='łęczyński', url_code='leczna'),
+    '0611': Geoportal2AreaParser(name='łukowski', url_code='powiatlukowski'),
+    '0612': Geoportal2AreaParser(name='opolski', url_code='opolelubelskie'),
+    '0613': Geoportal2AreaParser(name='parczewski', url_code='parczew'),
+    '0614': Geoportal2AreaParser(name='puławski', url_code='pulawy'),
+    '0615': Geoportal2AreaParser(name='radzyński', url_code='powiatradzynski'),
+    '0616': Geoportal2AreaParser(name='rycki', url_code='ryki'),
+    '0617': Geoportal2AreaParser(name='świdnicki', url_code='powiatswidnik'),
+    '0618': Geoportal2AreaParser(name='tomaszowski', url_code='tomaszowlubelski'),
+    '0619': EpodgikAreaParser(name='włodawski', url_code='wlodawa'),
+    '0620': Geoportal2AreaParser(name='zamojski', url_code='powiatzamojski'),
+    '0661': Geoportal2AreaParser(name='miasto Biała Podlaska', url_code='bialapodlaska'),
+    '0662': EpodgikAreaParser(name='miasto Chełm', url_code='mchelm'),
+    '0664': Geoportal2AreaParser(name='miasto Zamość', url_code='zamosc'),
+    # 08 – "lubuskie"
+    '0801': Geoportal2AreaParser(name='gorzowski', url_code='powiatgorzowski'),
+    '0802': GIPortalAreaParser(
+        name='krośnieński', base_url='https://wms.powiatkrosnienski.pl/krosno-egib'
+    ),
+    '0803': Geoportal2AreaParser(name='międzyrzecki', url_code='powiat-miedzyrzecki'),
+    '0804': GIPortalAreaParser(
+        name='nowosolski', base_url='https://wms.powiat-nowosolski.pl/nowasol-egib'
+    ),
+    '0805': Geoportal2AreaParser(name='słubicki', url_code='slubice'),
+    '0806': Geoportal2AreaParser(name='strzelecko-drezdenecki', url_code='fsd'),
+    '0807': Geoportal2AreaParser(name='sulęciński', url_code='sulecin'),
+    '0808': GIPortalAreaParser(
+        name='świebodziński', base_url='https://giportal2.powiat.swiebodzin.pl/swiebodzin-egib'
+    ),
+    '0809': GIPortalAreaParser(
+        name='zielonogórski', base_url='https://giportal.powiat-zielonogorski.pl/zielonagora-egib'
+    ),
+    '0811': Geoportal2AreaParser(name='żarski', url_code='zary'),
+    '0812': Geoportal2AreaParser(name='wschowski', url_code='wschowa'),
+    # 10 – "łódzkie"
+    '1001': Geoportal2AreaParser(name='bełchatowski', url_code='belchatow'),
+    '1002': Geoportal2AreaParser(name='kutnowski', url_code='powiatkutno'),
+    '1003': Geoportal2AreaParser(name='łaski', url_code='lask'),
+    '1004': Geoportal2AreaParser(name='łęczycki', url_code='leczycki'),
+    '1005': Geoportal2AreaParser(name='łowicki', url_code='lowicz'),
+    '1006': Geoportal2AreaParser(name='łódzki wschodni', url_code='lodzkiwschodni'),
+    '1007': Geoportal2AreaParser(name='opoczyński', url_code='opoczno'),
+    '1008': Geoportal2AreaParser(name='pabianicki', url_code='pabianice'),
+    '1009': Geoportal2AreaParser(name='pajęczański', url_code='pajeczno'),
+    '1010': Geoportal2AreaParser(name='piotrkowski', url_code='piotrkow'),
+    '1011': Geoportal2AreaParser(name='poddębicki', url_code='poddebice'),
+    '1012': Geoportal2AreaParser(name='radomszczański', url_code='radomszczanski'),
+    '1014': Geoportal2AreaParser(name='sieradzki', url_code='sieradz'),
+    '1015': Geoportal2AreaParser(name='skierniewicki', url_code='powiat-skierniewice'),
+    '1016': Geoportal2AreaParser(name='tomaszowski', url_code='powiat-tomaszowski'),
+    '1017': Geoportal2AreaParser(name='wieluński', url_code='wielun'),
+    '1018': Geoportal2AreaParser(name='wieruszowski', url_code='wieruszow'),
+    '1019': GeoportalAreaParser(name='zduńskowolski', url_code='1019', default_crs=2180),
+    '1020': GeoportalAreaParser(name='zgierski', url_code='1020', default_crs=2180),
+    '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
+    '1062': GIPortalAreaParser(
+        name='miasto Piotrków Trybunalski', base_url='https://ikerg.piotrkow.pl/piotrkow-egib'
+    ),
+    '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
+    # 12 – "małopolskie"
+    '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
+    '1205': GeoportalAreaParser(name='gorlicki', url_code='1205', default_crs=2180),
+    '1208': Geoportal2AreaParser(name='miechowski', url_code='miechow'),
+    '1209': GeoportalAreaParser(name='myślenicki', url_code='1209', default_crs=2180),
+    '1211': Geoportal2AreaParser(name='nowotarski', url_code='nowotarski'),
+    '1214': GeoportalAreaParser(name='proszowicki', url_code='1214', default_crs=2180),
+    '1215': Geoportal2AreaParser(name='suski', url_code='powiatsuski'),
+    '1261': GIPortalAreaParser(
+        name='miasto Kraków', base_url='https://geodezja.eco.um.krakow.pl/krakow-egib'
+    ),
+    # 14 – "mazowieckie"
+    '1401': Geoportal2AreaParser(name='białobrzeski', url_code='bialobrzegi'),
+    '1402': Geoportal2AreaParser(name='ciechanowski', url_code='ciechanow'),
+    '1403': Geoportal2AreaParser(name='garwoliński', url_code='garwolinski'),
+    '1404': Geoportal2AreaParser(name='gostyniński', url_code='gostynin'),
+    '1405': Geoportal2AreaParser(name='grodziski', url_code='grodzisk'),
+    '1406': Geoportal2AreaParser(name='grójecki', url_code='grojec'),
+    '1407': Geoportal2AreaParser(name='kozienicki', url_code='kozienicepowiat'),
+    '1408': Geoportal2AreaParser(name='legionowski', url_code='powiat-legionowski'),
+    '1409': Geoportal2AreaParser(name='lipski', url_code='powiatlipsko'),
+    '1410': Geoportal2AreaParser(name='łosicki', url_code='losice'),
+    '1411': Geoportal2AreaParser(name='makowski', url_code='makow'),
+    '1412': EpodgikAreaParser(name='miński', url_code='minsk'),
+    '1413': Geoportal2AreaParser(name='mławski', url_code='powiatmlawski'),
+    '1414': Geoportal2AreaParser(name='nowodworski', url_code='nowodworski'),
+    '1415': Geoportal2AreaParser(name='ostrołęcki', url_code='powiatostrolecki'),
+    '1416': Geoportal2AreaParser(name='ostrowski', url_code='ostrowmaz'),
+    '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
+    '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
+    '1419': Geoportal2AreaParser(name='płocki', url_code='powiat-plock'),
+    '1420': Geoportal2AreaParser(name='płoński', url_code='plonski'),
+    '1421': EpodgikAreaParser(name='pruszkowski', url_code='pruszkow'),
+    '1422': Geoportal2AreaParser(name='przasnyski', url_code='przasnysz'),
+    '1423': Geoportal2AreaParser(name='przysuski', url_code='przysucha'),
+    '1424': Geoportal2AreaParser(name='pułtuski', url_code='powiatpultuski'),
+    '1425': Geoportal2AreaParser(name='radomski', url_code='radom'),
+    '1426': Geoportal2AreaParser(name='siedlecki', url_code='powiatsiedlecki'),
+    '1427': Geoportal2AreaParser(name='sierpecki', url_code='sierpc'),
+    '1428': Geoportal2AreaParser(name='sochaczewski', url_code='sochaczew'),
+    '1429': Geoportal2AreaParser(name='sokołowski', url_code='powiat-sokolowski'),
+    '1430': Geoportal2AreaParser(name='szydłowiecki', url_code='szydlowiecpowiat'),
+    '1433': EpodgikAreaParser(name='węgrowski', url_code='wegrow'),
+    '1434': EpodgikAreaParser(name='wołomiński', url_code='wolomin'),
+    '1435': Geoportal2AreaParser(name='wyszkowski', url_code='powiat-wyszkowski'),
+    '1436': Geoportal2AreaParser(name='zwoleński', url_code='zwolenpowiat'),
+    '1437': Geoportal2AreaParser(name='żuromiński', url_code='zuromin-powiat'),
+    '1438': EpodgikAreaParser(name='żyrardowski', url_code='zyrardow'),
+    '1461': Geoportal2AreaParser(name='miasto Ostrołęka', url_code='ostroleka'),
+    '1463': GeoportalAreaParser(name='miasto Radom', url_code='1463', default_crs=2180),
+    '1464': Geoportal2AreaParser(name='miasto Siedlce', url_code='siedlce'),
+    '1465': WarszawaAreaParser(name='miasto Warszawa', url_code=''),
+    # 16 – "opolskie"
+    '1601': GIPortalAreaParser(name='brzeski', base_url='https://imapa.brzeg-powiat.pl/brzeg-egib'),
+    '1602': GIPortalAreaParser(
+        name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
+    ),
+    '1603': GeoportalAreaParser(name='kędzierzyńsko-kozielski', url_code='1603', default_crs=2180),
+    '1604': GIPortalAreaParser(name='kluczborski', base_url='http://185.108.68.134/kluczbork-egib'),
+    '1605': GIPortalAreaParser(
+        name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
+    ),
+    '1606': GeoportalAreaParser(name='namysłowski', url_code='1606', default_crs=2180),
+    '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
+    '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
+    '1610': GIPortalAreaParser(
+        name='prudnicki', base_url='https://ikerg2.powiatprudnicki.pl/prudnik-egib'
+    ),
+    '1661': GIPortalAreaParser(name='miasto Opole', base_url='https://wms.um.opole.pl/opole-egib'),
+    # 18 – "podkarpackie"
+    '1803': Geoportal2AreaParser(name='dębicki', url_code='debica'),
+    '1806': Geoportal2AreaParser(name='kolbuszowski', url_code='kolbuszowa'),
+    '1808': Geoportal2AreaParser(name='leżajski', url_code='lezajsk'),
+    '1809': Geoportal2AreaParser(name='lubaczowski', url_code='lubaczow'),
+    '1810': Geoportal2AreaParser(name='łańcucki', url_code='lancut'),
+    '1811': Geoportal2AreaParser(name='mielecki', url_code='mielec'),
+    '1812': Geoportal2AreaParser(name='niżański', url_code='powiat-nisko'),
+    '1813': Geoportal2AreaParser(name='przemyski', url_code='powiat-przemysl'),
+    '1815': Geoportal2AreaParser(name='ropczycko-sędziszowski', url_code='spropczyce'),
+    '1816': Geoportal2AreaParser(name='rzeszowski', url_code='powiatrzeszowski'),
+    '1818': Geoportal2AreaParser(name='stalowowolski', url_code='stalowawola'),
+    '1819': Geoportal2AreaParser(name='strzyżowski', url_code='strzyzowski'),
+    '1820': Geoportal2AreaParser(name='tarnobrzeski', url_code='tarnobrzeski'),
+    '1821': Geoportal2AreaParser(name='leski', url_code='lesko'),
+    '1862': Geoportal2AreaParser(name='miasto Przemyśl', url_code='przemysl'),
+    '1864': Geoportal2AreaParser(name='miasto Tarnobrzeg', url_code='tarnobrzeg'),
+    # 20 – "podlaskie"
+    '2001': Geoportal2AreaParser(name='augustowski', url_code='augustowski'),
+    '2002': Geoportal2AreaParser(name='białostocki', url_code='bialystok'),
+    '2003': Geoportal2AreaParser(name='bielski', url_code='powiatbielski'),
+    '2004': Geoportal2AreaParser(name='grajewski', url_code='starostwograjewo'),
+    '2005': Geoportal2AreaParser(name='hajnowski', url_code='hajnowka'),
+    '2008': Geoportal2AreaParser(name='moniecki', url_code='monki'),
+    '2009': Geoportal2AreaParser(name='sejneński', url_code='sejny'),
+    '2011': Geoportal2AreaParser(name='sokólski', url_code='powiatsokolski'),
+    '2012': GeoportalAreaParser(name='suwalski', url_code='2012', default_crs=2180),
+    '2013': Geoportal2AreaParser(name='wysokomazowiecki', url_code='wysokomazowiecki'),
+    '2014': Geoportal2AreaParser(name='zambrowski', url_code='powiatzambrowski'),
+    # 22 – "pomorskie"
+    '2208': GeoportalAreaParser(name='lęborski', url_code='2208', default_crs=2180),
+    '2210': GeoportalAreaParser(name='nowodworski', url_code='2210', default_crs=2180),
+    '2215': EpodgikAreaParser(name='wejherowski', url_code='wejherowo'),
+    '2216': GeoportalAreaParser(name='sztumski', url_code='2216', default_crs=2180),
+    # 24 – "śląskie"
+    '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
+    '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
+    '2409': GeoportalAreaParser(name='myszkowski', url_code='2409', default_crs=2180),
+    '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
+    '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),
+    '2416': GIPortalAreaParser(
+        name='zawierciański', base_url='https://ikerg.zawiercie.powiat.pl/powiatzawiercianski-egib'
+    ),
+    '2461': GIPortalAreaParser(
+        name='miasto Bielsko-Biała', base_url='https://ikerg.bielsko-biala.pl/bielsko-egib'
+    ),
+    '2462': GIPortalAreaParser(name='miasto Bytom', base_url='https://iwms.um.bytom.pl/bytom-egib'),
+    '2467': Geoportal2AreaParser(name='miasto Jastrzębie-Zdrój', url_code='jastrzebie'),
+    '2470': GIPortalAreaParser(
+        name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
+    ),
+    '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
+    '2473': GeoportalAreaParser(name='miasto Rybnik', url_code='2473', default_crs=2180),
+    '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
+    '2475': GeoportalAreaParser(name='miasto Sosnowiec', url_code='2475', default_crs=2180),
+    '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
+    # 26 – "świętokrzyskie"
+    '2602': Geoportal2AreaParser(name='jędrzejowski', url_code='jedrzejow'),
+    '2603': Geoportal2AreaParser(name='kazimierski', url_code='kazimierzaw'),
+    '2605': Geoportal2AreaParser(name='konecki', url_code='konskie'),
+    '2606': Geoportal2AreaParser(name='opatowski', url_code='opatow'),
+    '2607': Geoportal2AreaParser(name='ostrowiecki', url_code='ostrowiec'),
+    '2608': Geoportal2AreaParser(name='pińczowski', url_code='pinczow'),
+    '2609': Geoportal2AreaParser(name='sandomierski', url_code='sandomierz'),
+    '2610': Geoportal2AreaParser(name='skarżyski', url_code='skarzysko'),
+    '2611': Geoportal2AreaParser(name='starachowicki', url_code='starachowice'),
+    '2612': Geoportal2AreaParser(name='staszowski', url_code='staszow'),
+    '2613': Geoportal2AreaParser(name='włoszczowski', url_code='wloszczowa'),
+    '2661': GeoportalAreaParser(name='miasto Kielce', url_code='2661', default_crs=2180),
+    # 28 – "warmińsko-mazurskie"
+    '2801': Geoportal2AreaParser(name='bartoszycki', url_code='powiatbartoszyce'),
+    '2802': Geoportal2AreaParser(name='braniewski', url_code='powiat-braniewo'),
+    '2803': Geoportal2AreaParser(name='działdowski', url_code='powiatdzialdowski'),
+    '2804': GIPortalAreaParser(
+        name='elbląski', base_url='https://ikerg.powiat.elblag.pl/elblaski-egib'
+    ),
+    '2805': Geoportal2AreaParser(name='ełcki', url_code='powiatelk'),
+    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
+    '2807': Geoportal2AreaParser(name='iławski', url_code='ilawa'),
+    '2808': Geoportal2AreaParser(name='kętrzyński', url_code='powiatketrzynski'),
+    '2809': Geoportal2AreaParser(name='lidzbarski', url_code='powiatlidzbarski'),
+    '2810': EpodgikAreaParser(name='mrągowski', url_code='mragowo'),
+    '2811': Geoportal2AreaParser(name='nidzicki', url_code='powiatnidzicki'),
+    '2812': Geoportal2AreaParser(name='nowomiejski', url_code='powiat-nowomiejski'),
+    '2813': Geoportal2AreaParser(name='olecki', url_code='olecko'),
+    '2814': Geoportal2AreaParser(name='olsztyński', url_code='powiatolsztynski'),
+    '2815': Geoportal2AreaParser(name='ostródzki', url_code='ostroda'),
+    '2816': Geoportal2AreaParser(name='piski', url_code='powiatpiski'),
+    '2817': Geoportal2AreaParser(name='szczycieński', url_code='szczytno'),
+    '2818': Geoportal2AreaParser(name='gołdapski', url_code='powiatgoldap'),
+    '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
+    # 30 – "wielkopolskie"
+    '3001': GeoportalAreaParser(name='chodzieski', url_code='3001', default_crs=2180),
+    '3003': GIPortalAreaParser(
+        name='gnieźnieński', base_url='https://wms.geodezjagniezno.pl/gniezno-egib'
+    ),
+    '3004': GIPortalAreaParser(
+        name='gostyński', base_url='https://imapa.powiat.gostyn.pl/gostyn-egib'
+    ),
+    '3005': GIPortalAreaParser(name='grodziski', base_url='https://ikerg.pgw.pl/grodziskwlkp-egib'),
+    '3006': GIPortalAreaParser(
+        name='jarociński', base_url='https://ikerg.powiat-jarocinski.pl/jarocin-egib'
+    ),
+    '3007': Geoportal2AreaParser(name='kaliski', url_code='kalisz'),
+    '3008': GIPortalAreaParser(name='kępiński', base_url='https://ikerg.powiatkepno.pl/kepno-egib'),
+    '3009': GIPortalAreaParser(
+        name='kolski', base_url='https://ikerg.starostwokolskie.pl/powiatkolski-egib'
+    ),
+    '3010': Geoportal2AreaParser(name='koniński', url_code='konin'),
+    '3012': GeoportalAreaParser(name='krotoszyński', url_code='3012', default_crs=2180),
+    '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
+    '3015': GIPortalAreaParser(
+        name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
+    ),
+    '3016': GeoportalAreaParser(name='obornicki', url_code='3016', default_crs=2180),
+    '3017': GIPortalAreaParser(
+        name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
+    ),
+    '3019': GeoportalAreaParser(name='pilski', url_code='3019', default_crs=2180),
+    '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
+    '3022': GeoportalAreaParser(name='rawicki', url_code='3022', default_crs=2180),
+    '3023': GeoportalAreaParser(name='słupecki', url_code='3023', default_crs=2180),
+    '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
+    '3028': GIPortalAreaParser(
+        name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
+    ),
+    '3029': GIPortalAreaParser(
+        name='wolsztyński', base_url='https://ikerg.powiatwolsztyn.pl/wolsztyn-egib'
+    ),
+    '3031': GIPortalAreaParser(
+        name='złotowski', base_url='https://ikerg.zlotow-powiat.pl/zlotow-egib'
+    ),
+    '3061': GIPortalAreaParser(
+        name='miasto Kalisz', base_url='https://ikerg.um.kalisz.pl/kalisz-egib'
+    ),
+    '3062': GIPortalAreaParser(
+        name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
+    ),
+    '3063': GeoportalAreaParser(name='miasto Leszno', url_code='3063', default_crs=2180),
+    # 32 – "zachodniopomorskie"
+    '3202': GIPortalAreaParser(
+        name='choszczeński', base_url='https://ikerg.geopowiatchoszczno.pl/choszczno-egib'
+    ),
+    '3205': GIPortalAreaParser(
+        name='gryficki', base_url='https://ikerg.podgikgryfice.pl/gryfice-egib'
+    ),
+    '3210': GIPortalAreaParser(
+        name='myśliborski', base_url='https://wms.powiatmysliborski.com.pl/mysliborz-egib'
+    ),
+    '3211': GIPortalAreaParser(name='policki', base_url='https://wgkik.policki.pl/police-egib'),
+    '3212': GIPortalAreaParser(name='pyrzycki', base_url='https://ikerg.pyrzyce.pl/pyrzyce-egib'),
+    '3214': GIPortalAreaParser(
+        name='stargardzki', base_url='https://ikerg2.powiatstargardzki.eu/stargard-egib'
+    ),
+    '3216': GeoportalAreaParser(name='świdwiński', url_code='3216', default_crs=2180),
+    '3218': GIPortalAreaParser(name='łobeski', base_url='https://wms.powiatlobeski.pl/lobez-egib'),
+    '3261': GeoportalAreaParser(name='miasto Koszalin', url_code='3261', default_crs=2180),
+    '3262': GIPortalAreaParser(
+        name='miasto Szczecin', base_url='https://wms.e-osrodek.szczecin.pl/szczecin-egib'
+    ),
+}
+# Few exception which counties are already defined but these communes has own servive for the data
+communes = {
+    '2403011': Geoportal2AreaParser(name='miasto Cieszyn', url_code='miastocieszyn'),
+}
+all_areas = all_counties | communes

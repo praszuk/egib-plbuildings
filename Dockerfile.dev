@@ -1,0 +1,16 @@
+FROM ubuntu:22.04
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# libgdal-dev version must be greater or equal to python GDAL library
+RUN apt-get update && apt-get install -y python3 python3-pip libgdal-dev
+RUN pip install virtualenv
+
+WORKDIR /app
+ADD requirements /app/requirements
+ADD Makefile /app
+
+RUN make install
+
+EXPOSE 8000
+CMD ["make", "run"]

@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding="UTF-8" ?>
 <!-- https://wms.epodgik.pl/cgi-bin/pruszkow/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=ms:budynki&SRSNAME=urn:ogc:def:crs:EPSG::4326&bbox=52.16903,20.85933,52.16903,20.85933,urn:ogc:def:crs:EPSG::4326 -->
-<!-- Gmina Michałowice Townhall -->
+<!-- Powiat pruszkowski ('1421') Gmina Michałowice Townhall -->
+<!-- MANUALLY MODIFIED ORDER OF COORDINATES!!! -->
 <wfs:FeatureCollection
    xmlns:ms="http://mapserver.gis.umn.edu/mapserver"
    xmlns:gml="http://www.opengis.net/gml/3.2"
@@ -18,15 +19,15 @@
       <ms:budynki gml:id="budynki.37660866">
         <gml:boundedBy>
         	<gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
-        		<gml:lowerCorner>52.168816 20.859021</gml:lowerCorner>
-        		<gml:upperCorner>52.169364 20.859930</gml:upperCorner>
+        		<gml:lowerCorner>20.859021 52.168816</gml:lowerCorner>
+        		<gml:upperCorner>20.859930 52.169364</gml:upperCorner>
         	</gml:Envelope>
         </gml:boundedBy>
         <ms:msGeometry>
           <gml:Polygon gml:id="budynki.37660866.1" srsName="urn:ogc:def:crs:EPSG::4326">
             <gml:exterior>
               <gml:LinearRing>
-                <gml:posList srsDimension="2">52.168951 20.859021 52.169119 20.859111 52.169113 20.859141 52.169176 20.859175 52.169364 20.859276 52.169364 20.859285 52.169361 20.859302 52.169355 20.859316 52.169265 20.859447 52.169256 20.859457 52.169246 20.859461 52.169235 20.859460 52.169133 20.859406 52.169108 20.859442 52.169116 20.859457 52.169061 20.859538 52.169053 20.859524 52.169028 20.859560 52.168960 20.859893 52.168935 20.859930 52.168816 20.859881 52.168951 20.859021 </gml:posList>
+                <gml:posList srsDimension="2">20.859021 52.168951 20.859111 52.169119 20.859141 52.169113 20.859175 52.169176 20.859276 52.169364 20.859285 52.169364 20.859302 52.169361 20.859316 52.169355 20.859447 52.169265 20.859457 52.169256 20.859461 52.169246 20.859460 52.169235 20.859406 52.169133 20.859442 52.169108 20.859457 52.169116 20.859538 52.169061 20.859524 52.169053 20.859560 52.169028 20.859893 52.168960 20.859930 52.168935 20.859881 52.168816 20.859021 52.168951</gml:posList>
               </gml:LinearRing>
             </gml:exterior>
           </gml:Polygon>

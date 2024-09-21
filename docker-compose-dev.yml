@@ -1,0 +1,11 @@
+version: '3'
+services:
+  backend:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
