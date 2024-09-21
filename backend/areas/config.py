@@ -223,6 +223,9 @@ all_counties: Dict[str, AreaParser] = {
     '2409': GeoportalAreaParser(name='myszkowski', url_code='2409', default_crs=2180),
     '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
     '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),
+    '2415': GIPortalAreaParser(
+        name='wodzisławski', base_url='https://imapa.powiatwodzislawski.pl/wodzislaw-egib'
+    ),
     '2416': GIPortalAreaParser(
         name='zawierciański', base_url='https://ikerg.zawiercie.powiat.pl/powiatzawiercianski-egib'
     ),
