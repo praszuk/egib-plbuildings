@@ -1263,6 +1263,17 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
+        name='wodzisławski',
+        teryt='2415',
+        lat=50.00209,
+        lon=18.46325,
+        expected_tags={
+            'building': 'residential',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    HealthCheckTestAreaData(
         name='zawierciański',
         teryt='2416',
         lat=50.44820,
