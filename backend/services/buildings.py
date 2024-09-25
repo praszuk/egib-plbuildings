@@ -42,7 +42,7 @@ async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
         raise HTTPException(status_code=404, headers={'X-Error': f'Area not found at {lat} {lon}'})
 
     area = all_areas[area_teryt]
-    url = area.build_url(lat, lon)
+    url = area.build_buildings_bbox_url(lat, lon)
     default_logger.info(
         f'Downloading data for {area_teryt} from: {url}',
         extra={

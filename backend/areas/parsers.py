@@ -48,7 +48,7 @@ class BaseAreaParser(Area):
     FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
 
     @abstractmethod
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         pass
 
     @abstractmethod
@@ -186,7 +186,7 @@ class BaseAreaParser(Area):
 
 
 class EpodgikAreaParser(BaseAreaParser):
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return (
             f'https://wms.epodgik.pl/cgi-bin/{self.url_code}/wfs'
@@ -220,7 +220,7 @@ class EpodgikAreaParser(BaseAreaParser):
 
 
 class GeoportalAreaParser(BaseAreaParser):
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         x, y = self.reproject_coordinates(lat, lon, self.default_crs)
         bbox = ','.join(map(str, [x, y, x, y]))
         return (
@@ -256,7 +256,7 @@ class GeoportalAreaParser(BaseAreaParser):
 
 
 class Geoportal2AreaParser(BaseAreaParser):
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         offset = 0.00001
         # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
         bbox = ','.join(map(str, [lat, lon, lat + offset, lon + offset]))
@@ -288,7 +288,7 @@ class Geoportal2AreaParser(BaseAreaParser):
 
 
 class GIPortalAreaParser(BaseAreaParser):
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return (
             f'{self.base_url}'
@@ -322,7 +322,7 @@ class GIPortalAreaParser(BaseAreaParser):
 
 
 class WarszawaAreaParser(BaseAreaParser):
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return (
             f'https://wms2.um.warszawa.pl/geoserver/wfs/wfs'
@@ -356,7 +356,7 @@ class WarszawaAreaParser(BaseAreaParser):
 
 
 class WroclawAreaParser(BaseAreaParser):
-    def build_url(self, lat: float, lon: float) -> str:
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return (
             f'https://iwms.zgkikm.wroc.pl/wroclaw-egib'
