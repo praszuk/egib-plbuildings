@@ -40,8 +40,7 @@ dclean:
 	docker compose -f docker-compose-prod.yml down
 
 healthcheck:
-	export PYTHONPATH=$(PROJECT_DIR) && \
-	$(PYTHON) $(APP_DIR)/areas/healthcheck.py
+	docker compose -f docker-compose-prod.yml exec backend bash -c "export PYTHONPATH=/app;python backend/areas/healthcheck.py"
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
