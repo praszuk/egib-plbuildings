@@ -3,20 +3,18 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}
     volumes:
-      - ./backend:/app/backend
-      - ./.cache:/app/.cache/
       - ./.logs:/app/.logs/
       - ./data/:/app/data/
     networks:
-      - egib-dev-net
+      - egib-prod-net
     ports:
-      - "8081:8000"
+      - "80:8000"
     environment:
-      DEV: 1
+      DEV: 0
 networks:
-    egib-dev-net:
+    egib-prod-net:
