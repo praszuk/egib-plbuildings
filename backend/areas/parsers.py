@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from typing import Any, List, Dict
+from urllib.parse import urlparse, parse_qs, urlencode
 
 from lxml import etree
 from lxml.etree import XMLSyntaxError
@@ -43,9 +44,24 @@ KST_NAME_CODE: Final = {
 }
 
 
+def merge_url_query_params(url: str, additional_params: dict) -> str:
+    """
+    https://stackoverflow.com/a/52373377
+    """
+    url_components = urlparse(url)
+    original_params = parse_qs(url_components.query)
+    merged_params = {**original_params, **additional_params}
+    updated_query = urlencode(merged_params, doseq=True)
+    return url_components._replace(query=updated_query).geturl()
+
+
 class BaseAreaParser(Area):
     SRS_NAME: str = 'EPSG:4326'
     FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
+
+    @abstractmethod
+    def build_buildings_url(self) -> str:
+        pass
 
     @abstractmethod
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
@@ -186,8 +202,7 @@ class BaseAreaParser(Area):
 
 
 class EpodgikAreaParser(BaseAreaParser):
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+    def build_buildings_url(self) -> str:
         return (
             f'https://wms.epodgik.pl/cgi-bin/{self.url_code}/wfs'
             '?service=wfs'
@@ -195,7 +210,12 @@ class EpodgikAreaParser(BaseAreaParser):
             '&request=GetFeature'
             '&typeNames=ms:budynki'
             f'&SRSNAME={self.SRS_NAME}'
-            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return merge_url_query_params(
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
@@ -220,17 +240,19 @@ class EpodgikAreaParser(BaseAreaParser):
 
 
 class GeoportalAreaParser(BaseAreaParser):
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        x, y = self.reproject_coordinates(lat, lon, self.default_crs)
-        bbox = ','.join(map(str, [x, y, x, y]))
+    def build_buildings_url(self) -> str:
         return (
             f'https://mapy.geoportal.gov.pl/wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'
             f'?service=WFS'
             f'&version=2.0.0'
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ms:budynki'
-            f'&bbox={bbox}'
         )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        x, y = self.reproject_coordinates(lat, lon, self.default_crs)
+        bbox = ','.join(map(str, [x, y, x, y]))
+        return merge_url_query_params(self.build_buildings_url(), {'bbox': bbox})
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
         return self._gml_to_geojson(
@@ -256,17 +278,21 @@ class GeoportalAreaParser(BaseAreaParser):
 
 
 class Geoportal2AreaParser(BaseAreaParser):
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        offset = 0.00001
-        # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
-        bbox = ','.join(map(str, [lat, lon, lat + offset, lon + offset]))
+    def build_buildings_url(self) -> str:
         return (
             f'https://{self.url_code}.geoportal2.pl/map/geoportal/wfs.php'
             f'?service=WFS'
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ewns:budynki'
             f'&SRSNAME={self.SRS_NAME}'
-            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        offset = 0.00001
+        # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
+        bbox = ','.join(map(str, [lat, lon, lat + offset, lon + offset]))
+        return merge_url_query_params(
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
@@ -288,8 +314,7 @@ class Geoportal2AreaParser(BaseAreaParser):
 
 
 class GIPortalAreaParser(BaseAreaParser):
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+    def build_buildings_url(self) -> str:
         return (
             f'{self.base_url}'
             f'?service=WFS'
@@ -297,7 +322,12 @@ class GIPortalAreaParser(BaseAreaParser):
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ms:budynki'
             f'&SRSNAME={self.SRS_NAME}'
-            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return merge_url_query_params(
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
@@ -322,8 +352,7 @@ class GIPortalAreaParser(BaseAreaParser):
 
 
 class WarszawaAreaParser(BaseAreaParser):
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+    def build_buildings_url(self) -> str:
         return (
             f'https://wms2.um.warszawa.pl/geoserver/wfs/wfs'
             '?service=wfs'
@@ -331,7 +360,12 @@ class WarszawaAreaParser(BaseAreaParser):
             '&request=GetFeature'
             '&typeNames=wfs:budynki'
             f'&SRSNAME={self.SRS_NAME}'
-            f'&bbox={bbox},{self.FULL_SRS_NAME}'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return merge_url_query_params(
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.FULL_SRS_NAME}'}
         )
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
@@ -356,8 +390,7 @@ class WarszawaAreaParser(BaseAreaParser):
 
 
 class WroclawAreaParser(BaseAreaParser):
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+    def build_buildings_url(self) -> str:
         return (
             f'https://iwms.zgkikm.wroc.pl/wroclaw-egib'
             '?service=wfs'
@@ -365,7 +398,12 @@ class WroclawAreaParser(BaseAreaParser):
             '&request=GetFeature'
             '&typeNames=ms:budynki'
             f'&SRSNAME={self.SRS_NAME}'
-            f'&bbox={bbox},{self.SRS_NAME}'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        bbox = ','.join(map(str, [lat, lon, lat, lon]))
+        return merge_url_query_params(
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
