@@ -4,6 +4,16 @@ API server which is used by [josm-plbuildings-server](https://github.com/praszuk
 and parse it to OSM format.
 
 ## How to use it
+### Example .env file
+```
+# Database
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+POSTGRES_DB=database_name
+POSTGRES_USER=database_user
+POSTGRES_PASSWORD=database_password
+```
+
 ### Development 
 For development, you can install all dependencies using: 
 ```commandline
