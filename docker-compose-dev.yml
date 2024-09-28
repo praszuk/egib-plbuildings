@@ -21,6 +21,8 @@ services:
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}
+    env_file:
+      - .env
     volumes:
       - ./backend:/app/backend
       - ./.cache:/app/.cache/
