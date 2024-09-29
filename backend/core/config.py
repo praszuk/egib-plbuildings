@@ -1,4 +1,4 @@
-from os import path
+from os import path, environ
 from typing import Final
 
 from pydantic_settings import BaseSettings
@@ -7,6 +7,12 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     API_V1_STR: Final[str] = '/api/v1'
     PROJECT_NAME: Final[str] = 'egib-plbuildings'
+    DATABASE_URL: str = 'postgresql://{}:{}@{}/{}'.format(
+        environ.get('POSTGRES_USER'),
+        environ.get('POSTGRES_PASSWORD'),
+        environ.get('POSTGRES_HOST'),
+        environ.get('POSTGRES_DB'),
+    )
 
     PROJECT_ROOT_DIR: Final[str] = path.realpath(path.join(path.dirname(__file__), '..', '..'))
     APP_DIR: Final[str] = path.realpath(path.join(path.dirname(__file__), '..'))

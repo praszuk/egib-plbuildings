@@ -1,4 +1,19 @@
 services:
+  db:
+    restart: always
+    image: "postgis/postgis:16-3.4"
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+    command: -p ${POSTGRES_PORT}
+    networks:
+      - egib-prod-net
+    volumes:
+      - ./.db:/var/lib/postgresql/data
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   backend:
     restart: always
     build:
@@ -7,6 +22,8 @@ services:
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}
+    env_file:
+      - .env
     volumes:
       - ./.logs:/app/.logs/
       - ./data/:/app/data/
