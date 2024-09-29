@@ -1,9 +1,11 @@
 from logging.config import fileConfig
+from typing import Optional, Literal
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from sqlalchemy.sql.schema import SchemaItem
 
 from backend.core.config import settings
 from backend.database.base import Base
@@ -24,6 +26,28 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+IGNORE_TABLES: list[str] = ['spatial_ref_sys']
+
+
+def include_object(
+    object: SchemaItem,  # noqa
+    name: Optional[str],
+    type_: Literal[
+        'schema',
+        'table',
+        'column',
+        'index',
+        'unique_constraint',
+        'foreign_key_constraint',
+    ],
+    reflected: bool,  # noqa
+    compare_to: Optional[SchemaItem],  # noqa
+) -> bool:
+    if type_ == 'table' and (name in IGNORE_TABLES or object.info.get('skip_autogenerate', False)):
+        return False
+
+    return True
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -43,6 +67,7 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={'paramstyle': 'named'},
+        include_object=include_object,
     )
 
     with context.begin_transaction():
@@ -65,7 +90,9 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
+        context.configure(
+            connection=connection, target_metadata=target_metadata, include_object=include_object
+        )
 
         with context.begin_transaction():
             context.run_migrations()
