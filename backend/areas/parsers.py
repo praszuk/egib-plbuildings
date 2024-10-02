@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import json
-from typing import Any, List, Dict
+from typing import Any, List, Dict, Tuple
 from urllib.parse import urlparse, parse_qs, urlencode
 
 from lxml import etree
 from lxml.etree import XMLSyntaxError
 from osgeo import ogr, osr  # noqa
+from osgeo.ogr import Geometry
 
 from backend.exceptions import InvalidKeyParserError, ParserError
 from backend.areas.models import Area
@@ -68,18 +69,33 @@ class BaseAreaParser(Area):
         pass
 
     @abstractmethod
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        pass
-
-    @abstractmethod
     def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         pass
 
-    @staticmethod
     def _gml_to_geojson(
-        gml_content: str, prefix: str, geometry_tag: str, custom_input_crs: int = None
+        self, gml_content: str, prefix: str, geometry_tag: str, custom_input_crs: int = None
     ) -> dict[str, Any]:
         features: List[Dict[str, Any]] = []
+
+        geoms_and_props = self.parse_gml_to_geometries_and_properties(
+            gml_content, prefix, geometry_tag, custom_input_crs
+        )
+        for geometry, properties in geoms_and_props:
+            geojson_str_geometry: str = geometry.ExportToJson()
+            features.append(
+                {
+                    'type': 'Feature',
+                    'geometry': json.loads(geojson_str_geometry),
+                    'properties': properties,
+                }
+            )
+
+        return {'type': 'FeatureCollection', 'features': features}
+
+    def parse_gml_to_geometries_and_properties(
+        self, gml_content: str, prefix: str, geometry_tag: str, custom_input_crs: int = None
+    ) -> List[Tuple[Geometry, Dict[str, Any]]]:
+        geometries_and_properties: List[Tuple[Geometry, Dict[str, Any]]] = []
 
         try:
             root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
@@ -89,26 +105,25 @@ class BaseAreaParser(Area):
         wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)  # type: ignore[arg-type]
 
         for wfs_member in wfs_members:
-            # get ms:budynki member
-            bud_member = wfs_member.getchildren()[0]  # type: ignore[attr-defined]
+            building_member = wfs_member.getchildren()[0]  # get <prefix> member
 
             geometries = []
             properties = {}
-            for child in bud_member.getchildren():
+            for child in building_member.getchildren():
                 if not child.tag.startswith('{' + str(root.nsmap.get(prefix))):
                     continue
 
                 clean_tag = child.tag.replace(root.nsmap.get(prefix), '')[2:]
                 if clean_tag == geometry_tag:
-                    # 1 bud_member object (multisurface), can contain multiple polygons
-                    polygons = bud_member.findall('.//gml:Polygon', namespaces=root.nsmap)
+                    # 1 building member object (multisurface), can contain multiple polygons
+                    polygons = building_member.findall('.//gml:Polygon', namespaces=root.nsmap)
 
                     for polygon in polygons:
                         gml_geom = etree.tostring(polygon).decode('utf-8')
                         geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
 
                         # Reproject to 4326
-                        if custom_input_crs:
+                        if custom_input_crs and custom_input_crs != 4326:
                             source = osr.SpatialReference()
                             source.ImportFromEPSG(custom_input_crs)
                             target = osr.SpatialReference()
@@ -126,23 +141,16 @@ class BaseAreaParser(Area):
                             transform = osr.CoordinateTransformation(source, target)
                             geometry.Transform(transform)
 
-                        geojson_str_geometry: str = geometry.ExportToJson()
-
-                        geometries.append(json.loads(geojson_str_geometry))
+                        geometries.append(geometry)
 
                 else:
                     properties[clean_tag] = child.text
 
             for geometry in geometries:
-                features.append(
-                    {
-                        'type': 'Feature',
-                        'geometry': geometry,
-                        'properties': properties,  # ignoring duplicated building_id etc.
-                    }
-                )
+                # ignoring duplicated building_id etc.
+                geometries_and_properties.append((geometry, properties))
 
-        return {'type': 'FeatureCollection', 'features': features}
+        return geometries_and_properties
 
     def replace_properties_with_osm_tags(self, geojson: Dict[str, Any]) -> None:
         for index, feature in enumerate(geojson['features']):
