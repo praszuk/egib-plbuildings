@@ -250,13 +250,13 @@ class GeoportalAreaParser(BaseAreaParser):
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        x, y = self.reproject_coordinates(lat, lon, self.default_crs)
+        x, y = self.reproject_coordinates(lat, lon, self.custom_crs)
         bbox = ','.join(map(str, [x, y, x, y]))
         return merge_url_query_params(self.build_buildings_url(), {'bbox': bbox})
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
         return self._gml_to_geojson(
-            gml_content, prefix='ms', geometry_tag='msGeometry', custom_input_crs=self.default_crs
+            gml_content, prefix='ms', geometry_tag='msGeometry', custom_input_crs=self.custom_crs
         )
 
     def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
