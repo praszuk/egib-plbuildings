@@ -10,7 +10,7 @@ from osgeo import ogr, osr  # noqa
 from osgeo.ogr import Geometry
 
 from backend.exceptions import InvalidKeyParserError, ParserError
-from backend.areas.models import Area
+from backend.areas.models import GMLAreaParser
 from abc import abstractmethod
 
 from typing import Final
@@ -56,9 +56,25 @@ def merge_url_query_params(url: str, additional_params: dict) -> str:
     return url_components._replace(query=updated_query).geturl()
 
 
-class BaseAreaParser(Area):
+class BaseAreaParser(GMLAreaParser):
     SRS_NAME: str = 'EPSG:4326'
     FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
+
+    def __init__(
+        self,
+        name: str,
+        url_code: str = None,
+        base_url: str = None,
+        custom_crs: int = None,
+        gml_prefix: str = 'ms',
+        gml_geometry_key: str = 'msGeometry',
+    ):
+        self.name = name
+        self.url_code = url_code
+        self.base_url = base_url
+        self.custom_crs = custom_crs
+        self.gml_prefix = gml_prefix
+        self.gml_geometry_key = gml_geometry_key
 
     @abstractmethod
     def build_buildings_url(self) -> str:
@@ -69,17 +85,13 @@ class BaseAreaParser(Area):
         pass
 
     @abstractmethod
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         pass
 
-    def _gml_to_geojson(
-        self, gml_content: str, prefix: str, geometry_tag: str, custom_input_crs: int = None
-    ) -> dict[str, Any]:
+    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
         features: List[Dict[str, Any]] = []
 
-        geoms_and_props = self.parse_gml_to_geometries_and_properties(
-            gml_content, prefix, geometry_tag, custom_input_crs
-        )
+        geoms_and_props = self.parse_gml_to_geometries_and_properties(gml_content)
         for geometry, properties in geoms_and_props:
             geojson_str_geometry: str = geometry.ExportToJson()
             features.append(
@@ -93,7 +105,7 @@ class BaseAreaParser(Area):
         return {'type': 'FeatureCollection', 'features': features}
 
     def parse_gml_to_geometries_and_properties(
-        self, gml_content: str, prefix: str, geometry_tag: str, custom_input_crs: int = None
+        self, gml_content: str
     ) -> List[Tuple[Geometry, Dict[str, Any]]]:
         geometries_and_properties: List[Tuple[Geometry, Dict[str, Any]]] = []
 
@@ -110,11 +122,11 @@ class BaseAreaParser(Area):
             geometries = []
             properties = {}
             for child in building_member.getchildren():
-                if not child.tag.startswith('{' + str(root.nsmap.get(prefix))):
+                if not child.tag.startswith('{' + str(root.nsmap.get(self.gml_prefix))):
                     continue
 
-                clean_tag = child.tag.replace(root.nsmap.get(prefix), '')[2:]
-                if clean_tag == geometry_tag:
+                clean_tag = child.tag.replace(root.nsmap.get(self.gml_prefix), '')[2:]
+                if clean_tag == self.gml_geometry_key:
                     # 1 building member object (multisurface), can contain multiple polygons
                     polygons = building_member.findall('.//gml:Polygon', namespaces=root.nsmap)
 
@@ -123,9 +135,9 @@ class BaseAreaParser(Area):
                         geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
 
                         # Reproject to 4326
-                        if custom_input_crs and custom_input_crs != 4326:
+                        if self.custom_crs and self.custom_crs != 4326:
                             source = osr.SpatialReference()
-                            source.ImportFromEPSG(custom_input_crs)
+                            source.ImportFromEPSG(self.custom_crs)
                             target = osr.SpatialReference()
                             target.SetWellKnownGeogCS('WGS84')
                             transform = osr.CoordinateTransformation(source, target)
@@ -155,7 +167,7 @@ class BaseAreaParser(Area):
     def replace_properties_with_osm_tags(self, geojson: Dict[str, Any]) -> None:
         for index, feature in enumerate(geojson['features']):
             properties = feature['properties']
-            tags = self.parse_feature_properties_to_osm_tags(properties)
+            tags = self.parse_properties_to_osm_tags(properties)
             geojson['features'][index]['properties'] = self.clean_tags(tags)
 
     @staticmethod
@@ -226,10 +238,7 @@ class EpodgikAreaParser(BaseAreaParser):
             self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        return self._gml_to_geojson(gml_content, prefix='ms', geometry_tag='msGeometry')
-
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(properties['FUNKCJA'], DEFAULT_BUILDING)
@@ -262,12 +271,7 @@ class GeoportalAreaParser(BaseAreaParser):
         bbox = ','.join(map(str, [x, y, x, y]))
         return merge_url_query_params(self.build_buildings_url(), {'bbox': bbox})
 
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        return self._gml_to_geojson(
-            gml_content, prefix='ms', geometry_tag='msGeometry', custom_input_crs=self.custom_crs
-        )
-
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
@@ -286,6 +290,9 @@ class GeoportalAreaParser(BaseAreaParser):
 
 
 class Geoportal2AreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, gml_prefix='ewns', gml_geometry_key='geometria')
+
     def build_buildings_url(self) -> str:
         return (
             f'https://{self.url_code}.geoportal2.pl/map/geoportal/wfs.php'
@@ -303,10 +310,7 @@ class Geoportal2AreaParser(BaseAreaParser):
             self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        return self._gml_to_geojson(gml_content, prefix='ewns', geometry_tag='geometria')
-
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
@@ -338,10 +342,7 @@ class GIPortalAreaParser(BaseAreaParser):
             self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        return self._gml_to_geojson(gml_content, prefix='ms', geometry_tag='msGeometry')
-
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
@@ -360,6 +361,9 @@ class GIPortalAreaParser(BaseAreaParser):
 
 
 class WarszawaAreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, gml_prefix='Q1', gml_geometry_key='GEOMETRY')
+
     def build_buildings_url(self) -> str:
         return (
             f'https://wms2.um.warszawa.pl/geoserver/wfs/wfs'
@@ -376,10 +380,7 @@ class WarszawaAreaParser(BaseAreaParser):
             self.build_buildings_url(), {'bbox': f'{bbox},{self.FULL_SRS_NAME}'}
         )
 
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        return self._gml_to_geojson(gml_content, prefix='Q1', geometry_tag='GEOMETRY')
-
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
@@ -414,10 +415,7 @@ class WroclawAreaParser(BaseAreaParser):
             self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
         )
 
-    def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        return self._gml_to_geojson(gml_content, prefix='ms', geometry_tag='msGeometry')
-
-    def parse_feature_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
 
         try:

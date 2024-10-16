@@ -7,12 +7,15 @@ from osgeo import ogr, osr  # noqa
 from abc import ABC
 
 
-@dataclass(frozen=True)
-class Area(ABC):
+class GMLAreaParser(ABC):
     name: str
-    url_code: str = ''
-    base_url: str = ''
-    custom_crs: int = 4326  # used only if server failing bbox reprojection to 4326 (mapserver)
+    url_code: str
+    base_url: str
+
+    custom_crs: int
+
+    gml_prefix: str
+    gml_geometry_key: str
 
 
 @dataclass(frozen=True)
