@@ -57,8 +57,8 @@ def merge_url_query_params(url: str, additional_params: dict) -> str:
 
 
 class BaseAreaParser(GMLAreaParser):
-    SRS_NAME: str = 'EPSG:4326'
-    FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
+    DEFAULT_SRS_NAME: str = 'EPSG:4326'
+    DEFAULT_FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
 
     def __init__(
         self,
@@ -229,13 +229,13 @@ class EpodgikAreaParser(BaseAreaParser):
             '&version=2.0.0'
             '&request=GetFeature'
             '&typeNames=ms:budynki'
-            f'&SRSNAME={self.SRS_NAME}'
+            f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
@@ -299,7 +299,7 @@ class Geoportal2AreaParser(BaseAreaParser):
             f'?service=WFS'
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ewns:budynki'
-            f'&SRSNAME={self.SRS_NAME}'
+            f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
@@ -307,7 +307,7 @@ class Geoportal2AreaParser(BaseAreaParser):
         # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
         bbox = ','.join(map(str, [lat, lon, lat + offset, lon + offset]))
         return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
@@ -333,13 +333,13 @@ class GIPortalAreaParser(BaseAreaParser):
             f'&version=2.0.0'
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ms:budynki'
-            f'&SRSNAME={self.SRS_NAME}'
+            f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
@@ -371,13 +371,13 @@ class WarszawaAreaParser(BaseAreaParser):
             '&version=2.0.0'
             '&request=GetFeature'
             '&typeNames=wfs:budynki'
-            f'&SRSNAME={self.SRS_NAME}'
+            f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.FULL_SRS_NAME}'}
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_FULL_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
@@ -406,13 +406,13 @@ class WroclawAreaParser(BaseAreaParser):
             '&version=2.0.0'
             '&request=GetFeature'
             '&typeNames=ms:budynki'
-            f'&SRSNAME={self.SRS_NAME}'
+            f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         bbox = ','.join(map(str, [lat, lon, lat, lon]))
         return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.SRS_NAME}'}
+            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
