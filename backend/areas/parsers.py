@@ -257,6 +257,9 @@ class EpodgikAreaParser(BaseAreaParser):
 
 
 class GeoportalAreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, custom_crs=2180)
+
     def build_buildings_url(self) -> str:
         return (
             f'https://mapy.geoportal.gov.pl/wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'

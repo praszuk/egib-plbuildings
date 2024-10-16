@@ -4,7 +4,7 @@ import pytest
 
 from backend.areas.parsers import GeoportalAreaParser
 
-area = GeoportalAreaParser('test_area', custom_crs=2180)
+area = GeoportalAreaParser('test_area')
 
 
 class TestBasicBuilding:
