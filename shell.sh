@@ -1,0 +1,1 @@
+docker compose -f docker-compose-dev.yml exec -it backend bash -c "ipython3 -i backend/ipython_setup.py"
