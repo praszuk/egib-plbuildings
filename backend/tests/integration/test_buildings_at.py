@@ -31,7 +31,7 @@ async def mock_download_gml(test_epodgik_data_dir, filename: str) -> str:
 
 
 @pytest.mark.anyio
-async def test_simple_building_data(async_client, monkeypatch, test_epodgik_data_dir):
+async def test_live_simple_building_data(async_client, monkeypatch, test_epodgik_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
@@ -39,7 +39,7 @@ async def test_simple_building_data(async_client, monkeypatch, test_epodgik_data
     )
     monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
-    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
+    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20, 'live': True})
 
     assert response.status_code == 200
     data = response.json()
@@ -51,7 +51,7 @@ async def test_simple_building_data(async_client, monkeypatch, test_epodgik_data
 
 
 @pytest.mark.anyio
-async def test_multiple_buildings_data_returns_only_one(
+async def test_live_multiple_buildings_data_returns_only_one(
     async_client, monkeypatch, test_epodgik_data_dir
 ):
     monkeypatch.setattr(
@@ -61,7 +61,7 @@ async def test_multiple_buildings_data_returns_only_one(
     )
     monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
-    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
+    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20, 'live': True})
 
     assert response.status_code == 200
     data = response.json()
@@ -71,7 +71,7 @@ async def test_multiple_buildings_data_returns_only_one(
 
 
 @pytest.mark.anyio
-async def test_no_building_data(async_client, monkeypatch, test_epodgik_data_dir):
+async def test_live_no_building_data(async_client, monkeypatch, test_epodgik_data_dir):
     monkeypatch.setattr(
         buildings,
         '_download_gml',
@@ -79,7 +79,7 @@ async def test_no_building_data(async_client, monkeypatch, test_epodgik_data_dir
     )
     monkeypatch.setattr(area_finder, 'area_at', lambda lat, lon: MOCK_AREA_TERYT_VALUE)
 
-    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20})
+    response = await async_client.get('buildings/', params={'lat': 50, 'lon': 20, 'live': True})
 
     assert response.status_code == 200
     data = response.json()
