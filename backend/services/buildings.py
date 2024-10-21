@@ -4,10 +4,15 @@ from typing import Any, Dict, Optional
 from fastapi import HTTPException
 from httpx import AsyncClient, TimeoutException, NetworkError
 
-from backend.core.logger import default_logger
+from sqlalchemy import select
+from sqlalchemy.sql import func
+
 from backend.areas.config import all_areas
 from backend.areas.finder import area_finder, find_nearest_feature
+from backend.core.logger import default_logger
+from backend.database.session import Session
 from backend.exceptions import AreaNotFound, ParserError
+from backend.models.building import Building
 
 
 async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
@@ -23,7 +28,32 @@ async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
     return response.text
 
 
-async def get_building_at(lat: float, lon: float) -> Dict[str, Any]:
+async def query_building_from_db_at(lat: float, lon: float) -> Dict[str, Any]:
+    # fmt: off
+    query = select(
+        func.json_build_object(
+            'type', 'FeatureCollection',
+            'features', func.coalesce(
+                func.json_agg(
+                    func.json_build_object(
+                        'type', 'Feature',
+                        'geometry', Building.geometry,
+                        'properties', Building.tags
+                    )
+                ),
+                func.json_build_array()
+            )
+        )
+    ).where(func.ST_Contains(Building.geometry, func.ST_SetSRID(func.ST_MakePoint(lon, lat), 4326)))
+    # fmt: on
+
+    session = Session()
+    result = session.execute(query)
+    r = result.fetchall()
+    return r[0][0] if r else {}
+
+
+async def get_building_live_at(lat: float, lon: float) -> Dict[str, Any]:
     try:
         area_teryt = area_finder.area_at(lat, lon)
         if area_teryt not in all_areas:
