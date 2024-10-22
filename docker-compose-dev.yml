@@ -35,5 +35,7 @@ services:
       - "8081:8000"
     environment:
       DEV: 1
+    depends_on:
+      - db
 networks:
     egib-dev-net:
