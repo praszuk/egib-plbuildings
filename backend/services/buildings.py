@@ -30,26 +30,26 @@ async def _download_gml(client: AsyncClient, url: str) -> Optional[str]:
 
 async def query_building_from_db_at(db: Session, lat: float, lon: float) -> Dict[str, Any]:
     # fmt: off
-    query = select(
-        func.json_build_object(
-            'type', 'FeatureCollection',
-            'features', func.coalesce(
-                func.json_agg(
-                    func.json_build_object(
-                        'type', 'Feature',
-                        'geometry', Building.geometry,
-                        'properties', Building.tags
-                    )
-                ),
-                func.json_build_array()
+    query = (
+        select(
+            func.json_build_object(
+                'type', 'Feature',
+                'geometry', Building.geometry,
+                'properties', Building.tags
             )
         )
-    ).where(func.ST_Contains(Building.geometry, func.ST_SetSRID(func.ST_MakePoint(lon, lat), 4326)))
-    # fmt: on
+        .where(
+            func.ST_Contains(Building.geometry, func.ST_SetSRID(func.ST_MakePoint(lon, lat), 4326))
+        )
+        .limit(1)
+    )
+    #  fmt: on
 
-    result = db.execute(query)
-    r = result.fetchall()
-    return r[0][0] if r else {}
+    result = {'type': 'FeatureCollection', 'features': []}
+    if feature := db.execute(query).scalar():
+        result['features'].append(feature)
+
+    return result
 
 
 async def get_building_live_at(lat: float, lon: float) -> Dict[str, Any]:
