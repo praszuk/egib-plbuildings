@@ -53,8 +53,6 @@ def setup_db():
     conn.commit()
     conn.close()
 
-    Base.metadata.create_all(bind=engine)
-
     yield
 
     engine.dispose()
@@ -64,12 +62,18 @@ def setup_db():
 @pytest.fixture(scope='function')
 def db(setup_db):
     engine = create_engine(TEST_DB_URL)
+
+    Base.metadata.create_all(bind=engine)
+
     Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)  # noqa
     db_session = Session()
+
     try:
         yield db_session
+
     finally:
         db_session.close()
+        Base.metadata.drop_all(bind=engine)
         engine.dispose()
 
 
