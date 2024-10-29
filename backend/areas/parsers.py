@@ -114,7 +114,10 @@ class BaseAreaParser(GMLAreaParser):
         except XMLSyntaxError:
             raise ParserError('Cannot parse root of GML content')
 
-        wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)  # type: ignore[arg-type]
+        try:
+            wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)
+        except (KeyError, SyntaxError):
+            raise ParserError('Cannot parse wfs members')
 
         for wfs_member in wfs_members:
             building_member = wfs_member.getchildren()[0]  # get <prefix> member
