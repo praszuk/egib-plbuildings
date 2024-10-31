@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://wms2.um.warszawa.pl/geoserver/wfs/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=wfs%3Abudynki&SRSNAME=EPSG%3A4326&bbox=52.22754%2C21.010685%2C52.228688%2C21.012031%2Curn%3Aogc%3Adef%3Acrs%3AEPSG%3A4326 -->
+<!-- City Warszawa ('1465') Multiple (10) polygons -->
+<wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:Q1="https://wms2.um.warszawa.pl/wfs"
+                       xmlns:wfs="http://www.opengis.net/wfs/2.0"
+                       xmlns:gml="http://www.opengis.net/gml/3.2"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       numberMatched="10" numberReturned="10"
+                       timeStamp="2024-10-31T00:14:27.720Z"
+                       xsi:schemaLocation="http://www.opengis.net/wfs/2.0 http://wms2.um.warszawa.pl/geoserver/schemas/wfs/2.0/wfs.xsd https://wms2.um.warszawa.pl/wfs http://wms2.um.warszawa.pl/geoserver/wfs/wfs?service=WFS&amp;version=2.0.0&amp;request=DescribeFeatureType&amp;typeName=wfs%3Abudynki http://www.opengis.net/gml/3.2 http://wms2.um.warszawa.pl/geoserver/schemas/gml/3.2.1/gml.xsd">
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d77">
+            <Q1:ID_BUDYNKU>146510_8.0501.173_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>b</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>12</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d77.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d77.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01145025 52.22848393
+                                        21.01149896 52.22839728 21.01155941
+                                        52.22841148 21.01157478 52.22838667
+                                        21.01157053 52.22838568 21.01166255
+                                        52.22822955 21.01166724 52.22823054
+                                        21.01171669 52.22814776 21.01175064
+                                        52.22815504 21.01175386 52.22815567
+                                        21.01174845 52.2281643 21.01185223
+                                        52.22818711 21.01220689 52.22826491
+                                        21.01220426 52.22826869 21.01219591
+                                        52.22826671 21.01218933 52.22826527
+                                        21.01217059 52.22826105 21.01215962
+                                        52.22827813 21.01217631 52.22828945
+                                        21.01214705 52.22833889 21.01216622
+                                        52.2283432 21.01212102 52.22841978
+                                        21.01211853 52.22842391 21.01210756
+                                        52.22844324 21.01207669 52.22849429
+                                        21.01206205 52.22849097 21.01205751
+                                        52.22848998 21.01202928 52.22853231
+                                        21.01203791 52.22853429 21.01202957
+                                        52.22854768 21.01202094 52.2285458
+                                        21.01200294 52.22857752 21.01193489
+                                        52.22858877 21.01189083 52.22858293
+                                        21.01188746 52.22858374 21.01153192
+                                        52.22850396 21.01153265 52.2285027
+                                        21.01151333 52.22849803 21.01149123
+                                        52.22849309 21.01145025 52.22848393
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d76">
+            <Q1:ID_BUDYNKU>146510_8.0501.118_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>m</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>7</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d76.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d76.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01076059 52.22854466
+                                        21.01070982 52.22863957 21.01068656
+                                        52.228682 21.0106674 52.22871714
+                                        21.01062424 52.22879615 21.01061575
+                                        52.22881089 21.01032915 52.22875106
+                                        21.01013463 52.22870928 21.01026601
+                                        52.22846813 21.01027976 52.22845348
+                                        21.01030069 52.22844736 21.01031899
+                                        52.22844817 21.01044633 52.22847422
+                                        21.01044487 52.22847818 21.01050488
+                                        52.22849139 21.01050707 52.22848806
+                                        21.01076059 52.22854466
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                            <gml:interior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01057356 52.22864013
+                                        21.01052935 52.22863006 21.01051808
+                                        52.22863366 21.01047476 52.22862495
+                                        21.01046685 52.22861677 21.01042967
+                                        52.22860976 21.0104266 52.22859871
+                                        21.0104064 52.22859502 21.01039176
+                                        52.22859862 21.01038196 52.22861597
+                                        21.01039557 52.22861884 21.0104007
+                                        52.22862567 21.01037319 52.22867322
+                                        21.0103568 52.22867547 21.0103429
+                                        52.22867529 21.01033046 52.22869659
+                                        21.01035593 52.22870261 21.01036295
+                                        52.2286991 21.01051796 52.22873198
+                                        21.01052265 52.22874124 21.0105187
+                                        52.2287487 21.01056612 52.22875885
+                                        21.01057841 52.22873557 21.01056319
+                                        52.22873234 21.01055616 52.2287212
+                                        21.01059259 52.22865828 21.01057356
+                                        52.22864013
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:interior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d75">
+            <Q1:ID_BUDYNKU>146510_8.0501.20_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>m</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>10</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d75.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d75.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01103475 52.22861312
+                                        21.01107661 52.22862174 21.01102497
+                                        52.22871064 21.01098779 52.22870129
+                                        21.01098047 52.2286995 21.01097198
+                                        52.22871361 21.01075491 52.22866563
+                                        21.01076149 52.22865161 21.01070982
+                                        52.22863957 21.01076059 52.22854466
+                                        21.01077493 52.22854753 21.01076967
+                                        52.22855859 21.01103475 52.22861312
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d74">
+            <Q1:ID_BUDYNKU>146510_8.0501.114_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>i</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>11</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d74.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d74.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01102497 52.22871064
+                                        21.01107661 52.22862174 21.01108876
+                                        52.22862417 21.01115404 52.228638
+                                        21.01120205 52.22864852 21.01122123
+                                        52.22865436 21.01123396 52.22865966
+                                        21.01130496 52.22870675 21.01131287
+                                        52.22871034 21.01113452 52.22900201
+                                        21.01104995 52.22914025 21.01104132
+                                        52.2291389 21.01103415 52.22913755
+                                        21.01087277 52.22939426 21.01072756
+                                        52.22936236 21.01073459 52.22935418
+                                        21.01071951 52.22935068 21.01065379
+                                        52.2293364 21.01081795 52.22906711
+                                        21.01083887 52.2290325 21.01095158
+                                        52.22905595 21.01114075 52.22875017
+                                        21.01102687 52.22872529 21.01101663
+                                        52.22872286 21.01102497 52.22871064
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d73">
+            <Q1:ID_BUDYNKU>146510_8.0501.219_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>i</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>1</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d73.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d73.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01062424 52.22879615
+                                        21.0106674 52.22871714 21.01068656
+                                        52.228682 21.01076882 52.22869952
+                                        21.01074834 52.22873322 21.01070416
+                                        52.22881358 21.01062424 52.22879615
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d72">
+            <Q1:ID_BUDYNKU>146510_8.0501.169_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>b</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>3</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d72.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d72.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01123475 52.22770166
+                                        21.01123577 52.22770498 21.01102628
+                                        52.22808932 21.01102189 52.22809076
+                                        21.01094094 52.2280745 21.01092134
+                                        52.22810982 21.01091343 52.2281082
+                                        21.0109007 52.2281056 21.01090406
+                                        52.22809922 21.01087991 52.22809436
+                                        21.0108767 52.22810048 21.01085884
+                                        52.22809688 21.0108622 52.22809059
+                                        21.01083498 52.22808502 21.01083147
+                                        52.22809158 21.0108161 52.22808844
+                                        21.01081946 52.22808224 21.01079268
+                                        52.22807676 21.01078931 52.22808287
+                                        21.01077453 52.2280799 21.01077775
+                                        52.22807406 21.01075038 52.2280684
+                                        21.01074716 52.22807451 21.01072945
+                                        52.22807092 21.01073237 52.22806526
+                                        21.01070456 52.22805942 21.01070134
+                                        52.22806526 21.01068378 52.22806167
+                                        21.01068685 52.22805609 21.01066226
+                                        52.22805106 21.01065919 52.22805673
+                                        21.01064382 52.22805358 21.01064704
+                                        52.22804756 21.01062098 52.22804235
+                                        21.01061806 52.22804756 21.0106084
+                                        52.22804559 21.01060035 52.22804388
+                                        21.01061995 52.22800847 21.01053711
+                                        52.22799167 21.01053476 52.22798852
+                                        21.01055905 52.22794556 21.01055363
+                                        52.22794439 21.01057104 52.22791329
+                                        21.01057661 52.22791446 21.0106262
+                                        52.22782826 21.0106202 52.227827
+                                        21.01065634 52.22776148 21.01066161
+                                        52.22776247 21.01070681 52.22767447
+                                        21.01070301 52.22767367 21.01071924
+                                        52.22764248 21.01072305 52.2276432
+                                        21.01074353 52.22760616 21.01075026
+                                        52.22760545 21.01084833 52.22762503
+                                        21.01084687 52.22762773 21.01113551
+                                        52.22768486 21.01113697 52.22768225
+                                        21.01123475 52.22770166
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d71">
+            <Q1:ID_BUDYNKU>146510_8.0501.175_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>b</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>7</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d71.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d71.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01115303 52.22751904
+                                        21.01129932 52.22724759 21.01127634
+                                        52.22724283 21.01126976 52.22725479
+                                        21.01120316 52.22724275 21.01122379
+                                        52.2272032 21.01098199 52.22714453
+                                        21.01101885 52.22707182 21.01121498
+                                        52.22710928 21.01136208 52.2271374
+                                        21.01155119 52.22717684 21.01151169
+                                        52.22724955 21.01150262 52.22726636
+                                        21.01141397 52.22742958 21.01154819
+                                        52.22745707 21.01148207 52.22757904
+                                        21.01148031 52.22758228 21.01115303
+                                        52.22751904
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d70">
+            <Q1:ID_BUDYNKU>146510_8.0501.224_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>b</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>12</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d70.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d70.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01145498 52.22809566
+                                        21.01158064 52.22786502 21.0116276
+                                        52.22777882 21.01164151 52.22778152
+                                        21.01164209 52.2277817 21.01173826
+                                        52.22780056 21.01201241 52.22785446
+                                        21.0120067 52.22786525 21.01205222
+                                        52.22787423 21.01205237 52.22787387
+                                        21.01240088 52.22794214 21.01235202
+                                        52.22802358 21.01221377 52.22825341
+                                        21.01220689 52.22826491 21.01185223
+                                        52.22818711 21.01174845 52.2281643
+                                        21.01175386 52.22815567 21.01175064
+                                        52.22815504 21.01171669 52.22814776
+                                        21.01146873 52.22809862 21.01145498
+                                        52.22809566
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d6f">
+            <Q1:ID_BUDYNKU>146510_8.0501.177_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>b</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>4</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d6f.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d6f.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01148207 52.22757904
+                                        21.01154819 52.22745707 21.01163626
+                                        52.22729385 21.01167297 52.22722599
+                                        21.01200977 52.227293 21.01182208
+                                        52.22764507 21.0118152 52.22764372
+                                        21.01181403 52.22764597 21.01148938
+                                        52.22758398 21.01149085 52.22758075
+                                        21.01148207 52.22757904
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                            <gml:interior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01160176 52.22747091
+                                        21.01169105 52.22748923 21.01169836
+                                        52.22747638 21.01170451 52.22747773
+                                        21.01170743 52.2274727 21.01174666
+                                        52.22748033 21.01174286 52.22748635
+                                        21.01175193 52.22748779 21.0117455
+                                        52.22750037 21.01183346 52.22751753
+                                        21.01184122 52.22749965 21.01183507
+                                        52.22749803 21.01182541 52.22749479
+                                        21.01181487 52.22748805 21.01181311
+                                        52.22748455 21.01181369 52.22747673
+                                        21.01184046 52.22741939 21.01183549
+                                        52.22741489 21.011833 52.22740806
+                                        21.01184631 52.22738307 21.01185304
+                                        52.22737876 21.01186241 52.2273766
+                                        21.01188157 52.22733966 21.01186678
+                                        52.22732097 21.01175949 52.22730022
+                                        21.01173139 52.22731038 21.01171179
+                                        52.22734714 21.01171736 52.22735199
+                                        21.01171794 52.22735828 21.01170463
+                                        52.22738318 21.01168882 52.22738929
+                                        21.01166542 52.22743369 21.01166381
+                                        52.22744187 21.01165971 52.22744169
+                                        21.01165635 52.22744673 21.0116521
+                                        52.22745023 21.01164435 52.22745356
+                                        21.01162883 52.22745554 21.01162474
+                                        52.22745554 21.01161054 52.22745365
+                                        21.01160176 52.22747091
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:interior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+    <wfs:member>
+        <Q1:budynki gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d6e">
+            <Q1:ID_BUDYNKU>146510_8.0501.178_BUD</Q1:ID_BUDYNKU>
+            <Q1:RODZAJ>b</Q1:RODZAJ>
+            <Q1:KONDYGNACJE_NADZIEMNE>5</Q1:KONDYGNACJE_NADZIEMNE>
+            <Q1:GEOMETRY>
+                <gml:MultiSurface
+                        srsName="http://www.opengis.net/gml/srs/epsg.xml#4326"
+                        srsDimension="2"
+                        gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d6e.GEOMETRY">
+                    <gml:surfaceMember>
+                        <gml:Polygon
+                                gml:id="budynki.fid--d0b66bf_192dfe255fe_-6d6e.GEOMETRY.1">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>21.01208375 52.22755355
+                                        21.01207892 52.22756092 21.01208185
+                                        52.22756514 21.01208229 52.22756955
+                                        21.01208083 52.22757368 21.01222559
+                                        52.22760225 21.01216605 52.22771298
+                                        21.01215844 52.22771424 21.01182925
+                                        52.22764893 21.01183042 52.22764669
+                                        21.01182208 52.22764507 21.01200977
+                                        52.227293 21.01202089 52.22729435
+                                        21.01231187 52.22735004 21.01235578
+                                        52.22735849 21.01234379 52.22738042
+                                        21.01232711 52.22741143 21.01208692
+                                        52.22736516 21.01207843 52.22736615
+                                        21.01205926 52.22737263 21.01203498
+                                        52.22741793 21.0120461 52.22742017
+                                        21.01202445 52.22745891 21.01201376
+                                        52.22745676 21.01198948 52.22750242
+                                        21.01199094 52.22750269 21.01198831
+                                        52.22750772 21.01198509 52.22750709
+                                        21.01197895 52.2275141 21.01197031
+                                        52.22751914 21.01196051 52.22752156
+                                        21.01194982 52.22752147 21.01193695
+                                        52.22754359 21.01202243 52.22756119
+                                        21.01202784 52.22755607 21.01203165
+                                        52.22755328 21.0120375 52.22755184
+                                        21.0120413 52.22754528 21.01208375
+                                        52.22755355
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </Q1:GEOMETRY>
+        </Q1:budynki>
+    </wfs:member>
+</wfs:FeatureCollection>
