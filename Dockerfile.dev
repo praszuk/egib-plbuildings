@@ -18,4 +18,3 @@ COPY docker-entrypoint.sh /app
 USER app
 
 EXPOSE 8000
-ENTRYPOINT ["./docker-entrypoint.sh"]

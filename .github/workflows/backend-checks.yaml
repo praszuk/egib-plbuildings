@@ -23,7 +23,7 @@ jobs:
           make install
       - name: Test (unit and integration tests)
         run: |
-          make test
+          ./backend/test.sh
       - name: Quality check – format
         if: success() || failure()
         run: |

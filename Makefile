@@ -1,4 +1,4 @@
-.PHONY: install test format format-check lint lint-check clean healthcheck update drun dprod-run dclean
+.PHONY: install format format-check lint lint-check clean healthcheck update drun dprod-run dclean
 
 SHELL := /bin/bash
 VENV=.venv
@@ -13,9 +13,6 @@ install:
 	$(PYTHON) -m pip install GDAL==`gdal-config --version`
 	$(PYTHON) -m pip install -r requirements/requirements.txt -r requirements/requirements-dev.txt -r requirements/requirements-test.txt
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit install; fi
-
-test:
-	$(PYTHON) -m pytest $(ARGS) $(APP_DIR)
 
 format:
 	$(PYTHON) -m ruff format $(APP_DIR)

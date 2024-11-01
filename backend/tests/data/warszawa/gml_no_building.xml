@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://wms2.um.warszawa.pl/geoserver/wfs/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=wfs%3Abudynki&SRSNAME=EPSG%3A4326&bbox=52.22754%2C21.010685%2C52.22755%2C21.010686%2Curn%3Aogc%3Adef%3Acrs%3AEPSG%3A4326 -->
+<!-- City Warszawa ('1465') no building data -->
+<wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:Q1="https://wms2.um.warszawa.pl/wfs"
+                       xmlns:wfs="http://www.opengis.net/wfs/2.0"
+                       xmlns:gml="http://www.opengis.net/gml/3.2"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       numberMatched="0" numberReturned="0"
+                       timeStamp="2024-11-01T00:30:43.885Z"
+                       xsi:schemaLocation="http://www.opengis.net/wfs/2.0 http://wms2.um.warszawa.pl/geoserver/schemas/wfs/2.0/wfs.xsd https://wms2.um.warszawa.pl/wfs http://wms2.um.warszawa.pl/geoserver/wfs/wfs?service=WFS&amp;version=2.0.0&amp;request=DescribeFeatureType&amp;typeName=wfs%3Abudynki http://www.opengis.net/gml/3.2 http://wms2.um.warszawa.pl/geoserver/schemas/gml/3.2.1/gml.xsd"/>

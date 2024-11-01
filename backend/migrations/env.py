@@ -20,6 +20,8 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 from backend.models.building import Building  # noqa
+from backend.models.area_import import AreaImport  # noqa
+
 
 target_metadata = Base.metadata
 

@@ -22,6 +22,7 @@ services:
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}
+    command: "./docker-entrypoint.sh"
     env_file:
       - .env
     volumes:
@@ -33,5 +34,7 @@ services:
       - "80:8000"
     environment:
       DEV: 0
+    depends_on:
+      - db
 networks:
     egib-prod-net:
