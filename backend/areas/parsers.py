@@ -153,12 +153,7 @@ class BaseAreaParser(GMLAreaParser):
                         # fix incorrect lat lon order
                         point = geometry.GetGeometryRef(0).GetPoint(0)
                         if point[0] > point[1]:
-                            source = osr.SpatialReference()
-                            source.ImportFromEPSG(4326)
-                            target = osr.SpatialReference()
-                            target.SetWellKnownGeogCS('WGS84')
-                            transform = osr.CoordinateTransformation(source, target)
-                            geometry.Transform(transform)
+                            self.swap_geometry_coordinates(geometry)
 
                         geometries.append(geometry)
 
@@ -226,6 +221,16 @@ class BaseAreaParser(GMLAreaParser):
         point.Transform(transform)
 
         return point.GetX(), point.GetY()
+
+    @staticmethod
+    def swap_geometry_coordinates(geometry: Geometry) -> None:
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(4326)
+        target = osr.SpatialReference()
+        target.ImportFromEPSG(4326)
+        target.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+        transform = osr.CoordinateTransformation(source, target)
+        geometry.Transform(transform)
 
 
 class EpodgikAreaParser(BaseAreaParser):
