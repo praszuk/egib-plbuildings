@@ -284,11 +284,11 @@ counties = [
         lon=23.55561,
         expected_tags={'building': 'office'},
     ),
-    HealthCheckTestAreaData(
+    HealthCheckTestAreaData(  # gmina Szczebrzeszyn
         name='zamojski',
         teryt='0620',
-        lat=50.54360,
-        lon=23.21745,
+        lat=50.69498,
+        lon=22.97839,
         expected_tags={'building': 'office'},
     ),
     HealthCheckTestAreaData(
@@ -441,11 +441,11 @@ counties = [
         lon=19.93199,
         expected_tags={'building': 'office'},
     ),
-    HealthCheckTestAreaData(
+    HealthCheckTestAreaData(  # gmina Koluszki (building near the gov office)
         name='łódzki wschodni',
         teryt='1006',
-        lat=51.74589,
-        lon=19.81314,
+        lat=51.74597,
+        lon=19.81302,
         expected_tags={'building': 'yes'},  # empty
     ),
     HealthCheckTestAreaData(  # gmina Sławno (Opoczno no data yet)
@@ -1504,7 +1504,7 @@ counties = [
         teryt='2810',
         lat=53.87659,
         lon=21.30455,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     HealthCheckTestAreaData(
         name='nidzicki',
@@ -1567,7 +1567,7 @@ counties = [
         teryt='2819',
         lat=54.20739,
         lon=21.73810,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 30 – "wielkopolskie"
     HealthCheckTestAreaData(
@@ -1664,7 +1664,7 @@ counties = [
         teryt='3014',
         lat=52.60663,
         lon=15.90180,
-        expected_tags={'building': 'office', 'building:levels': 4},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     HealthCheckTestAreaData(
         name='nowotomyski',
