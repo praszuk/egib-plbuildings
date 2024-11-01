@@ -110,9 +110,13 @@ class BaseAreaParser(GMLAreaParser):
         geometries_and_properties: List[Tuple[Geometry, Dict[str, Any]]] = []
 
         try:
-            root = etree.fromstring(bytes(gml_content, encoding='utf-8'))
+            parser = etree.XMLParser(recover=True)
+            root = etree.fromstring(bytes(gml_content, encoding='utf-8'), parser)
         except XMLSyntaxError:
             raise ParserError('Cannot parse root of GML content')
+
+        if root is None:
+            raise ParserError('GML root not found')
 
         try:
             wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)
