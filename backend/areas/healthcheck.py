@@ -35,7 +35,9 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
         building_tags = None
 
         with httpx.Client() as client:
-            response = client.get(endpoint, params={'lat': area.lat, 'lon': area.lon}, timeout=30)
+            response = client.get(
+                endpoint, params={'lat': area.lat, 'lon': area.lon, 'live': True}, timeout=30
+            )
             status_code = response.status_code
             response_data = response.json()
 
