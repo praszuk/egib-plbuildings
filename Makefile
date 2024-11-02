@@ -1,4 +1,4 @@
-.PHONY: install format format-check lint lint-check clean healthcheck update drun dprod-run dclean
+.PHONY: install format format-check lint lint-check clean healthcheck update
 
 SHELL := /bin/bash
 VENV=.venv
@@ -25,16 +25,6 @@ lint:
 
 lint-check:
 	$(PYTHON) -m ruff check --diff $(APP_DIR)
-
-drun:
-	docker compose -f docker-compose-dev.yml up
-
-dprod-run:
-	docker compose -f docker-compose-prod.yml up
-
-dclean:
-	docker compose -f docker-compose-dev.yml down
-	docker compose -f docker-compose-prod.yml down
 
 healthcheck:
 	docker compose -f docker-compose-prod.yml exec backend bash -c "python backend/areas/healthcheck.py"

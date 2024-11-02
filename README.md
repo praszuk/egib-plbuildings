@@ -20,18 +20,18 @@ For development, you can install all dependencies using:
 make install
 ```
 
+Check [Makefile](Makefile) for more.
 ### Run development
 _Note: Port 8081_
 ```commandline
-make drun
+docker compose -f docker-compose-dev.yml up
 ```
 
 ### Run production
 _Note: Port 80_
 ```commandline
-make dprod-run
+docker compose -f docker-compose-prod.yml up
 ```
 
-Check [Makefile](Makefile) for more.
 ## License
 [MIT](LICENSE)
