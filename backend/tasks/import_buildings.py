@@ -27,7 +27,7 @@ class ImportResult:
 async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> ImportResult | None:
     url = area_parser.build_buildings_url()
 
-    default_logger.debug(f'[IMPORT] [{teryt}] Downloading data')
+    default_logger.debug(f'[IMPORT] [{teryt}] Downloading data from {url}')
     try:
         async with AsyncClient(verify=False, timeout=Timeout(300, connect=30)) as client:
             response = await client.get(url)
@@ -77,8 +77,8 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
 async def area_import_in_parallel(
     teryt_ids: list[str],
     max_workers: int = 3,
-    max_attempts_per_area: int = 5,
-    delay_between_attempts: float = 60,
+    max_attempts_per_area: int = 3,
+    delay_between_attempts: float = 10,
 ):
     default_logger.info(
         f'[IMPORT] Area import data started. Updating data from {len(teryt_ids)} areas.'
@@ -99,6 +99,10 @@ async def area_import_in_parallel(
 
             attempts += 1
             if attempts < max_attempts_per_area:
+                default_logger.debug(
+                    f'[IMPORT] [{teryt}] Import failed.'
+                    f' Waiting {delay_between_attempts} seconds before next attempt'
+                )
                 await asyncio.sleep(delay_between_attempts)
             else:
                 break
@@ -138,19 +142,24 @@ if __name__ == '__main__':
     import argparse
     import yaml
 
-    from logging import config
+    from logging import config, DEBUG
 
     with open('backend/core/log_config.yaml') as file:
         loaded_config = yaml.safe_load(file)
         config.dictConfig(loaded_config)
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--debug', action='store_true')
     parser.add_argument(
+        '-t',
         '--teryt_ids',
         type=lambda s: s.replace(' ', '').split(','),
         help='Comma-separated list of area teryt IDs',
     )
     args = parser.parse_args()
+
+    if args.debug:
+        default_logger.setLevel(DEBUG)
 
     if not (area_teryt_ids := args.teryt_ids):
         area_teryt_ids = all_areas.keys()
