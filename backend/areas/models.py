@@ -11,6 +11,7 @@ class GMLAreaParser(ABC):
     name: str
     url_code: str
     base_url: str
+    port: int | None
 
     custom_crs: int
 
