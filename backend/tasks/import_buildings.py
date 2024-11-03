@@ -78,7 +78,7 @@ async def area_import_in_parallel(
     teryt_ids: list[str],
     max_workers: int = 3,
     max_attempts_per_area: int = 5,
-    delay_between_attempts: int = 60,
+    delay_between_attempts: float = 60,
 ):
     default_logger.info(
         f'[IMPORT] Area import data started. Updating data from {len(teryt_ids)} areas.'
@@ -94,7 +94,7 @@ async def area_import_in_parallel(
                     start_at = datetime.datetime.now(datetime.UTC)
 
                 import_result = await area_import_attempt(all_areas[teryt], teryt)
-                if import_result.status.SUCCESS:
+                if import_result.status == ResultStatus.SUCCESS:
                     break
 
             attempts += 1
