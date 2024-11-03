@@ -65,6 +65,7 @@ class BaseAreaParser(GMLAreaParser):
         name: str,
         url_code: str = None,
         base_url: str = None,
+        port: int | None = None,
         custom_crs: int = None,
         gml_prefix: str = 'ms',
         gml_geometry_key: str = 'msGeometry',
@@ -72,6 +73,7 @@ class BaseAreaParser(GMLAreaParser):
         self.name = name
         self.url_code = url_code
         self.base_url = base_url
+        self.port = port
         self.custom_crs = custom_crs
         self.gml_prefix = gml_prefix
         self.gml_geometry_key = gml_geometry_key
@@ -394,6 +396,65 @@ class WarszawaAreaParser(BaseAreaParser):
         return merge_url_query_params(
             self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_FULL_SRS_NAME}'}
         )
+
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('RODZAJ'), DEFAULT_BUILDING
+            )
+            if 'KONDYGNACJE_NADZIEMNE' in properties:
+                tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
+
+            if 'KONDYGNACJE_PODZIEMNE' in properties:
+                tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
+
+
+class WebEwidAreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        if 'gml_geometry_key' not in kwargs:
+            kwargs['gml_geometry_key'] = 'geometry'
+
+        super().__init__(*args, **kwargs)
+
+    def buildings_base_url(self) -> str:
+        port_frag = f':{self.port}' if self.port else ''
+        return (
+            f'https://{self.url_code}.webewid.pl{port_frag}/iip/ows'
+            '?service=wfs'
+            '&version=2.0.0'
+            '&request=GetFeature'
+            '&typeNames=ms:budynki'
+        )
+
+    def build_buildings_url(self) -> str:
+        return merge_url_query_params(self.buildings_base_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        """
+        Note: At 2024 BBOX filtering still not work, or work completely randomly.
+        This function exists only for healthcheck.
+        """
+        base_url = self.buildings_base_url()
+
+        if self.custom_crs and self.custom_crs != 4326:
+            x, y = self.reproject_coordinates(lat, lon, self.custom_crs)
+            url = merge_url_query_params(base_url, {'BBOX': ','.join(map(str, [x, y, x, y]))})
+        else:
+            url = merge_url_query_params(
+                base_url,
+                {
+                    'SRSNAME': self.DEFAULT_SRS_NAME,
+                    'BBOX': ','.join(map(str, [lat, lon, lat, lon])) + f',{self.DEFAULT_SRS_NAME}',
+                },
+            )
+
+        return url
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
