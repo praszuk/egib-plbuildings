@@ -16,7 +16,7 @@ from backend.database.base import Base
 
 class ResultStatus(Enum):
     SUCCESS = 'success'
-    DOWNLOADING_ERROR = 'download_error'
+    DOWNLOADING_ERROR = 'downloading_error'
     PARSING_ERROR = 'parsing_error'
     EMPTY_DATA_ERROR = 'empty_data_error'
 
