@@ -1,0 +1,226 @@
+const tooltip = document.getElementById('tooltip');
+
+class AreaImport {
+    static ResultStatus = {
+        SUCCESS: 'success',
+        DOWNLOADING_ERROR: 'downloading_error',
+        PARSING_ERROR: 'parsing_error',
+        EMPTY_DATA_ERROR: 'empty_data_error',
+    }
+    static translationResultStatusPl = {
+        success: "Sukces",
+        downloading_error: "Błąd pobierania",
+        parsing_error: "Błąd przetwarzania",
+        empty_data_error: "Brak danych"
+    }
+
+    constructor({
+                    id,
+                    teryt,
+                    start_at,
+                    end_at,
+                    building_count,
+                    result_status,
+                    has_building_type,
+                    has_building_levels,
+                    has_building_levels_undg: has_building_levels_underground
+                }) {
+        this.id = id;
+        this.teryt = teryt;
+        this.startTs = Date.parse(start_at);
+        this.endTs = Date.parse(end_at);
+        this.buildingCount = building_count;
+        this.hasBuildingType = has_building_type;
+        this.hasBuildingLevels = has_building_levels;
+        this.hasBuildingLevelsUnderground = has_building_levels_underground;
+
+        if (Object.values(AreaImport.ResultStatus).includes(result_status)) {
+            this.resultStatus = result_status;
+        } else {
+            throw new Error(`Invalid result status: ${result_status}`);
+        }
+    }
+
+    getResultStatusDisplay() {
+        return AreaImport.translationResultStatusPl[this.resultStatus];
+    }
+}
+
+const formatDateToISO = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toISOString().replace('T', ' ').slice(0, 19);
+};
+
+const formatDurationToMinutesHours = (durationSeconds) => {
+    const hours = Math.floor(durationSeconds / 3600);
+    durationSeconds = durationSeconds % 3600;
+    const minutes = Math.floor(durationSeconds / 60);
+
+    if (hours > 0) {
+        return `${hours}h ${minutes}min`;
+    }
+    return `${minutes}min`;
+}
+
+function sumNonOverlappingDuration(intervals) {
+    if (intervals.length === 0) return 0;
+
+    intervals.sort((a, b) => a.startTs - b.startTs);
+
+    let mergedIntervals = [];
+    let currentInterval = {...intervals[0]};
+
+    for (let i = 1; i < intervals.length; i++) {
+        let interval = intervals[i];
+
+        // Check for overlap
+        if (interval.startTs <= currentInterval.endTs) {
+            // Overlapping, so extend the current interval's end time if needed
+            currentInterval.endTs = Math.max(currentInterval.endTs, interval.endTs);
+        } else {
+            // No overlap, add the current interval to the merged list and move to the next
+            mergedIntervals.push(currentInterval);
+            currentInterval = {...interval};
+        }
+    }
+    mergedIntervals.push(currentInterval);
+
+    let totalDurationSeconds = 0;
+    for (let interval of mergedIntervals) {
+        totalDurationSeconds += (interval.endTs - interval.startTs) / 1000;
+    }
+
+    return totalDurationSeconds;
+}
+
+async function fetchLatestAreaImport() {
+    try {
+        const response = await fetch('/api/v1/area_imports/latest');
+        const data = await response.json();
+
+        return data.map(areaImportData => new AreaImport(areaImportData));
+    } catch (e) {
+        console.error('Failed to fetch latest area import objects:', e);
+        return [];
+    }
+}
+
+function updateSummarySection(areaImportData) {
+    let minStartTs = areaImportData[0].startTs;
+    let maxEndTs = areaImportData[0].endTs;
+    let successAreaNumber = 0;
+    areaImportData.forEach(areaImport => {
+        minStartTs = Math.min(minStartTs, areaImport.startTs);
+        maxEndTs = Math.max(maxEndTs, areaImport.endTs);
+        if (areaImport.resultStatus === AreaImport.ResultStatus.SUCCESS) {
+            successAreaNumber++;
+        }
+    })
+    const totalAreaNumber = areaImportData.length;
+    const durationSeconds = sumNonOverlappingDuration(areaImportData);
+
+    document.getElementById('summary-start-dt').innerText = formatDateToISO(minStartTs);
+    document.getElementById('summary-end-dt').innerText = formatDateToISO(maxEndTs);
+    document.getElementById('summary-duration').innerText = formatDurationToMinutesHours(durationSeconds);
+    document.getElementById('summary-areas-info').innerText = `${successAreaNumber}/${totalAreaNumber} (${successAreaNumber}/~380)`;
+}
+
+
+function getSvgMapFillColorByStatus(resultStatus) {
+    switch (resultStatus) {
+        case AreaImport.ResultStatus.SUCCESS:
+            return '#00ff00';
+        case AreaImport.ResultStatus.DOWNLOADING_ERROR:
+        case AreaImport.ResultStatus.PARSING_ERROR:
+            return '#FF0000';
+        case AreaImport.ResultStatus.EMPTY_DATA_ERROR:
+            return '#89978A';
+    }
+}
+
+function fillCounty(pathElement, color) {
+    pathElement.style.fill = color;
+}
+
+function addTooltip(svgElement, pathElement, htmlTooltipElement) {
+    pathElement.addEventListener('mouseover', (_) => {
+        tooltip.style.visibility = 'visible';
+        tooltip.innerHTML = '';
+        tooltip.appendChild(htmlTooltipElement);
+    });
+
+    pathElement.addEventListener('mousemove', (event) => {
+        const svgRect = svgElement.getBoundingClientRect();
+
+        tooltip.style.top = svgRect.top + event.clientY + window.scrollY + 10 + 'px';
+        tooltip.style.left = svgRect.left + event.clientX + window.scrollX + 10 + 'px';
+    });
+
+    pathElement.addEventListener('mouseout', () => {
+        tooltip.style.visibility = 'hidden';
+    });
+}
+
+function createTooltipHTMLContent(areaImport) {
+    const tooltipContentDiv = document.createElement('div');
+    tooltipContentDiv.className = 'tooltip-content';
+
+    const spanElement = document.createElement('span');
+    spanElement.textContent = `${areaImport.teryt} – ${window.AREA_TERYT_NAME[areaImport.teryt]}`;
+    tooltipContentDiv.appendChild(spanElement);
+    tooltipContentDiv.appendChild(document.createElement('hr'));
+
+    const ulElement = document.createElement('ul');
+
+    const liStatus = document.createElement('li');
+    liStatus.textContent = `Status: ${areaImport.getResultStatusDisplay()}`;
+
+    ulElement.appendChild(liStatus);
+
+    if (areaImport.resultStatus === AreaImport.ResultStatus.SUCCESS) {
+        const liBuildingCount = document.createElement('li');
+        liBuildingCount.textContent = `Liczba budynków: ${areaImport.buildingCount}`;
+
+        const liHasBuildingType = document.createElement('li');
+        liHasBuildingType.textContent = `Zawiera typ budynku: ${areaImport.hasBuildingType ? 'Tak' : 'Nie'}`;
+
+        const liHasBuildingLevels = document.createElement('li');
+        liHasBuildingLevels.textContent = `Zawiera piętra budynku: ${areaImport.hasBuildingLevels ? 'Tak' : 'Nie'}`;
+
+        const liHasBuildingUndergroundLevels = document.createElement('li');
+        liHasBuildingUndergroundLevels.textContent = `Zawiera piętra (podziemne) budynku: ${areaImport.hasBuildingLevelsUnderground ? 'Tak' : 'Nie'}`;
+
+        ulElement.appendChild(liBuildingCount);
+        ulElement.appendChild(document.createElement('hr'));
+        ulElement.appendChild(liHasBuildingType);
+        ulElement.appendChild(liHasBuildingLevels);
+        ulElement.appendChild(liHasBuildingUndergroundLevels);
+    }
+    tooltipContentDiv.appendChild(ulElement);
+
+    return tooltipContentDiv;
+}
+
+
+function updateSvgMap(svgElement, latestAreaImport) {
+    const svgDocument = svgElement.contentDocument;
+
+    latestAreaImport.forEach(areaImport => {
+        const countyPathElement = svgDocument.getElementById(areaImport.teryt);
+        if (countyPathElement == null) {  // It may happen for areas inside a counties
+            return;
+        }
+
+        const fillColor = getSvgMapFillColorByStatus(areaImport.resultStatus);
+        fillCounty(countyPathElement, fillColor);
+
+        let tooltipElement = createTooltipHTMLContent(areaImport);
+        addTooltip(svgElement, countyPathElement, tooltipElement);
+    });
+}
+
+document.getElementById('counties-svg').addEventListener('load', async function () {
+    const latestAreaImport = await fetchLatestAreaImport();
+    updateSummarySection(latestAreaImport);
+    updateSvgMap(this, latestAreaImport);
+});
