@@ -119,27 +119,30 @@ async def test_area_import_attempt_empty_data_error(db, load_warszawa_gml):
 
 @pytest.mark.anyio
 async def test_area_import_incorrect_attempt_retry(db):
-    with patch(
-        'backend.tasks.import_buildings.area_import_attempt',
-        side_effect=[
-            ImportResult(status=ResultStatus.DOWNLOADING_ERROR),
-            ImportResult(status=ResultStatus.SUCCESS),
-        ],
-    ) as mock_area_attempt_func:
-        asyncio.run(
-            area_import_in_parallel([list(all_counties.keys())[0]], delay_between_attempts=0.001)
-        )
-        assert mock_area_attempt_func.call_count == 2
-
-    with patch(
-        'backend.tasks.import_buildings.area_import_attempt',
-        side_effect=[ImportResult(status=ResultStatus.DOWNLOADING_ERROR)],
-    ) as mock_area_attempt_func:
-        asyncio.run(
-            area_import_in_parallel(
-                [list(all_counties.keys())[0]],
-                delay_between_attempts=0.001,
-                max_attempts_per_area=1,
+    with patch('backend.tasks.import_buildings.SessionLocal', return_value=db):
+        with patch(
+            'backend.tasks.import_buildings.area_import_attempt',
+            side_effect=[
+                ImportResult(status=ResultStatus.DOWNLOADING_ERROR),
+                ImportResult(status=ResultStatus.SUCCESS),
+            ],
+        ) as mock_area_attempt_func:
+            asyncio.run(
+                area_import_in_parallel(
+                    [list(all_counties.keys())[0]], delay_between_attempts=0.001
+                )
             )
-        )
-        assert mock_area_attempt_func.call_count == 1
+            assert mock_area_attempt_func.call_count == 2
+
+        with patch(
+            'backend.tasks.import_buildings.area_import_attempt',
+            side_effect=[ImportResult(status=ResultStatus.DOWNLOADING_ERROR)],
+        ) as mock_area_attempt_func:
+            asyncio.run(
+                area_import_in_parallel(
+                    [list(all_counties.keys())[0]],
+                    delay_between_attempts=0.001,
+                    max_attempts_per_area=1,
+                )
+            )
+            assert mock_area_attempt_func.call_count == 1
