@@ -4,19 +4,6 @@ from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
 from osgeo import ogr, osr  # noqa
-from abc import ABC
-
-
-class GMLAreaParser(ABC):
-    name: str
-    url_code: str
-    base_url: str
-    port: int | None
-
-    custom_crs: int
-
-    gml_prefix: str
-    gml_geometry_key: str
 
 
 @dataclass(frozen=True)

@@ -10,7 +10,6 @@ from osgeo import ogr, osr  # noqa
 from osgeo.ogr import Geometry
 
 from backend.exceptions import InvalidKeyParserError, ParserError
-from backend.areas.models import GMLAreaParser
 from abc import abstractmethod
 
 from typing import Final
@@ -56,7 +55,7 @@ def merge_url_query_params(url: str, additional_params: dict) -> str:
     return url_components._replace(query=updated_query).geturl()
 
 
-class BaseAreaParser(GMLAreaParser):
+class BaseAreaParser:
     DEFAULT_SRS_NAME: str = 'EPSG:4326'
     DEFAULT_FULL_SRS_NAME: str = 'urn:ogc:def:crs:EPSG:4326'
 
