@@ -13,12 +13,12 @@ services:
       - egib-prod-net
     volumes:
       - ./.db:/var/lib/postgresql/data
-      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   backend:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.prod
+      dockerfile: docker/Dockerfile.prod
       args:
         USER_ID: ${USER_ID:-1000}
         GROUP_ID: ${GROUP_ID:-1000}

@@ -18,7 +18,7 @@ RUN pip install -r requirements.txt GDAL==`gdal-config --version` --quiet
 COPY backend/ /app/backend/
 RUN mkdir /app/.cache && chown app:app /app/.cache
 
-COPY docker-entrypoint.sh /app
+COPY docker/docker-entrypoint.sh /app
 
 USER app
 
