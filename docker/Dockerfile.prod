@@ -11,7 +11,7 @@ RUN groupadd -g "$GROUP_ID" app && useradd -u "$USER_ID" -r -g "$GROUP_ID" -s /s
 WORKDIR /app
 
 # libgdal-dev version must be greater or equal to python GDAL library
-COPY requirements/requirements.txt /app
+COPY backend/requirements/requirements.txt /app
 RUN apt update && apt install -y libgdal-dev
 RUN pip install -r requirements.txt GDAL==`gdal-config --version` --quiet
 

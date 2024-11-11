@@ -11,7 +11,7 @@ install:
 	virtualenv -p python3 $(VENV)
 	source $(VENV)/bin/activate
 	$(PYTHON) -m pip install GDAL==`gdal-config --version`
-	$(PYTHON) -m pip install -r requirements/requirements.txt -r requirements/requirements-dev.txt -r requirements/requirements-test.txt
+	$(PYTHON) -m pip install -r $(APP_DIR)/requirements/requirements.txt -r $(APP_DIR)/requirements/requirements-dev.txt -r $(APP_DIR)/requirements/requirements-test.txt
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit install; fi
 
 format:
@@ -34,5 +34,5 @@ clean:
 	rm -rf .pytest_cache .counties_geoms.pickle __pycache__ $(VENV)
 
 update:
-	for filename in requirements/*.in; do pur -r $$filename; done
+	for filename in $(APP_DIR)/requirements/*.in; do pur -r $$filename; done
 	pip-compile-multi
