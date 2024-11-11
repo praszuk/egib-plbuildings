@@ -14,7 +14,7 @@ COPY requirements/requirements.txt requirements/requirements-test.txt /app
 RUN apt update && apt install -y libgdal-dev
 RUN pip install -r requirements.txt -r requirements-test.txt GDAL==`gdal-config --version` --quiet
 
-COPY docker-entrypoint.sh /app
+COPY docker/docker-entrypoint.sh /app
 
 USER app
 
