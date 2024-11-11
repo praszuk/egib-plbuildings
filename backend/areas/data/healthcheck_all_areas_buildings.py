@@ -1,4 +1,4 @@
-from backend.areas.models import HealthCheckTestAreaData
+from backend.areas.healthcheck import HealthCheckTestAreaData
 
 
 counties = [
