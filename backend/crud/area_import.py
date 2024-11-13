@@ -8,7 +8,7 @@ from backend.models.area_import import ResultStatus
 async def list_latest_area_imports(db: Session) -> Sequence[AreaImport]:
     result = db.execute(
         select(AreaImport)
-        .order_by(AreaImport.teryt, AreaImport.id.desc())
+        .order_by(AreaImport.teryt, AreaImport.end_at.desc(), AreaImport.id.desc())
         .distinct(AreaImport.teryt)
     )
     return result.scalars().all()
@@ -23,6 +23,7 @@ async def list_stable_area_imports(db: Session) -> Sequence[AreaImport]:
             partition_by=AreaImport.teryt,
             order_by=(
                 case((AreaImport.result_status == ResultStatus.SUCCESS, 1), else_=2),
+                AreaImport.end_at.desc(),
                 AreaImport.id.desc(),
             ),
         )

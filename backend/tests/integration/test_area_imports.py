@@ -8,7 +8,6 @@ from backend.models.area_import import ResultStatus
 async def test_list_latest_area_imports_returns_unique_areas_imports(async_client, db):
     params = {
         'start_at': '2024-01-01T00:00:00',
-        'end_at': '2024-01-01T00:00:01',
         'building_count': 0,
         'has_building_type': True,
         'has_building_levels': False,
@@ -16,16 +15,42 @@ async def test_list_latest_area_imports_returns_unique_areas_imports(async_clien
     }
 
     area_import_objects = [
-        AreaImport(teryt='0001', result_status=ResultStatus.DOWNLOADING_ERROR, **params),
-        AreaImport(teryt='0001', result_status=ResultStatus.SUCCESS, **params),
-        AreaImport(teryt='0002', result_status=ResultStatus.SUCCESS, **params),
-        AreaImport(teryt='0001', result_status=ResultStatus.PARSING_ERROR, **params),
+        AreaImport(
+            teryt='0001',
+            result_status=ResultStatus.DOWNLOADING_ERROR,
+            end_at='2024-01-01T00:00:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0001', result_status=ResultStatus.SUCCESS, end_at='2024-01-01T00:01:01', **params
+        ),
+        AreaImport(
+            teryt='0002', result_status=ResultStatus.SUCCESS, end_at='2024-01-01T00:01:01', **params
+        ),
+        AreaImport(
+            teryt='0001',
+            result_status=ResultStatus.PARSING_ERROR,
+            end_at='2024-01-01T00:04:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0001',
+            result_status=ResultStatus.EMPTY_DATA_ERROR,
+            end_at='2024-01-01T00:03:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0002',
+            result_status=ResultStatus.DOWNLOADING_ERROR,
+            end_at='2024-01-01T00:00:01',
+            **params,
+        ),
     ]
     for obj in area_import_objects:
         db.add(obj)
     db.commit()
 
-    assert db.query(AreaImport).count() == 4
+    assert db.query(AreaImport).count() == len(area_import_objects)
 
     response = await async_client.get('area_imports/latest')
     assert response.status_code == 200
@@ -46,7 +71,6 @@ async def test_list_latest_area_imports_returns_unique_areas_imports(async_clien
 async def test_list_stable_area_imports_returns_latest_success_or_latest_failed(async_client, db):
     params = {
         'start_at': '2024-01-01T00:00:00',
-        'end_at': '2024-01-01T00:00:01',
         'has_building_type': True,
         'has_building_levels': False,
         'has_building_levels_undg': False,
@@ -54,31 +78,74 @@ async def test_list_stable_area_imports_returns_latest_success_or_latest_failed(
 
     area_import_objects = [
         AreaImport(
-            teryt='0001', result_status=ResultStatus.DOWNLOADING_ERROR, **params, building_count=0
-        ),
-        AreaImport(teryt='0001', result_status=ResultStatus.SUCCESS, **params, building_count=1),
-        AreaImport(teryt='0001', result_status=ResultStatus.SUCCESS, **params, building_count=2),
-        #
-        AreaImport(teryt='0002', result_status=ResultStatus.SUCCESS, **params, building_count=0),
-        AreaImport(
-            teryt='0002', result_status=ResultStatus.PARSING_ERROR, **params, building_count=1
-        ),
-        #
-        AreaImport(
-            teryt='0003', result_status=ResultStatus.DOWNLOADING_ERROR, **params, building_count=0
+            teryt='0001',
+            result_status=ResultStatus.DOWNLOADING_ERROR,
+            building_count=0,
+            end_at='2024-01-01T00:00:01',
+            **params,
         ),
         AreaImport(
-            teryt='0003', result_status=ResultStatus.PARSING_ERROR, **params, building_count=1
+            teryt='0001',
+            result_status=ResultStatus.SUCCESS,
+            building_count=2,
+            end_at='2024-01-01T00:02:01',
+            **params,
         ),
         AreaImport(
-            teryt='0003', result_status=ResultStatus.EMPTY_DATA_ERROR, **params, building_count=2
+            teryt='0001',
+            result_status=ResultStatus.SUCCESS,
+            building_count=1,
+            end_at='2024-01-01T00:01:01',
+            **params,
         ),
         AreaImport(
-            teryt='0003', result_status=ResultStatus.DOWNLOADING_ERROR, **params, building_count=3
+            teryt='0002',
+            result_status=ResultStatus.SUCCESS,
+            building_count=0,
+            end_at='2024-01-01T00:00:01',
+            **params,
         ),
-        #
         AreaImport(
-            teryt='0004', result_status=ResultStatus.DOWNLOADING_ERROR, **params, building_count=0
+            teryt='0002',
+            result_status=ResultStatus.PARSING_ERROR,
+            building_count=1,
+            end_at='2024-01-01T00:01:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0003',
+            result_status=ResultStatus.DOWNLOADING_ERROR,
+            building_count=0,
+            end_at='2024-01-01T00:00:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0003',
+            result_status=ResultStatus.PARSING_ERROR,
+            building_count=1,
+            end_at='2024-01-01T00:01:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0003',
+            result_status=ResultStatus.DOWNLOADING_ERROR,
+            building_count=3,
+            end_at='2024-01-01T00:03:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0003',
+            result_status=ResultStatus.EMPTY_DATA_ERROR,
+            building_count=2,
+            end_at='2024-01-01T00:02:01',
+            **params,
+        ),
+        AreaImport(
+            teryt='0004',
+            result_status=ResultStatus.DOWNLOADING_ERROR,
+            building_count=0,
+            end_at='2024-01-01T00:00:01',
+            **params,
         ),
     ]
     for obj in area_import_objects:
