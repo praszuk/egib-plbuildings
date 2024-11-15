@@ -51,5 +51,7 @@
     <script>
         window.AREA_TERYT_NAME = JSON.parse('{{ AREA_TERYT_NAME | tojson }}');
     </script>
+    <script src="{{ url_for('static', path='/timeutils.js') }}"></script>
+    <script src="{{ url_for('static', path='/svgmap.js') }}"></script>
     <script src="{{ url_for('static', path='/status.js') }}"></script>
 </html>

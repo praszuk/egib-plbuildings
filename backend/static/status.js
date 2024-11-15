@@ -46,52 +46,7 @@ class AreaImport {
     }
 }
 
-const formatDateToISO = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toISOString().replace('T', ' ').slice(0, 19);
-};
 
-const formatDurationToMinutesHours = (durationSeconds) => {
-    const hours = Math.floor(durationSeconds / 3600);
-    durationSeconds = durationSeconds % 3600;
-    const minutes = Math.floor(durationSeconds / 60);
-
-    if (hours > 0) {
-        return `${hours}h ${minutes}min`;
-    }
-    return `${minutes}min`;
-}
-
-function sumNonOverlappingDuration(intervals) {
-    if (intervals.length === 0) return 0;
-
-    intervals.sort((a, b) => a.startTs - b.startTs);
-
-    let mergedIntervals = [];
-    let currentInterval = {...intervals[0]};
-
-    for (let i = 1; i < intervals.length; i++) {
-        let interval = intervals[i];
-
-        // Check for overlap
-        if (interval.startTs <= currentInterval.endTs) {
-            // Overlapping, so extend the current interval's end time if needed
-            currentInterval.endTs = Math.max(currentInterval.endTs, interval.endTs);
-        } else {
-            // No overlap, add the current interval to the merged list and move to the next
-            mergedIntervals.push(currentInterval);
-            currentInterval = {...interval};
-        }
-    }
-    mergedIntervals.push(currentInterval);
-
-    let totalDurationSeconds = 0;
-    for (let interval of mergedIntervals) {
-        totalDurationSeconds += (interval.endTs - interval.startTs) / 1000;
-    }
-
-    return totalDurationSeconds;
-}
 
 async function fetchLatestAreaImport() {
     try {
@@ -117,7 +72,8 @@ function updateSummarySection(areaImportData) {
         }
     })
     const totalAreaNumber = areaImportData.length;
-    const durationSeconds = sumNonOverlappingDuration(areaImportData);
+    const intervals = areaImportData.map(a => [a.startTs, a.endTs]);
+    const durationSeconds = sumNonOverlappingDuration(intervals);
 
     document.getElementById('summary-start-dt').innerText = formatDateToISO(minStartTs);
     document.getElementById('summary-end-dt').innerText = formatDateToISO(maxEndTs);
@@ -126,7 +82,7 @@ function updateSummarySection(areaImportData) {
 }
 
 
-function getSvgMapFillColorByStatus(resultStatus) {
+function getBackgroundColorByStatus(resultStatus) {
     switch (resultStatus) {
         case AreaImport.ResultStatus.SUCCESS:
             return '#00ff00';
@@ -136,29 +92,6 @@ function getSvgMapFillColorByStatus(resultStatus) {
         case AreaImport.ResultStatus.EMPTY_DATA_ERROR:
             return '#89978A';
     }
-}
-
-function fillCounty(pathElement, color) {
-    pathElement.style.fill = color;
-}
-
-function addTooltip(svgElement, pathElement, htmlTooltipElement) {
-    pathElement.addEventListener('mouseover', (_) => {
-        tooltip.style.visibility = 'visible';
-        tooltip.innerHTML = '';
-        tooltip.appendChild(htmlTooltipElement);
-    });
-
-    pathElement.addEventListener('mousemove', (event) => {
-        const svgRect = svgElement.getBoundingClientRect();
-
-        tooltip.style.top = svgRect.top + event.clientY + window.scrollY + 10 + 'px';
-        tooltip.style.left = svgRect.left + event.clientX + window.scrollX + 10 + 'px';
-    });
-
-    pathElement.addEventListener('mouseout', () => {
-        tooltip.style.visibility = 'hidden';
-    });
 }
 
 function createTooltipHTMLContent(areaImport) {
@@ -203,19 +136,15 @@ function createTooltipHTMLContent(areaImport) {
 
 
 function updateSvgMap(svgElement, latestAreaImport) {
-    const svgDocument = svgElement.contentDocument;
+    const svgAreaMap = new SvgAreaMap(svgElement.contentDocument);
 
     latestAreaImport.forEach(areaImport => {
-        const countyPathElement = svgDocument.getElementById(areaImport.teryt);
+        const countyPathElement = svgAreaMap.getPathElementById(areaImport.teryt);
         if (countyPathElement == null) {  // It may happen for areas inside a counties
             return;
         }
-
-        const fillColor = getSvgMapFillColorByStatus(areaImport.resultStatus);
-        fillCounty(countyPathElement, fillColor);
-
-        let tooltipElement = createTooltipHTMLContent(areaImport);
-        addTooltip(svgElement, countyPathElement, tooltipElement);
+        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport.resultStatus));
+        svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaImport));
     });
 }
 
