@@ -1,4 +1,3 @@
-# TODO Healthcheck feature is to rewrite or remove
 import json
 from datetime import datetime
 from dataclasses import asdict, dataclass
@@ -9,20 +8,12 @@ from urllib.parse import urljoin
 import httpx
 
 from backend.core.config import settings
-
-
-@dataclass
-class HealthCheckTestAreaData:
-    teryt: str
-    name: str
-    lat: float
-    lon: float
-    expected_tags: Dict[str, Any]
+from backend.areas.data.expected_building import all_areas_data, AreaExpectedBuildingData
 
 
 @dataclass(frozen=True)
 class HealthCheckAreaReport:
-    test_area_data: HealthCheckTestAreaData
+    test_area_data: AreaExpectedBuildingData
     status_code: int
     has_building_data: bool = False
     has_expected_building_data: bool = False
@@ -48,7 +39,6 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
 
     :param server_uri: main server root endpoint (without / at the end)
     """
-    from backend.areas.data.healthcheck_all_areas_buildings import all_areas_data
 
     endpoint = urljoin(server_uri, 'api/v1/buildings/')
     start_report_dt = datetime.utcnow().isoformat()
