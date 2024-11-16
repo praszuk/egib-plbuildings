@@ -1,4 +1,4 @@
-.PHONY: install format format-check lint lint-check clean healthcheck update
+.PHONY: install format format-check lint lint-check clean update
 
 SHELL := /bin/bash
 VENV=.venv
@@ -25,9 +25,6 @@ lint:
 
 lint-check:
 	$(PYTHON) -m ruff check --diff $(APP_DIR)
-
-healthcheck:
-	docker compose -f docker-compose-prod.yml exec backend bash -c "python backend/areas/healthcheck.py"
 
 clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
