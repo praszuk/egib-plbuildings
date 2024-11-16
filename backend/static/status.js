@@ -47,18 +47,19 @@ class AreaImport {
 }
 
 
-
-async function fetchLatestAreaImport() {
+async function fetchAreaImportData(type) {
     try {
-        const response = await fetch('/api/v1/area_imports/latest');
+        const response = await fetch(`/api/v1/area_imports/${type}`);
         const data = await response.json();
-
         return data.map(areaImportData => new AreaImport(areaImportData));
     } catch (e) {
-        console.error('Failed to fetch latest area import objects:', e);
+        console.error(`Failed to fetch ${type} area import objects:`, e);
         return [];
     }
 }
+
+const fetchLatestAreaImport = () => fetchAreaImportData('latest');
+const fetchStableAreaImport = () => fetchAreaImportData('stable');
 
 function updateSummarySection(areaImportData) {
     let minStartTs = areaImportData[0].startTs;
@@ -148,8 +149,19 @@ function updateSvgMap(svgElement, latestAreaImport) {
     });
 }
 
+async function updateReport() {
+    const reportType = document.getElementById('report-type').value;
+    let areaImportData;
+    if (reportType === 'latest') {
+        areaImportData = await fetchLatestAreaImport();
+    } else if (reportType === 'stable') {
+        areaImportData = await fetchStableAreaImport();
+    }
+    updateSummarySection(areaImportData);
+    updateSvgMap(document.getElementById('counties-svg'), areaImportData);
+}
+
+document.getElementById('report-type').addEventListener('change', updateReport);
 document.getElementById('counties-svg').addEventListener('load', async function () {
-    const latestAreaImport = await fetchLatestAreaImport();
-    updateSummarySection(latestAreaImport);
-    updateSvgMap(this, latestAreaImport);
+    await updateReport();
 });
