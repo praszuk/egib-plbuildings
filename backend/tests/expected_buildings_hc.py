@@ -1,5 +1,7 @@
-import json
+import argparse
 import datetime
+import json
+import logging
 
 from dataclasses import asdict, dataclass
 from os import getenv
@@ -32,14 +34,14 @@ class HealthCheckReport:
     communes: Dict[str, HealthCheckAreaReport]
 
 
-def report_area(area) -> HealthCheckAreaReport:
+def report_area(area, use_db_data) -> HealthCheckAreaReport:
     building_data = False
     expected_building_data = False
     building_tags = None
 
     with httpx.Client() as client:
         response = client.get(
-            ENDPOINT, params={'lat': area.lat, 'lon': area.lon, 'live': True}, timeout=30
+            ENDPOINT, params={'lat': area.lat, 'lon': area.lon, 'live': not use_db_data}, timeout=30
         )
         status_code = response.status_code
         response_data = response.json()
@@ -53,7 +55,6 @@ def report_area(area) -> HealthCheckAreaReport:
             expected_building_data = True
         else:
             expected_building_data = False
-            logging.debug(f'Expected: {area.expected_tags}, got: {building_tags}')
 
     return HealthCheckAreaReport(
         test_area_data=area,
@@ -64,7 +65,7 @@ def report_area(area) -> HealthCheckAreaReport:
     )
 
 
-def report_all_areas() -> HealthCheckReport:
+def report_areas(teryt_ids: list[str] | None = None, use_db_data=False) -> HealthCheckReport:
     """
     It sends requests to all defined servers to check:
      - connection
@@ -76,9 +77,13 @@ def report_all_areas() -> HealthCheckReport:
     start_report_dt = datetime.datetime.now(datetime.UTC).isoformat()
     areas_reports_counties: Dict[str, HealthCheckAreaReport] = {}
     areas_reports_communes: Dict[str, HealthCheckAreaReport] = {}
+    areas = all_areas_data
+    if teryt_ids is not None:
+        areas = [area for area in all_areas_data if area.teryt in teryt_ids]
 
-    for area in all_areas_data:
-        area_report = report_area(area)
+    for area in areas:
+        area_report = report_area(area, use_db_data)
+        logging.debug(area_report)
         if len(area.teryt) == 4:
             areas_reports_counties[area.teryt] = area_report
         else:
@@ -93,11 +98,26 @@ def report_all_areas() -> HealthCheckReport:
 
 
 if __name__ == '__main__':
-    import logging
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--debug', action='store_true')
+    parser.add_argument('--offline', action='store_true')
+    parser.add_argument(
+        '-t',
+        '--teryt_ids',
+        type=lambda s: s.replace(' ', '').split(','),
+        help='Comma-separated list of area teryt IDs',
+    )
+    args = parser.parse_args()
 
-    logging.basicConfig(level=logging.INFO)
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+    logging.getLogger('httpx').setLevel(level=logging.WARNING)
+    logging.getLogger('httpcore').setLevel(level=logging.WARNING)
 
-    report = report_all_areas()
+    report = report_areas(args.teryt_ids, use_db_data=args.offline)
+
     with open(settings.AREAS_HEALTHCHECK_CACHE_FILENAME, 'w') as f:
         json.dump(asdict(report), f)
 
