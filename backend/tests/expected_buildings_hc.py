@@ -1,5 +1,6 @@
 import json
-from datetime import datetime
+import datetime
+
 from dataclasses import asdict, dataclass
 from os import getenv
 from typing import Any, Dict, Optional
@@ -9,6 +10,9 @@ import httpx
 
 from backend.core.config import settings
 from backend.areas.data.expected_building import all_areas_data, AreaExpectedBuildingData
+
+
+ENDPOINT = urljoin(getenv('server_uri', 'http://0.0.0.0:8000'), 'api/v1/buildings/')
 
 
 @dataclass(frozen=True)
@@ -28,7 +32,39 @@ class HealthCheckReport:
     communes: Dict[str, HealthCheckAreaReport]
 
 
-def report_all_areas(server_uri: str) -> HealthCheckReport:
+def report_area(area) -> HealthCheckAreaReport:
+    building_data = False
+    expected_building_data = False
+    building_tags = None
+
+    with httpx.Client() as client:
+        response = client.get(
+            ENDPOINT, params={'lat': area.lat, 'lon': area.lon, 'live': True}, timeout=30
+        )
+        status_code = response.status_code
+        response_data = response.json()
+
+    if status_code == 200 and response_data['features']:
+        building_data = True
+        building_feature = response_data['features'][0]
+        building_tags = building_feature['properties']
+
+        if area.expected_tags == building_tags:
+            expected_building_data = True
+        else:
+            expected_building_data = False
+            logging.debug(f'Expected: {area.expected_tags}, got: {building_tags}')
+
+    return HealthCheckAreaReport(
+        test_area_data=area,
+        status_code=status_code,
+        has_building_data=building_data,
+        has_expected_building_data=expected_building_data,
+        result_tags=building_tags,
+    )
+
+
+def report_all_areas() -> HealthCheckReport:
     """
     It sends requests to all defined servers to check:
      - connection
@@ -36,55 +72,21 @@ def report_all_areas(server_uri: str) -> HealthCheckReport:
      - response data withh comparing expected building tags
 
     It works similar to e2e tests.
-
-    :param server_uri: main server root endpoint (without / at the end)
     """
-
-    endpoint = urljoin(server_uri, 'api/v1/buildings/')
-    start_report_dt = datetime.utcnow().isoformat()
+    start_report_dt = datetime.datetime.now(datetime.UTC).isoformat()
     areas_reports_counties: Dict[str, HealthCheckAreaReport] = {}
     areas_reports_communes: Dict[str, HealthCheckAreaReport] = {}
 
     for area in all_areas_data:
-        building_data = False
-        expected_building_data = False
-        building_tags = None
-
-        with httpx.Client() as client:
-            response = client.get(
-                endpoint, params={'lat': area.lat, 'lon': area.lon, 'live': True}, timeout=30
-            )
-            status_code = response.status_code
-            response_data = response.json()
-
-        if status_code == 200 and response_data['features']:
-            building_data = True
-            building_feature = response_data['features'][0]
-            building_tags = building_feature['properties']
-
-            if area.expected_tags == building_tags:
-                expected_building_data = True
-            else:
-                expected_building_data = False
-                logging.debug(f'Expected: {area.expected_tags}, got: {building_tags}')
-
-        area_report = HealthCheckAreaReport(
-            test_area_data=area,
-            status_code=status_code,
-            has_building_data=building_data,
-            has_expected_building_data=expected_building_data,
-            result_tags=building_tags,
-        )
-
+        area_report = report_area(area)
         if len(area.teryt) == 4:
             areas_reports_counties[area.teryt] = area_report
         else:
             areas_reports_communes[area.teryt] = area_report
 
-    end_report_dt = datetime.utcnow().isoformat()
     return HealthCheckReport(
         start_dt=start_report_dt,
-        end_dt=end_report_dt,
+        end_dt=datetime.datetime.now(datetime.UTC).isoformat(),
         counties=areas_reports_counties,
         communes=areas_reports_communes,
     )
@@ -95,7 +97,7 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=logging.INFO)
 
-    report = report_all_areas(getenv('server_uri', 'http://0.0.0.0:8000'))
+    report = report_all_areas()
     with open(settings.AREAS_HEALTHCHECK_CACHE_FILENAME, 'w') as f:
         json.dump(asdict(report), f)
 
