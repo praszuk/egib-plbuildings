@@ -3,6 +3,8 @@ from enum import Enum
 from sqlalchemy import (
     Column,
     BigInteger,
+    Float,
+    JSON,
     String,
     DateTime,
     func,
@@ -10,6 +12,7 @@ from sqlalchemy import (
     Enum as ColEnum,
     CheckConstraint,
 )
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from backend.database.base import Base
 
@@ -40,3 +43,12 @@ class AreaImport(Base):
     has_building_type = Column(Boolean, nullable=False)
     has_building_levels = Column(Boolean, nullable=False)
     has_building_levels_undg = Column(Boolean, nullable=False)
+
+    hc_lat = Column(Float, nullable=True)
+    hc_lon = Column(Float, nullable=True)
+    hc_expected_tags = Column(JSON, nullable=True)
+    hc_result_tags = Column(JSON, nullable=True)
+
+    @hybrid_property
+    def hc_has_expected_tags(self) -> bool:
+        return self.hc_expected_tags is not None and self.hc_expected_tags == self.hc_result_tags
