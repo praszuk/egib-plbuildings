@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from httpx import AsyncClient, HTTPError, Timeout
 from sqlalchemy import insert, bindparam
 
+from backend.areas.data.expected_building import all_areas_data
 from backend.areas.config import all_areas
 from backend.areas.parsers import BaseAreaParser
 from backend.core.logger import default_logger
@@ -13,6 +14,7 @@ from backend.models.building import Building
 from backend.models.area_import import AreaImport, ResultStatus
 from backend.database.session import SessionLocal
 from backend.exceptions import ParserError
+from backend.services.buildings import query_building_from_db_at
 
 
 @dataclass
@@ -22,6 +24,10 @@ class ImportResult:
     has_building_type: bool = False
     has_building_levels: bool = False
     has_building_levels_undg: bool = False
+    hc_lat: float | None = None
+    hc_lon: float | None = None
+    hc_expected_tags: dict | None = None
+    hc_result_tags: dict | None = None
 
 
 async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> ImportResult | None:
@@ -61,6 +67,18 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
         session.execute(insert(Building).values(geometry=bindparam('wkt')), buildings_data)
         session.commit()
 
+        # Healthcheck section
+        expected = all_areas_data[teryt]
+        hc_lat = expected.lat
+        hc_lon = expected.lon
+        hc_expected_tags = expected.expected_tags
+
+        geojson = await query_building_from_db_at(session, expected.lat, expected.lon)
+        if geojson['features']:
+            hc_result_tags = geojson['features'][0]['properties']
+        else:
+            hc_result_tags = None
+
     return ImportResult(
         status=ResultStatus.SUCCESS,
         building_count=len(buildings_data),
@@ -71,6 +89,10 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
         has_building_levels_undg=any(
             d['tags'].get('building:levels:underground') is not None for d in buildings_data
         ),
+        hc_lat=hc_lat,
+        hc_lon=hc_lon,
+        hc_expected_tags=hc_expected_tags,
+        hc_result_tags=hc_result_tags,
     )
 
 
@@ -115,6 +137,10 @@ async def area_import_in_parallel(
             has_building_type=import_result.has_building_type,
             has_building_levels=import_result.has_building_levels,
             has_building_levels_undg=import_result.has_building_levels_undg,
+            hc_lat=import_result.hc_lat,
+            hc_lon=import_result.hc_lon,
+            hc_expected_tags=import_result.hc_expected_tags,
+            hc_result_tags=import_result.hc_result_tags,
         )
         with SessionLocal() as session:
             session.add(area_import)
