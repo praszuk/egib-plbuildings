@@ -1,10 +1,15 @@
+from unittest.mock import patch
+
 import pytest
 
+from backend.areas.parsers import BaseAreaParser
+from backend.areas.config import all_areas
 from backend.models.area_import import AreaImport
 from backend.models.area_import import ResultStatus
 
 
 @pytest.mark.anyio
+@patch.dict(all_areas, {teryt: BaseAreaParser(name=teryt) for teryt in ('0001', '0002')})
 async def test_list_latest_area_imports_returns_unique_areas_imports(async_client, db):
     params = {
         'start_at': '2024-01-01T00:00:00',
@@ -68,6 +73,9 @@ async def test_list_latest_area_imports_returns_unique_areas_imports(async_clien
 
 
 @pytest.mark.anyio
+@patch.dict(
+    all_areas, {teryt: BaseAreaParser(name=teryt) for teryt in ('0001', '0002', '0003', '0004')}
+)
 async def test_list_stable_area_imports_returns_latest_success_or_latest_failed(async_client, db):
     params = {
         'start_at': '2024-01-01T00:00:00',

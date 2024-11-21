@@ -23,7 +23,5 @@ class AreaImport(BaseModel):
     has_building_levels_undg: bool
 
     hc_has_expected_tags: bool
-    hc_lat: float | None
-    hc_lon: float | None
     hc_expected_tags: dict[str, Any] | None
     hc_result_tags: dict[str, Any] | None
