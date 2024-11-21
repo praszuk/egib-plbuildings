@@ -16,6 +16,7 @@ class AreaImport {
 
     constructor({
                     id,
+                    name,
                     teryt,
                     start_at,
                     end_at,
@@ -23,9 +24,13 @@ class AreaImport {
                     result_status,
                     has_building_type,
                     has_building_levels,
-                    has_building_levels_undg: has_building_levels_underground
+                    has_building_levels_undg: has_building_levels_underground,
+                    hc_has_expected_tags,
+                    hc_expected_tags,
+                    hc_result_tags
                 }) {
         this.id = id;
+        this.name = name;
         this.teryt = teryt;
         this.startTs = Date.parse(start_at);
         this.endTs = Date.parse(end_at);
@@ -33,6 +38,9 @@ class AreaImport {
         this.hasBuildingType = has_building_type;
         this.hasBuildingLevels = has_building_levels;
         this.hasBuildingLevelsUnderground = has_building_levels_underground;
+        this.hcHasExpectedtags = hc_has_expected_tags;
+        this.hcExpectedTags = hc_expected_tags;
+        this.hcResultTags = hc_result_tags;
 
         if (Object.values(AreaImport.ResultStatus).includes(result_status)) {
             this.resultStatus = result_status;
@@ -100,7 +108,7 @@ function createTooltipHTMLContent(areaImport) {
     tooltipContentDiv.className = 'tooltip-content';
 
     const spanElement = document.createElement('span');
-    spanElement.textContent = `${areaImport.teryt} – ${window.AREA_TERYT_NAME[areaImport.teryt]}`;
+    spanElement.textContent = `${areaImport.teryt} – ${areaImport.name}`;
     tooltipContentDiv.appendChild(spanElement);
     tooltipContentDiv.appendChild(document.createElement('hr'));
 

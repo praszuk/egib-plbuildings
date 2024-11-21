@@ -32,30 +32,27 @@
             padding-left: 0;
         }
     </style>
-</head>
-<body>
-    <h1>Raport importu</h1>
-    <label for="report-type">Typ raportu:</label>
-    <select id="report-type">
-        <option value="latest">Najświeższy import</option>
-        <option value="stable">Stabilny import</option>
-    </select>
-    <h2>Podsumowanie</h2>
-    <div class="status-summary">
-        <ul>
-            <li><strong>Start: </strong><span id="summary-start-dt"></span></li>
-            <li><strong>Koniec: </strong><span id="summary-end-dt"></span></li>
-            <li><strong>Łączny czas trwania: </strong><span id="summary-duration"></span></li>
-            <li><strong>Zaimportowane obszary: </strong><span id="summary-areas-info"></span></li>
-        </ul>
-    </div>
-    <h2>Powiaty:</h2>
-    <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
-    <div id="tooltip" class="tooltip"></div>
+    </head>
+    <body>
+        <h1>Raport importu</h1>
+        <label for="report-type">Typ raportu:</label>
+        <select id="report-type">
+            <option value="latest">Najświeższy import</option>
+            <option value="stable">Stabilny import</option>
+        </select>
+        <h2>Podsumowanie</h2>
+        <div class="status-summary">
+            <ul>
+                <li><strong>Start: </strong><span id="summary-start-dt"></span></li>
+                <li><strong>Koniec: </strong><span id="summary-end-dt"></span></li>
+                <li><strong>Łączny czas trwania: </strong><span id="summary-duration"></span></li>
+                <li><strong>Zaimportowane obszary: </strong><span id="summary-areas-info"></span></li>
+            </ul>
+        </div>
+        <h2>Powiaty:</h2>
+        <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
+        <div id="tooltip" class="tooltip"></div>
     </body>
-    <script>
-        window.AREA_TERYT_NAME = JSON.parse('{{ AREA_TERYT_NAME | tojson }}');
-    </script>
     <script src="{{ url_for('static', path='/js/timeutils.js') }}"></script>
     <script src="{{ url_for('static', path='/js/svgmap.js') }}"></script>
     <script src="{{ url_for('static', path='/js/status.js') }}"></script>
