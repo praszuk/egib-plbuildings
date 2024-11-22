@@ -54,6 +54,12 @@ class AreaImport {
     }
 }
 
+function tagsObjectToString(tags) {
+    if (tags === null) {
+        return '<brak danych>';
+    }
+    return Object.entries(tags).map(([k, v]) => `${k}=${v}`).join(',');
+}
 
 async function fetchAreaImportData(type) {
     try {
@@ -91,16 +97,42 @@ function updateSummarySection(areaImportData) {
 }
 
 
-function getBackgroundColorByStatus(resultStatus) {
-    switch (resultStatus) {
+function getBackgroundColorByStatus(areaImport) {
+    switch (areaImport.resultStatus) {
         case AreaImport.ResultStatus.SUCCESS:
-            return '#00ff00';
+            if (areaImport.hcHasExpectedtags) {
+                return '#00FF00';
+            } else {
+                return '#FFD700';
+            }
         case AreaImport.ResultStatus.DOWNLOADING_ERROR:
         case AreaImport.ResultStatus.PARSING_ERROR:
             return '#FF0000';
         case AreaImport.ResultStatus.EMPTY_DATA_ERROR:
             return '#89978A';
     }
+}
+
+
+function createTagsTooltipDiv(hcExpectedTags, hcResultTags) {
+    const divExpectedVsReceivedTags = document.createElement('div');
+
+    const divTitleTags = document.createElement('div');
+    divTitleTags.textContent = 'Oczekiwane, a otrzymane:';
+
+    const divExpectedTags = document.createElement('div');
+    divExpectedTags.className = 'tags';
+    divExpectedTags.textContent = tagsObjectToString(hcExpectedTags);
+
+    const divResultTags = document.createElement('div');
+    divResultTags.className = 'tags';
+    divResultTags.textContent = tagsObjectToString(hcResultTags);
+
+    divExpectedVsReceivedTags.appendChild(divTitleTags);
+    divExpectedVsReceivedTags.appendChild(divExpectedTags);
+    divExpectedVsReceivedTags.appendChild(divResultTags);
+
+    return divExpectedVsReceivedTags;
 }
 
 function createTooltipHTMLContent(areaImport) {
@@ -137,6 +169,11 @@ function createTooltipHTMLContent(areaImport) {
         ulElement.appendChild(liHasBuildingType);
         ulElement.appendChild(liHasBuildingLevels);
         ulElement.appendChild(liHasBuildingUndergroundLevels);
+
+        if (!areaImport.hcHasExpectedtags) {
+            ulElement.appendChild(document.createElement('hr'));
+            ulElement.appendChild(createTagsTooltipDiv(areaImport.hcExpectedTags, areaImport.hcResultTags));
+        }
     }
     tooltipContentDiv.appendChild(ulElement);
 
@@ -152,7 +189,7 @@ function updateSvgMap(svgElement, latestAreaImport) {
         if (countyPathElement == null) {  // It may happen for areas inside a counties
             return;
         }
-        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport.resultStatus));
+        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport));
         svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaImport));
     });
 }
