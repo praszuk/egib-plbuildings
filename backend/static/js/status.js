@@ -61,11 +61,16 @@ function tagsObjectToString(tags) {
     return Object.entries(tags).map(([k, v]) => `${k}=${v}`).join(',');
 }
 
+const areaImportCache = {};
 async function fetchAreaImportData(type) {
+    if (type in areaImportCache) {
+        return areaImportCache[type];
+    }
     try {
         const response = await fetch(`/api/v1/area_imports/${type}`);
         const data = await response.json();
-        return data.map(areaImportData => new AreaImport(areaImportData));
+        areaImportCache[type] = data.map(areaImportData => new AreaImport(areaImportData));
+        return areaImportCache[type];
     } catch (e) {
         console.error(`Failed to fetch ${type} area import objects:`, e);
         return [];
