@@ -2117,7 +2117,11 @@ counties = {
         teryt='2661',
         lat=50.84528,
         lon=20.63407,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 5,
+            'building:levels:underground': 1,
+        },
     ),
     # 28 – "warmińsko-mazurskie"
     '2801': AreaExpectedBuildingData(
