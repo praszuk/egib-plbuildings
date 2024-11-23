@@ -421,32 +421,30 @@ class WebEwidAreaParser(BaseAreaParser):
 
         super().__init__(*args, **kwargs)
 
-    def buildings_base_url(self) -> str:
-        port_frag = f':{self.port}' if self.port else ''
-        return (
-            f'https://{self.url_code}.webewid.pl{port_frag}/iip/ows'
-            '?service=wfs'
-            '&version=2.0.0'
-            '&request=GetFeature'
-            '&typeNames=ms:budynki'
-        )
+    def buildings_url(self) -> str:
+        if self.base_url:
+            endpoint = self.base_url
+        else:
+            port_frag = f':{self.port}' if self.port else ''
+            endpoint = f'https://{self.url_code}.webewid.pl{port_frag}/iip/ows'
+        return f'{endpoint}?service=wfs&version=2.0.0&request=GetFeature&typeNames=ms:budynki'
 
     def build_buildings_url(self) -> str:
-        return merge_url_query_params(self.buildings_base_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
+        return merge_url_query_params(self.buildings_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         """
         Note: At 2024 BBOX filtering still not work, or work completely randomly.
         This function exists only for healthcheck.
         """
-        base_url = self.buildings_base_url()
+        buildings_url = self.buildings_url()
 
         if self.custom_crs and self.custom_crs != 4326:
             x, y = self.reproject_coordinates(lat, lon, self.custom_crs)
-            url = merge_url_query_params(base_url, {'BBOX': ','.join(map(str, [x, y, x, y]))})
+            url = merge_url_query_params(buildings_url, {'BBOX': ','.join(map(str, [x, y, x, y]))})
         else:
             url = merge_url_query_params(
-                base_url,
+                buildings_url,
                 {
                     'SRSNAME': self.DEFAULT_SRS_NAME,
                     'BBOX': ','.join(map(str, [lat, lon, lat, lon])) + f',{self.DEFAULT_SRS_NAME}',
