@@ -293,7 +293,7 @@ all_counties: Dict[str, AreaParser] = {
     '2205': WebEwidAreaParser(name='kartuski', url_code='kartuski-wms'),
     '2206': WebEwidAreaParser(name='kościerski', url_code='koscierski-wms'),
     '2207': WebEwidAreaParser(name='kwidzyński', url_code='kwidzynski-wms'),
-    '2208': GeoportalAreaParser(name='lęborski', url_code='2208'),
+    '2208': WebEwidAreaParser(name='lęborski', url_code='leborski', port=44443),
     '2209': WebEwidAreaParser(name='malborski', url_code='malborski-wms'),
     '2210': GeoportalAreaParser(name='nowodworski', url_code='2210'),
     '2211': WebEwidAreaParser(name='pucki', base_url='https://pdp.puck.pl/iip/ows'),
