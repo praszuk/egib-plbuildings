@@ -1641,6 +1641,13 @@ counties = {
         lon=23.35161,
         expected_tags={'building': 'office'},
     ),
+    '2010': AreaExpectedBuildingData(
+        name='siemiatycki',
+        teryt='2010',
+        lat=52.42252,
+        lon=22.86306,
+        expected_tags={'building': 'yes'},  # empty
+    ),
     '2011': AreaExpectedBuildingData(
         name='sokólski',
         teryt='2011',
@@ -1825,6 +1832,13 @@ counties = {
         expected_tags={'building': 'office'},
     ),
     # 24 - "śląskie"
+    '2401': AreaExpectedBuildingData(
+        name='będziński',
+        teryt='2401',
+        lat=50.31494,
+        lon=19.13189,
+        expected_tags={'building': 'yes'},
+    ),
     '2402': AreaExpectedBuildingData(  # gmina Wilamowice
         name='bielski',
         teryt='2402',
@@ -1855,6 +1869,17 @@ counties = {
         lon=18.66823,
         expected_tags={
             'building': 'office',
+        },
+    ),
+    '2407': AreaExpectedBuildingData(
+        name='lubliniecki',
+        teryt='2407',
+        lat=50.67144,
+        lon=18.68845,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
         },
     ),
     '2409': AreaExpectedBuildingData(
@@ -1986,6 +2011,13 @@ counties = {
             'building:levels': 4,
             'building:levels:underground': 1,
         },
+    ),
+    '2471': AreaExpectedBuildingData(
+        name='miasto Piekary Śląskie',
+        teryt='2471',
+        lat=50.37508,
+        lon=18.94434,
+        expected_tags={'building': 'yes'},  # empty
     ),
     '2472': AreaExpectedBuildingData(
         name='miasto Ruda Śląska',
@@ -2439,6 +2471,17 @@ counties = {
         lon=17.86798,
         expected_tags={'building': 'yes'},
     ),
+    '3024': AreaExpectedBuildingData(
+        name='szamotulski',
+        teryt='3024',
+        lat=52.60669,
+        lon=16.58192,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
     '3026': AreaExpectedBuildingData(
         name='śremski',
         teryt='3026',
@@ -2470,6 +2513,13 @@ counties = {
             'building:levels': 3,
             'building:levels:underground': 1,
         },
+    ),
+    '3030': AreaExpectedBuildingData(
+        name='września',
+        teryt='3030',
+        lat=52.32365,
+        lon=17.56918,
+        expected_tags={'building': 'yes'},  # empty
     ),
     '3031': AreaExpectedBuildingData(
         name='złotowski',

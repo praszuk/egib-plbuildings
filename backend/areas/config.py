@@ -283,6 +283,9 @@ all_counties: Dict[str, AreaParser] = {
     '2006': WebEwidAreaParser(name='kolneński', url_code='kolnenski-wms'),
     '2008': Geoportal2AreaParser(name='moniecki', url_code='monki'),
     '2009': Geoportal2AreaParser(name='sejneński', url_code='sejny'),
+    '2010': GIPortalAreaParser(
+        name='siemiatycki', base_url='https://geoportal.siemiatycze.pl/siemiatycze-egib'
+    ),
     '2011': Geoportal2AreaParser(name='sokólski', url_code='powiatsokolski'),
     '2012': GeoportalAreaParser(name='suwalski', url_code='2012'),
     '2013': Geoportal2AreaParser(name='wysokomazowiecki', url_code='wysokomazowiecki'),
@@ -317,10 +320,14 @@ all_counties: Dict[str, AreaParser] = {
     '2263': WebEwidAreaParser(name='miasto Słupsk', base_url='https://wms.slupsk.eu/iip/ows'),
     '2264': WebEwidAreaParser(name='miasto Sopot', base_url='https://wms.um.sopot.pl/iip/ows'),
     # 24 – "śląskie"
+    '2401': GIPortalAreaParser(
+        name='będziński', base_url='https://ikerg.powiat.bedzin.pl/bedzin-egib'
+    ),
     '2402': WebEwidAreaParser(name='bielski', url_code='bielski-ows'),
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
     '2405': WebEwidAreaParser(name='gliwicki', url_code='gliwicki', port=4443),
+    '2407': GIPortalAreaParser(name='lubliniecki', base_url='http://83.17.150.14/lubliniec-egib'),
     '2409': GIPortalAreaParser(
         name='myszkowski', base_url='https://imapa.powiatmyszkowski.pl/myszkow-egib'
     ),
@@ -349,6 +356,9 @@ all_counties: Dict[str, AreaParser] = {
     '2468': WebEwidAreaParser(name='miasto Jaworzno', url_code='jaworzno-wms'),
     '2470': GIPortalAreaParser(
         name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
+    ),
+    '2471': GIPortalAreaParser(
+        name='miasto Piekary Śląskie', base_url='https://wms.sip.piekary.pl/piekary-egib'
     ),
     '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
     '2473': GIPortalAreaParser(
@@ -429,12 +439,18 @@ all_counties: Dict[str, AreaParser] = {
     '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
     '3022': GeoportalAreaParser(name='rawicki', url_code='3022'),
     '3023': GeoportalAreaParser(name='słupecki', url_code='3023'),
+    '3024': GIPortalAreaParser(
+        name='szamotulski', base_url='https://wms.szamotuly.com.pl/szamotuly-egib'
+    ),
     '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
     '3028': GIPortalAreaParser(
         name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
     ),
     '3029': GIPortalAreaParser(
         name='wolsztyński', base_url='https://ikerg.powiatwolsztyn.pl/wolsztyn-egib'
+    ),
+    '3030': GIPortalAreaParser(
+        name='wrzesiński', base_url='https://wms.wrzesnia.powiat.pl/wrzesnia-egib'
     ),
     '3031': GIPortalAreaParser(
         name='złotowski', base_url='https://ikerg.zlotow-powiat.pl/zlotow-egib'
