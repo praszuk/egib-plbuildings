@@ -1989,7 +1989,11 @@ counties = {
         teryt='2473',
         lat=50.08986,
         lon=18.54475,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '2474': AreaExpectedBuildingData(
         name='miasto Siemianowice Śląskie',

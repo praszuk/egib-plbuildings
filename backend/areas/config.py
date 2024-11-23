@@ -345,7 +345,9 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
     ),
     '2472': Geoportal2AreaParser(name='miasto Ruda Śląska', url_code='rudaslaska'),
-    '2473': GeoportalAreaParser(name='miasto Rybnik', url_code='2473'),
+    '2473': GIPortalAreaParser(
+        name='miasto Rybnik', base_url='https://geodeta.gpue.rybnik.eu/rybnik-egib'
+    ),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
     '2475': GeoportalAreaParser(name='miasto Sosnowiec', url_code='2475'),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
