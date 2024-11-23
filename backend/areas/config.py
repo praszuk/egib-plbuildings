@@ -319,7 +319,9 @@ all_counties: Dict[str, AreaParser] = {
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
     '2405': WebEwidAreaParser(name='gliwicki', url_code='gliwicki', port=4443),
-    '2409': GeoportalAreaParser(name='myszkowski', url_code='2409'),
+    '2409': GIPortalAreaParser(
+        name='myszkowski', base_url='https://imapa.powiatmyszkowski.pl/myszkow-egib'
+    ),
     '2410': WebEwidAreaParser(name='pszczyński', url_code='pszczynski-wms'),
     '2411': Geoportal2AreaParser(name='raciborski', url_code='raciborz'),
     '2412': Geoportal2AreaParser(name='rybnicki', url_code='rybnik'),

@@ -1858,7 +1858,7 @@ counties = {
         teryt='2409',
         lat=50.57383,
         lon=19.32037,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 8},
     ),
     '2410': AreaExpectedBuildingData(
         name='pszczyński',
