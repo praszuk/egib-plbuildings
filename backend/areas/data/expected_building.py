@@ -45,7 +45,11 @@ counties = {
         teryt='0206',
         lat=50.77499,
         lon=15.75395,
-        expected_tags={'building': 'office', 'building:levels': 4},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '0207': AreaExpectedBuildingData(
         name='kamiennogórski',
@@ -722,7 +726,7 @@ counties = {
         teryt='1010',
         lat=51.30226,
         lon=19.64704,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1011': AreaExpectedBuildingData(
         name='poddębicki',
