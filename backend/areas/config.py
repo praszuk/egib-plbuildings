@@ -184,7 +184,7 @@ all_counties: Dict[str, AreaParser] = {
     # 14 – "mazowieckie"
     '1401': Geoportal2AreaParser(name='białobrzeski', url_code='bialobrzegi'),
     '1402': Geoportal2AreaParser(name='ciechanowski', url_code='ciechanow'),
-    '1403': Geoportal2AreaParser(name='garwoliński', url_code='garwolinski'),
+    '1403': Geoportal2AreaParser(name='garwoliński', url_code='garwolinski', port=8443),
     '1404': Geoportal2AreaParser(name='gostyniński', url_code='gostynin'),
     '1405': Geoportal2AreaParser(name='grodziski', url_code='grodzisk'),
     '1406': Geoportal2AreaParser(name='grójecki', url_code='grojec'),

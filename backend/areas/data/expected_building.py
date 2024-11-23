@@ -1010,7 +1010,7 @@ counties = {
         teryt='1403',
         lat=51.89989,
         lon=21.60509,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'yes'},  # empty
     ),
     '1404': AreaExpectedBuildingData(
         name='gostyniński',

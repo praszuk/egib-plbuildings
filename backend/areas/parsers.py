@@ -310,8 +310,9 @@ class Geoportal2AreaParser(BaseAreaParser):
         super().__init__(*args, **kwargs, gml_prefix='ewns', gml_geometry_key='geometria')
 
     def build_buildings_url(self) -> str:
+        port_frag = f':{self.port}' if self.port else ''
         return (
-            f'https://{self.url_code}.geoportal2.pl/map/geoportal/wfs.php'
+            f'https://{self.url_code}.geoportal2.pl{port_frag}/map/geoportal/wfs.php'
             f'?service=WFS'
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ewns:budynki'
