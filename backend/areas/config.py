@@ -41,7 +41,7 @@ all_counties: Dict[str, AreaParser] = {
     '0218': GeoportalAreaParser(name='średzki', url_code='0218'),
     '0219': WebEwidAreaParser(name='świdnicki', url_code='swidnicki-wms'),
     '0220': WebEwidAreaParser(name='trzebnicki', url_code='trzebnicki-wms'),
-    '0221': GeoportalAreaParser(name='wałbrzyski', url_code='0221'),
+    '0221': WebEwidAreaParser(name='wałbrzyski', url_code='walbrzyski-wms'),
     '0222': WebEwidAreaParser(
         name='wołowski', url_code='wolowski-wms', gml_geometry_key='msGeometry'
     ),
