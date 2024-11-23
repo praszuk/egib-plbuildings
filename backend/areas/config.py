@@ -236,7 +236,9 @@ all_counties: Dict[str, AreaParser] = {
     '1605': GIPortalAreaParser(
         name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
     ),
-    '1606': GeoportalAreaParser(name='namysłowski', url_code='1606'),
+    '1606': GIPortalAreaParser(
+        name='namysłowski', base_url='https://iegib.namyslow.pl/cgi-bin/namyslow-egib'
+    ),
     '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
     '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
     '1610': GIPortalAreaParser(

@@ -1348,6 +1348,8 @@ counties = {
         lon=17.72067,
         expected_tags={
             'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
         },
     ),
     '1607': AreaExpectedBuildingData(
