@@ -1273,7 +1273,11 @@ counties = {
         teryt='1463',
         lat=51.39118,
         lon=21.16101,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '1464': AreaExpectedBuildingData(
         name='miasto Siedlce',

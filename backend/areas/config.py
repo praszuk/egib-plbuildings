@@ -223,7 +223,9 @@ all_counties: Dict[str, AreaParser] = {
     '1462': WebEwidAreaParser(
         name='miasto Płock', base_url='https://wms-ggk.plock.eu:4443/iip/ows'
     ),
-    '1463': GeoportalAreaParser(name='miasto Radom', url_code='1463'),
+    '1463': GIPortalAreaParser(
+        name='miasto Radom', base_url='https://ikerg.modgik.radom.pl/radom-egib'
+    ),
     '1464': Geoportal2AreaParser(name='miasto Siedlce', url_code='siedlce'),
     '1465': WarszawaAreaParser(name='miasto Warszawa', url_code=''),
     # 16 – "opolskie"
