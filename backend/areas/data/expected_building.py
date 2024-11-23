@@ -1943,6 +1943,13 @@ counties = {
         lon=19.20618,
         expected_tags={'building': 'office'},
     ),
+    '2466': AreaExpectedBuildingData(
+        name='miasto Gliwice',
+        teryt='2466',
+        lat=50.29397,
+        lon=18.66559,
+        expected_tags={'building': 'office'},
+    ),
     '2467': AreaExpectedBuildingData(
         name='miasto Jastrzębie-Zdrój',
         teryt='2467',

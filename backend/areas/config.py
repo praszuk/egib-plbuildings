@@ -336,6 +336,9 @@ all_counties: Dict[str, AreaParser] = {
     '2465': WebEwidAreaParser(
         name='miasto Dąbrowa Górnicza', base_url='https://geoportal-wms.dg.pl/iip/ows'
     ),
+    '2466': WebEwidAreaParser(
+        name='miasto Gliwice', base_url='https://wmswfs-geodezja.gliwice.eu/iip/ows'
+    ),
     '2467': Geoportal2AreaParser(name='miasto Jastrzębie-Zdrój', url_code='jastrzebie'),
     '2468': WebEwidAreaParser(name='miasto Jaworzno', url_code='jaworzno-wms'),
     '2470': GIPortalAreaParser(
