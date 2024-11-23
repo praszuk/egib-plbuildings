@@ -10,51 +10,51 @@ class AreaExpectedBuildingData:
     expected_tags: dict[str, any]
 
 
-counties = [
+counties = {
     # 02 – "dolnośląskie"
-    AreaExpectedBuildingData(
+    '0201': AreaExpectedBuildingData(
         name='bolesławiecki',
         teryt='0201',
         lat=51.26230,
         lon=15.56843,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0203': AreaExpectedBuildingData(
         name='głogowski',
         teryt='0203',
         lat=51.66531,
         lon=16.07441,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0204': AreaExpectedBuildingData(
         name='górowski',
         teryt='0204',
         lat=51.66517,
         lon=16.54239,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0205': AreaExpectedBuildingData(
         name='jaworski',
         teryt='0205',
         lat=51.05149,
         lon=16.20572,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0206': AreaExpectedBuildingData(
         name='karkonoski',
         teryt='0206',
         lat=50.77499,
         lon=15.75395,
         expected_tags={'building': 'office', 'building:levels': 4},
     ),
-    AreaExpectedBuildingData(
+    '0207': AreaExpectedBuildingData(
         name='kamiennogórski',
-        teryt='0206',
+        teryt='0207',
         lat=50.78209,
         lon=16.02857,
         expected_tags={'building': 'office', 'building:levels': 4},
     ),
-    AreaExpectedBuildingData(  # gmina Prochowice
+    '0209': AreaExpectedBuildingData(  # gmina Prochowice
         name='legnicki',
         teryt='0209',
         lat=51.27347,
@@ -63,7 +63,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0210': AreaExpectedBuildingData(
         name='lubański',
         teryt='0210',
         lat=51.11445,
@@ -72,7 +72,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0211': AreaExpectedBuildingData(
         name='lubiński',
         teryt='0211',
         lat=51.40126,
@@ -81,14 +81,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0212': AreaExpectedBuildingData(
         name='lwówecki',
         teryt='0212',
         lat=51.11181,
         lon=15.58348,
         expected_tags={'building': 'yes', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(
+    '0213': AreaExpectedBuildingData(
         name='milicki',
         teryt='0213',
         lat=51.52716,
@@ -97,7 +97,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0214': AreaExpectedBuildingData(
         name='oleśnicki',
         teryt='0214',
         lat=51.20571,
@@ -106,7 +106,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0216': AreaExpectedBuildingData(
         name='polkowicki',
         teryt='0216',
         lat=51.50209,
@@ -115,7 +115,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0217': AreaExpectedBuildingData(
         name='strzeliński',
         teryt='0217',
         lat=50.77975,
@@ -124,14 +124,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0218': AreaExpectedBuildingData(
         name='średzki',
         teryt='0218',
         lat=51.26230,
         lon=15.56843,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0219': AreaExpectedBuildingData(
         name='świdnicki',
         teryt='0219',
         lat=50.84214,
@@ -140,7 +140,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0220': AreaExpectedBuildingData(
         name='trzebnicki',
         teryt='0220',
         lat=51.30515,
@@ -149,14 +149,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(  # gmina Głuszyca
+    '0221': AreaExpectedBuildingData(  # gmina Głuszyca
         name='wałbrzyski',
         teryt='0221',
         lat=50.69437,
         lon=16.37008,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '0222': AreaExpectedBuildingData(
         name='wołowski',
         teryt='0222',
         lat=51.33517,
@@ -165,7 +165,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0224': AreaExpectedBuildingData(
         name='ząbkowicki',
         teryt='0224',
         lat=50.59096,
@@ -174,14 +174,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0225': AreaExpectedBuildingData(
         name='zgorzelecki',
         teryt='0225',
         lat=51.14862,
         lon=15.01140,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(
+    '0226': AreaExpectedBuildingData(
         name='złotoryjski',
         teryt='0226',
         lat=51.12296,
@@ -192,14 +192,14 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '0264': AreaExpectedBuildingData(
         name='miasto Wrocław',
         teryt='0264',
         lat=51.11019,
         lon=17.03139,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0265': AreaExpectedBuildingData(
         name='miasto Wałbrzych',
         teryt='0265',
         lat=50.76994,
@@ -209,14 +209,14 @@ counties = [
         },
     ),
     # 04 – "kujawsko-pomorskie"
-    AreaExpectedBuildingData(  # gmina Koronowo
+    '0403': AreaExpectedBuildingData(  # gmina Koronowo
         name='bydgoski',
         teryt='0403',
         lat=53.31413,
         lon=17.93781,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0404': AreaExpectedBuildingData(
         name='chełmiński',
         teryt='0404',
         lat=53.35039,
@@ -225,7 +225,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0405': AreaExpectedBuildingData(
         name='golubsko-dobrzyński',
         teryt='0405',
         lat=53.10883,
@@ -234,14 +234,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(  # gmina Łasin
+    '0406': AreaExpectedBuildingData(  # gmina Łasin
         name='grudziądzki',
         teryt='0406',
         lat=53.51820,
         lon=19.08286,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0407': AreaExpectedBuildingData(
         name='inowrocławski',
         teryt='0407',
         lat=52.79312,
@@ -250,14 +250,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0408': AreaExpectedBuildingData(
         name='lipnowski',
         teryt='0408',
         lat=52.84022,
         lon=19.17100,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0409': AreaExpectedBuildingData(
         name='mogileński',
         teryt='0409',
         lat=52.65724,
@@ -266,7 +266,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0410': AreaExpectedBuildingData(
         name='nakielski',
         teryt='0410',
         lat=53.13794,
@@ -275,28 +275,28 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0411': AreaExpectedBuildingData(
         name='radziejowski',
         teryt='0411',
         lat=52.62279,
         lon=18.52755,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0412': AreaExpectedBuildingData(
         name='rypiński',
         teryt='0412',
         lat=53.06290,
         lon=19.41146,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0413': AreaExpectedBuildingData(
         name='sępoleński',
         teryt='0413',
         lat=53.45663,
         lon=17.53797,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Chełmża
+    '0415': AreaExpectedBuildingData(  # gmina Chełmża
         name='toruński',
         teryt='0415',
         lat=53.18642,
@@ -305,7 +305,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0416': AreaExpectedBuildingData(
         name='tucholski',
         teryt='0416',
         lat=53.58781,
@@ -314,21 +314,21 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0417': AreaExpectedBuildingData(
         name='wąbrzeski',
         teryt='0417',
         lat=53.27565,
         lon=18.94620,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Kowal
+    '0418': AreaExpectedBuildingData(  # gmina Kowal
         name='włocławski',
         teryt='0418',
         lat=52.53273,
         lon=19.15530,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0419': AreaExpectedBuildingData(
         name='żniński',
         teryt='0419',
         lat=52.84843,
@@ -337,14 +337,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0461': AreaExpectedBuildingData(
         name='miasto Bydgoszcz',
         teryt='0461',
         lat=53.13446,
         lon=17.99335,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0463': AreaExpectedBuildingData(
         name='miasto Toruń',
         teryt='0463',
         lat=53.03234,
@@ -354,21 +354,21 @@ counties = [
         },
     ),
     # 06 – "lubelskie"
-    AreaExpectedBuildingData(  # gmina Konstantynów
+    '0601': AreaExpectedBuildingData(  # gmina Konstantynów
         name='bialski',
         teryt='0601',
         lat=52.20697,
         lon=23.08980,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(  # gmina Tarnogród
+    '0602': AreaExpectedBuildingData(  # gmina Tarnogród
         name='biłgorajski',
         teryt='0602',
         lat=50.35931,
         lon=22.74292,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(  # gmina Rejowiec-Fabryczny
+    '0603': AreaExpectedBuildingData(  # gmina Rejowiec-Fabryczny
         name='chełmski',
         teryt='0603',
         lat=51.12086,
@@ -377,28 +377,28 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0604': AreaExpectedBuildingData(
         name='hrubieszowski',
         teryt='0604',
         lat=50.80644,
         lon=23.88755,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0605': AreaExpectedBuildingData(
         name='janowski',
         teryt='0605',
         lat=50.70261,
         lon=22.41879,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0606': AreaExpectedBuildingData(
         name='krasnostawski',
         teryt='0606',
         lat=50.98220,
         lon=23.16148,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0607': AreaExpectedBuildingData(
         name='kraśnicki',
         teryt='0607',
         lat=50.96376,
@@ -407,112 +407,112 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0608': AreaExpectedBuildingData(
         name='lubartowski',
         teryt='0608',
         lat=51.46557,
         lon=22.60975,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0609': AreaExpectedBuildingData(
         name='lubelski',
         teryt='0609',
         lat=50.44727,
         lon=23.41521,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0610': AreaExpectedBuildingData(
         name='łęczyński',
         teryt='0610',
         lat=51.29881,
         lon=22.88610,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0611': AreaExpectedBuildingData(
         name='łukowski',
         teryt='0611',
         lat=51.93003,
         lon=22.37824,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0612': AreaExpectedBuildingData(
         name='opolski',
         teryt='0612',
         lat=51.14870,
         lon=21.97042,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0613': AreaExpectedBuildingData(
         name='parczewski',
         teryt='0613',
         lat=51.63985,
         lon=22.89702,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0614': AreaExpectedBuildingData(
         name='puławski',
         teryt='0614',
         lat=51.41358,
         lon=21.96274,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0615': AreaExpectedBuildingData(
         name='radzyński',
         teryt='0615',
         lat=51.78286,
         lon=22.61551,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0616': AreaExpectedBuildingData(
         name='rycki',
         teryt='0616',
         lat=51.62444,
         lon=21.92719,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0617': AreaExpectedBuildingData(
         name='świdnicki',
         teryt='0617',
         lat=51.21957,
         lon=22.69944,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0618': AreaExpectedBuildingData(
         name='tomaszowski',
         teryt='0618',
         lat=50.44727,
         lon=23.41522,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0619': AreaExpectedBuildingData(
         name='włodawski',
         teryt='0619',
         lat=51.54789,
         lon=23.55561,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Szczebrzeszyn
+    '0620': AreaExpectedBuildingData(  # gmina Szczebrzeszyn
         name='zamojski',
         teryt='0620',
         lat=50.69498,
         lon=22.97839,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0661': AreaExpectedBuildingData(
         name='miasto Biała Podlaska',
         teryt='0661',
         lat=52.03496,
         lon=23.12653,
         expected_tags={'building': 'yes'},  # empty,
     ),
-    AreaExpectedBuildingData(
+    '0662': AreaExpectedBuildingData(
         name='miasto Chełm',
         teryt='0662',
         lat=51.13321,
         lon=23.49482,
         expected_tags={'building': 'yes', 'building:levels': 4},
     ),
-    AreaExpectedBuildingData(
+    '0664': AreaExpectedBuildingData(
         name='miasto Zamość',
         teryt='0664',
         lat=50.72284,
@@ -520,14 +520,14 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 08 – "lubuskie"
-    AreaExpectedBuildingData(
+    '0801': AreaExpectedBuildingData(
         name='gorzowski',
         teryt='0801',
         lat=52.68771,
         lon=15.06554,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '0802': AreaExpectedBuildingData(
         name='krośnieński',
         teryt='0802',
         lat=51.95139,
@@ -537,14 +537,14 @@ counties = [
             'building:levels': 5,
         },
     ),
-    AreaExpectedBuildingData(
+    '0803': AreaExpectedBuildingData(
         name='międzyrzecki',
         teryt='0803',
         lat=52.45234,
         lon=15.58436,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0804': AreaExpectedBuildingData(
         name='nowosolski',
         teryt='0804',
         lat=51.80238,
@@ -555,28 +555,28 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '0805': AreaExpectedBuildingData(
         name='słubicki',
         teryt='0805',
         lat=52.35435,
         lon=14.56661,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0806': AreaExpectedBuildingData(
         name='strzelecko-drezdenecki',
         teryt='0806',
         lat=52.83937,
         lon=15.83148,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0807': AreaExpectedBuildingData(
         name='sulęciński',
         teryt='0807',
         lat=52.45082,
         lon=15.11709,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0808': AreaExpectedBuildingData(
         name='świebodziński',
         teryt='0808',
         lat=52.24746,
@@ -587,7 +587,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '0809': AreaExpectedBuildingData(
         name='zielonogórski',
         teryt='0809',
         lat=52.08546,
@@ -598,7 +598,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '0810': AreaExpectedBuildingData(
         name='żagański',
         teryt='0810',
         lat=51.61178,
@@ -607,14 +607,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '0811': AreaExpectedBuildingData(
         name='żarski',
         teryt='0811',
         lat=51.63995,
         lon=15.14602,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '0812': AreaExpectedBuildingData(
         name='wschowski',
         teryt='0812',
         lat=51.80707,
@@ -622,147 +622,147 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 10 – "łódzkie"
-    AreaExpectedBuildingData(
+    '1001': AreaExpectedBuildingData(
         name='bełchatowski',
         teryt='1001',
         lat=51.36902,
         lon=19.36951,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1002': AreaExpectedBuildingData(
         name='kutnowski',
         teryt='1002',
         lat=52.23309,
         lon=19.35668,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '1003': AreaExpectedBuildingData(
         name='łaski',
         teryt='1003',
         lat=51.58935,
         lon=19.14069,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '1004': AreaExpectedBuildingData(
         name='łęczycki',
         teryt='1004',
         lat=52.05824,
         lon=19.20195,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1005': AreaExpectedBuildingData(
         name='łowicki',
         teryt='1005',
         lat=52.10208,
         lon=19.93199,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Koluszki (building near the gov office)
+    '1006': AreaExpectedBuildingData(  # gmina Koluszki (building near the gov office)
         name='łódzki wschodni',
         teryt='1006',
         lat=51.74597,
         lon=19.81302,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(  # gmina Sławno (Opoczno no data yet)
+    '1007': AreaExpectedBuildingData(  # gmina Sławno (Opoczno no data yet)
         name='opoczyński',
         teryt='1007',
         lat=51.39029,
         lon=20.14479,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1008': AreaExpectedBuildingData(
         name='pabianicki',
         teryt='1008',
         lat=51.66984,
         lon=19.35591,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1009': AreaExpectedBuildingData(
         name='pajęczański',
         teryt='1009',
         lat=51.14729,
         lon=18.99222,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(  # gmina Rozprza
+    '1010': AreaExpectedBuildingData(  # gmina Rozprza
         name='piotrkowski',
         teryt='1010',
         lat=51.30226,
         lon=19.64704,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1011': AreaExpectedBuildingData(
         name='poddębicki',
         teryt='1011',
         lat=51.89282,
         lon=18.95548,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(  # gmina Gomunice (Radomsko no data yet)
+    '1012': AreaExpectedBuildingData(  # gmina Gomunice (Radomsko no data yet)
         name='radomszczański',
         teryt='1012',
         lat=51.16869,
         lon=19.48889,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1014': AreaExpectedBuildingData(
         name='sieradzki',
         teryt='1014',
         lat=51.59329,
         lon=18.73318,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Bolimów
+    '1015': AreaExpectedBuildingData(  # gmina Bolimów
         name='skierniewicki',
         teryt='1015',
         lat=52.07606,
         lon=20.16143,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1016': AreaExpectedBuildingData(
         name='tomaszowski',
         teryt='1016',
         lat=51.52672,
         lon=20.01414,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1017': AreaExpectedBuildingData(
         name='wieluński',
         teryt='1017',
         lat=51.21927,
         lon=18.57156,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Sokolniki (Wieruszów no data yet)
+    '1018': AreaExpectedBuildingData(  # gmina Sokolniki (Wieruszów no data yet)
         name='wieruszowski',
         teryt='1018',
         lat=51.30600,
         lon=18.32722,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1019': AreaExpectedBuildingData(
         name='zduńskowolski',
         teryt='1019',
         lat=51.59866,
         lon=18.93762,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1020': AreaExpectedBuildingData(
         name='zgierski',
         teryt='1020',
         lat=51.84012,
         lon=19.42342,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Jeżów (Brzeziny no data yet)
+    '1021': AreaExpectedBuildingData(  # gmina Jeżów (Brzeziny no data yet)
         name='brzeziński',
         teryt='1021',
         lat=51.81382,
         lon=19.97494,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1062': AreaExpectedBuildingData(
         name='miasto Piotrków Trybunalski',
         teryt='1062',
         lat=51.40820,
@@ -773,7 +773,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '1063': AreaExpectedBuildingData(
         name='miasto Skierniewice',
         teryt='1063',
         lat=51.96031,
@@ -781,7 +781,7 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 12 – "małopolskie"
-    AreaExpectedBuildingData(
+    '1201': AreaExpectedBuildingData(
         name='bocheński',
         teryt='1201',
         lat=49.96751,
@@ -790,14 +790,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1202': AreaExpectedBuildingData(
         name='brzeski',
         teryt='1202',
         lat=49.96808,
         lon=20.61328,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1203': AreaExpectedBuildingData(
         name='chrzanowski',
         teryt='1203',
         lat=50.14159,
@@ -806,7 +806,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1204': AreaExpectedBuildingData(
         name='dąbrowski',
         teryt='1204',
         lat=50.176119,
@@ -815,42 +815,42 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1205': AreaExpectedBuildingData(
         name='gorlicki',
         teryt='1205',
         lat=49.66297,
         lon=21.16089,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1207': AreaExpectedBuildingData(
         name='limanowski',
         teryt='1207',
         lat=49.70451,
         lon=20.41995,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1208': AreaExpectedBuildingData(
         name='miechowski',
         teryt='1208',
         lat=50.35614,
         lon=20.03211,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1209': AreaExpectedBuildingData(
         name='myślenicki',
         teryt='1209',
         lat=49.83607,
         lon=19.94218,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1211': AreaExpectedBuildingData(
         name='nowotarski',
         teryt='1211',
         lat=49.47819,
         lon=20.03440,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1212': AreaExpectedBuildingData(
         name='olkuski',
         teryt='1212',
         lat=50.27750,
@@ -859,7 +859,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1213': AreaExpectedBuildingData(
         name='oświęcimski',
         teryt='1213',
         lat=50.03026,
@@ -868,21 +868,21 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1214': AreaExpectedBuildingData(
         name='proszowicki',
         teryt='1214',
         lat=50.19172,
         lon=20.29443,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1215': AreaExpectedBuildingData(
         name='suski',
         teryt='1215',
         lat=49.73853,
         lon=19.60326,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1217': AreaExpectedBuildingData(
         name='tatrzański',
         teryt='1217',
         lat=49.30524,
@@ -891,7 +891,7 @@ counties = [
             'building': 'yes',
         },
     ),
-    AreaExpectedBuildingData(
+    '1218': AreaExpectedBuildingData(
         name='wadowicki',
         teryt='1218',
         lat=49.88395,
@@ -900,7 +900,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1219': AreaExpectedBuildingData(
         name='wielicki',
         teryt='1219',
         lat=49.98366,
@@ -909,7 +909,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1261': AreaExpectedBuildingData(
         name='miasto Kraków',
         teryt='1261',
         lat=50.07115,
@@ -917,280 +917,280 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 14 – "mazowieckie"
-    AreaExpectedBuildingData(
+    '1401': AreaExpectedBuildingData(
         name='białobrzeski',
         teryt='1401',
         lat=51.64372,
         lon=20.95368,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1402': AreaExpectedBuildingData(
         name='ciechanowski',
         teryt='1402',
         lat=52.88146,
         lon=20.61543,
         expected_tags={'building': 'residential'},
     ),
-    AreaExpectedBuildingData(
+    '1403': AreaExpectedBuildingData(
         name='garwoliński',
         teryt='1403',
         lat=51.89989,
         lon=21.60509,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1404': AreaExpectedBuildingData(
         name='gostyniński',
         teryt='1404',
         lat=52.42128,
         lon=19.46098,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1405': AreaExpectedBuildingData(
         name='grodziski',
         teryt='1405',
         lat=52.09660,
         lon=20.61700,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1406': AreaExpectedBuildingData(
         name='grójecki',
         teryt='1406',
         lat=51.86451,
         lon=20.88053,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1407': AreaExpectedBuildingData(
         name='kozienicki',
         teryt='1407',
         lat=51.58557,
         lon=21.54723,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1408': AreaExpectedBuildingData(
         name='legionowski',
         teryt='1408',
         lat=52.42186,
         lon=20.93909,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1409': AreaExpectedBuildingData(
         name='lipski',
         teryt='1409',
         lat=51.15888,
         lon=21.64981,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1410': AreaExpectedBuildingData(
         name='łosicki',
         teryt='1410',
         lat=52.21031,
         lon=22.71361,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1411': AreaExpectedBuildingData(
         name='makowski',
         teryt='1411',
         lat=52.86438,
         lon=21.10171,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1412': AreaExpectedBuildingData(
         name='miński',
         teryt='1412',
         lat=52.18138,
         lon=21.55919,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(
+    '1413': AreaExpectedBuildingData(
         name='mławski',
         teryt='1413',
         lat=53.11343,
         lon=20.37635,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1414': AreaExpectedBuildingData(
         name='nowodworski',
         teryt='1414',
         lat=52.42623,
         lon=20.71989,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Kadzidło
+    '1415': AreaExpectedBuildingData(  # gmina Kadzidło
         name='ostrołęcki',
         teryt='1415',
         lat=53.23725,
         lon=21.46296,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '1416': AreaExpectedBuildingData(
         name='ostrowski',
         teryt='1416',
         lat=52.80074,
         lon=21.89161,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1417': AreaExpectedBuildingData(
         name='otwocki',
         teryt='1417',
         lat=52.11460,
         lon=21.24505,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1418': AreaExpectedBuildingData(
         name='piaseczyński',
         teryt='1418',
         lat=52.07573,
         lon=21.03090,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(  # gmina Gąbin
+    '1419': AreaExpectedBuildingData(  # gmina Gąbin
         name='płocki',
         teryt='1419',
         lat=52.39784,
         lon=19.73537,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1420': AreaExpectedBuildingData(
         name='płoński',
         teryt='1420',
         lat=52.62211,
         lon=20.37045,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1421': AreaExpectedBuildingData(
         name='pruszkowski',
         teryt='1421',
         lat=52.16323,
         lon=20.80185,
         expected_tags={'building': 'office', 'building:levels': 5},
     ),
-    AreaExpectedBuildingData(
+    '1422': AreaExpectedBuildingData(
         name='przasnyski',
         teryt='1422',
         lat=53.02142,
         lon=20.88117,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1423': AreaExpectedBuildingData(
         name='przysuski',
         teryt='1423',
         lat=51.35985,
         lon=20.63267,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1424': AreaExpectedBuildingData(
         name='pułtuski',
         teryt='1424',
         lat=52.69295,
         lon=21.07318,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Skaryszew
+    '1425': AreaExpectedBuildingData(  # gmina Skaryszew
         name='radomski',
         teryt='1425',
         lat=51.31167,
         lon=21.25196,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(  # gmina Mordy
+    '1426': AreaExpectedBuildingData(  # gmina Mordy
         name='siedlecki',
         teryt='1426',
         lat=52.21030,
         lon=22.51887,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1427': AreaExpectedBuildingData(
         name='sierpecki',
         teryt='1427',
         lat=52.84623,
         lon=19.66917,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1428': AreaExpectedBuildingData(
         name='sochaczewski',
         teryt='1428',
         lat=52.21864,
         lon=20.24261,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1429': AreaExpectedBuildingData(
         name='sokołowski',
         teryt='1429',
         lat=52.40667,
         lon=22.24197,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1430': AreaExpectedBuildingData(
         name='szydłowiecki',
         teryt='1430',
         lat=51.22660,
         lon=20.85913,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '1433': AreaExpectedBuildingData(
         name='węgrowski',
         teryt='1433',
         lat=52.39642,
         lon=22.01390,
         expected_tags={'building': 'office', 'building:levels': 4},
     ),
-    AreaExpectedBuildingData(
+    '1434': AreaExpectedBuildingData(
         name='wołomiński',
         teryt='1434',
         lat=52.34413,
         lon=21.23856,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(
+    '1435': AreaExpectedBuildingData(
         name='wyszkowski',
         teryt='1435',
         lat=52.58949,
         lon=21.45153,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1436': AreaExpectedBuildingData(
         name='zwoleński',
         teryt='1436',
         lat=51.35618,
         lon=21.58246,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1437': AreaExpectedBuildingData(
         name='żuromiński',
         teryt='1437',
         lat=53.06682,
         lon=19.90922,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1438': AreaExpectedBuildingData(
         name='żyrardowski',
         teryt='1438',
         lat=52.05622,
         lon=20.43519,
         expected_tags={'building': 'office', 'building:levels': 4},
     ),
-    AreaExpectedBuildingData(
+    '1461': AreaExpectedBuildingData(
         name='miasto Ostrołęka',
         teryt='1461',
         lat=53.08379,
         lon=21.56682,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1463': AreaExpectedBuildingData(
         name='miasto Radom',
         teryt='1463',
         lat=51.39118,
         lon=21.16101,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1464': AreaExpectedBuildingData(
         name='miasto Siedlce',
         teryt='1464',
         lat=52.16863,
         lon=22.27664,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1465': AreaExpectedBuildingData(
         name='miasto Warszawa',
         teryt='1465',
         lat=52.23051,
@@ -1198,7 +1198,7 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': 7},
     ),
     # 16 – "opolskie"
-    AreaExpectedBuildingData(
+    '1601': AreaExpectedBuildingData(
         name='brzeski',
         teryt='1601',
         lat=50.86140,
@@ -1209,7 +1209,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '1602': AreaExpectedBuildingData(
         name='głubczycki',
         teryt='1602',
         lat=50.20120,
@@ -1219,7 +1219,7 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '1603': AreaExpectedBuildingData(
         name='kędzierzyńsko-kozielski',
         teryt='1603',
         lat=50.34456,
@@ -1228,7 +1228,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1604': AreaExpectedBuildingData(
         name='kluczborski',
         teryt='1604',
         lat=50.97278,
@@ -1239,7 +1239,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '1605': AreaExpectedBuildingData(
         name='krapkowicki',
         teryt='1605',
         lat=50.49033,
@@ -1249,7 +1249,7 @@ counties = [
             'building:levels': 4,
         },
     ),
-    AreaExpectedBuildingData(
+    '1606': AreaExpectedBuildingData(
         name='namysłowski',
         teryt='1606',
         lat=51.07402,
@@ -1258,7 +1258,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1607': AreaExpectedBuildingData(
         name='nyski',
         teryt='1607',
         lat=50.47758,
@@ -1269,7 +1269,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '1608': AreaExpectedBuildingData(
         name='oleski',
         teryt='1608',
         lat=50.88062,
@@ -1279,7 +1279,7 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '1610': AreaExpectedBuildingData(
         name='prudnicki',
         teryt='1610',
         lat=50.32144,
@@ -1290,7 +1290,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '1661': AreaExpectedBuildingData(
         name='miasto Opole',
         teryt='1661',
         lat=50.66355,
@@ -1302,7 +1302,7 @@ counties = [
         },
     ),
     # 18 – "podkarpackie"
-    AreaExpectedBuildingData(
+    '1801': AreaExpectedBuildingData(
         name='bieszczadzki',
         teryt='1801',
         lat=49.43091,
@@ -1311,7 +1311,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1802': AreaExpectedBuildingData(
         name='brzozowoski',
         teryt='1802',
         lat=49.68800,
@@ -1320,14 +1320,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1803': AreaExpectedBuildingData(
         name='dębicki',
         teryt='1803',
         lat=50.05006,
         lon=21.39883,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1804': AreaExpectedBuildingData(
         name='jarosławski',
         teryt='1804',
         lat=50.01522,
@@ -1336,7 +1336,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1805': AreaExpectedBuildingData(
         name='jasielski',
         teryt='1805',
         lat=49.74765,
@@ -1345,14 +1345,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1806': AreaExpectedBuildingData(
         name='kolbuszowski',
         teryt='1806',
         lat=50.24625,
         lon=21.78305,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Jedlicze
+    '1807': AreaExpectedBuildingData(  # gmina Jedlicze
         name='krośnieński',
         teryt='1807',
         lat=49.71227,
@@ -1361,63 +1361,63 @@ counties = [
             'building': 'residential',
         },
     ),
-    AreaExpectedBuildingData(
+    '1808': AreaExpectedBuildingData(
         name='leżajski',
         teryt='1808',
         lat=50.26073,
         lon=22.41724,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1809': AreaExpectedBuildingData(
         name='lubaczowski',
         teryt='1809',
         lat=50.15840,
         lon=23.12114,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1810': AreaExpectedBuildingData(
         name='łańcucki',
         teryt='1810',
         lat=50.06589,
         lon=22.22916,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1811': AreaExpectedBuildingData(
         name='mielecki',
         teryt='1811',
         lat=50.29110,
         lon=21.43813,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1812': AreaExpectedBuildingData(
         name='niżański',
         teryt='1812',
         lat=50.51866,
         lon=22.14059,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(  # gmina Bircza
+    '1813': AreaExpectedBuildingData(  # gmina Bircza
         name='przemyski',
         teryt='1813',
         lat=49.69127,
         lon=22.48149,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1815': AreaExpectedBuildingData(
         name='ropczycko-sędziszowski',
         teryt='1815',
         lat=50.05217,
         lon=21.61632,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Dynów
+    '1816': AreaExpectedBuildingData(  # gmina Dynów
         name='rzeszowski',
         teryt='1816',
         lat=49.81522,
         lon=22.23309,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1817': AreaExpectedBuildingData(
         name='sanocki',
         teryt='1817',
         lat=49.56135,
@@ -1426,35 +1426,35 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '1818': AreaExpectedBuildingData(
         name='stalowowolski',
         teryt='1818',
         lat=50.56822,
         lon=22.04806,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1819': AreaExpectedBuildingData(
         name='strzyżowski',
         teryt='1819',
         lat=49.86989,
         lon=21.78849,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Nowa Dęba
+    '1820': AreaExpectedBuildingData(  # gmina Nowa Dęba
         name='tarnobrzeski',
         teryt='1820',
         lat=50.41325,
         lon=21.75351,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1821': AreaExpectedBuildingData(
         name='leski',
         teryt='1821',
         lat=49.46849,
         lon=22.33074,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1861': AreaExpectedBuildingData(
         name='miasto Krosno',
         teryt='1861',
         lat=49.67872,
@@ -1463,14 +1463,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(  # skipping 'starostwo' building (multipolygon)
+    '1862': AreaExpectedBuildingData(  # skipping 'starostwo' building (multipolygon)
         name='miasto Przemyśl',
         teryt='1862',
         lat=49.78250,
         lon=22.76595,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '1864': AreaExpectedBuildingData(
         name='miasto Tarnobrzeg',
         teryt='1864',
         lat=50.57108,
@@ -1478,42 +1478,42 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 20 – "podlaskie"
-    AreaExpectedBuildingData(
+    '2001': AreaExpectedBuildingData(
         name='augustowski',
         teryt='2001',
         lat=53.84272,
         lon=22.98439,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Supraśl – Ogrodniczki OSP
+    '2002': AreaExpectedBuildingData(  # gmina Supraśl – Ogrodniczki OSP
         name='białostocki',
         teryt='2002',
         lat=53.18865,
         lon=23.26800,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '2003': AreaExpectedBuildingData(
         name='bielski',
         teryt='2003',
         lat=52.76896,
         lon=23.19215,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2004': AreaExpectedBuildingData(
         name='grajewski',
         teryt='2004',
         lat=53.65017,
         lon=22.44924,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2005': AreaExpectedBuildingData(
         name='hajnowski',
         teryt='2005',
         lat=52.73750,
         lon=23.58943,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2006': AreaExpectedBuildingData(
         name='kolneński',
         teryt='2006',
         lat=53.41228,
@@ -1522,42 +1522,42 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2008': AreaExpectedBuildingData(
         name='moniecki',
         teryt='2008',
         lat=53.40685,
         lon=22.79880,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2009': AreaExpectedBuildingData(
         name='sejneński',
         teryt='2009',
         lat=54.10473,
         lon=23.35161,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2011': AreaExpectedBuildingData(
         name='sokólski',
         teryt='2011',
         lat=53.40854,
         lon=23.49573,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Raczki
+    '2012': AreaExpectedBuildingData(  # gmina Raczki
         name='suwalski',
         teryt='2012',
         lat=53.98874,
         lon=22.78396,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Sokoły (main city just missing data yet)
+    '2013': AreaExpectedBuildingData(  # gmina Sokoły (main city just missing data yet)
         name='wysokomazowiecki',
         teryt='2013',
         lat=52.99272,
         lon=22.70002,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2014': AreaExpectedBuildingData(
         name='zambrowski',
         teryt='2014',
         lat=52.97547,
@@ -1565,7 +1565,7 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 22 – "pomorskie"
-    AreaExpectedBuildingData(
+    '2201': AreaExpectedBuildingData(
         name='bytowski',
         teryt='2201',
         lat=54.17825,
@@ -1574,7 +1574,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2202': AreaExpectedBuildingData(
         name='chojnicki',
         teryt='2202',
         lat=53.69570,
@@ -1583,7 +1583,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2204': AreaExpectedBuildingData(
         name='gdański',
         teryt='2204',
         lat=54.26061,
@@ -1592,7 +1592,7 @@ counties = [
             'building': 'yes',
         },
     ),
-    AreaExpectedBuildingData(
+    '2205': AreaExpectedBuildingData(
         name='kartuski',
         teryt='2205',
         lat=54.33383,
@@ -1601,7 +1601,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2206': AreaExpectedBuildingData(
         name='kościerski',
         teryt='2206',
         lat=54.12342,
@@ -1610,7 +1610,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2207': AreaExpectedBuildingData(
         name='kwidzyński',
         teryt='2207',
         lat=53.72951,
@@ -1619,14 +1619,14 @@ counties = [
             'building': 'yes',
         },
     ),
-    AreaExpectedBuildingData(
+    '2208': AreaExpectedBuildingData(
         name='lęborski',
         teryt='2208',
         lat=54.53907,
         lon=17.74075,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2209': AreaExpectedBuildingData(
         name='malborski',
         teryt='2209',
         lat=54.03421,
@@ -1635,21 +1635,21 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2210': AreaExpectedBuildingData(
         name='nowodworski',
         teryt='2210',
         lat=52.42621,
         lon=20.71990,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2215': AreaExpectedBuildingData(
         name='wejherowski',
         teryt='2215',
         lat=54.60103,
         lon=18.23298,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(
+    '2216': AreaExpectedBuildingData(
         name='sztumski',
         teryt='2216',
         lat=53.91887,
@@ -1657,7 +1657,7 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 24 - "śląskie"
-    AreaExpectedBuildingData(  # gmina Wilamowice
+    '2402': AreaExpectedBuildingData(  # gmina Wilamowice
         name='bielski',
         teryt='2402',
         lat=49.91627,
@@ -1666,21 +1666,21 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2403': AreaExpectedBuildingData(
         name='cieszyński',
         teryt='2403',
         lat=49.73631,
         lon=18.73886,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Blachownia
+    '2404': AreaExpectedBuildingData(  # gmina Blachownia
         name='częstochowski',
         teryt='2404',
         lat=50.78412,
         lon=18.96250,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Knurów
+    '2405': AreaExpectedBuildingData(  # gmina Knurów
         name='gliwicki',
         teryt='2405',
         lat=50.22070,
@@ -1689,14 +1689,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2409': AreaExpectedBuildingData(
         name='myszkowski',
         teryt='2409',
         lat=50.57383,
         lon=19.32037,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2410': AreaExpectedBuildingData(
         name='pszczyński',
         teryt='2410',
         lat=49.97563,
@@ -1705,21 +1705,21 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2411': AreaExpectedBuildingData(
         name='raciborski',
         teryt='2411',
         lat=50.09915,
         lon=18.22350,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(  # gmina Jejkowice
+    '2412': AreaExpectedBuildingData(  # gmina Jejkowice
         name='rybnicki',
         teryt='2412',
         lat=50.10582,
         lon=18.47469,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2414': AreaExpectedBuildingData(
         name='bieruńsko-lędziński',
         teryt='2414',
         lat=50.08221,
@@ -1728,7 +1728,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2416': AreaExpectedBuildingData(
         name='zawierciański',
         teryt='2416',
         lat=50.44820,
@@ -1739,16 +1739,16 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '2417': AreaExpectedBuildingData(
         name='żywiecki',
-        teryt='1417',
+        teryt='2417',
         lat=49.68664,
         lon=19.20595,
         expected_tags={
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2461': AreaExpectedBuildingData(
         name='miasto Bielsko-Biała',
         teryt='2461',
         lat=49.82640,
@@ -1758,7 +1758,7 @@ counties = [
             'building:levels': 7,
         },
     ),
-    AreaExpectedBuildingData(
+    '2462': AreaExpectedBuildingData(
         name='miasto Bytom',
         teryt='2462',
         lat=50.35023,
@@ -1769,14 +1769,14 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '2467': AreaExpectedBuildingData(
         name='miasto Jastrzębie-Zdrój',
         teryt='2467',
         lat=49.95270,
         lon=18.61205,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2468': AreaExpectedBuildingData(
         name='miasto Jaworzno',
         teryt='2468',
         lat=50.19948,
@@ -1785,7 +1785,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '2470': AreaExpectedBuildingData(
         name='miasto Mysłowice',
         teryt='2470',
         lat=50.24092,
@@ -1796,35 +1796,35 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '2472': AreaExpectedBuildingData(
         name='miasto Ruda Śląska',
         teryt='2472',
         lat=50.28607,
         lon=18.87506,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2473': AreaExpectedBuildingData(
         name='miasto Rybnik',
         teryt='2473',
         lat=50.08986,
         lon=18.54475,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2474': AreaExpectedBuildingData(
         name='miasto Siemianowice Śląskie',
         teryt='2474',
         lat=50.31834,
         lon=19.01100,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2475': AreaExpectedBuildingData(
         name='miasto Sosnowiec',
         teryt='2475',
         lat=50.27840,
         lon=19.12948,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2476': AreaExpectedBuildingData(
         name='miasto Świętochłowice',
         teryt='2476',
         lat=50.28523,
@@ -1832,84 +1832,84 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 26 – "świętokrzyskie"
-    AreaExpectedBuildingData(
+    '2602': AreaExpectedBuildingData(
         name='jędrzejowski',
         teryt='2602',
         lat=50.64594,
         lon=20.29360,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2603': AreaExpectedBuildingData(
         name='kazimierski',
         teryt='2603',
         lat=50.26743,
         lon=20.48658,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '2605': AreaExpectedBuildingData(
         name='konecki',
         teryt='2605',
         lat=51.19947,
         lon=20.40838,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2606': AreaExpectedBuildingData(
         name='opatowski',
         teryt='2606',
         lat=50.80023,
         lon=21.43040,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2607': AreaExpectedBuildingData(
         name='ostrowiecki',
         teryt='2607',
         lat=50.94305,
         lon=21.38686,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2608': AreaExpectedBuildingData(
         name='pińczowski',
         teryt='2608',
         lat=50.51864,
         lon=20.52370,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '2609': AreaExpectedBuildingData(
         name='sandomierski',
         teryt='2609',
         lat=50.68592,
         lon=21.74037,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '2610': AreaExpectedBuildingData(
         name='skarżyski',
         teryt='2610',
         lat=51.11726,
         lon=20.86594,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '2611': AreaExpectedBuildingData(
         name='starachowicki',
         teryt='2611',
         lat=51.05088,
         lon=21.06875,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2612': AreaExpectedBuildingData(
         name='staszowski',
         teryt='2612',
         lat=50.56410,
         lon=21.16478,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2613': AreaExpectedBuildingData(
         name='włoszczowski',
         teryt='2613',
         lat=50.84963,
         lon=19.97492,
         expected_tags={'building': 'yes'},  # empty
     ),
-    AreaExpectedBuildingData(
+    '2661': AreaExpectedBuildingData(
         name='miasto Kielce',
         teryt='2661',
         lat=50.84528,
@@ -1917,28 +1917,28 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 28 – "warmińsko-mazurskie"
-    AreaExpectedBuildingData(
+    '2801': AreaExpectedBuildingData(
         name='bartoszycki',
         teryt='2801',
         lat=54.25088,
         lon=20.81538,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2802': AreaExpectedBuildingData(
         name='braniewski',
         teryt='2802',
         lat=54.38462,
         lon=19.82769,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2803': AreaExpectedBuildingData(
         name='działdowski',
         teryt='2803',
         lat=53.23374,
         lon=20.17793,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2804': AreaExpectedBuildingData(
         name='elbląski',
         teryt='2804',
         lat=54.06694,
@@ -1948,105 +1948,105 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '2805': AreaExpectedBuildingData(
         name='ełcki',
         teryt='2805',
         lat=53.82544,
         lon=22.34810,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2806': AreaExpectedBuildingData(
         name='giżycki',
         teryt='2806',
         lat=54.03585,
         lon=21.76786,
         expected_tags={'building': 'office', 'building:levels': 5},
     ),
-    AreaExpectedBuildingData(
+    '2807': AreaExpectedBuildingData(
         name='iławski',
         teryt='2807',
         lat=53.58708,
         lon=19.56808,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2808': AreaExpectedBuildingData(
         name='kętrzyński',
         teryt='2808',
         lat=54.07646,
         lon=21.37290,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2809': AreaExpectedBuildingData(
         name='lidzbarski',
         teryt='2809',
         lat=54.12577,
         lon=20.58888,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2810': AreaExpectedBuildingData(
         name='mrągowski',
         teryt='2810',
         lat=53.87659,
         lon=21.30455,
         expected_tags={'building': 'office', 'building:levels': 2},
     ),
-    AreaExpectedBuildingData(
+    '2811': AreaExpectedBuildingData(
         name='nidzicki',
         teryt='2811',
         lat=53.36145,
         lon=20.41899,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2812': AreaExpectedBuildingData(
         name='nowomiejski',
         teryt='2812',
         lat=53.42353,
         lon=19.59211,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2813': AreaExpectedBuildingData(
         name='olecki',
         teryt='2813',
         lat=54.03454,
         lon=22.49916,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Olsztynek
+    '2814': AreaExpectedBuildingData(  # gmina Olsztynek
         name='olsztyński',
         teryt='2814',
         lat=53.58243,
         lon=20.28226,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2815': AreaExpectedBuildingData(
         name='ostródzki',
         teryt='2815',
         lat=53.69441,
         lon=19.96285,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2816': AreaExpectedBuildingData(
         name='piski',
         teryt='2816',
         lat=53.62797,
         lon=21.80788,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '2817': AreaExpectedBuildingData(
         name='szczycieński',
         teryt='2817',
         lat=53.56667,
         lon=20.99027,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2818': AreaExpectedBuildingData(
         name='gołdapski',
         teryt='2818',
         lat=54.30893,
         lon=22.30057,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '2819': AreaExpectedBuildingData(
         name='węgorzewski',
         teryt='2819',
         lat=54.20739,
@@ -2054,14 +2054,14 @@ counties = [
         expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 30 – "wielkopolskie"
-    AreaExpectedBuildingData(
+    '3001': AreaExpectedBuildingData(
         name='chodzieski',
         teryt='3001',
         lat=52.99566,
         lon=16.91908,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3003': AreaExpectedBuildingData(
         name='gnieźnieński',
         teryt='3003',
         lat=52.535909,
@@ -2072,7 +2072,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3004': AreaExpectedBuildingData(
         name='gostyński',
         teryt='3004',
         lat=51.87562,
@@ -2082,7 +2082,7 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '3005': AreaExpectedBuildingData(
         name='grodziski',
         teryt='3005',
         lat=52.22720,
@@ -2092,7 +2092,7 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '3006': AreaExpectedBuildingData(
         name='jarociński',
         teryt='3006',
         lat=51.97248,
@@ -2102,14 +2102,14 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(  # gmina Opatówek
+    '3007': AreaExpectedBuildingData(  # gmina Opatówek
         name='kaliski',
         teryt='3007',
         lat=51.73951,
         lon=18.21598,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3008': AreaExpectedBuildingData(
         name='kępiński',
         teryt='3008',
         lat=51.27589,
@@ -2119,7 +2119,7 @@ counties = [
             'building:levels': 2,
         },
     ),
-    AreaExpectedBuildingData(
+    '3009': AreaExpectedBuildingData(
         name='kolski',
         teryt='3009',
         lat=52.20050,
@@ -2129,21 +2129,21 @@ counties = [
             'building:levels': 4,
         },
     ),
-    AreaExpectedBuildingData(  # gmina Sompolno
+    '3010': AreaExpectedBuildingData(  # gmina Sompolno
         name='koniński',
         teryt='3010',
         lat=52.38779,
         lon=18.49674,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3012': AreaExpectedBuildingData(
         name='krotoszyński',
         teryt='3012',
         lat=51.69203,
         lon=17.43794,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(  # gmina Rydzyna
+    '3013': AreaExpectedBuildingData(  # gmina Rydzyna
         name='leszczyński',
         teryt='3013',
         lat=51.78624,
@@ -2152,14 +2152,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3014': AreaExpectedBuildingData(
         name='międzychodzki',
         teryt='3014',
         lat=52.60663,
         lon=15.90180,
         expected_tags={'building': 'office', 'building:levels': 3},
     ),
-    AreaExpectedBuildingData(
+    '3015': AreaExpectedBuildingData(
         name='nowotomyski',
         teryt='3015',
         lat=52.31644,
@@ -2170,14 +2170,14 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3016': AreaExpectedBuildingData(
         name='obornicki',
         teryt='3016',
         lat=52.64746,
         lon=16.81732,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3017': AreaExpectedBuildingData(
         name='ostrowski',
         teryt='3017',
         lat=51.64720,
@@ -2188,14 +2188,14 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3019': AreaExpectedBuildingData(
         name='pilski',
         teryt='3019',
         lat=53.15593,
         lon=16.73798,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3020': AreaExpectedBuildingData(
         name='pleszewski',
         teryt='3020',
         lat=51.89576,
@@ -2205,21 +2205,21 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '3022': AreaExpectedBuildingData(
         name='rawicki',
         teryt='3022',
         lat=51.60858,
         lon=16.85871,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3023': AreaExpectedBuildingData(
         name='słupecki',
         teryt='3023',
         lat=52.28927,
         lon=17.86798,
         expected_tags={'building': 'yes'},
     ),
-    AreaExpectedBuildingData(
+    '3026': AreaExpectedBuildingData(
         name='śremski',
         teryt='3026',
         lat=52.08819,
@@ -2230,7 +2230,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3028': AreaExpectedBuildingData(
         name='wągrowiecki',
         teryt='3028',
         lat=52.81105,
@@ -2240,7 +2240,7 @@ counties = [
             'building:levels': 3,
         },
     ),
-    AreaExpectedBuildingData(
+    '3029': AreaExpectedBuildingData(
         name='wolsztyński',
         teryt='3029',
         lat=52.11394,
@@ -2251,7 +2251,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3031': AreaExpectedBuildingData(
         name='złotowski',
         teryt='3031',
         lat=53.36165,
@@ -2260,7 +2260,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3061': AreaExpectedBuildingData(
         name='miasto Kalisz',
         teryt='3061',
         lat=51.76280,
@@ -2271,7 +2271,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3062': AreaExpectedBuildingData(
         name='miasto Konin',
         teryt='3062',
         lat=52.22799,
@@ -2282,7 +2282,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3063': AreaExpectedBuildingData(
         name='miasto Leszno',
         teryt='3063',
         lat=51.84684,
@@ -2290,7 +2290,7 @@ counties = [
         expected_tags={'building': 'office'},
     ),
     # 32 – "zachodniopomorskie"
-    AreaExpectedBuildingData(
+    '3201': AreaExpectedBuildingData(
         name='białogardzki',
         teryt='3201',
         lat=54.00537,
@@ -2299,7 +2299,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3202': AreaExpectedBuildingData(
         name='choszczeński',
         teryt='3202',
         lat=53.16596,
@@ -2310,7 +2310,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3203': AreaExpectedBuildingData(
         name='drawski',
         teryt='3203',
         lat=53.52628,
@@ -2319,7 +2319,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3204': AreaExpectedBuildingData(
         name='goleniowski',
         teryt='3204',
         lat=53.55882,
@@ -2328,7 +2328,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3205': AreaExpectedBuildingData(
         name='gryficki',
         teryt='3205',
         lat=53.91462,
@@ -2339,7 +2339,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3206': AreaExpectedBuildingData(
         name='gryfiński',
         teryt='3206',
         lat=53.25492,
@@ -2348,7 +2348,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3208': AreaExpectedBuildingData(
         name='kołobrzeski',
         teryt='3208',
         lat=54.17388,
@@ -2357,7 +2357,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(  # gmina Bobolice
+    '3209': AreaExpectedBuildingData(  # gmina Bobolice
         name='koszaliński',
         teryt='3209',
         lat=53.95448,
@@ -2366,7 +2366,7 @@ counties = [
             'building': 'yes',
         },
     ),
-    AreaExpectedBuildingData(
+    '3210': AreaExpectedBuildingData(
         name='myśliborski',
         teryt='3210',
         lat=52.92713,
@@ -2377,7 +2377,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3211': AreaExpectedBuildingData(
         name='policki',
         teryt='3211',
         lat=53.55142,
@@ -2388,7 +2388,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3212': AreaExpectedBuildingData(
         name='pyrzycki',
         teryt='3212',
         lat=53.13796,
@@ -2399,7 +2399,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3213': AreaExpectedBuildingData(
         name='sławieński',
         teryt='3213',
         lat=54.36787,
@@ -2408,7 +2408,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3214': AreaExpectedBuildingData(
         name='stargardzki',
         teryt='3214',
         lat=53.33419,
@@ -2419,7 +2419,7 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3215': AreaExpectedBuildingData(
         name='szczecinecki',
         teryt='3215',
         lat=53.70025,
@@ -2428,14 +2428,14 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3216': AreaExpectedBuildingData(
         name='świdwiński',
         teryt='3216',
         lat=53.77331,
         lon=15.77030,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3217': AreaExpectedBuildingData(
         name='wałecki',
         teryt='3217',
         lat=53.26701,
@@ -2444,7 +2444,7 @@ counties = [
             'building': 'office',
         },
     ),
-    AreaExpectedBuildingData(
+    '3218': AreaExpectedBuildingData(
         name='łobeski',
         teryt='3218',
         lat=53.63377,
@@ -2455,14 +2455,14 @@ counties = [
             'building:levels:underground': 1,
         },
     ),
-    AreaExpectedBuildingData(
+    '3261': AreaExpectedBuildingData(
         name='miasto Koszalin',
         teryt='3261',
         lat=54.18817,
         lon=16.19333,
         expected_tags={'building': 'office'},
     ),
-    AreaExpectedBuildingData(
+    '3262': AreaExpectedBuildingData(
         name='miasto Szczecin',
         teryt='3262',
         lat=53.43819,
@@ -2472,17 +2472,17 @@ counties = [
             'building:levels': 5,
         },
     ),
-]
+}
 
 # Few exception which counties are already defined but these communes has own service for the data
-communes = [
-    AreaExpectedBuildingData(
+communes = {
+    '2403011': AreaExpectedBuildingData(
         name='miasto Cieszyn',
         teryt='2403011',
         lat=49.75167,
         lon=18.63988,
         expected_tags={'building': 'office'},
     ),
-]
+}
 
-all_areas_data = counties + communes
+all_areas_data = counties | communes

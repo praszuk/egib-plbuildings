@@ -16,6 +16,7 @@ class AreaImport {
 
     constructor({
                     id,
+                    name,
                     teryt,
                     start_at,
                     end_at,
@@ -23,9 +24,13 @@ class AreaImport {
                     result_status,
                     has_building_type,
                     has_building_levels,
-                    has_building_levels_undg: has_building_levels_underground
+                    has_building_levels_undg: has_building_levels_underground,
+                    hc_has_expected_tags,
+                    hc_expected_tags,
+                    hc_result_tags
                 }) {
         this.id = id;
+        this.name = name;
         this.teryt = teryt;
         this.startTs = Date.parse(start_at);
         this.endTs = Date.parse(end_at);
@@ -33,6 +38,9 @@ class AreaImport {
         this.hasBuildingType = has_building_type;
         this.hasBuildingLevels = has_building_levels;
         this.hasBuildingLevelsUnderground = has_building_levels_underground;
+        this.hcHasExpectedtags = hc_has_expected_tags;
+        this.hcExpectedTags = hc_expected_tags;
+        this.hcResultTags = hc_result_tags;
 
         if (Object.values(AreaImport.ResultStatus).includes(result_status)) {
             this.resultStatus = result_status;
@@ -46,12 +54,23 @@ class AreaImport {
     }
 }
 
+function tagsObjectToString(tags) {
+    if (tags === null) {
+        return '<brak danych>';
+    }
+    return Object.entries(tags).map(([k, v]) => `${k}=${v}`).join(',');
+}
 
+const areaImportCache = {};
 async function fetchAreaImportData(type) {
+    if (type in areaImportCache) {
+        return areaImportCache[type];
+    }
     try {
         const response = await fetch(`/api/v1/area_imports/${type}`);
         const data = await response.json();
-        return data.map(areaImportData => new AreaImport(areaImportData));
+        areaImportCache[type] = data.map(areaImportData => new AreaImport(areaImportData));
+        return areaImportCache[type];
     } catch (e) {
         console.error(`Failed to fetch ${type} area import objects:`, e);
         return [];
@@ -83,10 +102,14 @@ function updateSummarySection(areaImportData) {
 }
 
 
-function getBackgroundColorByStatus(resultStatus) {
-    switch (resultStatus) {
+function getBackgroundColorByStatus(areaImport) {
+    switch (areaImport.resultStatus) {
         case AreaImport.ResultStatus.SUCCESS:
-            return '#00ff00';
+            if (areaImport.hcHasExpectedtags) {
+                return '#00FF00';
+            } else {
+                return '#FFD700';
+            }
         case AreaImport.ResultStatus.DOWNLOADING_ERROR:
         case AreaImport.ResultStatus.PARSING_ERROR:
             return '#FF0000';
@@ -95,12 +118,34 @@ function getBackgroundColorByStatus(resultStatus) {
     }
 }
 
+
+function createTagsTooltipDiv(hcExpectedTags, hcResultTags) {
+    const divExpectedVsReceivedTags = document.createElement('div');
+
+    const divTitleTags = document.createElement('div');
+    divTitleTags.textContent = 'Oczekiwane, a otrzymane:';
+
+    const divExpectedTags = document.createElement('div');
+    divExpectedTags.className = 'tags';
+    divExpectedTags.textContent = tagsObjectToString(hcExpectedTags);
+
+    const divResultTags = document.createElement('div');
+    divResultTags.className = 'tags';
+    divResultTags.textContent = tagsObjectToString(hcResultTags);
+
+    divExpectedVsReceivedTags.appendChild(divTitleTags);
+    divExpectedVsReceivedTags.appendChild(divExpectedTags);
+    divExpectedVsReceivedTags.appendChild(divResultTags);
+
+    return divExpectedVsReceivedTags;
+}
+
 function createTooltipHTMLContent(areaImport) {
     const tooltipContentDiv = document.createElement('div');
     tooltipContentDiv.className = 'tooltip-content';
 
     const spanElement = document.createElement('span');
-    spanElement.textContent = `${areaImport.teryt} – ${window.AREA_TERYT_NAME[areaImport.teryt]}`;
+    spanElement.textContent = `${areaImport.teryt} – ${areaImport.name}`;
     tooltipContentDiv.appendChild(spanElement);
     tooltipContentDiv.appendChild(document.createElement('hr'));
 
@@ -129,6 +174,11 @@ function createTooltipHTMLContent(areaImport) {
         ulElement.appendChild(liHasBuildingType);
         ulElement.appendChild(liHasBuildingLevels);
         ulElement.appendChild(liHasBuildingUndergroundLevels);
+
+        if (!areaImport.hcHasExpectedtags) {
+            ulElement.appendChild(document.createElement('hr'));
+            ulElement.appendChild(createTagsTooltipDiv(areaImport.hcExpectedTags, areaImport.hcResultTags));
+        }
     }
     tooltipContentDiv.appendChild(ulElement);
 
@@ -144,7 +194,7 @@ function updateSvgMap(svgElement, latestAreaImport) {
         if (countyPathElement == null) {  // It may happen for areas inside a counties
             return;
         }
-        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport.resultStatus));
+        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport));
         svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaImport));
     });
 }
