@@ -263,6 +263,24 @@ counties = {
         },
     ),
     # 04 – "kujawsko-pomorskie"
+    '0401': AreaExpectedBuildingData(
+        name='aleksandrowski',
+        teryt='0401',
+        lat=52.87498,
+        lon=18.69631,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
+    '0402': AreaExpectedBuildingData(
+        name='brodnicki',
+        teryt='0402',
+        lat=53.25965,
+        lon=19.40115,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
     '0403': AreaExpectedBuildingData(  # gmina Koronowo
         name='bydgoski',
         teryt='0403',
@@ -417,6 +435,15 @@ counties = {
         teryt='0463',
         lat=53.03234,
         lon=18.62391,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
+    '0464': AreaExpectedBuildingData(
+        name='miasto Włocławek',
+        teryt='0464',
+        lat=52.65972,
+        lon=19.06857,
         expected_tags={
             'building': 'office',
         },
@@ -687,6 +714,13 @@ counties = {
         teryt='0812',
         lat=51.80707,
         lon=16.32648,
+        expected_tags={'building': 'office'},
+    ),
+    '0861': AreaExpectedBuildingData(
+        name='miasto Gorzów Wielkopolski',
+        teryt='0861',
+        lat=52.73178,
+        lon=15.24249,
         expected_tags={'building': 'office'},
     ),
     # 10 – "łódzkie"
@@ -1618,6 +1652,13 @@ counties = {
         lon=22.76595,
         expected_tags={'building': 'office'},
     ),
+    '1863': AreaExpectedBuildingData(
+        name='miasto Rzeszów',
+        teryt='1863',
+        lat=50.03734,
+        lon=22.004,
+        expected_tags={'building': 'office'},
+    ),
     '1864': AreaExpectedBuildingData(
         name='miasto Tarnobrzeg',
         teryt='1864',
@@ -1947,6 +1988,13 @@ counties = {
             'building:levels:underground': 1,
         },
     ),
+    '2408': AreaExpectedBuildingData(
+        name='mikołowski',
+        teryt='2408',
+        lat=50.16947,
+        lon=18.89843,
+        expected_tags={'building': 'office'},
+    ),
     '2409': AreaExpectedBuildingData(
         name='myszkowski',
         teryt='2409',
@@ -2138,6 +2186,13 @@ counties = {
         expected_tags={'building': 'office'},
     ),
     # 26 – "świętokrzyskie"
+    '2601': AreaExpectedBuildingData(
+        name='buski',
+        teryt='2601',
+        lat=50.46618,
+        lon=20.72044,
+        expected_tags={'building': 'office'},
+    ),
     '2602': AreaExpectedBuildingData(
         name='jędrzejowski',
         teryt='2602',
@@ -2151,6 +2206,13 @@ counties = {
         lat=50.26743,
         lon=20.48658,
         expected_tags={'building': 'yes'},  # empty
+    ),
+    '2604': AreaExpectedBuildingData(  # gmina Morawica
+        name='kielecki',
+        teryt='2604',
+        lat=50.74891,
+        lon=20.61966,
+        expected_tags={'building': 'office'},
     ),
     '2605': AreaExpectedBuildingData(
         name='konecki',

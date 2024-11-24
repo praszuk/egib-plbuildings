@@ -81,6 +81,12 @@ all_counties: Dict[str, AreaParser] = {
     '0264': WroclawAreaParser(name='miasto Wrocław', url_code=''),
     '0265': WebEwidAreaParser(name='miasto Wałbrzych', url_code='walbrzych-wms'),
     # 04 – "kujawsko-pomorskie"
+    '0401': Geoportal2AreaParser(
+        name='aleksandrowski', base_url='https://mapa.aleksandrow.pl/map/geoportal/wfs.php'
+    ),
+    '0402': Geoportal2AreaParser(
+        name='brodnicki', base_url='https://mapa.brodnica.com.pl/map/geoportal/wfs.php'
+    ),
     '0403': GeoportalAreaParser(name='bydgoski', url_code='0403'),
     '0404': WebEwidAreaParser(name='chełmiński', url_code='chelminski', port=44316),
     '0405': WebEwidAreaParser(name='golubsko-dobrzyński', url_code='golubsko-dobrzynski-wms'),
@@ -107,6 +113,9 @@ all_counties: Dict[str, AreaParser] = {
         gml_geometry_key='MSGEOMETRY',
     ),
     '0463': WebEwidAreaParser(name='miasto Toruń', url_code='mtorun-wms'),
+    '0464': Geoportal2AreaParser(
+        name='miasto Włocławek', base_url='https://geoportal.wloclawek.eu/map/geoportal/wfs.php'
+    ),
     # 06 – "lubelskie"
     '0601': Geoportal2AreaParser(name='bialski', url_code='powiatbialski'),
     '0602': Geoportal2AreaParser(name='biłgorajski', url_code='bilgorajski'),
@@ -152,6 +161,10 @@ all_counties: Dict[str, AreaParser] = {
     '0810': WebEwidAreaParser(name='żagański', url_code='zaganski-wms'),
     '0811': Geoportal2AreaParser(name='żarski', url_code='zary'),
     '0812': Geoportal2AreaParser(name='wschowski', url_code='wschowa'),
+    '0861': Geoportal2AreaParser(
+        name='miasto Gorzów Wielkopolski',
+        base_url='https://geoportal.wms.um.gorzow.pl/map/geoportal/wfs.php',
+    ),
     # 10 – "łódzkie"
     '1001': Geoportal2AreaParser(name='bełchatowski', url_code='belchatow'),
     '1002': Geoportal2AreaParser(name='kutnowski', url_code='powiatkutno'),
@@ -312,6 +325,9 @@ all_counties: Dict[str, AreaParser] = {
     '1821': Geoportal2AreaParser(name='leski', url_code='lesko'),
     '1861': WebEwidAreaParser(name='miasto Krosno', url_code='krosno-wms'),
     '1862': Geoportal2AreaParser(name='miasto Przemyśl', url_code='przemysl'),
+    '1863': Geoportal2AreaParser(
+        name='miasto Rzeszów', base_url='https://osrodek.erzeszow.pl/map/geoportal/wfs.php'
+    ),
     '1864': Geoportal2AreaParser(name='miasto Tarnobrzeg', url_code='tarnobrzeg'),
     # 20 – "podlaskie"
     '2001': Geoportal2AreaParser(name='augustowski', url_code='augustowski'),
@@ -383,6 +399,9 @@ all_counties: Dict[str, AreaParser] = {
         custom_crs=2177,
     ),
     '2407': GIPortalAreaParser(name='lubliniecki', base_url='http://83.17.150.14/lubliniec-egib'),
+    '2408': Geoportal2AreaParser(
+        name='mikołowski', base_url='https://mapa.mikolowski.pl/map/geoportal/wfs.php'
+    ),
     '2409': GIPortalAreaParser(
         name='myszkowski', base_url='https://imapa.powiatmyszkowski.pl/myszkow-egib'
     ),
@@ -425,8 +444,14 @@ all_counties: Dict[str, AreaParser] = {
     '2477': WebEwidAreaParser(name='miasto Tychy', base_url='https://geowms.umtychy.pl/iip/ows'),
     '2478': WebEwidAreaParser(name='miasto Zabrze', base_url='https://wms.miastozabrze.pl/iip/ows'),
     # 26 – "świętokrzyskie"
+    '2601': Geoportal2AreaParser(
+        name='buski', base_url='https://geodezja.powiat.busko.pl/map/geoportal/wfs.php'
+    ),
     '2602': Geoportal2AreaParser(name='jędrzejowski', url_code='jedrzejow'),
     '2603': Geoportal2AreaParser(name='kazimierski', url_code='kazimierzaw'),
+    '2604': Geoportal2AreaParser(
+        name='kielecki', base_url='https://geoportal.powiat.kielce.pl/map/geoportal/wfs.php'
+    ),
     '2605': Geoportal2AreaParser(name='konecki', url_code='konskie'),
     '2606': Geoportal2AreaParser(name='opatowski', url_code='opatow'),
     '2607': Geoportal2AreaParser(name='ostrowiecki', url_code='ostrowiec'),
