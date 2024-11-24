@@ -607,6 +607,13 @@ counties = {
         lon=23.49482,
         expected_tags={'building': 'yes', 'building:levels': 4},
     ),
+    '0663': AreaExpectedBuildingData(
+        name='miasto Lublin',
+        teryt='0663',
+        lat=51.25096,
+        lon=22.55472,
+        expected_tags={'building': 'office', 'building:levels': 3},
+    ),
     '0664': AreaExpectedBuildingData(
         name='miasto Zamość',
         teryt='0664',
