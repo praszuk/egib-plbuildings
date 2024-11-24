@@ -19,6 +19,13 @@ counties = {
         lon=15.56843,
         expected_tags={'building': 'office'},
     ),
+    '0202': AreaExpectedBuildingData(
+        name='dzierżoniowski',
+        teryt='0202',
+        lat=50.73300,
+        lon=16.64360,
+        expected_tags={'building': 'yes'},  # empty
+    ),
     '0203': AreaExpectedBuildingData(
         name='głogowski',
         teryt='0203',
@@ -57,6 +64,17 @@ counties = {
         lat=50.78209,
         lon=16.02857,
         expected_tags={'building': 'office', 'building:levels': 4},
+    ),
+    '0208': AreaExpectedBuildingData(
+        name='kłodzki',
+        teryt='0208',
+        lat=50.43351,
+        lon=16.66125,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
     ),
     '0209': AreaExpectedBuildingData(  # gmina Prochowice
         name='legnicki',
@@ -213,6 +231,13 @@ counties = {
             'building:levels': 5,
             'building:levels:underground': 1,
         },
+    ),
+    '0261': AreaExpectedBuildingData(
+        name='miasto Jelenia Góra',
+        teryt='0261',
+        lat=50.90312,
+        lon=15.73472,
+        expected_tags={'building': 'yes', 'building:levels': 2},
     ),
     '0262': AreaExpectedBuildingData(
         name='miasto Legnica',
@@ -379,6 +404,13 @@ counties = {
         lat=53.13446,
         lon=17.99335,
         expected_tags={'building': 'office'},
+    ),
+    '0462': AreaExpectedBuildingData(
+        name='miasto Grudziądz',
+        teryt='0462',
+        lat=53.49366,
+        lon=18.74836,
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     '0463': AreaExpectedBuildingData(
         name='miasto Toruń',
@@ -1377,6 +1409,17 @@ counties = {
             'building:levels': 3,
         },
     ),
+    '1611': AreaExpectedBuildingData(
+        name='strzelecki',
+        teryt='1611',
+        lat=50.51267,
+        lon=18.30420,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
     '1610': AreaExpectedBuildingData(
         name='prudnicki',
         teryt='1610',
@@ -1683,6 +1726,17 @@ counties = {
         lon=23.19839,
         expected_tags={'building': 'office'},
     ),
+    '2063': AreaExpectedBuildingData(
+        name='miasto Suwałki',
+        teryt='2063',
+        lat=54.11617,
+        lon=22.93717,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
     # 22 – "pomorskie"
     '2201': AreaExpectedBuildingData(
         name='bytowski',
@@ -1869,6 +1923,17 @@ counties = {
         lon=18.66823,
         expected_tags={
             'building': 'office',
+        },
+    ),
+    '2406': AreaExpectedBuildingData(
+        name='kłobucki',
+        teryt='2406',
+        lat=50.90557,
+        lon=18.93706,
+        expected_tags={
+            'building': 'yes',
+            'building:levels': 3,
+            'building:levels:underground': 1,
         },
     ),
     '2407': AreaExpectedBuildingData(
