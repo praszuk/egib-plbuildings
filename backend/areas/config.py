@@ -580,6 +580,9 @@ all_counties: Dict[str, AreaParser] = {
     '3262': GIPortalAreaParser(
         name='miasto Szczecin', base_url='https://wms.e-osrodek.szczecin.pl/szczecin-egib'
     ),
+    '3263': GIPortalAreaParser(
+        name='miasto Świnoujście', base_url='https://geo-wms.um.swinoujscie.pl/swinoujscie'
+    ),
 }
 # Few exception which counties are already defined but these communes has own servive for the data
 communes = {

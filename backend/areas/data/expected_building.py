@@ -2890,6 +2890,17 @@ counties = {
             'building:levels': 5,
         },
     ),
+    '3263': AreaExpectedBuildingData(
+        name='miasto Świnoujście',
+        teryt='3263',
+        lat=53.91398,
+        lon=14.23897,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
+    ),
 }
 
 # Few exception which counties are already defined but these communes has own service for the data
