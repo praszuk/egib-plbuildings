@@ -2432,6 +2432,17 @@ counties = {
         lon=21.73810,
         expected_tags={'building': 'office', 'building:levels': 2},
     ),
+    '2861': AreaExpectedBuildingData(
+        name='miasto Elbląg',
+        teryt='2861',
+        lat=54.17251,
+        lon=19.39555,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 2,
+            'building:levels:underground': 1,
+        },
+    ),
     '2862': AreaExpectedBuildingData(
         name='miasto Olsztyn',
         teryt='2862',

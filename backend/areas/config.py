@@ -486,6 +486,9 @@ all_counties: Dict[str, AreaParser] = {
     '2817': Geoportal2AreaParser(name='szczycieński', url_code='szczytno'),
     '2818': Geoportal2AreaParser(name='gołdapski', url_code='powiatgoldap'),
     '2819': EpodgikAreaParser(name='węgorzewski', url_code='wegorzewo'),
+    '2861': GIPortalAreaParser(
+        name='miasto Elbląg', base_url='https://wms.geodezja.elblag.eu/elblag-wms'
+    ),
     '2862': WebEwidAreaParser(
         name='miasto Olsztyn', base_url='https://webewidwms.olsztyn.eu/iip/ows'
     ),
