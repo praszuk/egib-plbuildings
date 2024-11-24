@@ -2591,6 +2591,13 @@ counties = {
             'building:levels': 3,
         },
     ),
+    '3021': AreaExpectedBuildingData(  # gmina Kostrzyn
+        name='poznański',
+        teryt='3021',
+        lat=52.39727,
+        lon=17.22575,
+        expected_tags={'building': 'yes'},  # not empty, but broken/descriptional data
+    ),
     '3022': AreaExpectedBuildingData(
         name='rawicki',
         teryt='3022',
@@ -2751,6 +2758,13 @@ counties = {
         expected_tags={
             'building': 'office',
         },
+    ),
+    '3207': AreaExpectedBuildingData(
+        name='kamieński',
+        teryt='3207',
+        lat=53.96281,
+        lon=14.77746,
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     '3208': AreaExpectedBuildingData(
         name='kołobrzeski',

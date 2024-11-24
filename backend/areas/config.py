@@ -519,6 +519,9 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '3019': GeoportalAreaParser(name='pilski', url_code='3019'),
     '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
+    '3021': GIPortalAreaParser(
+        name='poznański', base_url='https://ikerg.podgik.poznan.pl/wms-poznanski'
+    ),
     '3022': GeoportalAreaParser(name='rawicki', url_code='3022'),
     '3023': GeoportalAreaParser(name='słupecki', url_code='3023'),
     '3024': GIPortalAreaParser(
@@ -555,6 +558,9 @@ all_counties: Dict[str, AreaParser] = {
         name='gryficki', base_url='https://ikerg.podgikgryfice.pl/gryfice-egib'
     ),
     '3206': WebEwidAreaParser(name='gryfiński', url_code='gryfinski', port=4439),
+    '3207': GIPortalAreaParser(
+        name='kamieński', base_url='https://ikerg.powiatkamienski.pl/kamien'
+    ),
     '3208': WebEwidAreaParser(name='kołobrzeski', url_code='kolobrzeski-wms'),
     '3209': WebEwidAreaParser(name='koszaliński', url_code='koszalinski-wms'),
     '3210': GIPortalAreaParser(
