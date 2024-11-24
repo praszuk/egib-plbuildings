@@ -270,16 +270,25 @@ class EpodgikAreaParser(BaseAreaParser):
 
 
 class GeoportalAreaParser(BaseAreaParser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, custom_crs=2180)
+    def __init__(self, *args, url_typenames=None, **kwargs):
+        self.url_typenames = 'ms:budynki' if not url_typenames else url_typenames
+
+        if 'custom_crs' not in kwargs:
+            kwargs['custom_crs'] = 2180
+
+        super().__init__(*args, **kwargs)
 
     def build_buildings_url(self) -> str:
+        if self.base_url:
+            endpoint = self.base_url
+        else:
+            endpoint = (
+                'https://mapy.geoportal.gov.pl/'
+                f'wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'
+            )
         return (
-            f'https://mapy.geoportal.gov.pl/wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'
-            f'?service=WFS'
-            f'&version=2.0.0'
-            f'&REQUEST=GetFeature'
-            f'&TYPENAMES=ms:budynki'
+            f'{endpoint}'
+            f'?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES={self.url_typenames}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
@@ -290,9 +299,11 @@ class GeoportalAreaParser(BaseAreaParser):
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
-            tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('RODZAJ'), DEFAULT_BUILDING
-            )
+            building_type = properties.get('RODZAJ', '')
+            if len(building_type) != 1:
+                building_type = KST_NAME_CODE.get(building_type)
+
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(building_type, DEFAULT_BUILDING)
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
 
