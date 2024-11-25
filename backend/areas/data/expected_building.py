@@ -730,6 +730,17 @@ counties = {
         lon=15.24249,
         expected_tags={'building': 'office'},
     ),
+    '0862': AreaExpectedBuildingData(
+        name='miasto Zielona Góra',
+        teryt='0862',
+        lat=51.94031,
+        lon=15.51432,
+        expected_tags={
+            'building': 'yes',
+            'building:levels': 9,
+            'building:levels:underground': 1,
+        },
+    ),
     # 10 – "łódzkie"
     '1001': AreaExpectedBuildingData(
         name='bełchatowski',

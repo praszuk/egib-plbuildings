@@ -167,6 +167,14 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Gorzów Wielkopolski',
         base_url='https://geoportal.wms.um.gorzow.pl/map/geoportal/wfs.php',
     ),
+    '0862': GeoportalAreaParser(
+        name='miasto Zielona Góra',
+        base_url='https://gis.um.zielona-gora.pl/arcgis/services/zielona_gora_egib/serwer',
+        # url_typenames='budynki',
+        gml_member_prefix='gml',
+        gml_geometry_key='SHAPE',
+        custom_crs=2176,
+    ),
     # 10 – "łódzkie"
     '1001': Geoportal2AreaParser(name='bełchatowski', url_code='belchatow'),
     '1002': Geoportal2AreaParser(name='kutnowski', url_code='powiatkutno'),
