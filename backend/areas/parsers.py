@@ -67,6 +67,7 @@ class BaseAreaParser:
         port: int | None = None,
         custom_crs: int = None,
         gml_prefix: str = 'ms',
+        gml_member_prefix: str = 'wfs',
         gml_geometry_key: str = 'msGeometry',
     ):
         self.name = name
@@ -75,6 +76,7 @@ class BaseAreaParser:
         self.port = port
         self.custom_crs = custom_crs
         self.gml_prefix = gml_prefix
+        self.gml_member_prefix = gml_member_prefix
         self.gml_geometry_key = gml_geometry_key
 
     @abstractmethod
@@ -120,12 +122,12 @@ class BaseAreaParser:
             raise ParserError('GML root not found')
 
         try:
-            wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)
+            members = root.findall(f'.//{self.gml_member_prefix}:member', namespaces=root.nsmap)
         except (KeyError, SyntaxError):
-            raise ParserError('Cannot parse wfs members')
+            raise ParserError(f'Cannot parse {self.gml_member_prefix} members')
 
-        for wfs_member in wfs_members:
-            building_member = wfs_member.getchildren()[0]  # get <prefix> member
+        for member in members:
+            building_member = member.getchildren()[0]  # get <prefix> member
 
             geometries = []
             properties = {}
