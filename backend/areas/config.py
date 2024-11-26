@@ -372,6 +372,7 @@ all_counties: Dict[str, AreaParser] = {
     # 22 – "pomorskie"
     '2201': WebEwidAreaParser(name='bytowski', url_code='bytowski', port=4433),
     '2202': WebEwidAreaParser(name='chojnicki', url_code='chojnicki-wms'),
+    '2203': GeoportalAreaParser(name='człuchowski', url_code='2203'),
     '2204': WebEwidAreaParser(name='gdański', url_code='gdanski-wms'),
     '2205': WebEwidAreaParser(name='kartuski', url_code='kartuski-wms'),
     '2206': WebEwidAreaParser(name='kościerski', url_code='koscierski-wms'),

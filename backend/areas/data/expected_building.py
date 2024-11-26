@@ -1826,6 +1826,15 @@ counties = {
             'building': 'office',
         },
     ),
+    '2203': AreaExpectedBuildingData(
+        name='człuchowski',
+        teryt='2203',
+        lat=53.66834,
+        lon=17.35909,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
     '2204': AreaExpectedBuildingData(
         name='gdański',
         teryt='2204',
