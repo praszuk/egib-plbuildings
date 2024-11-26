@@ -357,6 +357,7 @@ all_counties: Dict[str, AreaParser] = {
     '2004': Geoportal2AreaParser(name='grajewski', url_code='starostwograjewo'),
     '2005': Geoportal2AreaParser(name='hajnowski', url_code='hajnowka'),
     '2006': WebEwidAreaParser(name='kolneński', url_code='kolnenski-wms'),
+    '2007': GeoportalAreaParser(name='łomżyński', url_code='2007'),
     '2008': Geoportal2AreaParser(name='moniecki', url_code='monki'),
     '2009': Geoportal2AreaParser(name='sejneński', url_code='sejny'),
     '2010': GIPortalAreaParser(
@@ -369,6 +370,7 @@ all_counties: Dict[str, AreaParser] = {
     '2061': WebEwidAreaParser(
         name='miasto Białystok', base_url='https://webewid-wms.um.bialystok.pl/iip/ows'
     ),
+    '2062': GeoportalAreaParser(name='miasto Łomża', url_code='2062'),
     '2063': GeoportalAreaParser(
         name='miasto Suwałki',
         base_url='https://geoportal.um.suwalki.pl/ggp',
@@ -434,6 +436,9 @@ all_counties: Dict[str, AreaParser] = {
         name='tarnogórski', base_url='https://geodane.tarnogorski.pl/iip/ows'
     ),
     '2414': WebEwidAreaParser(name='bieruńsko-lędziński', url_code='sbl', port=8443),
+    '2415': GIPortalAreaParser(
+        name='wodzisławski', base_url='https://imapa.powiatwodzislawski.pl/wodzislaw-egib'
+    ),
     '2416': GIPortalAreaParser(
         name='zawierciański', base_url='https://ikerg.zawiercie.powiat.pl/powiatzawiercianski-egib'
     ),
@@ -523,6 +528,10 @@ all_counties: Dict[str, AreaParser] = {
     ),
     # 30 – "wielkopolskie"
     '3001': GeoportalAreaParser(name='chodzieski', url_code='3001'),
+    '3002': GIPortalAreaParser(
+        name='czarnkowsko-trzcianecki',
+        base_url='https://wms.czarnkowsko-trzcianecki.pl/czarnkowskotrzcianecki-egib',
+    ),
     '3003': GIPortalAreaParser(
         name='gnieźnieński', base_url='https://wms.geodezjagniezno.pl/gniezno-egib'
     ),

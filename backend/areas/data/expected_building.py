@@ -1749,6 +1749,15 @@ counties = {
             'building': 'office',
         },
     ),
+    '2007': AreaExpectedBuildingData(  # gmina Nowogród
+        name='łomżyński',
+        teryt='2007',
+        lat=53.22495,
+        lon=21.88871,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
     '2008': AreaExpectedBuildingData(
         name='moniecki',
         teryt='2008',
@@ -1804,6 +1813,15 @@ counties = {
         lat=53.10911,
         lon=23.19839,
         expected_tags={'building': 'office'},
+    ),
+    '2062': AreaExpectedBuildingData(
+        name='miasto Łomża',
+        teryt='2062',
+        lat=53.17676,
+        lon=22.07025,
+        expected_tags={
+            'building': 'office',
+        },
     ),
     '2063': AreaExpectedBuildingData(
         name='miasto Suwałki',
@@ -2088,6 +2106,17 @@ counties = {
         lon=19.13561,
         expected_tags={
             'building': 'office',
+        },
+    ),
+    '2415': AreaExpectedBuildingData(
+        name='wodzisławski',
+        teryt='2415',
+        lat=50.00861,
+        lon=18.4461,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 1,
+            'building:levels:underground': 1,
         },
     ),
     '2416': AreaExpectedBuildingData(
@@ -2511,6 +2540,13 @@ counties = {
         lat=52.99566,
         lon=16.91908,
         expected_tags={'building': 'office'},
+    ),
+    '3002': AreaExpectedBuildingData(
+        name='czarnkowsko-trzcianecki',
+        teryt='3002',
+        lat=52.90583,
+        lon=16.56295,
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     '3003': AreaExpectedBuildingData(
         name='gnieźnieński',
