@@ -2129,6 +2129,13 @@ counties = {
         lon=18.95310,
         expected_tags={'building': 'office', 'building:levels': 5},
     ),
+    '2464': AreaExpectedBuildingData(
+        name='miasto Częstochowa',
+        teryt='2464',
+        lat=50.80972,
+        lon=19.11406,
+        expected_tags={'building': 'yes'},  # broken descriptional data
+    ),
     '2465': AreaExpectedBuildingData(
         name='miasto Dąbrowa Górnicza',
         teryt='2465',

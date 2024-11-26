@@ -436,6 +436,14 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '2462': GIPortalAreaParser(name='miasto Bytom', base_url='https://iwms.um.bytom.pl/bytom-egib'),
     '2463': ChorzowAreaParser(name='miasto Chorzów'),
+    '2464': GeoportalAreaParser(
+        name='miasto Częstochowa',
+        base_url='https://geoportal.czestochowa.pl/wfs2464_egib/Service.svc/get',
+        url_typenames='gmgml:budynki',
+        gml_prefix='gmgml',
+        gml_geometry_key='geom',
+        custom_crs=2177,
+    ),
     '2465': WebEwidAreaParser(
         name='miasto Dąbrowa Górnicza', base_url='https://geoportal-wms.dg.pl/iip/ows'
     ),
