@@ -889,6 +889,17 @@ counties = {
         lon=19.97494,
         expected_tags={'building': 'office'},
     ),
+    '1061': AreaExpectedBuildingData(
+        name='miasto Łódź',
+        teryt='1061',
+        lat=51.76452,
+        lon=19.45896,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 5,
+            'building:levels:underground': 1,
+        },
+    ),
     '1062': AreaExpectedBuildingData(
         name='miasto Piotrków Trybunalski',
         teryt='1062',
