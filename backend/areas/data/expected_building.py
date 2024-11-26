@@ -2690,6 +2690,17 @@ counties = {
             'building:levels:underground': 1,
         },
     ),
+    '3027': AreaExpectedBuildingData(
+        name='turecki',
+        teryt='3027',
+        lat=52.01433,
+        lon=18.49298,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
     '3028': AreaExpectedBuildingData(
         name='wągrowiecki',
         teryt='3028',

@@ -553,6 +553,9 @@ all_counties: Dict[str, AreaParser] = {
         name='szamotulski', base_url='https://wms.szamotuly.com.pl/szamotuly-egib'
     ),
     '3026': GIPortalAreaParser(name='śremski', base_url='https://wms.powiat-srem.pl/srem-egib'),
+    '3027': GIPortalAreaParser(
+        name='turecki', base_url='https://iegib.powiat.turek.pl/cgi-bin/turek_egib'
+    ),
     '3028': GIPortalAreaParser(
         name='wągrowiecki', base_url='https://ikerg.wagrowiec.pl/wagrowiec-egib'
     ),
