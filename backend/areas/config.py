@@ -3,6 +3,7 @@ from typing import Dict, TypeVar
 
 from backend.areas.parsers import (
     BaseAreaParser,
+    ChorzowAreaParser,
     EpodgikAreaParser,
     GeoportalAreaParser,
     Geoportal2AreaParser,
@@ -434,6 +435,7 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Bielsko-Biała', base_url='https://ikerg.bielsko-biala.pl/bielsko-egib'
     ),
     '2462': GIPortalAreaParser(name='miasto Bytom', base_url='https://iwms.um.bytom.pl/bytom-egib'),
+    '2463': ChorzowAreaParser(name='miasto Chorzów'),
     '2465': WebEwidAreaParser(
         name='miasto Dąbrowa Górnicza', base_url='https://geoportal-wms.dg.pl/iip/ows'
     ),

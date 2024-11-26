@@ -2122,6 +2122,13 @@ counties = {
             'building:levels:underground': 1,
         },
     ),
+    '2463': AreaExpectedBuildingData(
+        name='miasto Chorzów',
+        teryt='2463',
+        lat=50.29744,
+        lon=18.95310,
+        expected_tags={'building': 'office', 'building:levels': 5},
+    ),
     '2465': AreaExpectedBuildingData(
         name='miasto Dąbrowa Górnicza',
         teryt='2465',

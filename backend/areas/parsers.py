@@ -556,3 +556,35 @@ class LublinAreaParser(BaseAreaParser):
             raise InvalidKeyParserError(e)
 
         return tags
+
+
+class ChorzowAreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        kwargs['custom_crs'] = 2177
+        kwargs['gml_geometry_key'] = 'the_geom'
+        kwargs['gml_prefix'] = 'chorzow_workspace'
+
+        super().__init__(*args, **kwargs)
+
+    def build_buildings_url(self) -> str:
+        return (
+            'https://geoportal.chorzow.eu/geoserver/ows'
+            '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=chorzow_workspace:budynki'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        raise NotImplementedError
+
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('FUNK_KOD'), DEFAULT_BUILDING
+            )
+            if building_levels := properties.get('KONDYGN'):
+                tags['building:levels'] = building_levels
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
