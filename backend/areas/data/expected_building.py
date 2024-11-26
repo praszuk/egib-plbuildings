@@ -1472,6 +1472,15 @@ counties = {
             'building:levels': 3,
         },
     ),
+    '1609': AreaExpectedBuildingData(
+        name='opolski',
+        teryt='1609',
+        lat=51.14876,
+        lon=21.97046,
+        expected_tags={
+            'building': 'office',
+        },
+    ),
     '1611': AreaExpectedBuildingData(
         name='strzelecki',
         teryt='1611',
