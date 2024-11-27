@@ -123,8 +123,8 @@ async def test_area_import_incorrect_attempt_retry(db):
         with patch(
             'backend.tasks.import_buildings.area_import_attempt',
             side_effect=[
-                ImportResult(status=ResultStatus.DOWNLOADING_ERROR),
-                ImportResult(status=ResultStatus.SUCCESS),
+                ImportResult(teryt='123', status=ResultStatus.DOWNLOADING_ERROR),
+                ImportResult(teryt='123', status=ResultStatus.SUCCESS),
             ],
         ) as mock_area_attempt_func:
             asyncio.run(
@@ -136,7 +136,7 @@ async def test_area_import_incorrect_attempt_retry(db):
 
         with patch(
             'backend.tasks.import_buildings.area_import_attempt',
-            side_effect=[ImportResult(status=ResultStatus.DOWNLOADING_ERROR)],
+            side_effect=[ImportResult(teryt='123', status=ResultStatus.DOWNLOADING_ERROR)],
         ) as mock_area_attempt_func:
             asyncio.run(
                 area_import_in_parallel(

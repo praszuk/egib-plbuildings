@@ -19,6 +19,7 @@ from backend.services.buildings import query_building_from_db_at
 
 @dataclass
 class ImportResult:
+    teryt: str
     status: ResultStatus
     building_count: int = 0
     has_building_type: bool = False
@@ -41,20 +42,20 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
             if response.status_code != 200:
                 raise HTTPError(f'Invalid status code: {response.status_code}')
 
-    except HTTPError:
-        default_logger.exception(f'[IMPORT] [{teryt}] Error at downloading data.')
-        return ImportResult(status=ResultStatus.DOWNLOADING_ERROR)
+    except HTTPError as err_msg:
+        default_logger.debug(f'[IMPORT] [{teryt}] Error at downloading data: {err_msg}')
+        return ImportResult(teryt=teryt, status=ResultStatus.DOWNLOADING_ERROR)
 
     default_logger.debug(f'[IMPORT] [{teryt}] Parsing data')
     try:
         data = area_parser.parse_gml_to_geometries_and_properties(gml_raw)
-    except ParserError:
-        default_logger.exception(f'[IMPORT] [{teryt}] Parsing error')
-        return ImportResult(status=ResultStatus.PARSING_ERROR)
+    except ParserError as err_msg:
+        default_logger.debug(f'[IMPORT] [{teryt}] Parsing error: {err_msg}')
+        return ImportResult(teryt=teryt, status=ResultStatus.PARSING_ERROR)
 
     if not data:
         default_logger.debug(f'[IMPORT] [{teryt}] No data found after parsing')
-        return ImportResult(status=ResultStatus.EMPTY_DATA_ERROR)
+        return ImportResult(teryt=teryt, status=ResultStatus.EMPTY_DATA_ERROR)
 
     buildings_data = []
     for geometry, raw_properties in data:
@@ -80,6 +81,7 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
             hc_result_tags = None
 
     return ImportResult(
+        teryt=teryt,
         status=ResultStatus.SUCCESS,
         building_count=len(buildings_data),
         has_building_type=any(d['tags'].get('building', 'yes') != 'yes' for d in buildings_data),
@@ -150,17 +152,24 @@ async def area_import_in_parallel(
 
     area_results = await asyncio.gather(*[import_with_attempts_task(teryt) for teryt in teryt_ids])
     success_areas = 0
+    failed_teryt_areas = []
     total_building_count = 0
 
     for area_import_result in area_results:
         if area_import_result.status == ResultStatus.SUCCESS:
             success_areas += 1
             total_building_count += area_import_result.building_count
+        else:
+            failed_teryt_areas.append(area_import_result.teryt)
+
+    failed_areas_msg = ''
+    if failed_teryt_areas:
+        failed_areas_msg = f' Failed areas: {",".join(failed_teryt_areas)}'
 
     default_logger.info(
         '[IMPORT] Area import data finished. Successfuly imported data from '
         f'{success_areas}/{len(area_results)} ({success_areas * 100 / len(area_results):.2f}%)'
-        f' areas. In total: {total_building_count} buildings.'
+        f' areas. In total: {total_building_count} buildings.{failed_areas_msg}'
     )
 
 
