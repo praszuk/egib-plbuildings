@@ -67,6 +67,7 @@ class BaseAreaParser:
         port: int | None = None,
         custom_crs: int = None,
         gml_prefix: str = 'ms',
+        gml_member_prefix: str = 'wfs',
         gml_geometry_key: str = 'msGeometry',
     ):
         self.name = name
@@ -75,6 +76,7 @@ class BaseAreaParser:
         self.port = port
         self.custom_crs = custom_crs
         self.gml_prefix = gml_prefix
+        self.gml_member_prefix = gml_member_prefix
         self.gml_geometry_key = gml_geometry_key
 
     @abstractmethod
@@ -120,12 +122,12 @@ class BaseAreaParser:
             raise ParserError('GML root not found')
 
         try:
-            wfs_members = root.findall('.//wfs:member', namespaces=root.nsmap)
+            members = root.findall(f'.//{self.gml_member_prefix}:member', namespaces=root.nsmap)
         except (KeyError, SyntaxError):
-            raise ParserError('Cannot parse wfs members')
+            raise ParserError(f'Cannot parse {self.gml_member_prefix} members')
 
-        for wfs_member in wfs_members:
-            building_member = wfs_member.getchildren()[0]  # get <prefix> member
+        for member in members:
+            building_member = member.getchildren()[0]  # get <prefix> member
 
             geometries = []
             properties = {}
@@ -270,16 +272,25 @@ class EpodgikAreaParser(BaseAreaParser):
 
 
 class GeoportalAreaParser(BaseAreaParser):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs, custom_crs=2180)
+    def __init__(self, *args, url_typenames=None, **kwargs):
+        self.url_typenames = 'ms:budynki' if not url_typenames else url_typenames
+
+        if 'custom_crs' not in kwargs:
+            kwargs['custom_crs'] = 2180
+
+        super().__init__(*args, **kwargs)
 
     def build_buildings_url(self) -> str:
+        if self.base_url:
+            endpoint = self.base_url
+        else:
+            endpoint = (
+                'https://mapy.geoportal.gov.pl/'
+                f'wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'
+            )
         return (
-            f'https://mapy.geoportal.gov.pl/wss/ext/PowiatoweBazyEwidencjiGruntow/{self.url_code}'
-            f'?service=WFS'
-            f'&version=2.0.0'
-            f'&REQUEST=GetFeature'
-            f'&TYPENAMES=ms:budynki'
+            f'{endpoint}'
+            f'?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES={self.url_typenames}'
         )
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
@@ -290,9 +301,11 @@ class GeoportalAreaParser(BaseAreaParser):
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
-            tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('RODZAJ'), DEFAULT_BUILDING
-            )
+            building_type = properties.get('RODZAJ', '')
+            if len(building_type) != 1:
+                building_type = KST_NAME_CODE.get(building_type)
+
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(building_type, DEFAULT_BUILDING)
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
 
@@ -310,11 +323,16 @@ class Geoportal2AreaParser(BaseAreaParser):
         super().__init__(*args, **kwargs, gml_prefix='ewns', gml_geometry_key='geometria')
 
     def build_buildings_url(self) -> str:
+        if self.base_url:
+            endpoint = self.base_url
+        else:
+            port_frag = f':{self.port}' if self.port else ''
+            endpoint = f'https://{self.url_code}.geoportal2.pl{port_frag}/map/geoportal/wfs.php'
         return (
-            f'https://{self.url_code}.geoportal2.pl/map/geoportal/wfs.php'
-            f'?service=WFS'
-            f'&REQUEST=GetFeature'
-            f'&TYPENAMES=ewns:budynki'
+            f'{endpoint}'
+            '?service=WFS'
+            '&REQUEST=GetFeature'
+            '&TYPENAMES=ewns:budynki'
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
@@ -421,32 +439,30 @@ class WebEwidAreaParser(BaseAreaParser):
 
         super().__init__(*args, **kwargs)
 
-    def buildings_base_url(self) -> str:
-        port_frag = f':{self.port}' if self.port else ''
-        return (
-            f'https://{self.url_code}.webewid.pl{port_frag}/iip/ows'
-            '?service=wfs'
-            '&version=2.0.0'
-            '&request=GetFeature'
-            '&typeNames=ms:budynki'
-        )
+    def buildings_url(self) -> str:
+        if self.base_url:
+            endpoint = self.base_url
+        else:
+            port_frag = f':{self.port}' if self.port else ''
+            endpoint = f'https://{self.url_code}.webewid.pl{port_frag}/iip/ows'
+        return f'{endpoint}?service=wfs&version=2.0.0&request=GetFeature&typeNames=ms:budynki'
 
     def build_buildings_url(self) -> str:
-        return merge_url_query_params(self.buildings_base_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
+        return merge_url_query_params(self.buildings_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
 
     def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
         """
         Note: At 2024 BBOX filtering still not work, or work completely randomly.
         This function exists only for healthcheck.
         """
-        base_url = self.buildings_base_url()
+        buildings_url = self.buildings_url()
 
         if self.custom_crs and self.custom_crs != 4326:
             x, y = self.reproject_coordinates(lat, lon, self.custom_crs)
-            url = merge_url_query_params(base_url, {'BBOX': ','.join(map(str, [x, y, x, y]))})
+            url = merge_url_query_params(buildings_url, {'BBOX': ','.join(map(str, [x, y, x, y]))})
         else:
             url = merge_url_query_params(
-                base_url,
+                buildings_url,
                 {
                     'SRSNAME': self.DEFAULT_SRS_NAME,
                     'BBOX': ','.join(map(str, [lat, lon, lat, lon])) + f',{self.DEFAULT_SRS_NAME}',
@@ -502,6 +518,71 @@ class WroclawAreaParser(BaseAreaParser):
 
             if 'KONDYGNACJE_PODZIEMNE' in properties:
                 tags['building:levels:underground'] = properties.get('KONDYGNACJE_PODZIEMNE')
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
+
+
+class LublinAreaParser(BaseAreaParser):
+    def build_buildings_url(self) -> str:
+        return (
+            'https://gis.lublin.eu/opendata/wfs'
+            '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:budynki'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        raise NotImplementedError
+
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            building_type = properties.get('RODZAJ', '')
+            if len(building_type) in (2, 3):
+                try:
+                    building_levels = int(building_type[1:])
+                except ValueError:
+                    building_levels = None
+            else:
+                building_levels = 1
+
+            building_type = BUILDING_KST_CODE_TYPE.get(building_type[0], DEFAULT_BUILDING)
+            tags['building'] = building_type
+            if building_levels:
+                tags['building:levels'] = building_levels
+
+        except KeyError as e:
+            raise InvalidKeyParserError(e)
+
+        return tags
+
+
+class ChorzowAreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        kwargs['custom_crs'] = 2177
+        kwargs['gml_geometry_key'] = 'the_geom'
+        kwargs['gml_prefix'] = 'chorzow_workspace'
+
+        super().__init__(*args, **kwargs)
+
+    def build_buildings_url(self) -> str:
+        return (
+            'https://geoportal.chorzow.eu/geoserver/ows'
+            '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=chorzow_workspace:budynki'
+        )
+
+    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
+        raise NotImplementedError
+
+    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+        tags: Dict[str, Any] = {}
+        try:
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('FUNK_KOD'), DEFAULT_BUILDING
+            )
+            if building_levels := properties.get('KONDYGN'):
+                tags['building:levels'] = building_levels
 
         except KeyError as e:
             raise InvalidKeyParserError(e)
