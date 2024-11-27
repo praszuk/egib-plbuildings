@@ -512,8 +512,8 @@ counties = {
     '0609': AreaExpectedBuildingData(
         name='lubelski',
         teryt='0609',
-        lat=50.44727,
-        lon=23.41521,
+        lat=51.17487,
+        lon=22.28224,
         expected_tags={'building': 'office'},
     ),
     '0610': AreaExpectedBuildingData(
