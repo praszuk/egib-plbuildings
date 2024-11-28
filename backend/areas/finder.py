@@ -122,6 +122,14 @@ class AreaFinder:
 
         raise AreaNotFound(f'Not found area at: {lat} {lon}')
 
+    def geometry_in_area(self, geometry, teryt) -> bool:
+        area: AreaGeometry = self._county_geoms.get(teryt) or self._commune_geoms.get(teryt)
+
+        if area is None:
+            raise AreaDataNotFound
+
+        return geometry.Within(area.geom)
+
     @staticmethod
     def parse_area_geojson_to_area_geoms(
         geojson: Dict[str, Any], teryt_key: str = TERYT_KEY
