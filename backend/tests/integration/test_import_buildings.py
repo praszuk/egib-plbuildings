@@ -17,7 +17,9 @@ async def test_area_import(db, load_warszawa_gml):
 
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db):
+    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
+        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
+    ):
         area_parser = WarszawaAreaParser(name='test')
 
         asyncio.run(area_import_in_parallel(teryt_ids=['1465']))
@@ -54,7 +56,9 @@ async def test_area_import_hc_success(db, load_warszawa_gml):
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
     ) as mock_get, patch(
         'backend.tasks.import_buildings.SessionLocal', return_value=db
-    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
+    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True), patch(
+        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
+    ):
         area_parser = WarszawaAreaParser(name='test')
         asyncio.run(area_import_in_parallel(teryt_ids=['1465']))
         mock_get.assert_called_once_with(area_parser.build_buildings_url())
@@ -88,7 +92,9 @@ async def test_area_import_hc_failed_building_not_found(db, load_warszawa_gml):
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
     ) as mock_get, patch(
         'backend.tasks.import_buildings.SessionLocal', return_value=db
-    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
+    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True), patch(
+        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
+    ):
         area_parser = WarszawaAreaParser(name='test')
         asyncio.run(area_import_in_parallel(teryt_ids=['1465']))
         mock_get.assert_called_once_with(area_parser.build_buildings_url())
@@ -122,7 +128,9 @@ async def test_area_import_hc_failed_building_found_with_different_tags(db, load
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
     ) as mock_get, patch(
         'backend.tasks.import_buildings.SessionLocal', return_value=db
-    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
+    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True), patch(
+        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
+    ):
         area_parser = WarszawaAreaParser(name='test')
         asyncio.run(area_import_in_parallel(teryt_ids=['1465']))
         mock_get.assert_called_once_with(area_parser.build_buildings_url())
