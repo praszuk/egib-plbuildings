@@ -49,6 +49,10 @@ class AreaImport {
         }
     }
 
+    isCounty() {
+        return this.teryt.length === 4;
+    }
+
     getResultStatusDisplay() {
         return AreaImport.translationResultStatusPl[this.resultStatus];
     }
@@ -83,22 +87,38 @@ const fetchStableAreaImport = () => fetchAreaImportData('stable');
 function updateSummarySection(areaImportData) {
     let minStartTs = areaImportData[0].startTs;
     let maxEndTs = areaImportData[0].endTs;
-    let successAreaNumber = 0;
+    let totalCountiesNumber = 0;
+    let successCountiesNumber = 0;
+    let totalCommunesNumber = 0;
+    let successCommunesNumber = 0;
+
     areaImportData.forEach(areaImport => {
         minStartTs = Math.min(minStartTs, areaImport.startTs);
         maxEndTs = Math.max(maxEndTs, areaImport.endTs);
+
+        if (areaImport.isCounty()) {
+            totalCountiesNumber++;
+        } else {
+            totalCommunesNumber++;
+        }
+
         if (areaImport.resultStatus === AreaImport.ResultStatus.SUCCESS) {
-            successAreaNumber++;
+            if (areaImport.isCounty()) {
+                successCountiesNumber++;
+            } else {
+                successCommunesNumber++;
+            }
         }
     })
-    const totalAreaNumber = areaImportData.length;
     const intervals = areaImportData.map(a => [a.startTs, a.endTs]);
     const durationSeconds = sumNonOverlappingDuration(intervals);
 
     document.getElementById('summary-start-dt').innerText = formatDateToISO(minStartTs);
     document.getElementById('summary-end-dt').innerText = formatDateToISO(maxEndTs);
     document.getElementById('summary-duration').innerText = formatDurationToMinutesHours(durationSeconds);
-    document.getElementById('summary-areas-info').innerText = `${successAreaNumber}/${totalAreaNumber} (${successAreaNumber}/~380)`;
+
+    document.getElementById('summary-counties-info').innerText = `${successCountiesNumber}/${totalCountiesNumber} (max 380)`;
+    document.getElementById('summary-communes-info').innerText = `${successCommunesNumber}/${totalCommunesNumber}`;
 }
 
 
