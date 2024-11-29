@@ -8,6 +8,7 @@ from sqlalchemy import insert, bindparam
 
 from backend.areas.data.expected_building import all_areas_data
 from backend.areas.config import all_areas
+from backend.areas.finder import area_finder
 from backend.areas.parsers import BaseAreaParser
 from backend.core.logger import default_logger
 from backend.models.building import Building
@@ -56,6 +57,11 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
     if not data:
         default_logger.debug(f'[IMPORT] [{teryt}] No data found after parsing')
         return ImportResult(teryt=teryt, status=ResultStatus.EMPTY_DATA_ERROR)
+
+    # Check for unexpected projection change from server
+    if not any(area_finder.geometry_in_area(building_geom, teryt) for building_geom, _ in data):
+        default_logger.debug(f'[IMPORT] [{teryt}] Parsing error: Building data not in area.')
+        return ImportResult(teryt=teryt, status=ResultStatus.PARSING_ERROR)
 
     buildings_data = []
     for geometry, raw_properties in data:
@@ -178,6 +184,8 @@ if __name__ == '__main__':
     import yaml
 
     from logging import config, DEBUG
+
+    area_finder.load_data()
 
     with open('backend/core/log_config.yaml') as file:
         loaded_config = yaml.safe_load(file)

@@ -26,7 +26,9 @@ async def test_area_import_attempt_success(db, load_warszawa_gml):
 
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db):
+    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
+        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
+    ):
         area_parser = WarszawaAreaParser(name='test')
 
         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
@@ -90,12 +92,29 @@ async def test_area_import_attempt_connection_error_invalid_status_code(db, stat
 
 
 @pytest.mark.anyio
-async def test_area_import_attempt_parsing_error(db):
+async def test_area_import_attempt_parsing_error_invalid_gml(db):
     mock_response = AsyncMock()
     mock_response.status_code = 200
     mock_response.text = '<invalid GML>'
 
     with patch('backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response):
+        area_parser = WarszawaAreaParser(name='test')
+        import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
+
+    assert import_result.status == ResultStatus.PARSING_ERROR
+    assert_failed(import_result, db)
+
+
+@pytest.mark.anyio
+async def test_area_import_attempt_parsing_error_no_building_in_area(db, load_warszawa_gml):
+    mock_response = AsyncMock()
+    mock_response.status_code = 200
+    mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
+
+    with patch('backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response), patch(
+        'backend.tasks.import_buildings.area_finder'
+    ) as mock_area_finder:
+        mock_area_finder.geometry_in_area.return_value = False
         area_parser = WarszawaAreaParser(name='test')
         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
 
