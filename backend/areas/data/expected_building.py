@@ -1151,7 +1151,7 @@ counties = {
         teryt='1409',
         lat=51.15888,
         lon=21.64981,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1410': AreaExpectedBuildingData(
         name='łosicki',
@@ -3017,6 +3017,38 @@ counties = {
 
 # Few exception which counties are already defined but these communes has own service for the data
 communes = {
+    '1212073': AreaExpectedBuildingData(
+        name='gmina Wolbrom',
+        teryt='1212073',
+        lat=50.38514,
+        lon=19.75921,
+        expected_tags={'building': 'office'},
+    ),
+    '1213043': AreaExpectedBuildingData(
+        name='gmina Kęty',
+        teryt='1213043',
+        lat=49.88480,
+        lon=19.22633,
+        expected_tags={'building': 'office'},
+    ),
+    '2416021': AreaExpectedBuildingData(
+        name='miasto Zawiercie',
+        teryt='2416021',
+        lat=50.48384,
+        lon=19.43160,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
+    '2402043': AreaExpectedBuildingData(
+        name='gmina Czechowice-Dziedzice',
+        teryt='2402043',
+        lat=49.91134,
+        lon=19.00699,
+        expected_tags={'building': 'office'},
+    ),
     '2403011': AreaExpectedBuildingData(
         name='miasto Cieszyn',
         teryt='2403011',
