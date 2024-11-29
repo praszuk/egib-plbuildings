@@ -307,6 +307,7 @@ all_counties: Dict[str, AreaParser] = {
         url_typenames='budynki',
         gml_prefix='WMS',
         gml_geometry_key='MSGEOMETRY',
+        custom_crs=2177,
     ),
     '1610': GIPortalAreaParser(
         name='prudnicki', base_url='https://ikerg2.powiatprudnicki.pl/prudnik-egib'
