@@ -108,6 +108,11 @@ def test_warszawa_data_dir():
 
 
 @pytest.fixture(scope='session')
+def test_katowice_data_dir():
+    return path.join(path.dirname(__file__), 'data', 'katowice')
+
+
+@pytest.fixture(scope='session')
 def project_data_dir():
     return settings.DATA_DIR
 
@@ -159,6 +164,15 @@ def load_geoportal_gml(test_geoportal_data_dir):
 def load_warszawa_gml(test_warszawa_data_dir):
     def inner(filename: str) -> str:
         with open(path.join(test_warszawa_data_dir, filename), 'r') as f:
+            return f.read()
+
+    return inner
+
+
+@pytest.fixture(scope='session')
+def load_katowice_gml(test_katowice_data_dir):
+    def inner(filename: str) -> str:
+        with open(path.join(test_katowice_data_dir, filename), 'r') as f:
             return f.read()
 
     return inner
