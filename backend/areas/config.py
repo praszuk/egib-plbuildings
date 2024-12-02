@@ -8,6 +8,7 @@ from backend.areas.parsers import (
     GeoportalAreaParser,
     Geoportal2AreaParser,
     GIPortalAreaParser,
+    KatowiceAreaParser,
     LublinAreaParser,
     WarszawaAreaParser,
     WebEwidAreaParser,
@@ -465,6 +466,7 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '2467': Geoportal2AreaParser(name='miasto Jastrzębie-Zdrój', url_code='jastrzebie'),
     '2468': WebEwidAreaParser(name='miasto Jaworzno', url_code='jaworzno-wms'),
+    '2469': KatowiceAreaParser(name='miasto Katowice'),
     '2470': GIPortalAreaParser(
         name='miasto Mysłowice', base_url='https://wms.myslowice.pl/myslowice-egib'
     ),

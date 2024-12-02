@@ -2204,6 +2204,13 @@ counties = {
             'building': 'office',
         },
     ),
+    '2469': AreaExpectedBuildingData(
+        name='miasto Katowice',
+        teryt='2469',
+        lat=50.25857,
+        lon=19.02017,
+        expected_tags={'building': 'office', 'building:levels': 7},
+    ),
     '2470': AreaExpectedBuildingData(
         name='miasto Mysłowice',
         teryt='2470',
