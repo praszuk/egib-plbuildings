@@ -4,7 +4,7 @@ import pytest
 
 from backend.areas.parsers import GeoportalAreaParser
 
-area = GeoportalAreaParser('test_area', default_crs=2180)
+area = GeoportalAreaParser('test_area')
 
 
 class TestBasicBuilding:
@@ -26,3 +26,13 @@ class TestBasicBuilding:
         first = geojson['features'][0]['geometry']['coordinates'][0][0]
         last = geojson['features'][0]['geometry']['coordinates'][0][-1]
         assert first == last
+
+    def test_parse_broken_gml_with_special_character(self, gml_content):
+        assert '<ms:ID_BUDYNKU>020101_1.0009.522_BUD</ms:ID_BUDYNKU>' in gml_content
+        gml_content = gml_content.replace(
+            '<ms:ID_BUDYNKU>020101_1.0009.522_BUD</ms:ID_BUDYNKU>',
+            '<ms:ID_BUDYNKU>020101_1.0009.522_BUD</ms:ID_BUDYNKU>',
+        )
+        geojson = area.parse_gml_to_geojson(gml_content)
+
+        assert len(geojson['features']) != 0

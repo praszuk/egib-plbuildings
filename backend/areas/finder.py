@@ -1,16 +1,35 @@
 import json
 import pickle
+
+from dataclasses import dataclass
 from typing import Any, Dict, List
 
 from osgeo import ogr, osr  # noqa
 
 from backend.core.config import settings
 from backend.core.logger import default_logger
-from backend.areas.models import AreaGeometry
 from backend.exceptions import AreaDataNotFound, AreaNotFound
 
 MAX_TILE_ZOOM = 11
 TERYT_KEY = 'JPT_KOD_JE'
+
+
+@dataclass(frozen=True)
+class AreaGeometry:
+    """
+    Wrapper class for OGR Geometry to handle serialization properly.
+    """
+
+    geom: ogr.Geometry
+
+    # __getstate__ and __setstate__ are not needed at all, but without them
+    # GDAL prints errors on deserialization
+    # 'ERROR 1: Empty geometries cannot be constructed'
+    def __getstate__(self) -> Dict[str, Any]:
+        return {'geom': self.geom.ExportToWkb()}
+
+    def __setstate__(self, state: Dict[str, Any]) -> None:
+        object.__setattr__(self, 'geom', ogr.CreateGeometryFromWkb(state['geom']))
 
 
 class AreaFinder:
@@ -102,6 +121,14 @@ class AreaFinder:
             return county_teryt
 
         raise AreaNotFound(f'Not found area at: {lat} {lon}')
+
+    def geometry_in_area(self, geometry, teryt) -> bool:
+        area: AreaGeometry = self._county_geoms.get(teryt) or self._commune_geoms.get(teryt)
+
+        if area is None:
+            raise AreaDataNotFound
+
+        return geometry.Within(area.geom)
 
     @staticmethod
     def parse_area_geojson_to_area_geoms(

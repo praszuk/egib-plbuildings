@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- https://emapa.katowice.eu/arcgis/services/wms_egib_gugik/MapServer/WFSServer?service=WFS&request=GetFeature&Typenames=wms_egib_gugik:budynki&bbox=50.253886%2C19.027921%2C50.253886%2C19.027921%2CEPSG%3A4326 -->
+<!-- Katowice ('2469') hospital building -->
+<wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                       xmlns:wfs="http://www.opengis.net/wfs/2.0"
+                       xmlns:gml="http://www.opengis.net/gml/3.2"
+                       xmlns:wms_egib_gugik="https://emapa.katowice.eu/arcgis/services/wms_egib_gugik/MapServer/WFSServer"
+                       xmlns:xlink="http://www.w3.org/1999/xlink"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       timeStamp="2024-12-01T03:23:42Z" numberMatched="unknown"
+                       numberReturned="1"
+                       xsi:schemaLocation="http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd https://emapa.katowice.eu/arcgis/services/wms_egib_gugik/MapServer/WFSServer http://emapa.katowice.eu/arcgis/services/wms_egib_gugik/MapServer/WFSServer?service=wfs%26version=2.0.0%26request=DescribeFeatureType">
+    <wfs:member>
+        <wms_egib_gugik:budynki gml:id="budynki.458297">
+            <wms_egib_gugik:ID>458297</wms_egib_gugik:ID>
+            <wms_egib_gugik:NR_ID_DZ>0</wms_egib_gugik:NR_ID_DZ>
+            <wms_egib_gugik:NR_BUD_DZ>18</wms_egib_gugik:NR_BUD_DZ>
+            <wms_egib_gugik:ID_BUDYNKU>246901_1.0002.AR_55.6.18_BUD
+            </wms_egib_gugik:ID_BUDYNKU>
+            <wms_egib_gugik:NR_ID_BUD>107218</wms_egib_gugik:NR_ID_BUD>
+            <wms_egib_gugik:NR_ID_SB>86746</wms_egib_gugik:NR_ID_SB>
+            <wms_egib_gugik:ADRES_KOD>0</wms_egib_gugik:ADRES_KOD>
+            <wms_egib_gugik:POW>604.15277683</wms_egib_gugik:POW>
+            <wms_egib_gugik:KONDYGNACJE_NADZIEMNE>2
+            </wms_egib_gugik:KONDYGNACJE_NADZIEMNE>
+            <wms_egib_gugik:FUNK_KOD>z</wms_egib_gugik:FUNK_KOD>
+            <wms_egib_gugik:FUNKCJA>szpital, zakład opieki medycznej
+            </wms_egib_gugik:FUNKCJA>
+            <wms_egib_gugik:OPIS></wms_egib_gugik:OPIS>
+            <wms_egib_gugik:OGNODP_KOD>1</wms_egib_gugik:OGNODP_KOD>
+            <wms_egib_gugik:OBIEKT_KOD>1572</wms_egib_gugik:OBIEKT_KOD>
+            <wms_egib_gugik:OBIEKT_TYP>Budynek</wms_egib_gugik:OBIEKT_TYP>
+            <wms_egib_gugik:BUDYNEK>458297</wms_egib_gugik:BUDYNEK>
+            <wms_egib_gugik:ZRODLO_K1>D</wms_egib_gugik:ZRODLO_K1>
+            <wms_egib_gugik:UWAGI>OK</wms_egib_gugik:UWAGI>
+            <wms_egib_gugik:SHAPE>
+                <gml:MultiSurface gml:id="budynki.458297.pl"
+                                  srsName="urn:ogc:def:crs:EPSG::2177"
+                                  srsDimension="3">
+                    <gml:surfaceMember>
+                        <gml:Polygon gml:id="budynki.458297.pl.0"
+                                     srsDimension="3">
+                            <gml:exterior>
+                                <gml:LinearRing>
+                                    <gml:posList>5569169.66000000
+                                        6573323.09900000 0.00000000
+                                        5569154.14700000 6573321.53100000
+                                        0.00000000 5569158.44500000
+                                        6573281.52500000 0.00000000
+                                        5569173.73000000 6573283.27200000
+                                        0.00000000 5569172.63500000
+                                        6573293.58700000 0.00000000
+                                        5569171.61400000 6573293.58700000
+                                        0.00000000 5569169.94000000
+                                        6573310.47500000 0.00000000
+                                        5569170.98600000 6573310.72400000
+                                        0.00000000 5569169.66000000
+                                        6573323.09900000 0.00000000
+                                    </gml:posList>
+                                </gml:LinearRing>
+                            </gml:exterior>
+                        </gml:Polygon>
+                    </gml:surfaceMember>
+                </gml:MultiSurface>
+            </wms_egib_gugik:SHAPE>
+            <wms_egib_gugik:SDE_STATE_ID>0</wms_egib_gugik:SDE_STATE_ID>
+            <wms_egib_gugik:SHAPE.AREA>0.00000000</wms_egib_gugik:SHAPE.AREA>
+            <wms_egib_gugik:SHAPE.LEN>0.00000000</wms_egib_gugik:SHAPE.LEN>
+        </wms_egib_gugik:budynki>
+    </wfs:member>
+</wfs:FeatureCollection>

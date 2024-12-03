@@ -77,14 +77,15 @@ class TestMultipleBuildings:
 class TestCoordinatesCorrectOrderAutoFix:
     @pytest.mark.parametrize(
         'test_filename',
-        [
-            'gml_coordinates_lat_lon_order.xml',
-            'gml_coordinates_lon_lat_order.xml',
-        ],
+        ['gml_coordinates_lat_lon_order.xml', 'gml_coordinates_lon_lat_order.xml'],
     )
-    def test_lon_lat_as_geojson(self, load_epodgik_gml, test_filename):
+    def test_lon_lat_order(self, load_epodgik_gml, test_filename):
         gml_content = load_epodgik_gml(test_filename)
+
+        geometry, _ = area.parse_gml_to_geometries_and_properties(gml_content)[0]
+        point = geometry.GetGeometryRef(0).GetPoint(0)
+        assert point[0] < point[1]
+
         geojson = area.parse_gml_to_geojson(gml_content)
         point = geojson['features'][0]['geometry']['coordinates'][0][0]
-
         assert point[0] < point[1]

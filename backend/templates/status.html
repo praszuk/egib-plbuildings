@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>EGiB stan powiatów</title>
+    <title>EGiB stan obszarów</title>
     <style>
+        html, body {
+            height: 100%;
+        }
+        h1, h2 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
         .status-summary ul strong {
           display: inline-block;
-          width: 110px;
+          width: 180px;
           text-align: left;
         }
         .tooltip {
@@ -24,157 +31,30 @@
             list-style: none;
             padding-left: 0;
         }
-        .tags {
-            margin-left: 5px;
-        }
     </style>
-</head>
-<body>
-<h1>Najświeższy raport:</h1>
-<div class="status-summary">
-    <ul>
-        <li><strong>Start: </strong>{{ healthcheck_report.start_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
-        <li><strong>Koniec: </strong>{{ healthcheck_report.end_dt | format_dt('%Y-%m-%d %H:%M:%S') }}</li>
-        <li><strong>Powiaty: </strong><span id="counties-li-status"></span></li>
-        <li><strong>Gminy: </strong><span id="communes-li-status"></span></li>
-    </ul>
-</div>
-<h2>Powiaty:</h2>
-<object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
-<div id="tooltip" class="tooltip"></div>
-</body>
-<script>
-    const counties = {{ healthcheck_report.counties | tojson | safe }};
-    const communes = {{ healthcheck_report.communes | tojson | safe }};
-
-    const tooltip = document.getElementById('tooltip');
-    document.getElementById('counties-svg').addEventListener('load', function() {
-        const svgDoc = this.contentDocument;
-        const svgElement = this;
-
-        function fillCounty(pathElement, color) {
-            pathElement.style.fill = color;
-        };
-
-        function addTooltip(pathElement, htmlElement) {
-            pathElement.addEventListener('mouseover', (event) => {
-                tooltip.style.visibility = 'visible';
-                tooltip.innerHTML = '';
-                tooltip.appendChild(htmlElement);
-            });
-
-            pathElement.addEventListener('mousemove', (event) => {
-                const svgRect = svgElement.getBoundingClientRect();
-
-                tooltip.style.top = svgRect.top + event.clientY + window.scrollY + 10 + 'px';
-                tooltip.style.left = svgRect.left + event.clientX + window.scrollX + 10 + 'px';
-            });
-
-            pathElement.addEventListener('mouseout', () => {
-                tooltip.style.visibility = 'hidden';
-            });
-        };
-
-        function tagsObjectToString(tags) {
-            return Object.entries(tags).map(([k, v]) => `${k}=${v}`).join(',');
-        }
-
-        function createTooltipHTMLContentOnSuccess(countyTeryt, county) {
-            const tooltipContentDiv = document.createElement('div');
-            tooltipContentDiv.className = 'tooltip-content';
-
-            const spanElement = document.createElement('span');
-            spanElement.textContent = `${countyTeryt} – ${county.test_area_data.name}`;
-            tooltipContentDiv.appendChild(spanElement);
-
-            return tooltipContentDiv;
-        }
-
-        function createTooltipHTMLContentOnFailure(countyTeryt, county) {
-            const tooltipContentDiv = document.createElement('div');
-            tooltipContentDiv.className = 'tooltip-content';
-
-            const spanElement = document.createElement('span');
-            spanElement.textContent = `${countyTeryt} – ${county.test_area_data.name}`;
-            tooltipContentDiv.appendChild(spanElement);
-            tooltipContentDiv.appendChild(document.createElement('hr'));
-
-            const ulElement = document.createElement('ul');
-
-            const liStatusCode = document.createElement('li');
-            liStatusCode.textContent = `Kod statusu: ${county.status_code}`;
-
-            const liIsBuildingData = document.createElement('li');
-            liIsBuildingData.textContent = `Czy zawiera dane budynków: ${county.has_building_data ? 'tak':'nie'}`;
-
-            const liExpectedBuildingData = document.createElement('li');
-            liExpectedBuildingData.textContent = `Czy zawiera oczekiwane dane: ${county.has_expected_building_data ? 'tak':'nie'}`;
-
-            ulElement.appendChild(liStatusCode);
-            ulElement.appendChild(liIsBuildingData);
-            ulElement.appendChild(liExpectedBuildingData);
-            tooltipContentDiv.appendChild(ulElement);
-
-            return tooltipContentDiv;
-        }
-
-        function appendTagsElementToTooltipDiv(tooltipContentDiv, county) {
-            tooltipContentDiv.appendChild(document.createElement('hr'));
-            const divExpectedVsReceivedTags = document.createElement('div');
-
-            const divTitleTags = document.createElement('div');
-            divTitleTags.textContent = 'Oczekiwane, a otrzymane:';
-
-            const divExpectedTags = document.createElement('div');
-            divExpectedTags.className = 'tags';
-            divExpectedTags.textContent = tagsObjectToString(county.test_area_data.expected_tags);
-
-            const divResultTags = document.createElement('div');
-            divResultTags.className = 'tags';
-            divResultTags.textContent = tagsObjectToString(county.result_tags);
-
-            divExpectedVsReceivedTags.appendChild(divTitleTags);
-            divExpectedVsReceivedTags.appendChild(divExpectedTags);
-            divExpectedVsReceivedTags.appendChild(divResultTags);
-
-            tooltipContentDiv.appendChild(divExpectedVsReceivedTags);
-        }
-        function getFillColor(county) {
-            if (county.has_expected_building_data) {
-                return '#00ff00';
-            } else if (county.has_building_data) {
-                return '#ffd700';
-            } else if (!county.has_building_data && county.status_code == '200') {
-                return '#fcaf89';
-            } else {
-                return '#ff0000';
-            }
-        }
-        let successCounties = 0;
-        let successCommunes = 0;
-        Object.entries(counties).forEach(([countyTeryt, county]) => {
-            const countyPathElement = svgDoc.getElementById(countyTeryt);
-            const fillColor = getFillColor(county);
-            fillCounty(countyPathElement, fillColor);
-
-            if (county.has_expected_building_data) {
-                addTooltip(countyPathElement, createTooltipHTMLContentOnSuccess(countyTeryt, county));
-                successCounties += 1;
-            } else {
-                let tooltipDivElem = createTooltipHTMLContentOnFailure(countyTeryt, county);
-                if (county.has_building_data) {
-                    appendTagsElementToTooltipDiv(tooltipDivElem, county);
-                }
-                addTooltip(countyPathElement, tooltipDivElem);
-            }
-        });
-        Object.entries(communes).forEach(([communeTeryt, commune]) => {
-            if (commune.has_expected_building_data) {
-                successCommunes += 1;
-            }
-        });
-        document.getElementById('counties-li-status').textContent = `${successCounties}/${Object.keys(counties).length} (${successCounties}/~380)`;
-        document.getElementById('communes-li-status').textContent = `${successCommunes}/${Object.keys(communes).length}`;
-    });
-</script>
+    </head>
+    <body>
+        <h1>Raport importu</h1>
+        <label for="report-type">Typ raportu:</label>
+        <select id="report-type">
+            <option value="latest">Najświeższy import</option>
+            <option value="stable">Stabilny import</option>
+        </select>
+        <h2>Podsumowanie</h2>
+        <div class="status-summary">
+            <ul>
+                <li><strong>Start: </strong><span id="summary-start-dt"></span></li>
+                <li><strong>Koniec: </strong><span id="summary-end-dt"></span></li>
+                <li><strong>Łączny czas trwania: </strong><span id="summary-duration"></span></li>
+                <li><strong>Zaimportowane powiaty: </strong><span id="summary-counties-info"></span></li>
+                <li><strong>Zaimportowane gminy: </strong><span id="summary-communes-info"></span></li>
+            </ul>
+        </div>
+        <h2>Powiaty:</h2>
+        <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
+        <div id="tooltip" class="tooltip"></div>
+    </body>
+    <script src="{{ url_for('static', path='/js/timeutils.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/svgmap.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/status.js') }}"></script>
 </html>

@@ -1,11 +1,42 @@
-version: '3'
 services:
+  db:
+    restart: always
+    image: "postgis/postgis:16-3.4"
+    env_file:
+        - .env
+    environment:
+        POSTGRES_USER: "${POSTGRES_USER}"
+        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+        POSTGRES_DB: "${POSTGRES_DB}"
+    command: -p ${POSTGRES_PORT}
+    networks:
+        - egib-dev-net
+    volumes:
+        - ./.db_dev:/var/lib/postgresql/data
+        - ./docker/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   backend:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
+    command: "./docker-entrypoint.sh"
+    env_file:
+      - .env
     volumes:
-      - ./:/app
+      - ./backend:/app/backend
+      - ./.cache:/app/.cache/
+      - ./.logs:/app/.logs/
+      - ./data/:/app/data/
+    networks:
+      - egib-dev-net
     ports:
-      - "8000:8000"
+      - "8081:8000"
+    environment:
+      DEV: 1
+    depends_on:
+      - db
+networks:
+    egib-dev-net:

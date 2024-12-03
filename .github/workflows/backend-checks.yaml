@@ -14,6 +14,13 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Create .env file
+        run: |
+          echo "POSTGRES_HOST=db" >> .env
+          echo "POSTGRES_PORT=5432" >> .env
+          echo "POSTGRES_DB=db" >> .env
+          echo "POSTGRES_USER=user" >> .env
+          echo "POSTGRES_PASSWORD=password" >> .env
       - name: Install dependencies
         run: |
           sudo apt update
@@ -23,7 +30,7 @@ jobs:
           make install
       - name: Test (unit and integration tests)
         run: |
-          make test
+          ./backend/test.sh
       - name: Quality check – format
         if: success() || failure()
         run: |

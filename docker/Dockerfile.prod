@@ -1,0 +1,25 @@
+FROM python:3.11
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONPATH /app
+ARG USER_ID
+ARG GROUP_ID
+
+RUN mkdir -p /app
+RUN groupadd -g "$GROUP_ID" app && useradd -u "$USER_ID" -r -g "$GROUP_ID" -s /sbin/nologin app
+
+WORKDIR /app
+
+# libgdal-dev version must be greater or equal to python GDAL library
+COPY backend/requirements/requirements.txt /app
+RUN apt update && apt install -y libgdal-dev
+RUN pip install -r requirements.txt GDAL==`gdal-config --version` --quiet
+
+COPY backend/ /app/backend/
+RUN mkdir /app/.cache && chown app:app /app/.cache
+
+COPY docker/docker-entrypoint.sh /app
+
+USER app
+
+EXPOSE 8000
