@@ -1023,8 +1023,8 @@ counties = {
     '1214': AreaExpectedBuildingData(
         name='proszowicki',
         teryt='1214',
-        lat=50.19172,
-        lon=20.29443,
+        lat=50.19127,
+        lon=20.29426,
         expected_tags={'building': 'office'},
     ),
     '1215': AreaExpectedBuildingData(
@@ -1200,7 +1200,7 @@ counties = {
         teryt='1416',
         lat=52.80074,
         lon=21.89161,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1417': AreaExpectedBuildingData(
         name='otwocki',
@@ -1263,7 +1263,7 @@ counties = {
         teryt='1425',
         lat=51.31167,
         lon=21.25196,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1426': AreaExpectedBuildingData(  # gmina Mordy
         name='siedlecki',
@@ -2036,11 +2036,7 @@ counties = {
         teryt='2406',
         lat=50.90557,
         lon=18.93706,
-        expected_tags={
-            'building': 'yes',
-            'building:levels': 3,
-            'building:levels:underground': 1,
-        },
+        expected_tags={'building': 'office'},
     ),
     '2407': AreaExpectedBuildingData(
         name='lubliniecki',
@@ -2536,8 +2532,8 @@ counties = {
     '2862': AreaExpectedBuildingData(
         name='miasto Olsztyn',
         teryt='2862',
-        lat=50.74962,
-        lon=19.26926,
+        lat=53.77894,
+        lon=20.47986,
         expected_tags={'building': 'office'},
     ),
     # 30 – "wielkopolskie"
