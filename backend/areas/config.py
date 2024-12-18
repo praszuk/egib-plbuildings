@@ -100,7 +100,7 @@ all_counties: Dict[str, AreaParser] = {
     '0410': WebEwidAreaParser(name='nakielski', url_code='nakielski', port=62627),
     '0411': Geoportal2AreaParser(name='radziejowski', url_code='radziejow'),
     '0412': Geoportal2AreaParser(name='rypiński', url_code='rypin'),
-    '0413': GeoportalAreaParser(name='sępoleński', url_code='0413'),
+    '0413': WebEwidAreaParser(name='sępoleński', url_code='sepolenski-wms'),
     '0414': WebEwidAreaParser(name='świecki', base_url='https://wms.csw.pl/iip/ows'),
     '0415': WebEwidAreaParser(name='toruński', url_code='torunski-wms'),
     '0416': WebEwidAreaParser(name='tucholski', url_code='tucholski-wms'),
@@ -185,7 +185,9 @@ all_counties: Dict[str, AreaParser] = {
     '1005': Geoportal2AreaParser(name='łowicki', url_code='lowicz'),
     '1006': Geoportal2AreaParser(name='łódzki wschodni', url_code='lodzkiwschodni'),
     '1007': Geoportal2AreaParser(name='opoczyński', url_code='opoczno'),
-    '1008': Geoportal2AreaParser(name='pabianicki', url_code='pabianice'),
+    '1008': Geoportal2AreaParser(
+        name='pabianicki', base_url='https://pabianice.geoportal2.pl/map/geoportal/wfse.php'
+    ),
     '1009': Geoportal2AreaParser(name='pajęczański', url_code='pajeczno'),
     '1010': Geoportal2AreaParser(name='piotrkowski', url_code='piotrkow'),
     '1011': Geoportal2AreaParser(name='poddębicki', url_code='poddebice'),
@@ -384,7 +386,7 @@ all_counties: Dict[str, AreaParser] = {
     # 22 – "pomorskie"
     '2201': WebEwidAreaParser(name='bytowski', url_code='bytowski', port=4433),
     '2202': WebEwidAreaParser(name='chojnicki', url_code='chojnicki-wms'),
-    '2203': GeoportalAreaParser(name='człuchowski', url_code='2203'),
+    '2203': WebEwidAreaParser(name='człuchowski', base_url='https://wms.czluchow.org.pl/iip/ows'),
     '2204': WebEwidAreaParser(name='gdański', url_code='gdanski-wms'),
     '2205': WebEwidAreaParser(name='kartuski', url_code='kartuski-wms'),
     '2206': WebEwidAreaParser(name='kościerski', url_code='koscierski-wms'),
@@ -416,13 +418,16 @@ all_counties: Dict[str, AreaParser] = {
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
     '2405': WebEwidAreaParser(name='gliwicki', url_code='gliwicki', port=4443),
-    '2406': GeoportalAreaParser(
-        name='kłobucki',
-        base_url='https://mapy.powiatklobucki.pl/ggp',
-        url_typenames='budynki',
-        gml_prefix='WMS',
-        gml_geometry_key='MSGEOMETRY',
-        custom_crs=2177,
+    # '2406': GeoportalAreaParser(
+    #     name='kłobucki',
+    #     base_url='https://mapy.powiatklobucki.pl/ggp',
+    #     url_typenames='budynki',
+    #     gml_prefix='WMS',
+    #     gml_geometry_key='MSGEOMETRY',
+    #     custom_crs=2177,
+    # ),
+    '2406': Geoportal2AreaParser(
+        name='kłobucki', base_url='https://powiatklobucki.geoportal2.pl/map/geoportal/wfse.php'
     ),
     '2407': GIPortalAreaParser(name='lubliniecki', base_url='http://83.17.150.14/lubliniec-egib'),
     '2408': Geoportal2AreaParser(
