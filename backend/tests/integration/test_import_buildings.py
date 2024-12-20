@@ -15,11 +15,21 @@ async def test_area_import(db, load_warszawa_gml):
     mock_response.status_code = 200
     mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
 
+    patched_all_areas_data = {
+        '1465': AreaExpectedBuildingData(
+            name='miasto Warszawa',
+            teryt='1465',
+            lat=52.22839,
+            lon=21.01188,
+            expected_tags={'building': 'office', 'building:levels': 12},
+        )
+    }
+
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
     ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
-    ):
+    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
         area_parser = WarszawaAreaParser(name='test')
 
         asyncio.run(area_import_in_parallel(teryt_ids=['1465']))

@@ -7,6 +7,7 @@ import pytest
 
 from httpx import TimeoutException
 
+from backend.areas.data.expected_building import AreaExpectedBuildingData, all_areas_data
 from backend.areas.config import all_counties
 from backend.areas.parsers import WarszawaAreaParser
 from backend.models.building import Building
@@ -24,11 +25,21 @@ async def test_area_import_attempt_success(db, load_warszawa_gml):
     mock_response.status_code = 200
     mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
 
+    patched_all_areas_data = {
+        '1465': AreaExpectedBuildingData(
+            name='miasto Warszawa',
+            teryt='1465',
+            lat=52.22839,
+            lon=21.01188,
+            expected_tags={'building': 'office', 'building:levels': 12},
+        )
+    }
+
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
     ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
-    ):
+    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
         area_parser = WarszawaAreaParser(name='test')
 
         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
@@ -53,6 +64,30 @@ def assert_failed(import_result: ImportResult, db):
     assert db.query(Building).count() == 0
 
 
+# @pytest.mark.anyio
+# async def test_area_import_attempt_success(db, load_warszawa_gml):
+#     mock_response = AsyncMock()
+#     mock_response.status_code = 200
+#     mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
+#
+#     with patch(
+#         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
+#     ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
+#         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
+#     ):
+#         area_parser = WarszawaAreaParser(name='test')
+#
+#         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
+#
+#         mock_get.assert_called_once_with(area_parser.build_buildings_url())
+#
+#     assert import_result.status == ResultStatus.SUCCESS
+#     assert import_result.building_count == 10
+#     assert import_result.has_building_type is True
+#     assert import_result.has_building_levels is True
+#     assert import_result.has_building_levels_undg is False
+#
+#     assert db.query(Building).count() == 10
 @pytest.mark.anyio
 async def test_area_import_attempt_connection_error_http_error(db):
     mock_response = AsyncMock(side_effect=HTTPError)
