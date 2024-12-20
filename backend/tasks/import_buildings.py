@@ -15,7 +15,6 @@ from backend.models.building import Building
 from backend.models.area_import import AreaImport, ResultStatus
 from backend.database.session import SessionLocal
 from backend.exceptions import ParserError
-from backend.services.buildings import query_building_from_db_at
 
 
 @dataclass
@@ -69,22 +68,31 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
         buildings_data.append({'wkt': geometry.ExportToWkt(), 'tags': tags, 'teryt': teryt})
     default_logger.debug(f'[IMPORT] [{teryt}] Parsed {len(buildings_data)} buildings.')
 
-    with SessionLocal() as session:
-        session.query(Building).filter(Building.teryt == teryt).delete()
-        session.execute(insert(Building).values(geometry=bindparam('wkt')), buildings_data)
-        session.commit()
+    # Healthcheck section
+    hc_expected = all_areas_data[teryt]
+    hc_lat = hc_expected.lat
+    hc_lon = hc_expected.lon
+    hc_expected_tags = hc_expected.expected_tags
 
-        # Healthcheck section
-        expected = all_areas_data[teryt]
-        hc_lat = expected.lat
-        hc_lon = expected.lon
-        hc_expected_tags = expected.expected_tags
+    hc_result_tags = None
+    if properties := area_finder.find_properties_in_building_data_at(hc_lat, hc_lon, data):
+        hc_result_tags = area_parser.clean_tags(
+            area_parser.parse_properties_to_osm_tags(properties)
+        )
 
-        geojson = await query_building_from_db_at(session, expected.lat, expected.lon)
-        if geojson['features']:
-            hc_result_tags = geojson['features'][0]['properties']
-        else:
-            hc_result_tags = None
+    if hc_result_tags == hc_expected_tags:
+        # TODO status
+        default_logger.debug(f'[IMPORT] [{teryt}] Healthcheck passed. Replacing buildings in db.')
+        with SessionLocal() as session:
+            session.query(Building).filter(Building.teryt == teryt).delete()
+            session.execute(insert(Building).values(geometry=bindparam('wkt')), buildings_data)
+            session.commit()
+    else:
+        # TODO status
+        default_logger.debug(
+            f'[IMPORT] [{teryt}] Healthcheck failed (result vs expected):'
+            f' {hc_result_tags} {hc_expected_tags}.'
+        )
 
     return ImportResult(
         teryt=teryt,

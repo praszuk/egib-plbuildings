@@ -131,6 +131,19 @@ class AreaFinder:
         return geometry.Within(area.geom)
 
     @staticmethod
+    def find_properties_in_building_data_at(
+        lat: float, lon: float, building_data: list[tuple[ogr.Geometry, dict]]
+    ) -> dict | None:
+        point = ogr.Geometry(ogr.wkbPoint)
+        point.AddPoint(lon, lat)
+
+        for geom, raw_properties in building_data:
+            if geom.Contains(point):
+                return raw_properties
+
+        return None
+
+    @staticmethod
     def parse_area_geojson_to_area_geoms(
         geojson: Dict[str, Any], teryt_key: str = TERYT_KEY
     ) -> Dict[str, AreaGeometry]:
