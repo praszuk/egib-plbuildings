@@ -22,6 +22,7 @@ class ResultStatus(Enum):
     DOWNLOADING_ERROR = 'downloading_error'
     PARSING_ERROR = 'parsing_error'
     EMPTY_DATA_ERROR = 'empty_data_error'
+    DATA_CHECK_ERROR = 'data_check_error'
 
 
 class AreaImport(Base):
