@@ -22,6 +22,6 @@ class AreaImport(BaseModel):
     has_building_levels: bool
     has_building_levels_undg: bool
 
-    hc_has_expected_tags: bool
-    hc_expected_tags: dict[str, Any] | None
-    hc_result_tags: dict[str, Any] | None
+    data_check_has_expected_tags: bool
+    data_check_expected_tags: dict[str, Any] | None
+    data_check_result_tags: dict[str, Any] | None

@@ -25,10 +25,10 @@ class ImportResult:
     has_building_type: bool = False
     has_building_levels: bool = False
     has_building_levels_undg: bool = False
-    hc_lat: float | None = None
-    hc_lon: float | None = None
-    hc_expected_tags: dict | None = None
-    hc_result_tags: dict | None = None
+    data_check_lat: float | None = None
+    data_check_lon: float | None = None
+    data_check_expected_tags: dict | None = None
+    data_check_result_tags: dict | None = None
 
 
 async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> ImportResult | None:
@@ -68,21 +68,21 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
         buildings_data.append({'wkt': geometry.ExportToWkt(), 'tags': tags, 'teryt': teryt})
     default_logger.debug(f'[IMPORT] [{teryt}] Parsed {len(buildings_data)} buildings.')
 
-    # Healthcheck section
-    hc_expected = all_areas_data[teryt]
-    hc_lat = hc_expected.lat
-    hc_lon = hc_expected.lon
-    hc_expected_tags = hc_expected.expected_tags
+    # Data check section
+    dc_expected = all_areas_data[teryt]
+    dc_lat = dc_expected.lat
+    dc_lon = dc_expected.lon
+    dc_expected_tags = dc_expected.expected_tags
 
-    hc_result_tags = None
-    if properties := area_finder.find_properties_in_building_data_at(hc_lat, hc_lon, data):
-        hc_result_tags = area_parser.clean_tags(
+    dc_result_tags = None
+    if properties := area_finder.find_properties_in_building_data_at(dc_lat, dc_lon, data):
+        dc_result_tags = area_parser.clean_tags(
             area_parser.parse_properties_to_osm_tags(properties)
         )
 
-    if hc_result_tags == hc_expected_tags:
+    if dc_result_tags == dc_expected_tags:
         # TODO status
-        default_logger.debug(f'[IMPORT] [{teryt}] Healthcheck passed. Replacing buildings in db.')
+        default_logger.debug(f'[IMPORT] [{teryt}] Data check passed. Replacing buildings in db.')
         with SessionLocal() as session:
             session.query(Building).filter(Building.teryt == teryt).delete()
             session.execute(insert(Building).values(geometry=bindparam('wkt')), buildings_data)
@@ -90,8 +90,8 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
     else:
         # TODO status
         default_logger.debug(
-            f'[IMPORT] [{teryt}] Healthcheck failed (result vs expected):'
-            f' {hc_result_tags} {hc_expected_tags}.'
+            f'[IMPORT] [{teryt}] Data check failed (result vs expected):'
+            f' {dc_result_tags} {dc_expected_tags}.'
         )
 
     return ImportResult(
@@ -105,10 +105,10 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
         has_building_levels_undg=any(
             d['tags'].get('building:levels:underground') is not None for d in buildings_data
         ),
-        hc_lat=hc_lat,
-        hc_lon=hc_lon,
-        hc_expected_tags=hc_expected_tags,
-        hc_result_tags=hc_result_tags,
+        data_check_lat=dc_lat,
+        data_check_lon=dc_lon,
+        data_check_expected_tags=dc_expected_tags,
+        data_check_result_tags=dc_result_tags,
     )
 
 
@@ -153,10 +153,10 @@ async def area_import_in_parallel(
             has_building_type=import_result.has_building_type,
             has_building_levels=import_result.has_building_levels,
             has_building_levels_undg=import_result.has_building_levels_undg,
-            hc_lat=import_result.hc_lat,
-            hc_lon=import_result.hc_lon,
-            hc_expected_tags=import_result.hc_expected_tags,
-            hc_result_tags=import_result.hc_result_tags,
+            data_check_lat=import_result.data_check_lat,
+            data_check_lon=import_result.data_check_lon,
+            data_check_expected_tags=import_result.data_check_expected_tags,
+            data_check_result_tags=import_result.data_check_result_tags,
         )
         with SessionLocal() as session:
             session.add(area_import)

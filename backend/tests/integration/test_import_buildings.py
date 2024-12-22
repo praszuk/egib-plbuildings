@@ -48,7 +48,7 @@ async def test_area_import(db, load_warszawa_gml):
 
 
 @pytest.mark.anyio
-async def test_area_import_hc_success(db, load_warszawa_gml):
+async def test_area_import_dc_success(db, load_warszawa_gml):
     mock_response = AsyncMock()
     mock_response.status_code = 200
     mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
@@ -75,15 +75,15 @@ async def test_area_import_hc_success(db, load_warszawa_gml):
 
     area_import = db.query(AreaImport).first()
     expected_data = patched_all_areas_data['1465']
-    assert area_import.hc_lat == expected_data.lat
-    assert area_import.hc_lon == expected_data.lon
-    assert area_import.hc_expected_tags == expected_data.expected_tags
-    assert area_import.hc_result_tags == area_import.hc_expected_tags
-    assert area_import.hc_has_expected_tags == True
+    assert area_import.data_check_lat == expected_data.lat
+    assert area_import.data_check_lon == expected_data.lon
+    assert area_import.data_check_expected_tags == expected_data.expected_tags
+    assert area_import.data_check_result_tags == area_import.data_check_expected_tags
+    assert area_import.data_check_has_expected_tags == True
 
 
 @pytest.mark.anyio
-async def test_area_import_hc_failed_building_not_found(db, load_warszawa_gml):
+async def test_area_import_dc_failed_building_not_found(db, load_warszawa_gml):
     mock_response = AsyncMock()
     mock_response.status_code = 200
     mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
@@ -111,15 +111,15 @@ async def test_area_import_hc_failed_building_not_found(db, load_warszawa_gml):
 
     area_import = db.query(AreaImport).first()
     expected_data = patched_all_areas_data['1465']
-    assert area_import.hc_lat == expected_data.lat
-    assert area_import.hc_lon == expected_data.lon
-    assert area_import.hc_expected_tags == expected_data.expected_tags
-    assert area_import.hc_result_tags is None
-    assert area_import.hc_has_expected_tags == False
+    assert area_import.data_check_lat == expected_data.lat
+    assert area_import.data_check_lon == expected_data.lon
+    assert area_import.data_check_expected_tags == expected_data.expected_tags
+    assert area_import.data_check_result_tags is None
+    assert area_import.data_check_has_expected_tags == False
 
 
 @pytest.mark.anyio
-async def test_area_import_hc_failed_building_found_with_different_tags(db, load_warszawa_gml):
+async def test_area_import_dc_failed_building_found_with_different_tags(db, load_warszawa_gml):
     mock_response = AsyncMock()
     mock_response.status_code = 200
     mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
@@ -147,8 +147,8 @@ async def test_area_import_hc_failed_building_found_with_different_tags(db, load
 
     area_import = db.query(AreaImport).first()
     expected_data = patched_all_areas_data['1465']
-    assert area_import.hc_lat == expected_data.lat
-    assert area_import.hc_lon == expected_data.lon
-    assert area_import.hc_expected_tags == expected_data.expected_tags
-    assert area_import.hc_result_tags == {'building': 'office', 'building:levels': 12}
-    assert area_import.hc_has_expected_tags == False
+    assert area_import.data_check_lat == expected_data.lat
+    assert area_import.data_check_lon == expected_data.lon
+    assert area_import.data_check_expected_tags == expected_data.expected_tags
+    assert area_import.data_check_result_tags == {'building': 'office', 'building:levels': 12}
+    assert area_import.data_check_has_expected_tags == False
