@@ -30,6 +30,33 @@ class ImportResult:
     data_check_expected_tags: dict | None = None
     data_check_result_tags: dict | None = None
 
+    def is_data_check_error_with_improved_tags(self) -> bool:
+        """
+        It should return True when area server returns BETTER tags than expected
+
+        e.g. when we expect building=office, but it returns building=office and building:levels=2
+        it's improvement
+        when we expect building=yes and return building=residential – it's improvement
+
+        if we expect building=office and return building=yes it's not improvement
+        but if we expect building=office and return building=yes and building:levels=1
+        it's improvement
+        :return:
+        """
+        if self.status != ResultStatus.DATA_CHECK_ERROR:
+            return False
+
+        if self.data_check_expected_tags == self.data_check_result_tags:
+            return False
+
+        if not self.data_check_result_tags:
+            return False
+
+        if self.data_check_result_tags == {'building': 'yes'}:  # common fail
+            return False
+
+        return True
+
 
 async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> ImportResult | None:
     url = area_parser.build_buildings_url()
@@ -81,14 +108,14 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
         )
 
     if dc_result_tags == dc_expected_tags:
-        # TODO status
+        status = ResultStatus.SUCCESS
         default_logger.debug(f'[IMPORT] [{teryt}] Data check passed. Replacing buildings in db.')
         with SessionLocal() as session:
             session.query(Building).filter(Building.teryt == teryt).delete()
             session.execute(insert(Building).values(geometry=bindparam('wkt')), buildings_data)
             session.commit()
     else:
-        # TODO status
+        status = ResultStatus.DATA_CHECK_ERROR
         default_logger.debug(
             f'[IMPORT] [{teryt}] Data check failed (result vs expected):'
             f' {dc_result_tags} {dc_expected_tags}.'
@@ -96,7 +123,7 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
 
     return ImportResult(
         teryt=teryt,
-        status=ResultStatus.SUCCESS,
+        status=status,
         building_count=len(buildings_data),
         has_building_type=any(d['tags'].get('building', 'yes') != 'yes' for d in buildings_data),
         has_building_levels=any(
@@ -133,6 +160,10 @@ async def area_import_in_parallel(
 
                 import_result = await area_import_attempt(all_areas[teryt], teryt)
                 if import_result.status == ResultStatus.SUCCESS:
+                    break
+
+                # Stop attempts if it's data improvement and expected data need to be updated
+                if import_result.is_data_check_error_with_improved_tags():
                     break
 
             attempts += 1
