@@ -22,9 +22,9 @@ def convert_to_area_import_schema(db_area_import: AreaImportModel) -> AreaImport
         has_building_type=db_area_import.has_building_type,
         has_building_levels=db_area_import.has_building_levels,
         has_building_levels_undg=db_area_import.has_building_levels_undg,
-        hc_has_expected_tags=db_area_import.hc_has_expected_tags,  # noqa
-        hc_expected_tags=db_area_import.hc_expected_tags,
-        hc_result_tags=db_area_import.hc_result_tags,
+        data_check_has_expected_tags=db_area_import.data_check_has_expected_tags,  # noqa
+        data_check_expected_tags=db_area_import.data_check_expected_tags,
+        data_check_result_tags=db_area_import.data_check_result_tags,
     )
 
 

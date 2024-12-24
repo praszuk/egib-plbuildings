@@ -6,12 +6,14 @@ class AreaImport {
         DOWNLOADING_ERROR: 'downloading_error',
         PARSING_ERROR: 'parsing_error',
         EMPTY_DATA_ERROR: 'empty_data_error',
+        DATA_CHECK_ERROR: 'data_check_error',
     }
     static translationResultStatusPl = {
-        success: "Sukces",
-        downloading_error: "Błąd pobierania",
-        parsing_error: "Błąd przetwarzania",
-        empty_data_error: "Brak danych"
+        success: 'Sukces',
+        downloading_error: 'Błąd pobierania',
+        parsing_error: 'Błąd przetwarzania',
+        empty_data_error: 'Brak danych',
+        data_check_error: 'Błąd sprawdzania danych',
     }
 
     constructor({
@@ -25,9 +27,9 @@ class AreaImport {
                     has_building_type,
                     has_building_levels,
                     has_building_levels_undg: has_building_levels_underground,
-                    hc_has_expected_tags,
-                    hc_expected_tags,
-                    hc_result_tags
+                    data_check_has_expected_tags,
+                    data_check_expected_tags,
+                    data_check_result_tags
                 }) {
         this.id = id;
         this.name = name;
@@ -38,9 +40,9 @@ class AreaImport {
         this.hasBuildingType = has_building_type;
         this.hasBuildingLevels = has_building_levels;
         this.hasBuildingLevelsUnderground = has_building_levels_underground;
-        this.hcHasExpectedtags = hc_has_expected_tags;
-        this.hcExpectedTags = hc_expected_tags;
-        this.hcResultTags = hc_result_tags;
+        this.dcHasExpectedtags = data_check_has_expected_tags;
+        this.dcExpectedTags = data_check_expected_tags;
+        this.dcResultTags = data_check_result_tags;
 
         if (Object.values(AreaImport.ResultStatus).includes(result_status)) {
             this.resultStatus = result_status;
@@ -125,11 +127,9 @@ function updateSummarySection(areaImportData) {
 function getBackgroundColorByStatus(areaImport) {
     switch (areaImport.resultStatus) {
         case AreaImport.ResultStatus.SUCCESS:
-            if (areaImport.hcHasExpectedtags) {
-                return '#00FF00';
-            } else {
-                return '#FFD700';
-            }
+            return '#00FF00';
+        case AreaImport.ResultStatus.DATA_CHECK_ERROR:
+            return '#FFD700';
         case AreaImport.ResultStatus.DOWNLOADING_ERROR:
         case AreaImport.ResultStatus.PARSING_ERROR:
             return '#FF0000';
@@ -139,7 +139,7 @@ function getBackgroundColorByStatus(areaImport) {
 }
 
 
-function createTagsTooltipDiv(hcExpectedTags, hcResultTags) {
+function createTagsTooltipDiv(dcExpectedTags, dcResultTags) {
     const divExpectedVsReceivedTags = document.createElement('div');
 
     const divTitleTags = document.createElement('div');
@@ -147,11 +147,11 @@ function createTagsTooltipDiv(hcExpectedTags, hcResultTags) {
 
     const divExpectedTags = document.createElement('div');
     divExpectedTags.className = 'tags';
-    divExpectedTags.textContent = tagsObjectToString(hcExpectedTags);
+    divExpectedTags.textContent = tagsObjectToString(dcExpectedTags);
 
     const divResultTags = document.createElement('div');
     divResultTags.className = 'tags';
-    divResultTags.textContent = tagsObjectToString(hcResultTags);
+    divResultTags.textContent = tagsObjectToString(dcResultTags);
 
     divExpectedVsReceivedTags.appendChild(divTitleTags);
     divExpectedVsReceivedTags.appendChild(divExpectedTags);
@@ -176,7 +176,7 @@ function createTooltipHTMLContent(areaImport) {
 
     ulElement.appendChild(liStatus);
 
-    if (areaImport.resultStatus === AreaImport.ResultStatus.SUCCESS) {
+    if ([AreaImport.ResultStatus.SUCCESS, AreaImport.ResultStatus.DATA_CHECK_ERROR].includes(areaImport.resultStatus)) {
         const liBuildingCount = document.createElement('li');
         liBuildingCount.textContent = `Liczba budynków: ${areaImport.buildingCount}`;
 
@@ -195,9 +195,9 @@ function createTooltipHTMLContent(areaImport) {
         ulElement.appendChild(liHasBuildingLevels);
         ulElement.appendChild(liHasBuildingUndergroundLevels);
 
-        if (!areaImport.hcHasExpectedtags) {
+        if (!areaImport.dcHasExpectedtags) {
             ulElement.appendChild(document.createElement('hr'));
-            ulElement.appendChild(createTagsTooltipDiv(areaImport.hcExpectedTags, areaImport.hcResultTags));
+            ulElement.appendChild(createTagsTooltipDiv(areaImport.dcExpectedTags, areaImport.dcResultTags));
         }
     }
     tooltipContentDiv.appendChild(ulElement);
