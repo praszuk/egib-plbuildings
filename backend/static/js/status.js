@@ -6,12 +6,14 @@ class AreaImport {
         DOWNLOADING_ERROR: 'downloading_error',
         PARSING_ERROR: 'parsing_error',
         EMPTY_DATA_ERROR: 'empty_data_error',
+        DATA_CHECK_ERROR: 'data_check_error',
     }
     static translationResultStatusPl = {
-        success: "Sukces",
-        downloading_error: "Błąd pobierania",
-        parsing_error: "Błąd przetwarzania",
-        empty_data_error: "Brak danych"
+        success: 'Sukces',
+        downloading_error: 'Błąd pobierania',
+        parsing_error: 'Błąd przetwarzania',
+        empty_data_error: 'Brak danych',
+        data_check_error: 'Błąd sprawdzania danych',
     }
 
     constructor({
@@ -125,11 +127,9 @@ function updateSummarySection(areaImportData) {
 function getBackgroundColorByStatus(areaImport) {
     switch (areaImport.resultStatus) {
         case AreaImport.ResultStatus.SUCCESS:
-            if (areaImport.dcHasExpectedtags) {
-                return '#00FF00';
-            } else {
-                return '#FFD700';
-            }
+            return '#00FF00';
+        case AreaImport.ResultStatus.DATA_CHECK_ERROR:
+            return '#FFD700';
         case AreaImport.ResultStatus.DOWNLOADING_ERROR:
         case AreaImport.ResultStatus.PARSING_ERROR:
             return '#FF0000';
@@ -176,7 +176,7 @@ function createTooltipHTMLContent(areaImport) {
 
     ulElement.appendChild(liStatus);
 
-    if (areaImport.resultStatus === AreaImport.ResultStatus.SUCCESS) {
+    if ([AreaImport.ResultStatus.SUCCESS, AreaImport.ResultStatus.DATA_CHECK_ERROR].includes(areaImport.resultStatus)) {
         const liBuildingCount = document.createElement('li');
         liBuildingCount.textContent = `Liczba budynków: ${areaImport.buildingCount}`;
 
