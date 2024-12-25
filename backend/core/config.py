@@ -27,9 +27,6 @@ class Settings(BaseSettings):
     COUNTIES_GEOM_CACHE_FILENAME: Final[str] = path.join(CACHE_DIR, '.counties_geoms.pickle')
     COMMUNES_DATA_FILENAME: Final[str] = path.join(DATA_DIR, 'communes.geojson')
     COMMUNES_GEOM_CACHE_FILENAME: Final[str] = path.join(CACHE_DIR, '.communes_geoms.pickle')
-    AREAS_HEALTHCHECK_CACHE_FILENAME: Final[str] = path.join(
-        CACHE_DIR, '.areas_healthcheck_result.json'
-    )
 
     ACCESS_LOGGER: Final[str] = 'egib_access'
     DEFAULT_LOGGER: Final[str] = 'egib_default'
