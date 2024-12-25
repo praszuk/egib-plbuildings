@@ -13,11 +13,6 @@ router = APIRouter()
 
 @router.get('/')
 async def get_building_at(
-    location: Location = Depends(Location),
-    db: Session = Depends(get_db),
-    live: bool = False,
+    location: Location = Depends(Location), db: Session = Depends(get_db)
 ) -> Dict[str, Any]:
-    if not live:
-        return await buildings.query_building_from_db_at(db, location.lat, location.lon)
-
-    return await buildings.get_building_live_at(location.lat, location.lon)
+    return await buildings.query_building_from_db_at(db, location.lat, location.lon)

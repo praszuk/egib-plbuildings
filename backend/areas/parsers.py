@@ -84,10 +84,6 @@ class BaseAreaParser:
         pass
 
     @abstractmethod
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        pass
-
-    @abstractmethod
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         pass
 
@@ -248,12 +244,6 @@ class EpodgikAreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
-        return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
-        )
-
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
@@ -294,11 +284,6 @@ class GeoportalAreaParser(BaseAreaParser):
             f'?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES={self.url_typenames}'
         )
 
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        x, y = self.reproject_coordinates(lat, lon, self.custom_crs)
-        bbox = ','.join(map(str, [x, y, x, y]))
-        return merge_url_query_params(self.build_buildings_url(), {'bbox': bbox})
-
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
@@ -337,14 +322,6 @@ class Geoportal2AreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        offset = 0.00001
-        # geoportal2 ewmapa services return 400 if lat1 == lat2 or lon1 == lon2
-        bbox = ','.join(map(str, [lat, lon, lat + offset, lon + offset]))
-        return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
-        )
-
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
@@ -369,12 +346,6 @@ class GIPortalAreaParser(BaseAreaParser):
             f'&REQUEST=GetFeature'
             f'&TYPENAMES=ms:budynki'
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
-        )
-
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
-        return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
@@ -407,12 +378,6 @@ class WarszawaAreaParser(BaseAreaParser):
             '&request=GetFeature'
             '&typeNames=wfs:budynki'
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
-        )
-
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
-        return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_FULL_SRS_NAME}'}
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
@@ -451,27 +416,6 @@ class WebEwidAreaParser(BaseAreaParser):
     def build_buildings_url(self) -> str:
         return merge_url_query_params(self.buildings_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
 
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        """
-        Note: At 2024 BBOX filtering still not work, or work completely randomly.
-        This function exists only for healthcheck.
-        """
-        buildings_url = self.buildings_url()
-
-        if self.custom_crs and self.custom_crs != 4326:
-            x, y = self.reproject_coordinates(lat, lon, self.custom_crs)
-            url = merge_url_query_params(buildings_url, {'BBOX': ','.join(map(str, [x, y, x, y]))})
-        else:
-            url = merge_url_query_params(
-                buildings_url,
-                {
-                    'SRSNAME': self.DEFAULT_SRS_NAME,
-                    'BBOX': ','.join(map(str, [lat, lon, lat, lon])) + f',{self.DEFAULT_SRS_NAME}',
-                },
-            )
-
-        return url
-
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
@@ -501,12 +445,6 @@ class WroclawAreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        bbox = ','.join(map(str, [lat, lon, lat, lon]))
-        return merge_url_query_params(
-            self.build_buildings_url(), {'bbox': f'{bbox},{self.DEFAULT_SRS_NAME}'}
-        )
-
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
 
@@ -532,9 +470,6 @@ class LublinAreaParser(BaseAreaParser):
             'https://gis.lublin.eu/opendata/wfs'
             '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:budynki'
         )
-
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        raise NotImplementedError
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
@@ -573,9 +508,6 @@ class ChorzowAreaParser(BaseAreaParser):
             '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=chorzow_workspace:budynki'
         )
 
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        raise NotImplementedError
-
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
@@ -604,9 +536,6 @@ class KatowiceAreaParser(BaseAreaParser):
             'https://emapa.katowice.eu/arcgis/services/wms_egib_gugik/MapServer/WFSServer'
             '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=wms_egib_gugik:budynki'
         )
-
-    def build_buildings_bbox_url(self, lat: float, lon: float) -> str:
-        raise NotImplementedError
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}

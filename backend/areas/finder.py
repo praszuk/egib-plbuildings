@@ -164,36 +164,4 @@ class AreaFinder:
         return areas
 
 
-def find_nearest_feature(lat: float, lon: float, geojson: dict[str, Any]) -> dict[str, Any]:
-    """
-    :param lat: latitude
-    :param lon: longitude
-    :param geojson: with features
-    :return: if lat lon is inside the feature, then it returns the first match feature,
-    else the neareast to the edge of geometry
-    """
-    point = ogr.Geometry(ogr.wkbPoint)
-    point.AddPoint(lon, lat)
-
-    nearest_feature = None
-    min_distance = float('inf')
-
-    for feature in geojson['features']:
-        geometry = ogr.CreateGeometryFromJson(str(feature['geometry']))
-
-        # Check if the point is inside the geometry
-        if geometry.Contains(point):
-            return feature
-
-        # Calculate the distance from the point to the geometry
-        distance = point.Distance(geometry)
-
-        # Find the nearest feature
-        if distance < min_distance:
-            min_distance = distance
-            nearest_feature = feature
-
-    return nearest_feature
-
-
 area_finder = AreaFinder()
