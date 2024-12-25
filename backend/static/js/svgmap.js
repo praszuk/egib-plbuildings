@@ -21,8 +21,21 @@ class SvgAreaMap{
         pathElement.addEventListener('mousemove', (event) => {
             const svgRect = this.svgDocument.defaultView.frameElement.getBoundingClientRect();
 
-            tooltip.style.top = svgRect.top + event.clientY + window.scrollY + 10 + 'px';
-            tooltip.style.left = svgRect.left + event.clientX + window.scrollX + 10 + 'px';
+            const currentTooltipRectHeight = tooltip.getBoundingClientRect().height;
+            const maxTooltipRectHeight = 240; // It could be dynamic too, but hardcoding makes better UX.
+            const cursorPadding = 10;
+
+            const cursorX = svgRect.left + event.clientX + window.scrollX;
+            const cursorY = svgRect.top + event.clientY + window.scrollY;
+
+            const isTooltipFitsBelowCursor = cursorY + maxTooltipRectHeight + cursorPadding < window.scrollY + window.innerHeight;
+
+            if (isTooltipFitsBelowCursor) {
+                tooltip.style.top = cursorY + cursorPadding + 'px';
+            } else {
+                tooltip.style.top = cursorY - currentTooltipRectHeight - cursorPadding + 'px';
+            }
+            tooltip.style.left = svgRect.left + event.clientX + window.scrollX + cursorPadding + 'px';
         });
 
         pathElement.addEventListener('mouseout', () => {
