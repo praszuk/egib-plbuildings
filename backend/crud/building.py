@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from backend.models.building import Building
 
 
-async def query_building_from_db_at(db: Session, lat: float, lon: float) -> Dict[str, Any]:
+async def get_building_at(db: Session, lat: float, lon: float) -> Dict[str, Any]:
     # fmt: off
     query = (
         select(
