@@ -24,7 +24,7 @@ counties = {
         teryt='0202',
         lat=50.73300,
         lon=16.64360,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     '0203': AreaExpectedBuildingData(
         name='głogowski',
@@ -158,8 +158,8 @@ counties = {
     '0218': AreaExpectedBuildingData(
         name='średzki',
         teryt='0218',
-        lat=51.26230,
-        lon=15.56843,
+        lat=51.16290,
+        lon=16.59712,
         expected_tags={'building': 'office'},
     ),
     '0219': AreaExpectedBuildingData(
@@ -1472,13 +1472,14 @@ counties = {
             'building:levels': 3,
         },
     ),
-    '1609': AreaExpectedBuildingData(
+    '1609': AreaExpectedBuildingData(  # gmina Prószków
         name='opolski',
         teryt='1609',
-        lat=51.14876,
-        lon=21.97046,
+        lat=50.57407,
+        lon=17.87299,
         expected_tags={
             'building': 'office',
+            'building:levels': 3,
         },
     ),
     '1611': AreaExpectedBuildingData(
@@ -1917,8 +1918,8 @@ counties = {
     '2210': AreaExpectedBuildingData(
         name='nowodworski',
         teryt='2210',
-        lat=52.42621,
-        lon=20.71990,
+        lat=54.21372,
+        lon=19.11288,
         expected_tags={'building': 'office'},
     ),
     '2211': AreaExpectedBuildingData(

@@ -176,3 +176,12 @@ def load_katowice_gml(test_katowice_data_dir):
             return f.read()
 
     return inner
+
+
+@pytest.fixture(scope='session')
+def area_finder():
+    from backend.areas.finder import area_finder as area_finder_instance
+
+    area_finder_instance.load_data()
+
+    return area_finder_instance
