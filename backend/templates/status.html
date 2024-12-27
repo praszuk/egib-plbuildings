@@ -5,16 +5,35 @@
     <title>EGiB stan obszarów</title>
     <style>
         html, body {
+            margin: 0 0 0 5px;
+            padding: 0;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
         }
         h1, h2 {
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin: 5px 0 0 0;
         }
-        .status-summary ul strong {
-          display: inline-block;
-          width: 180px;
-          text-align: left;
+        .inner {
+            margin-left: 15px;
+            margin-top: 5px;
+        }
+        dl {
+            margin: 0;
+        }
+        dt {
+            float: left;
+            clear: both;
+            width: 13em;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+        dt:after {
+            content: ":";
+        }
+        dd {
+            float: left;
         }
         .tooltip {
             position: absolute;
@@ -22,7 +41,7 @@
             color: #fff;
             opacity: 85%;
             padding: 5px;
-            border-radius: 3px;
+            border-radius: 5px;
             visibility: hidden;
             pointer-events: none;
             z-index: 10;
@@ -35,24 +54,31 @@
     </head>
     <body>
         <h1>Raport importu</h1>
-        <label for="report-type">Typ raportu:</label>
-        <select id="report-type">
-            <option value="latest">Najświeższy import</option>
-            <option value="stable">Stabilny import</option>
-        </select>
+        <div class="inner">
+            <label for="report-type">Typ raportu:</label>
+            <select id="report-type">
+                <option value="latest">Najświeższy import</option>
+                <option value="stable">Stabilny import</option>
+            </select>
+        </div>
         <h2>Podsumowanie</h2>
-        <div class="status-summary">
-            <ul>
-                <li><strong>Start: </strong><span id="summary-start-dt"></span></li>
-                <li><strong>Koniec: </strong><span id="summary-end-dt"></span></li>
-                <li><strong>Łączny czas trwania: </strong><span id="summary-duration"></span></li>
-                <li><strong>Zaimportowane powiaty: </strong><span id="summary-counties-info"></span></li>
-                <li><strong>Zaimportowane gminy: </strong><span id="summary-communes-info"></span></li>
-            </ul>
+        <div class="status-summary inner">
+            <dl>
+                <dt>Start</dt>
+                <dd><span id="summary-start-dt"></span></dd>
+                <dt>Koniec</dt>
+                <dd><span id="summary-end-dt"></span></dd>
+                <dt>Łączny czas trwania</dt>
+                <dd><span id="summary-duration"></span></dd>
+                <dt>Zaimportowane powiaty</dt>
+                <dd><span id="summary-counties-info"></span></dd>
+                <dt>Zaimportowane gminy</dt>
+                <dd><span id="summary-communes-info"></span></dd>
+            </dl>
         </div>
         <h2>Powiaty:</h2>
-        <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
         <div id="tooltip" class="tooltip"></div>
+        <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
     </body>
     <script src="{{ url_for('static', path='/js/timeutils.js') }}"></script>
     <script src="{{ url_for('static', path='/js/svgmap.js') }}"></script>

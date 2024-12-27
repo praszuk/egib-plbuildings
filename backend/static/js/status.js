@@ -231,6 +231,10 @@ async function updateReport() {
     updateSvgMap(document.getElementById('counties-svg'), areaImportData);
 }
 
+// Initial SVG resize to fit the page
+const svgMap = document.getElementById('counties-svg');
+svgMap.style.height = `${window.innerHeight - svgMap.offsetTop}px`;
+
 document.getElementById('report-type').addEventListener('change', updateReport);
 document.getElementById('counties-svg').addEventListener('load', async function () {
     await updateReport();
