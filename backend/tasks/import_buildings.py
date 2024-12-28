@@ -142,7 +142,7 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
 async def area_import_in_parallel(
     teryt_ids: list[str],
     max_workers: int = 3,
-    max_attempts_per_area: int = 3,
+    max_attempts_per_area: int = 5,
     delay_between_attempts: float = 10,
 ):
     default_logger.info(

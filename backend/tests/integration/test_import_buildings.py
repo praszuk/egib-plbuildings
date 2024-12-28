@@ -79,7 +79,7 @@ async def test_area_import_in_parallel_data_check_failed_building_not_found(db, 
         area_parser = WarszawaAreaParser(name='test')
         asyncio.run(area_import_in_parallel(teryt_ids=['1465'], delay_between_attempts=0.0001))
         mock_get.assert_called_with(area_parser.build_buildings_url())
-        assert mock_get.call_count == 3
+        assert mock_get.call_count == 5
 
     area_import = db.query(AreaImport).first()
     expected_data = patched_all_areas_data['1465']
