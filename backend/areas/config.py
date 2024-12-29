@@ -418,14 +418,6 @@ all_counties: Dict[str, AreaParser] = {
     '2403': Geoportal2AreaParser(name='cieszyński', url_code='cieszyn'),
     '2404': Geoportal2AreaParser(name='częstochowski', url_code='czestochowa'),
     '2405': WebEwidAreaParser(name='gliwicki', url_code='gliwicki', port=4443),
-    # '2406': GeoportalAreaParser(
-    #     name='kłobucki',
-    #     base_url='https://mapy.powiatklobucki.pl/ggp',
-    #     url_typenames='budynki',
-    #     gml_prefix='WMS',
-    #     gml_geometry_key='MSGEOMETRY',
-    #     custom_crs=2177,
-    # ),
     '2406': Geoportal2AreaParser(
         name='kłobucki', base_url='https://powiatklobucki.geoportal2.pl/map/geoportal/wfse.php'
     ),
