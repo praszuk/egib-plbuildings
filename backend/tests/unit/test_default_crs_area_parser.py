@@ -9,8 +9,8 @@ area = GeoportalAreaParser('test_area')
 
 class TestBasicBuilding:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_geoportal_gml):
-        return load_geoportal_gml('gml_building_2180_crs.xml')
+    def gml_content(self, load_gml):
+        return load_gml('geoportal', 'gml_building_2180_crs.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
