@@ -10,10 +10,10 @@ from backend.tasks.import_buildings import area_import_in_parallel
 
 
 @pytest.mark.anyio
-async def test_area_import_in_parallel_success(db, load_warszawa_gml):
+async def test_area_import_in_parallel_success(db, load_gml):
     mock_response = AsyncMock()
     mock_response.status_code = 200
-    mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
+    mock_response.text = load_gml('warszawa', 'gml_multiple_polygons.xml')
 
     patched_all_areas_data = {
         '1465': AreaExpectedBuildingData(
@@ -54,10 +54,10 @@ async def test_area_import_in_parallel_success(db, load_warszawa_gml):
 
 
 @pytest.mark.anyio
-async def test_area_import_in_parallel_data_check_failed_building_not_found(db, load_warszawa_gml):
+async def test_area_import_in_parallel_data_check_failed_building_not_found(db, load_gml):
     mock_response = AsyncMock()
     mock_response.status_code = 200
-    mock_response.text = load_warszawa_gml('gml_multiple_polygons.xml')
+    mock_response.text = load_gml('warszawa', 'gml_multiple_polygons.xml')
 
     patched_all_areas_data = {
         '1465': AreaExpectedBuildingData(

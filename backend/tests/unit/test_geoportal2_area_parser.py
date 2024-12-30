@@ -7,8 +7,8 @@ area = Geoportal2AreaParser('test_area', 'test_url_code')
 
 class TestNoBuildingData:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_geoportal2_gml):
-        return load_geoportal2_gml('gml_no_building.xml')
+    def gml_content(self, load_gml):
+        return load_gml('geoportal2', 'gml_no_building.xml')
 
     def test_empty_geojson(self, gml_content):
         geojson = area.parse_gml_to_geojson(gml_content)
@@ -17,8 +17,8 @@ class TestNoBuildingData:
 
 class TestBasicBuilding:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_geoportal2_gml):
-        return load_geoportal2_gml('gml_basic_building.xml')
+    def gml_content(self, load_gml):
+        return load_gml('geoportal2', 'gml_basic_building.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
@@ -45,8 +45,8 @@ class TestBasicBuilding:
 
 class TestBuildingNoBuildingType:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_geoportal2_gml):
-        return load_geoportal2_gml('gml_building_no_building_type.xml')
+    def gml_content(self, load_gml):
+        return load_gml('geoportal2', 'gml_building_no_building_type.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
@@ -60,8 +60,8 @@ class TestBuildingNoBuildingType:
 
 class TestMultipleBuildings:
     @pytest.fixture(scope='class')
-    def gml_content(self, load_geoportal2_gml):
-        return load_geoportal2_gml('gml_multiple_buildings.xml')
+    def gml_content(self, load_gml):
+        return load_gml('geoportal2', 'gml_multiple_buildings.xml')
 
     @pytest.fixture(scope='class')
     def geojson(self, gml_content):
