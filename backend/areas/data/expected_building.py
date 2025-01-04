@@ -2341,7 +2341,7 @@ counties = {
         teryt='2609',
         lat=50.68592,
         lon=21.74037,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2610': AreaExpectedBuildingData(
         name='skarżyski',
@@ -2369,7 +2369,7 @@ counties = {
         teryt='2613',
         lat=50.84963,
         lon=19.97492,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2661': AreaExpectedBuildingData(
         name='miasto Kielce',
@@ -2679,6 +2679,16 @@ counties = {
             'building:levels:underground': 1,
         },
     ),
+    '3018': AreaExpectedBuildingData(
+        name='ostrzeszowski',
+        teryt='3018',
+        lat=51.42780,
+        lon=17.92480,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
     '3019': AreaExpectedBuildingData(
         name='pilski',
         teryt='3019',
@@ -2726,6 +2736,16 @@ counties = {
             'building': 'office',
             'building:levels': 3,
             'building:levels:underground': 1,
+        },
+    ),
+    '3025': AreaExpectedBuildingData(
+        name='średzki',
+        teryt='3025',
+        lat=52.23016,
+        lon=17.27867,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
         },
     ),
     '3026': AreaExpectedBuildingData(
