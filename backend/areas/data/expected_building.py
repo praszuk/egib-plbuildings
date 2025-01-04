@@ -2341,7 +2341,7 @@ counties = {
         teryt='2609',
         lat=50.68592,
         lon=21.74037,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2610': AreaExpectedBuildingData(
         name='skarżyski',
@@ -2369,7 +2369,7 @@ counties = {
         teryt='2613',
         lat=50.84963,
         lon=19.97492,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2661': AreaExpectedBuildingData(
         name='miasto Kielce',
