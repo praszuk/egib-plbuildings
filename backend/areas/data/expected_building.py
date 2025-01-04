@@ -2728,6 +2728,16 @@ counties = {
             'building:levels:underground': 1,
         },
     ),
+    '3025': AreaExpectedBuildingData(
+        name='średzki',
+        teryt='3025',
+        lat=52.23016,
+        lon=17.27867,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
     '3026': AreaExpectedBuildingData(
         name='śremski',
         teryt='3026',
