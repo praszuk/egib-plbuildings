@@ -2679,6 +2679,16 @@ counties = {
             'building:levels:underground': 1,
         },
     ),
+    '3018': AreaExpectedBuildingData(
+        name='ostrzeszowski',
+        teryt='3018',
+        lat=51.42780,
+        lon=17.92480,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+        },
+    ),
     '3019': AreaExpectedBuildingData(
         name='pilski',
         teryt='3019',
