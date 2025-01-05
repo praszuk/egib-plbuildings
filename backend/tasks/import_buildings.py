@@ -1,6 +1,7 @@
 import asyncio
 import datetime
 
+from contextlib import contextmanager
 from dataclasses import dataclass
 
 from httpx import AsyncClient, HTTPError, Timeout
@@ -13,7 +14,7 @@ from backend.areas.parsers import BaseAreaParser
 from backend.core.logger import default_logger
 from backend.models.building import Building
 from backend.models.area_import import AreaImport, ResultStatus
-from backend.database.session import SessionLocal
+from backend.database.session import get_db
 from backend.exceptions import ParserError
 
 
@@ -110,7 +111,7 @@ async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> Import
     if dc_result_tags == dc_expected_tags:
         status = ResultStatus.SUCCESS
         default_logger.debug(f'[IMPORT] [{teryt}] Data check passed. Replacing buildings in db.')
-        with SessionLocal() as session:
+        with contextmanager(get_db)() as session:
             session.query(Building).filter(Building.teryt == teryt).delete()
             session.execute(insert(Building).values(geometry=bindparam('wkt')), buildings_data)
             session.commit()
@@ -189,7 +190,7 @@ async def area_import_in_parallel(
             data_check_expected_tags=import_result.data_check_expected_tags,
             data_check_result_tags=import_result.data_check_result_tags,
         )
-        with SessionLocal() as session:
+        with contextmanager(get_db)() as session:
             session.add(area_import)
             session.commit()
 
