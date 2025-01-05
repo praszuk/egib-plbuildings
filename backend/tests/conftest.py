@@ -1,10 +1,11 @@
-from os import path, environ
-
 import httpx
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
+
+from os import path, environ
+from unittest.mock import patch
 
 from backend.core.config import settings
 from backend.database.base import Base
@@ -68,13 +69,20 @@ def db(setup_db):
     Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)  # noqa
     db_session = Session()
 
-    try:
+    def override_get_db():
         yield db_session
 
-    finally:
-        db_session.close()
-        Base.metadata.drop_all(bind=engine)
-        engine.dispose()
+    # patching here, because import task use external process
+    # it doesn't have access to app overridden instance, so it won't work
+    with patch('backend.tasks.import_buildings.get_db', side_effect=lambda: override_get_db()):
+        try:
+            app.dependency_overrides[get_db] = override_get_db
+            yield db_session
+
+        finally:
+            db_session.close()
+            Base.metadata.drop_all(bind=engine)
+            engine.dispose()
 
 
 @pytest.fixture
@@ -103,7 +111,6 @@ def project_data_dir():
 
 @pytest.fixture(name='client')
 def test_client(db):
-    app.dependency_overrides[get_db] = lambda: db
     client = TestClient(app)
     client.base_url = client.base_url.join(settings.API_V1_STR)
     yield client
@@ -111,7 +118,6 @@ def test_client(db):
 
 @pytest.fixture(name='async_client')
 async def test_async_client(db):
-    app.dependency_overrides[get_db] = lambda: db
     async with httpx.AsyncClient(app=app, base_url='http://test') as client:
         client.base_url = client.base_url.join(settings.API_V1_STR)
         yield client

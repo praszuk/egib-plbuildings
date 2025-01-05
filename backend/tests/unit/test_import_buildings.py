@@ -32,7 +32,7 @@ async def test_area_import_attempt_success(db, load_gml):
 
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
+    ) as mock_get, patch(
         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
     ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
         area_parser = WarszawaAreaParser(name='test')
@@ -161,7 +161,7 @@ async def test_area_import_attempt_data_check_error(db, load_gml):
 
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
+    ) as mock_get, patch(
         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
     ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
         area_parser = WarszawaAreaParser(name='test')

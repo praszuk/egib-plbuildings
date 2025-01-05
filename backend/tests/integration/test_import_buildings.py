@@ -27,7 +27,7 @@ async def test_area_import_in_parallel_success(db, load_gml):
 
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch('backend.tasks.import_buildings.SessionLocal', return_value=db), patch(
+    ) as mock_get, patch(
         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
     ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
         area_parser = WarszawaAreaParser(name='test')
@@ -71,9 +71,7 @@ async def test_area_import_in_parallel_data_check_failed_building_not_found(db, 
 
     with patch(
         'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch(
-        'backend.tasks.import_buildings.SessionLocal', return_value=db
-    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True), patch(
+    ) as mock_get, patch.dict(all_areas_data, patched_all_areas_data, clear=True), patch(
         'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
     ):
         area_parser = WarszawaAreaParser(name='test')
