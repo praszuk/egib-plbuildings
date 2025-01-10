@@ -68,6 +68,7 @@ function tagsObjectToString(tags) {
 }
 
 const areaImportCache = {};
+
 async function fetchAreaImportData(type) {
     if (type in areaImportCache) {
         return areaImportCache[type];
@@ -219,8 +220,37 @@ function updateSvgMap(svgElement, latestAreaImport) {
     });
 }
 
+function updateReportVisualizationSelectOptions(reportType) {
+    const reportVisualizationSelectElem = document.getElementById('report-visualization');
+    while (reportVisualizationSelectElem.options.length > 0) {
+        reportVisualizationSelectElem.remove(0);
+    }
+
+    let options = [
+        {
+            name: 'status',
+            label: 'Status',
+        },
+    ];
+    if (reportType === 'stable') {
+        options = [
+            {
+                name: 'last_updated_dt',
+                label: 'Czas ostatniej aktualizacji',
+            }
+        ].concat(options);
+    }
+    options.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.id = option.name;
+        optionElement.text = option.label;
+        reportVisualizationSelectElem.add(optionElement);
+    })
+}
+
 async function updateReport() {
     const reportType = document.getElementById('report-type').value;
+    updateReportVisualizationSelectOptions(reportType);
     let areaImportData;
     if (reportType === 'latest') {
         areaImportData = await fetchLatestAreaImport();
