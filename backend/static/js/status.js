@@ -1,4 +1,6 @@
 const tooltip = document.getElementById('tooltip');
+const reportVisualizationSelectElem = document.getElementById('report-visualization');
+const reportTypeSelectElem = document.getElementById('report-type');
 
 class AreaImport {
     static ResultStatus = {
@@ -60,6 +62,26 @@ class AreaImport {
     }
 }
 
+const ReportType = {
+    LATEST: 'latest',
+    STABLE: 'stable',
+}
+
+const VisualizationType = {
+    STATUS: 'status',
+    LAST_UPDATED_DT: 'last_updated_dt',
+}
+
+function getVisualizationType() {
+    const option = reportVisualizationSelectElem.options[reportVisualizationSelectElem.selectedIndex];
+    return VisualizationType[Object.keys(VisualizationType).find(key => VisualizationType[key] === option.value)]
+}
+
+function getReportType() {
+    const option = reportTypeSelectElem.options[reportTypeSelectElem.selectedIndex];
+    return ReportType[Object.keys(ReportType).find(key => ReportType[key] === option.value)]
+}
+
 function tagsObjectToString(tags) {
     if (tags === null) {
         return '<brak danych>';
@@ -69,12 +91,13 @@ function tagsObjectToString(tags) {
 
 const areaImportCache = {};
 
-async function fetchAreaImportData(type) {
+async function getAreaImportData(type) {
     if (type in areaImportCache) {
         return areaImportCache[type];
     }
     try {
-        const response = await fetch(`/api/v1/area_imports/${type}`);
+        const endpoint = type === ReportType.LATEST ? 'latest' : 'stable';
+        const response = await fetch(`/api/v1/area_imports/${endpoint}`);
         const data = await response.json();
         areaImportCache[type] = data.map(areaImportData => new AreaImport(areaImportData));
         return areaImportCache[type];
@@ -83,9 +106,6 @@ async function fetchAreaImportData(type) {
         return [];
     }
 }
-
-const fetchLatestAreaImport = () => fetchAreaImportData('latest');
-const fetchStableAreaImport = () => fetchAreaImportData('stable');
 
 function updateSummarySection(areaImportData) {
     let minStartTs = areaImportData[0].startTs;
@@ -136,6 +156,29 @@ function getBackgroundColorByStatus(areaImport) {
             return '#FF0000';
         case AreaImport.ResultStatus.EMPTY_DATA_ERROR:
             return '#89978A';
+    }
+}
+
+function getBackgroundColorBy(visualization, areaImportData) {
+    if (visualization === VisualizationType.STATUS) {
+        return areaImportData.map(function (areaImport) {
+            return {area: areaImport, color: getBackgroundColorByStatus(areaImport)}
+        })
+    } else if (visualization === VisualizationType.LAST_UPDATED_DT) {
+        return areaImportData.map(function (areaImport) {
+            const days = daysBetweenDates(new Date(areaImport.endTs), new Date());
+            let color;
+            if (days > 28) {
+                color = '#FF0000';
+            } else if (days > 14) {
+                color = '#FFA500';
+            } else if (days > 7) {
+                color = '#FFD700';
+            } else {
+                color = '#00FF00';
+            }
+            return {area: areaImport, color: color}
+        })
     }
 }
 
@@ -207,65 +250,70 @@ function createTooltipHTMLContent(areaImport) {
 }
 
 
-function updateSvgMap(svgElement, latestAreaImport) {
+function updateSvgMap(svgElement, areaImportDataWithColors) {
     const svgAreaMap = new SvgAreaMap(svgElement.contentDocument);
-
-    latestAreaImport.forEach(areaImport => {
-        const countyPathElement = svgAreaMap.getPathElementById(areaImport.teryt);
+    areaImportDataWithColors.forEach(areaWithColor => {
+        const countyPathElement = svgAreaMap.getPathElementById(areaWithColor.area.teryt);
         if (countyPathElement == null) {  // It may happen for areas inside a counties
             return;
         }
-        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport));
-        svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaImport));
+        svgAreaMap.fillAreaBackground(countyPathElement, areaWithColor.color);
+        svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaWithColor.area));
     });
 }
 
-function updateReportVisualizationSelectOptions(reportType) {
-    const reportVisualizationSelectElem = document.getElementById('report-visualization');
+function initReportVisualizationSelectOptions(reportType) {
     while (reportVisualizationSelectElem.options.length > 0) {
+        // noinspection JSCheckFunctionSignatures
         reportVisualizationSelectElem.remove(0);
     }
 
     let options = [
         {
-            name: 'status',
+            value: VisualizationType.STATUS,
             label: 'Status',
         },
     ];
-    if (reportType === 'stable') {
+    if (reportType === ReportType.STABLE) {
         options = [
             {
-                name: 'last_updated_dt',
+                value: VisualizationType.LAST_UPDATED_DT,
                 label: 'Czas ostatniej aktualizacji',
             }
         ].concat(options);
     }
     options.forEach(option => {
         const optionElement = document.createElement('option');
-        optionElement.id = option.name;
+        optionElement.value = option.value;
         optionElement.text = option.label;
         reportVisualizationSelectElem.add(optionElement);
     })
 }
 
+
+function updateReportVisualization(visualizationType, areaImportData) {
+    const areaImportDataWithColors = getBackgroundColorBy(visualizationType, areaImportData);
+    updateSvgMap(document.getElementById('counties-svg'), areaImportDataWithColors);
+}
+
 async function updateReport() {
-    const reportType = document.getElementById('report-type').value;
-    updateReportVisualizationSelectOptions(reportType);
-    let areaImportData;
-    if (reportType === 'latest') {
-        areaImportData = await fetchLatestAreaImport();
-    } else if (reportType === 'stable') {
-        areaImportData = await fetchStableAreaImport();
-    }
+    const reportType = getReportType();
+    initReportVisualizationSelectOptions(reportType);
+
+    const areaImportData = await getAreaImportData(reportType);
     updateSummarySection(areaImportData);
-    updateSvgMap(document.getElementById('counties-svg'), areaImportData);
+    updateReportVisualization(getVisualizationType(), areaImportData);
 }
 
 // Initial SVG resize to fit the page
 const svgMap = document.getElementById('counties-svg');
 svgMap.style.height = `${window.innerHeight - svgMap.offsetTop}px`;
 
-document.getElementById('report-type').addEventListener('change', updateReport);
+reportTypeSelectElem.addEventListener('change', updateReport);
+reportVisualizationSelectElem.addEventListener('change', async () => {
+    const areaImportData = await getAreaImportData(getReportType());
+    updateReportVisualization(getVisualizationType(), areaImportData);
+});
 document.getElementById('counties-svg').addEventListener('load', async function () {
     await updateReport();
 });
