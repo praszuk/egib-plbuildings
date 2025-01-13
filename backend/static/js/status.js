@@ -57,8 +57,33 @@ class AreaImport {
         return this.teryt.length === 4;
     }
 
+    /**
+     * @returns {number} score 0-10 (incl.) which describes quality of imported data from the area
+     */
+    getScore() {
+        if (this.buildingCount === 0) {
+            return 0;
+        }
+
+        let score = 4; // if import data has any building it receives at least 4 points – building=yes
+        if (this.hasBuildingType) {
+            score += 3;
+        }
+        if (this.hasBuildingLevels) {
+            score += 2;
+        }
+        if (this.hasBuildingLevelsUnderground) {
+            score += 1;
+        }
+        return score;
+    }
+
     getResultStatusDisplay() {
         return AreaImport.translationResultStatusPl[this.resultStatus];
+    }
+
+    static maxScore() {
+        return 10;
     }
 }
 
@@ -70,6 +95,7 @@ const ReportType = {
 const VisualizationType = {
     STATUS: 'status',
     LAST_UPDATED_DT: 'last_updated_dt',
+    SCORE: 'score',
 }
 
 function getVisualizationType() {
@@ -179,6 +205,12 @@ function getBackgroundColorBy(visualization, areaImportData) {
             }
             return {area: areaImport, color: color}
         })
+    } else if (visualization === VisualizationType.SCORE) {
+        return areaImportData.map(function (areaImport) {
+            const score = areaImport.getScore();
+            const color = gradient('#FFFFFF', '#02419f', score / AreaImport.maxScore());
+            return {area: areaImport, color: color}
+        })
     }
 }
 
@@ -272,6 +304,10 @@ function initReportVisualizationSelectOptions(reportType) {
         {
             value: VisualizationType.STATUS,
             label: 'Status',
+        },
+        {
+            value: VisualizationType.SCORE,
+            label: 'Ocena',
         },
     ];
     if (reportType === ReportType.STABLE) {
