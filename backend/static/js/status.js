@@ -194,7 +194,7 @@ function getBackgroundColorBy(visualization, areaImportData) {
         return areaImportData.map(function (areaImport) {
             const days = daysBetweenDates(new Date(areaImport.endTs), new Date());
             let color;
-            if (days > 28) {
+            if (areaImport.resultStatus !== AreaImport.ResultStatus.SUCCESS || days > 28) {
                 color = '#FF0000';
             } else if (days > 14) {
                 color = '#FFA500';
