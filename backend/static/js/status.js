@@ -171,44 +171,47 @@ function updateSummarySection(areaImportData) {
 }
 
 
-function getBackgroundColorByStatus(areaImport) {
-    switch (areaImport.resultStatus) {
-        case AreaImport.ResultStatus.SUCCESS:
-            return '#00FF00';
-        case AreaImport.ResultStatus.DATA_CHECK_ERROR:
-            return '#FFD700';
-        case AreaImport.ResultStatus.DOWNLOADING_ERROR:
-        case AreaImport.ResultStatus.PARSING_ERROR:
-            return '#FF0000';
-        case AreaImport.ResultStatus.EMPTY_DATA_ERROR:
-            return '#89978A';
-    }
+const RESULT_STATUS_COLORS = {
+    [AreaImport.ResultStatus.SUCCESS]: '#00FF00',
+    [AreaImport.ResultStatus.DATA_CHECK_ERROR]: '#FFD700',
+    [AreaImport.ResultStatus.DOWNLOADING_ERROR]: '#FF0000',
+    [AreaImport.ResultStatus.PARSING_ERROR]: '#FF0000',
+    [AreaImport.ResultStatus.EMPTY_DATA_ERROR]: '#89978A',
+};
+
+const UPDATED_DT_COLORS = {
+    MORE_THAN_28_DAYS_OR_ERROR: '#FF0000',
+    MORE_THAN_14_DAYS: '#FFA500',
+    MORE_THAN_7_DAYS: '#FFD700',
+    LESS_OR_EQUALS_TO_7_DAYS: '#00FF00',
 }
+
+const SCORE_RANGE_COLORS = ['#FFFFFF', '#02419f'];
 
 function getBackgroundColorBy(visualization, areaImportData) {
     if (visualization === VisualizationType.STATUS) {
         return areaImportData.map(function (areaImport) {
-            return {area: areaImport, color: getBackgroundColorByStatus(areaImport)}
+            return {area: areaImport, color: RESULT_STATUS_COLORS[areaImport.resultStatus]}
         })
     } else if (visualization === VisualizationType.LAST_UPDATED_DT) {
         return areaImportData.map(function (areaImport) {
             const days = daysBetweenDates(new Date(areaImport.endTs), new Date());
             let color;
             if (areaImport.resultStatus !== AreaImport.ResultStatus.SUCCESS || days > 28) {
-                color = '#FF0000';
+                color = UPDATED_DT_COLORS.MORE_THAN_28_DAYS_OR_ERROR;
             } else if (days > 14) {
-                color = '#FFA500';
+                color = UPDATED_DT_COLORS.MORE_THAN_14_DAYS;
             } else if (days > 7) {
-                color = '#FFD700';
+                color = UPDATED_DT_COLORS.MORE_THAN_7_DAYS;
             } else {
-                color = '#00FF00';
+                color = UPDATED_DT_COLORS.LESS_OR_EQUALS_TO_7_DAYS;
             }
             return {area: areaImport, color: color}
         })
     } else if (visualization === VisualizationType.SCORE) {
         return areaImportData.map(function (areaImport) {
             const score = areaImport.getScore();
-            const color = gradient('#FFFFFF', '#02419f', score / AreaImport.maxScore());
+            const color = gradient(SCORE_RANGE_COLORS[0], SCORE_RANGE_COLORS[1], score / AreaImport.maxScore());
             return {area: areaImport, color: color}
         })
     }
