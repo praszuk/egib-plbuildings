@@ -175,7 +175,7 @@ const RESULT_STATUS_COLORS = {
     [AreaImport.ResultStatus.SUCCESS]: '#00FF00',
     [AreaImport.ResultStatus.DATA_CHECK_ERROR]: '#FFD700',
     [AreaImport.ResultStatus.DOWNLOADING_ERROR]: '#FF0000',
-    [AreaImport.ResultStatus.PARSING_ERROR]: '#FF0000',
+    [AreaImport.ResultStatus.PARSING_ERROR]: '#85002c',
     [AreaImport.ResultStatus.EMPTY_DATA_ERROR]: '#89978A',
 };
 
