@@ -46,3 +46,11 @@ function sumNonOverlappingDuration(intervals) {
 
     return totalDurationSeconds;
 }
+
+function daysBetweenDates(from, to) {
+    /**
+     * Simple helper function which gives estimated (ignoring edge-cases) days between dates.
+     */
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    return Math.round(Math.abs((from - to) / oneDay));
+}

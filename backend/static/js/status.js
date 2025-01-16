@@ -1,4 +1,8 @@
 const tooltip = document.getElementById('tooltip');
+const tooltipVisualizationInfo = document.getElementById('tooltip-visualization-info');
+const reportVisualizationSelectElem = document.getElementById('report-visualization');
+const reportTypeSelectElem = document.getElementById('report-type');
+const reportVisualizationInfoElem = document.getElementById('report-visualization-info');
 
 class AreaImport {
     static ResultStatus = {
@@ -10,10 +14,10 @@ class AreaImport {
     }
     static translationResultStatusPl = {
         success: 'Sukces',
-        downloading_error: 'Błąd pobierania',
-        parsing_error: 'Błąd przetwarzania',
+        downloading_error: 'Błąd pobierania danych',
+        parsing_error: 'Błąd przetwarzania danych',
+        data_check_error: 'Błąd walidacji danych',
         empty_data_error: 'Brak danych',
-        data_check_error: 'Błąd sprawdzania danych',
     }
 
     constructor({
@@ -55,9 +59,55 @@ class AreaImport {
         return this.teryt.length === 4;
     }
 
+    /**
+     * @returns {number} score 0-10 (incl.) which describes quality of imported data from the area
+     */
+    getScore() {
+        if (this.buildingCount === 0) {
+            return 0;
+        }
+
+        let score = 4; // if import data has any building it receives at least 4 points – building=yes
+        if (this.hasBuildingType) {
+            score += 3;
+        }
+        if (this.hasBuildingLevels) {
+            score += 2;
+        }
+        if (this.hasBuildingLevelsUnderground) {
+            score += 1;
+        }
+        return score;
+    }
+
     getResultStatusDisplay() {
         return AreaImport.translationResultStatusPl[this.resultStatus];
     }
+
+    static maxScore() {
+        return 10;
+    }
+}
+
+const ReportType = {
+    LATEST: 'latest',
+    STABLE: 'stable',
+}
+
+const VisualizationType = {
+    STATUS: 'status',
+    LAST_UPDATED_DT: 'last_updated_dt',
+    SCORE: 'score',
+}
+
+function getVisualizationType() {
+    const option = reportVisualizationSelectElem.options[reportVisualizationSelectElem.selectedIndex];
+    return VisualizationType[Object.keys(VisualizationType).find(key => VisualizationType[key] === option.value)]
+}
+
+function getReportType() {
+    const option = reportTypeSelectElem.options[reportTypeSelectElem.selectedIndex];
+    return ReportType[Object.keys(ReportType).find(key => ReportType[key] === option.value)]
 }
 
 function tagsObjectToString(tags) {
@@ -68,12 +118,14 @@ function tagsObjectToString(tags) {
 }
 
 const areaImportCache = {};
-async function fetchAreaImportData(type) {
+
+async function getAreaImportData(type) {
     if (type in areaImportCache) {
         return areaImportCache[type];
     }
     try {
-        const response = await fetch(`/api/v1/area_imports/${type}`);
+        const endpoint = type === ReportType.LATEST ? 'latest' : 'stable';
+        const response = await fetch(`/api/v1/area_imports/${endpoint}`);
         const data = await response.json();
         areaImportCache[type] = data.map(areaImportData => new AreaImport(areaImportData));
         return areaImportCache[type];
@@ -82,9 +134,6 @@ async function fetchAreaImportData(type) {
         return [];
     }
 }
-
-const fetchLatestAreaImport = () => fetchAreaImportData('latest');
-const fetchStableAreaImport = () => fetchAreaImportData('stable');
 
 function updateSummarySection(areaImportData) {
     let minStartTs = areaImportData[0].startTs;
@@ -124,17 +173,49 @@ function updateSummarySection(areaImportData) {
 }
 
 
-function getBackgroundColorByStatus(areaImport) {
-    switch (areaImport.resultStatus) {
-        case AreaImport.ResultStatus.SUCCESS:
-            return '#00FF00';
-        case AreaImport.ResultStatus.DATA_CHECK_ERROR:
-            return '#FFD700';
-        case AreaImport.ResultStatus.DOWNLOADING_ERROR:
-        case AreaImport.ResultStatus.PARSING_ERROR:
-            return '#FF0000';
-        case AreaImport.ResultStatus.EMPTY_DATA_ERROR:
-            return '#89978A';
+const RESULT_STATUS_COLORS = {
+    [AreaImport.ResultStatus.SUCCESS]: '#00FF00',
+    [AreaImport.ResultStatus.DATA_CHECK_ERROR]: '#FFD700',
+    [AreaImport.ResultStatus.DOWNLOADING_ERROR]: '#FF0000',
+    [AreaImport.ResultStatus.PARSING_ERROR]: '#85002c',
+    [AreaImport.ResultStatus.EMPTY_DATA_ERROR]: '#89978A',
+};
+
+const UPDATED_DT_COLORS = {
+    MORE_THAN_28_DAYS_OR_ERROR: '#FF0000',
+    MORE_THAN_14_DAYS: '#FFA500',
+    MORE_THAN_7_DAYS: '#FFD700',
+    LESS_OR_EQUALS_TO_7_DAYS: '#00FF00',
+}
+
+const SCORE_RANGE_COLORS = ['#FFFFFF', '#02419f'];
+
+function getBackgroundColorBy(visualization, areaImportData) {
+    if (visualization === VisualizationType.STATUS) {
+        return areaImportData.map(function (areaImport) {
+            return {area: areaImport, color: RESULT_STATUS_COLORS[areaImport.resultStatus]}
+        })
+    } else if (visualization === VisualizationType.LAST_UPDATED_DT) {
+        return areaImportData.map(function (areaImport) {
+            const days = daysBetweenDates(new Date(areaImport.endTs), new Date());
+            let color;
+            if (areaImport.resultStatus !== AreaImport.ResultStatus.SUCCESS || days > 28) {
+                color = UPDATED_DT_COLORS.MORE_THAN_28_DAYS_OR_ERROR;
+            } else if (days > 14) {
+                color = UPDATED_DT_COLORS.MORE_THAN_14_DAYS;
+            } else if (days > 7) {
+                color = UPDATED_DT_COLORS.MORE_THAN_7_DAYS;
+            } else {
+                color = UPDATED_DT_COLORS.LESS_OR_EQUALS_TO_7_DAYS;
+            }
+            return {area: areaImport, color: color}
+        })
+    } else if (visualization === VisualizationType.SCORE) {
+        return areaImportData.map(function (areaImport) {
+            const score = areaImport.getScore();
+            const color = gradient(SCORE_RANGE_COLORS[0], SCORE_RANGE_COLORS[1], score / AreaImport.maxScore());
+            return {area: areaImport, color: color}
+        })
     }
 }
 
@@ -174,7 +255,15 @@ function createTooltipHTMLContent(areaImport) {
     const liStatus = document.createElement('li');
     liStatus.textContent = `Status: ${areaImport.getResultStatusDisplay()}`;
 
+    const liImportDt = document.createElement('li');
+    liImportDt.textContent = `Data: ${formatDateToISO(areaImport.endTs)}`;
+
+    const liScore = document.createElement('li');
+    liScore.textContent = `Ocena: ${areaImport.getScore()}/${AreaImport.maxScore()}`;
+
     ulElement.appendChild(liStatus);
+    ulElement.appendChild(liImportDt);
+    ulElement.appendChild(liScore);
 
     if ([AreaImport.ResultStatus.SUCCESS, AreaImport.ResultStatus.DATA_CHECK_ERROR].includes(areaImport.resultStatus)) {
         const liBuildingCount = document.createElement('li');
@@ -206,36 +295,132 @@ function createTooltipHTMLContent(areaImport) {
 }
 
 
-function updateSvgMap(svgElement, latestAreaImport) {
+function updateSvgMap(svgElement, areaImportDataWithColors) {
     const svgAreaMap = new SvgAreaMap(svgElement.contentDocument);
-
-    latestAreaImport.forEach(areaImport => {
-        const countyPathElement = svgAreaMap.getPathElementById(areaImport.teryt);
+    areaImportDataWithColors.forEach(areaWithColor => {
+        const countyPathElement = svgAreaMap.getPathElementById(areaWithColor.area.teryt);
         if (countyPathElement == null) {  // It may happen for areas inside a counties
             return;
         }
-        svgAreaMap.fillAreaBackground(countyPathElement, getBackgroundColorByStatus(areaImport));
-        svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaImport));
+        svgAreaMap.fillAreaBackground(countyPathElement, areaWithColor.color);
+        svgAreaMap.addTooltipToArea(countyPathElement, createTooltipHTMLContent(areaWithColor.area));
     });
 }
 
-async function updateReport() {
-    const reportType = document.getElementById('report-type').value;
-    let areaImportData;
-    if (reportType === 'latest') {
-        areaImportData = await fetchLatestAreaImport();
-    } else if (reportType === 'stable') {
-        areaImportData = await fetchStableAreaImport();
+function initReportVisualizationSelectOptions(reportType) {
+    while (reportVisualizationSelectElem.options.length > 0) {
+        // noinspection JSCheckFunctionSignatures
+        reportVisualizationSelectElem.remove(0);
     }
+
+    let options = [
+        {
+            value: VisualizationType.STATUS,
+            label: 'Status',
+        },
+        {
+            value: VisualizationType.SCORE,
+            label: 'Ocena',
+        },
+    ];
+    if (reportType === ReportType.STABLE) {
+        options = [
+            {
+                value: VisualizationType.LAST_UPDATED_DT,
+                label: 'Czas ostatniej aktualizacji',
+            }
+        ].concat(options);
+    }
+    options.forEach(option => {
+        const optionElement = document.createElement('option');
+        optionElement.value = option.value;
+        optionElement.text = option.label;
+        reportVisualizationSelectElem.add(optionElement);
+    })
+}
+
+function updateVisualizationInfo(visualizationType) {
+    let contentDiv = document.createElement('div');
+    contentDiv.classList.add('tooltip-content-info');
+    switch (visualizationType) {
+        case VisualizationType.STATUS:
+            contentDiv.innerHTML = '<span>Raport przedstawia status zakończenia importu budynków dla poszczególnych obszarów.</span>' +
+                '<ul>' +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.SUCCESS]}"></span><span>${AreaImport.translationResultStatusPl.success} – import zakończony pomyślnie.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.DATA_CHECK_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.data_check_error} – obszar nie zawiera oczekiwanych danych testowych.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.DOWNLOADING_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.downloading_error} – brak odpowiedzi z serwera WFS.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.PARSING_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.parsing_error} – nieoczekiwana odpowiedź z serwera WFS.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.EMPTY_DATA_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.empty_data_error} – serwer WFS zwrócił pustą odpowiedź.</li>` +
+                '</ul>';
+            break;
+        case VisualizationType.LAST_UPDATED_DT:
+            contentDiv.innerHTML = '<span>Raport przedstawia upływ czasu od ostatniej pomyślnej aktualizacji dla poszczególnych obszarów.</span>' +
+                '<ul>' +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.LESS_OR_EQUALS_TO_7_DAYS}"></span><span>&le; 7 dni.</li>` +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.MORE_THAN_7_DAYS}"></span><span>&gt; 7 dni.</li>` +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.MORE_THAN_14_DAYS}"></span><span>&gt; 14 dni.</li>` +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.MORE_THAN_28_DAYS_OR_ERROR}"></span><span>&gt; 28 dni lub brak pomyślnego importu.</li>` +
+                '</ul>';
+            break;
+        case VisualizationType.SCORE:
+            contentDiv.innerHTML = '<span>Raport przedstawia ocenę importu budynków dla poszczególnych obszarów.</span>' +
+                '<p>Ocena to suma punktów przyznawanych na podstawie wybranych kryteriów zgodnych ze schematem XSD EGiB, dostosowanych do potrzeb społeczności OSM.<br>' +
+                'Punktacja mieści się w zakresie od 0 do 10 (na mapie od najjaśniejszego do najciemniejszego koloru).<br>' +
+                'Kryteria punktacji są następujące</p>' +
+                '<ul>' +
+                `<li>4 pkt – serwer WFS zwraca geometrię budynku</li>` +
+                `<li>3 pkt – serwer WFS zwraca typ budynku (KŚT)</li>` +
+                `<li>2 pkt – serwer WFS zwraca liczbę pięter budynku</li>` +
+                `<li>1 pkt – serwer WFS zwraca liczbę pięter podziemnych budynku</li>` +
+                '</ul>' +
+                '<span>Uwaga: Ze względu na rozbieżności w schematach serwerów WFS (brak spójności z obowiązującym standardem GUGiK), atrybuty z niektórych serwerów mogły zostać pominięte podczas importu.</span>';
+            break;
+    }
+    tooltipVisualizationInfo.innerHTML = '';
+    tooltipVisualizationInfo.appendChild(contentDiv);
+}
+
+function updateReportVisualization(visualizationType, areaImportData) {
+    const areaImportDataWithColors = getBackgroundColorBy(visualizationType, areaImportData);
+    updateSvgMap(document.getElementById('counties-svg'), areaImportDataWithColors);
+    updateVisualizationInfo(visualizationType);
+}
+
+async function updateReport() {
+    const reportType = getReportType();
+    initReportVisualizationSelectOptions(reportType);
+
+    const areaImportData = await getAreaImportData(reportType);
     updateSummarySection(areaImportData);
-    updateSvgMap(document.getElementById('counties-svg'), areaImportData);
+    updateReportVisualization(getVisualizationType(), areaImportData);
 }
 
 // Initial SVG resize to fit the page
 const svgMap = document.getElementById('counties-svg');
 svgMap.style.height = `${window.innerHeight - svgMap.offsetTop}px`;
 
-document.getElementById('report-type').addEventListener('change', updateReport);
+reportTypeSelectElem.addEventListener('change', updateReport);
+reportVisualizationSelectElem.addEventListener('change', async () => {
+    const areaImportData = await getAreaImportData(getReportType());
+    updateReportVisualization(getVisualizationType(), areaImportData);
+});
 document.getElementById('counties-svg').addEventListener('load', async function () {
     await updateReport();
 });
+
+
+reportVisualizationInfoElem.addEventListener('mouseover', (_) => {
+    tooltipVisualizationInfo.style.visibility = 'visible';
+});
+reportVisualizationInfoElem.addEventListener('mouseout', () => {
+    tooltipVisualizationInfo.style.visibility = 'hidden';
+});
+
+reportVisualizationInfoElem.addEventListener('mousemove', (event) => {
+    const cursorPadding = 10;
+    const cursorY = event.clientY + window.scrollY;
+
+    tooltipVisualizationInfo.style.top = cursorY + cursorPadding + 'px';
+    tooltipVisualizationInfo.style.left = event.clientX + window.scrollX + cursorPadding + 'px';
+});
+
