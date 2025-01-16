@@ -1,6 +1,8 @@
 const tooltip = document.getElementById('tooltip');
+const tooltipVisualizationInfo = document.getElementById('tooltip-visualization-info');
 const reportVisualizationSelectElem = document.getElementById('report-visualization');
 const reportTypeSelectElem = document.getElementById('report-type');
+const reportVisualizationInfoElem = document.getElementById('report-visualization-info');
 
 class AreaImport {
     static ResultStatus = {
@@ -12,10 +14,10 @@ class AreaImport {
     }
     static translationResultStatusPl = {
         success: 'Sukces',
-        downloading_error: 'Błąd pobierania',
-        parsing_error: 'Błąd przetwarzania',
+        downloading_error: 'Błąd pobierania danych',
+        parsing_error: 'Błąd przetwarzania danych',
+        data_check_error: 'Błąd walidacji danych',
         empty_data_error: 'Brak danych',
-        data_check_error: 'Błąd sprawdzania danych',
     }
 
     constructor({
@@ -329,10 +331,51 @@ function initReportVisualizationSelectOptions(reportType) {
     })
 }
 
+function updateVisualizationInfo(visualizationType) {
+    let contentDiv = document.createElement('div');
+    contentDiv.classList.add('tooltip-content-info');
+    switch (visualizationType) {
+        case VisualizationType.STATUS:
+            contentDiv.innerHTML = '<span>Raport przedstawia status zakończenia importu budynków dla poszczególnych obszarów.</span>' +
+                '<ul>' +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.SUCCESS]}"></span><span>${AreaImport.translationResultStatusPl.success} – import zakończony pomyślnie.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.DATA_CHECK_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.data_check_error} – obszar nie zawiera oczekiwanych danych testowych.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.DOWNLOADING_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.downloading_error} – brak odpowiedzi z serwera WFS.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.PARSING_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.parsing_error} – nieoczekiwana odpowiedź z serwera WFS.</li>` +
+                `<li><span class="tooltip-square" style="background: ${RESULT_STATUS_COLORS[AreaImport.ResultStatus.EMPTY_DATA_ERROR]}"></span><span>${AreaImport.translationResultStatusPl.empty_data_error} – serwer WFS zwrócił pustą odpowiedź.</li>` +
+                '</ul>';
+            break;
+        case VisualizationType.LAST_UPDATED_DT:
+            contentDiv.innerHTML = '<span>Raport przedstawia upływ czasu od ostatniej pomyślnej aktualizacji dla poszczególnych obszarów.</span>' +
+                '<ul>' +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.LESS_OR_EQUALS_TO_7_DAYS}"></span><span>&le; 7 dni.</li>` +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.MORE_THAN_7_DAYS}"></span><span>&gt; 7 dni.</li>` +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.MORE_THAN_14_DAYS}"></span><span>&gt; 14 dni.</li>` +
+                `<li><span class="tooltip-square" style="background: ${UPDATED_DT_COLORS.MORE_THAN_28_DAYS_OR_ERROR}"></span><span>&gt; 28 dni lub brak pomyślnego importu.</li>` +
+                '</ul>';
+            break;
+        case VisualizationType.SCORE:
+            contentDiv.innerHTML = '<span>Raport przedstawia ocenę importu budynków dla poszczególnych obszarów.</span>' +
+                '<p>Ocena to suma punktów przyznawanych na podstawie wybranych kryteriów zgodnych ze schematem XSD EGiB, dostosowanych do potrzeb społeczności OSM.<br>' +
+                'Punktacja mieści się w zakresie od 0 do 10 (na mapie od najjaśniejszego do najciemniejszego koloru).<br>' +
+                'Kryteria punktacji są następujące</p>' +
+                '<ul>' +
+                `<li>4 pkt – serwer WFS zwraca geometrię budynku</li>` +
+                `<li>3 pkt – serwer WFS zwraca typ budynku (KŚT)</li>` +
+                `<li>2 pkt – serwer WFS zwraca liczbę pięter budynku</li>` +
+                `<li>1 pkt – serwer WFS zwraca liczbę pięter podziemnych budynku</li>` +
+                '</ul>' +
+                '<span>Uwaga: Ze względu na rozbieżności w schematach serwerów WFS (brak spójności z obowiązującym standardem GUGiK), atrybuty z niektórych serwerów mogły zostać pominięte podczas importu.</span>';
+            break;
+    }
+    tooltipVisualizationInfo.innerHTML = '';
+    tooltipVisualizationInfo.appendChild(contentDiv);
+}
 
 function updateReportVisualization(visualizationType, areaImportData) {
     const areaImportDataWithColors = getBackgroundColorBy(visualizationType, areaImportData);
     updateSvgMap(document.getElementById('counties-svg'), areaImportDataWithColors);
+    updateVisualizationInfo(visualizationType);
 }
 
 async function updateReport() {
@@ -356,3 +399,20 @@ reportVisualizationSelectElem.addEventListener('change', async () => {
 document.getElementById('counties-svg').addEventListener('load', async function () {
     await updateReport();
 });
+
+
+reportVisualizationInfoElem.addEventListener('mouseover', (_) => {
+    tooltipVisualizationInfo.style.visibility = 'visible';
+});
+reportVisualizationInfoElem.addEventListener('mouseout', () => {
+    tooltipVisualizationInfo.style.visibility = 'hidden';
+});
+
+reportVisualizationInfoElem.addEventListener('mousemove', (event) => {
+    const cursorPadding = 10;
+    const cursorY = event.clientY + window.scrollY;
+
+    tooltipVisualizationInfo.style.top = cursorY + cursorPadding + 'px';
+    tooltipVisualizationInfo.style.left = event.clientX + window.scrollX + cursorPadding + 'px';
+});
+

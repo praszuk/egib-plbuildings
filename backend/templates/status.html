@@ -50,6 +50,16 @@
             list-style: none;
             padding-left: 0;
         }
+        .tooltip-content-info ul {
+            list-style: none;
+            padding-left: 5px;
+        }
+        .tooltip-square {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+            margin-right: 3px;
+        }
     </style>
     </head>
     <body>
@@ -61,6 +71,8 @@
                 <option value="stable">Stabilny import</option>
             </select>
             <select id="report-visualization"></select>
+            <span id="report-visualization-info">&#9432;</span>
+            <div id="tooltip-visualization-info" class="tooltip" style="opacity: 100%"></div>
         </div>
         <h2>Podsumowanie</h2>
         <div class="status-summary inner">
