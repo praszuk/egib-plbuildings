@@ -279,7 +279,9 @@ all_counties: Dict[str, AreaParser] = {
     '1435': Geoportal2AreaParser(name='wyszkowski', url_code='powiat-wyszkowski'),
     '1436': Geoportal2AreaParser(name='zwoleński', url_code='zwolenpowiat'),
     '1437': Geoportal2AreaParser(name='żuromiński', url_code='zuromin-powiat'),
-    '1438': EpodgikAreaParser(name='żyrardowski', url_code='zyrardow'),
+    '1438': GIPortalAreaParser(
+        name='żyrardowski', base_url='https://ikerg.powiat-zyrardowski.pl/zyrardow-egib'
+    ),
     '1461': Geoportal2AreaParser(name='miasto Ostrołęka', url_code='ostroleka'),
     '1462': WebEwidAreaParser(
         name='miasto Płock', base_url='https://wms-ggk.plock.eu:4443/iip/ows'
