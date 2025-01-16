@@ -255,7 +255,15 @@ function createTooltipHTMLContent(areaImport) {
     const liStatus = document.createElement('li');
     liStatus.textContent = `Status: ${areaImport.getResultStatusDisplay()}`;
 
+    const liImportDt = document.createElement('li');
+    liImportDt.textContent = `Data: ${formatDateToISO(areaImport.endTs)}`;
+
+    const liScore = document.createElement('li');
+    liScore.textContent = `Ocena: ${areaImport.getScore()}/${AreaImport.maxScore()}`;
+
     ulElement.appendChild(liStatus);
+    ulElement.appendChild(liImportDt);
+    ulElement.appendChild(liScore);
 
     if ([AreaImport.ResultStatus.SUCCESS, AreaImport.ResultStatus.DATA_CHECK_ERROR].includes(areaImport.resultStatus)) {
         const liBuildingCount = document.createElement('li');
