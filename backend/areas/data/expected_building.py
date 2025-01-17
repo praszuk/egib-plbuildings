@@ -2666,7 +2666,11 @@ counties = {
         teryt='3016',
         lat=52.64746,
         lon=16.81732,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '3017': AreaExpectedBuildingData(
         name='ostrowski',

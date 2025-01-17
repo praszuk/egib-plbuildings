@@ -556,7 +556,9 @@ all_counties: Dict[str, AreaParser] = {
     '3015': GIPortalAreaParser(
         name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
     ),
-    '3016': GeoportalAreaParser(name='obornicki', url_code='3016'),
+    '3016': GIPortalAreaParser(
+        name='obornicki', base_url='https://ikerg.powiatobornicki.pl/cgi-bin/oborniki-egib'
+    ),
     '3017': GIPortalAreaParser(
         name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
     ),
