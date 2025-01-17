@@ -571,7 +571,9 @@ all_counties: Dict[str, AreaParser] = {
         name='poznański', base_url='https://ikerg.podgik.poznan.pl/wms-poznanski'
     ),
     '3022': GeoportalAreaParser(name='rawicki', url_code='3022'),
-    '3023': GeoportalAreaParser(name='słupecki', url_code='3023'),
+    '3023': GIPortalAreaParser(
+        name='słupecki', base_url='https://ikerg.powiat-slupca.pl/slupca-egib'
+    ),
     '3024': GIPortalAreaParser(
         name='szamotulski', base_url='https://wms.szamotuly.com.pl/szamotuly-egib'
     ),

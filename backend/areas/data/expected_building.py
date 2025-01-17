@@ -2730,7 +2730,7 @@ counties = {
         teryt='3023',
         lat=52.28927,
         lon=17.86798,
-        expected_tags={'building': 'yes'},
+        expected_tags={'building': 'yes', 'building:levels': 2},
     ),
     '3024': AreaExpectedBuildingData(
         name='szamotulski',
