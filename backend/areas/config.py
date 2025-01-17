@@ -279,7 +279,9 @@ all_counties: Dict[str, AreaParser] = {
     '1435': Geoportal2AreaParser(name='wyszkowski', url_code='powiat-wyszkowski'),
     '1436': Geoportal2AreaParser(name='zwoleński', url_code='zwolenpowiat'),
     '1437': Geoportal2AreaParser(name='żuromiński', url_code='zuromin-powiat'),
-    '1438': EpodgikAreaParser(name='żyrardowski', url_code='zyrardow'),
+    '1438': GIPortalAreaParser(
+        name='żyrardowski', base_url='https://ikerg.powiat-zyrardowski.pl/zyrardow-egib'
+    ),
     '1461': Geoportal2AreaParser(name='miasto Ostrołęka', url_code='ostroleka'),
     '1462': WebEwidAreaParser(
         name='miasto Płock', base_url='https://wms-ggk.plock.eu:4443/iip/ows'
@@ -554,7 +556,9 @@ all_counties: Dict[str, AreaParser] = {
     '3015': GIPortalAreaParser(
         name='nowotomyski', base_url='https://wms.powiatnowotomyski.pl/nowytomysl-egib'
     ),
-    '3016': GeoportalAreaParser(name='obornicki', url_code='3016'),
+    '3016': GIPortalAreaParser(
+        name='obornicki', base_url='https://ikerg.powiatobornicki.pl/cgi-bin/oborniki-egib'
+    ),
     '3017': GIPortalAreaParser(
         name='ostrowski', base_url='https://ikerg.powiat-ostrowski.pl/ostrow-egib'
     ),
@@ -567,7 +571,9 @@ all_counties: Dict[str, AreaParser] = {
         name='poznański', base_url='https://ikerg.podgik.poznan.pl/wms-poznanski'
     ),
     '3022': GeoportalAreaParser(name='rawicki', url_code='3022'),
-    '3023': GeoportalAreaParser(name='słupecki', url_code='3023'),
+    '3023': GIPortalAreaParser(
+        name='słupecki', base_url='https://ikerg.powiat-slupca.pl/slupca-egib'
+    ),
     '3024': GIPortalAreaParser(
         name='szamotulski', base_url='https://wms.szamotuly.com.pl/szamotuly-egib'
     ),

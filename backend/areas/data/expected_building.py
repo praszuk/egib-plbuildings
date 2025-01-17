@@ -1102,7 +1102,7 @@ counties = {
         teryt='1402',
         lat=52.88146,
         lon=20.61543,
-        expected_tags={'building': 'residential'},
+        expected_tags={'building': 'office'},
     ),
     '1403': AreaExpectedBuildingData(
         name='garwoliński',
@@ -2591,6 +2591,7 @@ counties = {
         expected_tags={
             'building': 'office',
             'building:levels': 3,
+            'building:levels:underground': 1,
         },
     ),
     '3007': AreaExpectedBuildingData(  # gmina Opatówek
@@ -2666,7 +2667,11 @@ counties = {
         teryt='3016',
         lat=52.64746,
         lon=16.81732,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '3017': AreaExpectedBuildingData(
         name='ostrowski',
@@ -2725,7 +2730,7 @@ counties = {
         teryt='3023',
         lat=52.28927,
         lon=17.86798,
-        expected_tags={'building': 'yes'},
+        expected_tags={'building': 'yes', 'building:levels': 2},
     ),
     '3024': AreaExpectedBuildingData(
         name='szamotulski',
