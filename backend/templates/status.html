@@ -91,10 +91,10 @@
         </div>
         <h2>Powiaty:</h2>
         <div id="tooltip" class="tooltip"></div>
-        <object id="counties-svg" type="image/svg+xml" data="{{ url_for('static', path='/counties.svg') }}"></object>
+        <object id="counties-svg" type="image/svg+xml" data="{{ 'counties.svg' | static_version }}"></object>
     </body>
-    <script src="{{ url_for('static', path='/js/timeutils.js') }}"></script>
-    <script src="{{ url_for('static', path='/js/color.js') }}"></script>
-    <script src="{{ url_for('static', path='/js/svgmap.js') }}"></script>
-    <script src="{{ url_for('static', path='/js/status.js') }}"></script>
+    <script src="{{ 'js/timeutils.js' | static_version }}"></script>
+    <script src="{{ 'js/color.js' | static_version }}"></script>
+    <script src="{{ 'js/svgmap.js' | static_version }}"></script>
+    <script src="{{ 'js/status.js' | static_version }}"></script>
 </html>

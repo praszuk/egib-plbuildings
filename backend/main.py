@@ -9,12 +9,13 @@ from backend.api.v1.api import api_router
 from backend.core.config import settings
 from backend.core.logger import access_logger
 from backend.areas.finder import area_finder
-from backend.pages.pages import pages_router
+from backend.pages.pages import pages_router, generate_manifest
 
 
 @asynccontextmanager
 async def lifespan(_):
     area_finder.load_data()
+    generate_manifest()
     yield
 
 
