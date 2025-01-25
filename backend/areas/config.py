@@ -61,9 +61,7 @@ all_counties: Dict[str, AreaParser] = {
     '0219': WebEwidAreaParser(name='świdnicki', url_code='swidnicki-wms'),
     '0220': WebEwidAreaParser(name='trzebnicki', url_code='trzebnicki-wms'),
     '0221': WebEwidAreaParser(name='wałbrzyski', url_code='walbrzyski-wms'),
-    '0222': WebEwidAreaParser(
-        name='wołowski', url_code='wolowski-wms', gml_geometry_key='msGeometry'
-    ),
+    '0222': WebEwidAreaParser(name='wołowski', url_code='wolowski-wms'),
     '0223': WebEwidAreaParser(name='wrocławski', base_url='https://wms.wrosip.pl/iip/ows'),
     '0224': WebEwidAreaParser(name='ząbkowicki', url_code='zabkowicki', port=444),
     '0225': GIPortalAreaParser(
@@ -395,7 +393,7 @@ all_counties: Dict[str, AreaParser] = {
     '2207': WebEwidAreaParser(name='kwidzyński', url_code='kwidzynski-wms'),
     '2208': WebEwidAreaParser(name='lęborski', url_code='leborski', port=44443),
     '2209': WebEwidAreaParser(name='malborski', url_code='malborski-wms'),
-    '2210': GeoportalAreaParser(name='nowodworski', url_code='2210'),
+    '2210': WebEwidAreaParser(name='nowodworski', url_code='nowodworski', port=4444),
     '2211': WebEwidAreaParser(name='pucki', base_url='https://pdp.puck.pl/iip/ows'),
     '2212': WebEwidAreaParser(name='słupski', base_url='https://wms.powiat.slupsk.pl/iip/ows'),
     '2213': WebEwidAreaParser(
@@ -570,7 +568,9 @@ all_counties: Dict[str, AreaParser] = {
     '3021': GIPortalAreaParser(
         name='poznański', base_url='https://ikerg.podgik.poznan.pl/wms-poznanski'
     ),
-    '3022': GeoportalAreaParser(name='rawicki', url_code='3022'),
+    '3022': GIPortalAreaParser(
+        name='rawicki', base_url='https://ikerg.powiatrawicki.pl/rawicz-egib'
+    ),
     '3023': GIPortalAreaParser(
         name='słupecki', base_url='https://ikerg.powiat-slupca.pl/slupca-egib'
     ),

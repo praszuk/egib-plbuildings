@@ -2723,7 +2723,7 @@ counties = {
         teryt='3022',
         lat=51.60858,
         lon=16.85871,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     '3023': AreaExpectedBuildingData(
         name='słupecki',
