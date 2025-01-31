@@ -16,6 +16,10 @@ class SvgAreaMap{
             tooltip.style.visibility = 'visible';
             tooltip.innerHTML = '';
             tooltip.appendChild(tooltipContentDiv);
+
+            pathElement.style.stroke = 'white';
+            pathElement.style.strokeWidth = '2px';
+            pathElement.parentNode.appendChild(pathElement);
         });
 
         pathElement.addEventListener('mousemove', (event) => {
@@ -40,6 +44,9 @@ class SvgAreaMap{
 
         pathElement.addEventListener('mouseout', () => {
             tooltip.style.visibility = 'hidden';
+
+            pathElement.style.stroke = '';
+            pathElement.style.strokeWidth = '';
         });
     }
 
