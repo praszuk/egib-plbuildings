@@ -26,7 +26,7 @@ class SvgAreaMap{
             const svgRect = this.svgDocument.defaultView.frameElement.getBoundingClientRect();
 
             const currentTooltipRectHeight = tooltip.getBoundingClientRect().height;
-            const maxTooltipRectHeight = 240; // It could be dynamic too, but hardcoding makes better UX.
+            const maxTooltipRectHeight = 360; // It could be dynamic too, but hardcoding makes better UX.
             const cursorPadding = 10;
 
             const cursorX = svgRect.left + event.clientX + window.scrollX;
