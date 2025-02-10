@@ -2699,7 +2699,11 @@ counties = {
         teryt='3019',
         lat=53.15593,
         lon=16.73798,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
     ),
     '3020': AreaExpectedBuildingData(
         name='pleszewski',
