@@ -48,7 +48,7 @@ async def test_area_import_in_parallel_success(db, load_gml):
     assert area_import.data_check_lon == expected_data.lon
     assert area_import.data_check_expected_tags == expected_data.expected_tags
     assert area_import.data_check_result_tags == area_import.data_check_expected_tags
-    assert area_import.data_check_has_expected_tags == True
+    assert area_import.data_check_has_expected_tags
     assert area_import.building_count == 10
     assert db.query(Building).count() == 10
 
@@ -91,6 +91,6 @@ async def test_area_import_in_parallel_data_check_failed_building_not_found(db, 
     assert area_import.data_check_lon == expected_data.lon
     assert area_import.data_check_expected_tags == expected_data.expected_tags
     assert area_import.data_check_result_tags is None
-    assert area_import.data_check_has_expected_tags == False
+    assert not area_import.data_check_has_expected_tags
     assert area_import.building_count == 10
     assert db.query(Building).count() == 0
