@@ -65,7 +65,7 @@ all_counties: Dict[str, AreaParser] = {
     '0223': WebEwidAreaParser(name='wrocławski', base_url='https://wms.wrosip.pl/iip/ows'),
     '0224': WebEwidAreaParser(name='ząbkowicki', url_code='zabkowicki', port=444),
     '0225': GIPortalAreaParser(
-        name='zgorzelecki', base_url='https://iegib.powiat.zgorzelec.pl/zgorzelec-egib'
+        name='zgorzelecki', base_url='https://daneiip.powiat.zgorzelec.pl/cgi-bin/zgorzelec-egib'
     ),
     '0226': GIPortalAreaParser(
         name='złotoryjski', base_url='https://wms.powiat-zlotoryja.pl/zlotoryja-egib'
