@@ -1258,11 +1258,11 @@ counties = {
         lon=21.07318,
         expected_tags={'building': 'office'},
     ),
-    '1425': AreaExpectedBuildingData(  # gmina Skaryszew
+    '1425': AreaExpectedBuildingData(  # gmina Pionki
         name='radomski',
         teryt='1425',
-        lat=51.31167,
-        lon=21.25196,
+        lat=51.47242,
+        lon=21.44430,
         expected_tags={'building': 'office'},
     ),
     '1426': AreaExpectedBuildingData(  # gmina Mordy
@@ -2720,7 +2720,8 @@ counties = {
         teryt='3021',
         lat=52.39727,
         lon=17.22575,
-        expected_tags={'building': 'yes'},  # not empty, but broken/descriptional data
+        # not empty, but broken/descriptional building type
+        expected_tags={'building': 'yes', 'building:levels': 1},
     ),
     '3022': AreaExpectedBuildingData(
         name='rawicki',
