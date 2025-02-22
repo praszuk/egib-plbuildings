@@ -2721,7 +2721,7 @@ counties = {
         lat=52.39727,
         lon=17.22575,
         # not empty, but broken/descriptional building type
-        expected_tags={'building': 'yes', 'building:levels': 1},
+        expected_tags={'building': 'yes', 'building:levels': 3},
     ),
     '3022': AreaExpectedBuildingData(
         name='rawicki',
