@@ -207,9 +207,7 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
-    '1201': WebEwidAreaParser(
-        name='bocheński', url_code='bochenski-wms', gml_geometry_key='msGeometry'
-    ),
+    '1201': WebEwidAreaParser(name='bocheński', url_code='bochenski-wms'),
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
     '1203': WebEwidAreaParser(name='chrzanowski', url_code='chrzanowski', port=22443),
     '1204': WebEwidAreaParser(name='dąbrowski', url_code='dabrowski-wms'),
@@ -563,9 +561,7 @@ all_counties: Dict[str, AreaParser] = {
     '3018': GIPortalAreaParser(
         name='ostrzeszowski', base_url='https://wms.spostrzeszow.pl/ostrzeszow-egib'
     ),
-    '3019': GIPortalAreaParser(
-        name='pilski', base_url='https://ikerg.powiat.pila.pl/cgi-bin/pila-egib'
-    ),
+    '3019': GIPortalAreaParser(name='pilski', base_url='https://ikerg.powiat.pila.pl/pila-egib'),
     '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
     '3021': GIPortalAreaParser(
         name='poznański', base_url='https://ikerg.podgik.poznan.pl/wms-poznanski'
