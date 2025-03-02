@@ -563,9 +563,7 @@ all_counties: Dict[str, AreaParser] = {
     '3018': GIPortalAreaParser(
         name='ostrzeszowski', base_url='https://wms.spostrzeszow.pl/ostrzeszow-egib'
     ),
-    '3019': GIPortalAreaParser(
-        name='pilski', base_url='https://ikerg.powiat.pila.pl/cgi-bin/pila-egib'
-    ),
+    '3019': GIPortalAreaParser(name='pilski', base_url='https://ikerg.powiat.pila.pl/pila-egib'),
     '3020': GIPortalAreaParser(name='pleszewski', base_url='https://wms.geo.net.pl/pleszew-egib'),
     '3021': GIPortalAreaParser(
         name='poznański', base_url='https://ikerg.podgik.poznan.pl/wms-poznanski'
