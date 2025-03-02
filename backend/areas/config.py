@@ -207,9 +207,7 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '1063': Geoportal2AreaParser(name='miasto Skierniewice', url_code='skierniewice'),
     # 12 – "małopolskie"
-    '1201': WebEwidAreaParser(
-        name='bocheński', url_code='bochenski-wms', gml_geometry_key='msGeometry'
-    ),
+    '1201': WebEwidAreaParser(name='bocheński', url_code='bochenski-wms'),
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
     '1203': WebEwidAreaParser(name='chrzanowski', url_code='chrzanowski', port=22443),
     '1204': WebEwidAreaParser(name='dąbrowski', url_code='dabrowski-wms'),
