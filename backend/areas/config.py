@@ -18,7 +18,14 @@ from backend.areas.parsers import (
 AreaParser = TypeVar('AreaParser', bound=BaseAreaParser)
 all_counties: Dict[str, AreaParser] = {
     # 02 – "dolnośląskie"
-    '0201': GeoportalAreaParser(name='bolesławiecki', url_code='0201'),
+    '0201': GeoportalAreaParser(
+        name='bolesławiecki',
+        base_url='https://geoportal.powiatboleslawiecki.pl/ggp',
+        url_typenames='WMS:budynki',
+        gml_prefix='WMS',
+        gml_geometry_key='MSGEOMETRY',
+        custom_crs=2176,
+    ),
     '0202': GeoportalAreaParser(
         name='dzierżoniowski',
         base_url='https://geoportal.pow.dzierzoniow.pl/ggp',

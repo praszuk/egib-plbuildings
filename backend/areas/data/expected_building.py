@@ -17,7 +17,7 @@ counties = {
         teryt='0201',
         lat=51.26230,
         lon=15.56843,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     '0202': AreaExpectedBuildingData(
         name='dzierżoniowski',
