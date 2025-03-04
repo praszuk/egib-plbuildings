@@ -426,7 +426,9 @@ all_counties: Dict[str, AreaParser] = {
     '2406': Geoportal2AreaParser(
         name='kłobucki', base_url='https://powiatklobucki.geoportal2.pl/map/geoportal/wfse.php'
     ),
-    '2407': GIPortalAreaParser(name='lubliniecki', base_url='http://83.17.150.14/lubliniec-egib'),
+    '2407': GIPortalAreaParser(
+        name='lubliniecki', base_url='http://wms.lubliniec.starostwo.gov.pl/lubliniec-egib'
+    ),
     '2408': Geoportal2AreaParser(
         name='mikołowski', base_url='https://mapa.mikolowski.pl/map/geoportal/wfs.php'
     ),
