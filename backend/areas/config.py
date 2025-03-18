@@ -98,7 +98,9 @@ all_counties: Dict[str, AreaParser] = {
     '0403': GeoportalAreaParser(name='bydgoski', url_code='0403'),
     '0404': WebEwidAreaParser(name='chełmiński', url_code='chelminski', port=44316),
     '0405': WebEwidAreaParser(name='golubsko-dobrzyński', url_code='golubsko-dobrzynski-wms'),
-    '0406': GeoportalAreaParser(name='grudziądzki', url_code='0406'),
+    '0406': WebEwidAreaParser(
+        name='grudziądzki', base_url='https://wms.powiatgrudziadzki.pl/iip/ows'
+    ),
     '0407': WebEwidAreaParser(name='inowrocławski', url_code='inowroclawski-wms'),
     '0408': Geoportal2AreaParser(name='lipnowski', url_code='lipno'),
     '0409': WebEwidAreaParser(name='mogileński', url_code='mogilenski', port=4444),
