@@ -121,6 +121,7 @@ all_counties: Dict[str, AreaParser] = {
         url_typenames='budynki',
         gml_prefix='WMS',
         gml_geometry_key='MSGEOMETRY',
+        custom_crs=2177,
     ),
     '0463': WebEwidAreaParser(name='miasto Toruń', url_code='mtorun-wms'),
     '0464': Geoportal2AreaParser(
