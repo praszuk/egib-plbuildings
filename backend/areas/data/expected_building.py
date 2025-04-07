@@ -2810,7 +2810,7 @@ counties = {
         teryt='3030',
         lat=52.32365,
         lon=17.56918,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     '3031': AreaExpectedBuildingData(
         name='złotowski',
