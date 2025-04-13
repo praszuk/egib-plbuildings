@@ -32,4 +32,4 @@ clean:
 
 update:
 	for filename in $(APP_DIR)/requirements/*.in; do pur -r $$filename; done
-	pip-compile-multi
+	pip-compile-multi -d $(APP_DIR)/requirements/
