@@ -31,7 +31,7 @@ def create_db():
     conn.execute(text('COMMIT'))
     try:
         conn.execute(
-            text(f'CREATE DATABASE {TEST_DB_NAME} WITH OWNER \'{environ.get("POSTGRES_USER")}\'')
+            text(f"CREATE DATABASE {TEST_DB_NAME} WITH OWNER '{environ.get('POSTGRES_USER')}'")
         )
     except Exception as e:
         if 'already exists' not in str(e):
