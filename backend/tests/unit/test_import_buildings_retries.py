@@ -62,12 +62,15 @@ def test_failed_data_check_error_three_attempts_no_tags_improvement(db):
 
 @pytest.mark.anyio
 def test_failed_data_check_error_one_attempt_tags_improvement(db):
-    with patch(
-        'backend.tasks.import_buildings.area_import_attempt',
-        side_effect=[ImportResult(teryt='123', status=ResultStatus.DATA_CHECK_ERROR)],
-    ) as mock_area_attempt_func, patch(
-        'backend.tasks.import_buildings.ImportResult.is_data_check_error_with_improved_tags',
-        return_value=True,
+    with (
+        patch(
+            'backend.tasks.import_buildings.area_import_attempt',
+            side_effect=[ImportResult(teryt='123', status=ResultStatus.DATA_CHECK_ERROR)],
+        ) as mock_area_attempt_func,
+        patch(
+            'backend.tasks.import_buildings.ImportResult.is_data_check_error_with_improved_tags',
+            return_value=True,
+        ),
     ):
         asyncio.run(
             area_import_in_parallel([list(all_counties.keys())[0]], delay_between_attempts=0.001)

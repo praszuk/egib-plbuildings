@@ -1,6 +1,7 @@
 import httpx
 import pytest
 from fastapi.testclient import TestClient
+from httpx import ASGITransport
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
@@ -21,6 +22,8 @@ TEST_DB_URL = 'postgresql://{}:{}@{}/{}'.format(
     TEST_DB_NAME,
 )
 
+transport = ASGITransport(app=app)
+
 
 def create_db():
     engine = create_engine(settings.DATABASE_URL)
@@ -28,7 +31,7 @@ def create_db():
     conn.execute(text('COMMIT'))
     try:
         conn.execute(
-            text(f'CREATE DATABASE {TEST_DB_NAME} WITH OWNER \'{environ.get("POSTGRES_USER")}\'')
+            text(f"CREATE DATABASE {TEST_DB_NAME} WITH OWNER '{environ.get('POSTGRES_USER')}'")
         )
     except Exception as e:
         if 'already exists' not in str(e):
@@ -118,7 +121,7 @@ def test_client(db):
 
 @pytest.fixture(name='async_client')
 async def test_async_client(db):
-    async with httpx.AsyncClient(app=app, base_url='http://test') as client:
+    async with httpx.AsyncClient(transport=transport, base_url='http://test') as client:
         client.base_url = client.base_url.join(settings.API_V1_STR)
         yield client
 

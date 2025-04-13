@@ -30,11 +30,13 @@ async def test_area_import_attempt_success(db, load_gml):
         )
     }
 
-    with patch(
-        'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch(
-        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
-    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
+    with (
+        patch(
+            'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
+        ) as mock_get,
+        patch('backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True),
+        patch.dict(all_areas_data, patched_all_areas_data, clear=True),
+    ):
         area_parser = WarszawaAreaParser(name='test')
 
         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
@@ -118,9 +120,10 @@ async def test_area_import_attempt_parsing_error_no_building_in_area(db, load_gm
     mock_response.status_code = 200
     mock_response.text = load_gml('warszawa', 'gml_multiple_polygons.xml')
 
-    with patch('backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response), patch(
-        'backend.tasks.import_buildings.area_finder'
-    ) as mock_area_finder:
+    with (
+        patch('backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response),
+        patch('backend.tasks.import_buildings.area_finder') as mock_area_finder,
+    ):
         mock_area_finder.geometry_in_area.return_value = False
         area_parser = WarszawaAreaParser(name='test')
         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))
@@ -159,11 +162,13 @@ async def test_area_import_attempt_data_check_error(db, load_gml):
         )
     }
 
-    with patch(
-        'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
-    ) as mock_get, patch(
-        'backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True
-    ), patch.dict(all_areas_data, patched_all_areas_data, clear=True):
+    with (
+        patch(
+            'backend.tasks.import_buildings.AsyncClient.get', return_value=mock_response
+        ) as mock_get,
+        patch('backend.tasks.import_buildings.area_finder.geometry_in_area', return_value=True),
+        patch.dict(all_areas_data, patched_all_areas_data, clear=True),
+    ):
         area_parser = WarszawaAreaParser(name='test')
 
         import_result: ImportResult = asyncio.run(area_import_attempt(area_parser, '1465'))

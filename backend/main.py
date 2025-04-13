@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from pythonjsonlogger import jsonlogger
+from pythonjsonlogger.json import JsonFormatter
 from starlette.requests import Request
 
 from backend.api.v1.api import api_router
@@ -53,7 +53,7 @@ async def log_access(request: Request, call_next):
     return response
 
 
-class AccessJsonFormatter(jsonlogger.JsonFormatter):
+class AccessJsonFormatter(JsonFormatter):
     def add_fields(self, log_record, record, message_dict):
         super(AccessJsonFormatter, self).add_fields(log_record, record, message_dict)
         log_record['client_addr'] = log_record.get('client_addr', 'Unknown')
