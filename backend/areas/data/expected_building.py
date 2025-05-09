@@ -421,7 +421,11 @@ counties = {
         teryt='0461',
         lat=53.13446,
         lon=17.99335,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 6,
+            'building:levels:underground': 1,
+        },
     ),
     '0462': AreaExpectedBuildingData(
         name='miasto Grudziądz',
@@ -1214,7 +1218,11 @@ counties = {
         teryt='1418',
         lat=52.07573,
         lon=21.03090,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '1419': AreaExpectedBuildingData(  # gmina Gąbin
         name='płocki',
@@ -2352,7 +2360,7 @@ counties = {
         teryt='2610',
         lat=51.11726,
         lon=20.86594,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2611': AreaExpectedBuildingData(
         name='starachowicki',

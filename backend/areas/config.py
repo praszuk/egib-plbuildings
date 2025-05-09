@@ -114,7 +114,14 @@ all_counties: Dict[str, AreaParser] = {
     '0417': Geoportal2AreaParser(name='wąbrzeski', url_code='wabrzezno'),
     '0418': Geoportal2AreaParser(name='włocławski', url_code='wloclawek'),
     '0419': WebEwidAreaParser(name='żniński', url_code='zninski-wms'),
-    '0461': GeoportalAreaParser(name='miasto Bydgoszcz', url_code='0461'),
+    '0461': GeoportalAreaParser(
+        name='miasto Bydgoszcz',
+        base_url='https://e-uslugi.mpg.bydgoszcz.pl/ggp',
+        url_typenames='budynki',
+        gml_prefix='WMS',
+        gml_geometry_key='MSGEOMETRY',
+        custom_crs=2177,
+    ),
     '0462': GeoportalAreaParser(
         name='miasto Grudziądz',
         base_url='https://geoportal.grudziadz.pl/ggp',
@@ -266,7 +273,9 @@ all_counties: Dict[str, AreaParser] = {
     '1415': Geoportal2AreaParser(name='ostrołęcki', url_code='powiatostrolecki'),
     '1416': Geoportal2AreaParser(name='ostrowski', url_code='ostrowmaz'),
     '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
-    '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
+    '1418': EpodgikAreaParser(
+        name='piaseczyński', url_code='piaseczno', gml_building_type_key='RODZAJ'
+    ),
     '1419': Geoportal2AreaParser(name='płocki', url_code='powiat-plock'),
     '1420': Geoportal2AreaParser(name='płoński', url_code='plonski'),
     '1421': EpodgikAreaParser(name='pruszkowski', url_code='pruszkow'),
@@ -311,7 +320,9 @@ all_counties: Dict[str, AreaParser] = {
         name='namysłowski', base_url='https://iegib.namyslow.pl/cgi-bin/namyslow-egib'
     ),
     '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
-    '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
+    '1608': GIPortalAreaParser(
+        name='oleski', base_url='https://giportal.powiatoleski.pl/olesno-egib'
+    ),
     '1609': GeoportalAreaParser(
         name='opolski',
         base_url='https://geodezja.powiatopolski.pl/ggp',
@@ -516,7 +527,7 @@ all_counties: Dict[str, AreaParser] = {
         name='elbląski', base_url='https://ikerg.powiat.elblag.pl/elblaski-egib'
     ),
     '2805': Geoportal2AreaParser(name='ełcki', url_code='powiatelk'),
-    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
+    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko', gml_building_type_key='RODZAJ'),
     '2807': Geoportal2AreaParser(name='iławski', url_code='ilawa'),
     '2808': Geoportal2AreaParser(name='kętrzyński', url_code='powiatketrzynski'),
     '2809': Geoportal2AreaParser(name='lidzbarski', url_code='powiatlidzbarski'),
