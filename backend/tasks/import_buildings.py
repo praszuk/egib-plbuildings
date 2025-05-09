@@ -239,12 +239,18 @@ if __name__ == '__main__':
         type=lambda s: s.replace(' ', '').split(','),
         help='Comma-separated list of area teryt IDs',
     )
+    parser.add_argument('-mapa', '--max_attempts_per_area', type=int)
+
     args = parser.parse_args()
 
     if args.debug:
         default_logger.setLevel(DEBUG)
 
+    kwargs = {}
     if not (area_teryt_ids := args.teryt_ids):
         area_teryt_ids = all_areas.keys()
 
-    asyncio.run(area_import_in_parallel(area_teryt_ids))
+    if args.max_attempts_per_area:
+        kwargs['max_attempts_per_area'] = args.max_attempts_per_area
+
+    asyncio.run(area_import_in_parallel(area_teryt_ids, **kwargs))
