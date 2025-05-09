@@ -311,7 +311,9 @@ all_counties: Dict[str, AreaParser] = {
         name='namysłowski', base_url='https://iegib.namyslow.pl/cgi-bin/namyslow-egib'
     ),
     '1607': GIPortalAreaParser(name='nyski', base_url='https://wms-egib.powiat.nysa.pl/nysa-egib'),
-    '1608': GIPortalAreaParser(name='oleski', base_url='https://iegib.powiatoleski.pl/olesno-egib'),
+    '1608': GIPortalAreaParser(
+        name='oleski', base_url='https://giportal.powiatoleski.pl/olesno-egib'
+    ),
     '1609': GeoportalAreaParser(
         name='opolski',
         base_url='https://geodezja.powiatopolski.pl/ggp',
