@@ -114,7 +114,14 @@ all_counties: Dict[str, AreaParser] = {
     '0417': Geoportal2AreaParser(name='wąbrzeski', url_code='wabrzezno'),
     '0418': Geoportal2AreaParser(name='włocławski', url_code='wloclawek'),
     '0419': WebEwidAreaParser(name='żniński', url_code='zninski-wms'),
-    '0461': GeoportalAreaParser(name='miasto Bydgoszcz', url_code='0461'),
+    '0461': GeoportalAreaParser(
+        name='miasto Bydgoszcz',
+        base_url='https://e-uslugi.mpg.bydgoszcz.pl/ggp',
+        url_typenames='budynki',
+        gml_prefix='WMS',
+        gml_geometry_key='MSGEOMETRY',
+        custom_crs=2177,
+    ),
     '0462': GeoportalAreaParser(
         name='miasto Grudziądz',
         base_url='https://geoportal.grudziadz.pl/ggp',

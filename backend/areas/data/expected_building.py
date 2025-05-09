@@ -421,7 +421,11 @@ counties = {
         teryt='0461',
         lat=53.13446,
         lon=17.99335,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 6,
+            'building:levels:underground': 1,
+        },
     ),
     '0462': AreaExpectedBuildingData(
         name='miasto Grudziądz',
