@@ -69,6 +69,7 @@ class BaseAreaParser:
         gml_prefix: str = 'ms',
         gml_member_prefix: str = 'wfs',
         gml_geometry_key: str = 'msGeometry',
+        gml_building_type_key: str = 'RODZAJ',
     ):
         self.name = name
         self.url_code = url_code
@@ -78,6 +79,7 @@ class BaseAreaParser:
         self.gml_prefix = gml_prefix
         self.gml_member_prefix = gml_member_prefix
         self.gml_geometry_key = gml_geometry_key
+        self.gml_building_type_key = gml_building_type_key
 
     @abstractmethod
     def build_buildings_url(self) -> str:
@@ -234,6 +236,12 @@ class BaseAreaParser:
 
 
 class EpodgikAreaParser(BaseAreaParser):
+    def __init__(self, *args, **kwargs):
+        if 'gml_building_type_key' not in kwargs:
+            kwargs['gml_building_type_key'] = 'FUNKCJA'
+
+        super().__init__(*args, **kwargs)
+
     def build_buildings_url(self) -> str:
         return (
             f'https://wms.epodgik.pl/cgi-bin/{self.url_code}/wfs'
@@ -248,7 +256,7 @@ class EpodgikAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('FUNKCJA'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
@@ -289,7 +297,7 @@ class GeoportalAreaParser(BaseAreaParser):
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
-            building_type = properties.get('RODZAJ', '')
+            building_type = properties.get(self.gml_building_type_key, '')
             if len(building_type) != 1:
                 building_type = KST_NAME_CODE.get(building_type)
 
@@ -328,7 +336,7 @@ class Geoportal2AreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('RODZAJ'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             # ID_BUDYNKU skipped
             # Levels and underground levels are visible in WMS but not in WFS yet
@@ -354,7 +362,7 @@ class GIPortalAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                KST_NAME_CODE.get(properties.get('RODZAJ')), DEFAULT_BUILDING
+                KST_NAME_CODE.get(properties.get(self.gml_building_type_key)), DEFAULT_BUILDING
             )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
@@ -386,7 +394,7 @@ class WarszawaAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('RODZAJ'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
@@ -422,7 +430,7 @@ class WebEwidAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('RODZAJ'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
@@ -452,7 +460,7 @@ class WroclawAreaParser(BaseAreaParser):
 
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('RODZAJ'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
@@ -476,7 +484,7 @@ class LublinAreaParser(BaseAreaParser):
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
-            building_type = properties.get('RODZAJ', '')
+            building_type = properties.get(self.gml_building_type_key, '')
             if len(building_type) in (2, 3):
                 try:
                     building_levels = int(building_type[1:])
@@ -501,6 +509,7 @@ class ChorzowAreaParser(BaseAreaParser):
         kwargs['custom_crs'] = 2177
         kwargs['gml_geometry_key'] = 'the_geom'
         kwargs['gml_prefix'] = 'chorzow_workspace'
+        kwargs['gml_building_type_key'] = 'FUNK_KOD'
 
         super().__init__(*args, **kwargs)
 
@@ -514,7 +523,7 @@ class ChorzowAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('FUNK_KOD'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if building_levels := properties.get('KONDYGN'):
                 tags['building:levels'] = building_levels
@@ -530,6 +539,7 @@ class KatowiceAreaParser(BaseAreaParser):
         kwargs['custom_crs'] = 2177
         kwargs['gml_geometry_key'] = 'SHAPE'
         kwargs['gml_prefix'] = 'wms_egib_gugik'
+        kwargs['gml_building_type_key'] = 'FUNK_KOD'
 
         super().__init__(*args, **kwargs)
 
@@ -543,7 +553,7 @@ class KatowiceAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get('FUNK_KOD'), DEFAULT_BUILDING
+                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if building_levels := properties.get('KONDYGNACJE_NADZIEMNE'):
                 tags['building:levels'] = building_levels
