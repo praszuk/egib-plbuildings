@@ -247,7 +247,9 @@ class EpodgikAreaParser(BaseAreaParser):
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
         try:
-            tags['building'] = BUILDING_KST_CODE_TYPE.get(properties['FUNKCJA'], DEFAULT_BUILDING)
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(
+                properties.get('FUNKCJA'), DEFAULT_BUILDING
+            )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
 
@@ -352,7 +354,7 @@ class GIPortalAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                KST_NAME_CODE.get(properties.get('RODZAJ'), None), DEFAULT_BUILDING
+                KST_NAME_CODE.get(properties.get('RODZAJ')), DEFAULT_BUILDING
             )
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
