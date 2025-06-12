@@ -2383,8 +2383,8 @@ counties = {
     '2613': AreaExpectedBuildingData(
         name='włoszczowski',
         teryt='2613',
-        lat=50.84963,
-        lon=19.97492,
+        lat=50.85153,
+        lon=19.96935,
         expected_tags={'building': 'office'},
     ),
     '2661': AreaExpectedBuildingData(
