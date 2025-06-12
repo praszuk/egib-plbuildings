@@ -588,7 +588,7 @@ counties = {
         teryt='0619',
         lat=51.54789,
         lon=23.55561,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     '0620': AreaExpectedBuildingData(  # gmina Szczebrzeszyn
         name='zamojski',
@@ -1786,7 +1786,11 @@ counties = {
         teryt='2010',
         lat=52.42252,
         lon=22.86306,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '2011': AreaExpectedBuildingData(
         name='sokólski',
@@ -2555,7 +2559,7 @@ counties = {
         teryt='3001',
         lat=52.99566,
         lon=16.91908,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     '3002': AreaExpectedBuildingData(
         name='czarnkowsko-trzcianecki',

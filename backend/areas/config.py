@@ -312,7 +312,9 @@ all_counties: Dict[str, AreaParser] = {
         name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
     ),
     '1603': GeoportalAreaParser(name='kędzierzyńsko-kozielski', url_code='1603'),
-    '1604': GIPortalAreaParser(name='kluczborski', base_url='http://185.108.68.134/kluczbork-egib'),
+    '1604': GIPortalAreaParser(
+        name='kluczborski', base_url='https://ikerg.powiatkluczborski.eu/kluczbork-egib'
+    ),
     '1605': GIPortalAreaParser(
         name='krapkowicki', base_url='https://ikerg.powiatkrapkowicki.pl/krapkowice-egib'
     ),
@@ -548,7 +550,9 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Olsztyn', base_url='https://webewidwms.olsztyn.eu/iip/ows'
     ),
     # 30 – "wielkopolskie"
-    '3001': GeoportalAreaParser(name='chodzieski', url_code='3001'),
+    '3001': GIPortalAreaParser(
+        name='chodzieski', base_url='https://wms-geo.powiat-chodzieski.pl/chodziez-egib'
+    ),
     '3002': GIPortalAreaParser(
         name='czarnkowsko-trzcianecki',
         base_url='https://wms.czarnkowsko-trzcianecki.pl/czarnkowskotrzcianecki-egib',
