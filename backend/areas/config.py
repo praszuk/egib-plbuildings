@@ -286,7 +286,7 @@ all_counties: Dict[str, AreaParser] = {
     '1426': Geoportal2AreaParser(name='siedlecki', url_code='powiatsiedlecki'),
     '1427': Geoportal2AreaParser(name='sierpecki', url_code='sierpc'),
     '1428': Geoportal2AreaParser(name='sochaczewski', url_code='sochaczew'),
-    '1429': Geoportal2AreaParser(name='sokołowski', url_code='powiat-sokolowski'),
+    '1429': Geoportal2AreaParser(name='sokołowski', url_code='powiat-sokolowski', custom_crs=2178),
     '1430': Geoportal2AreaParser(name='szydłowiecki', url_code='szydlowiecpowiat'),
     '1432': WebEwidAreaParser(name='warszawski zachodni', base_url='https://wms.pwz.pl/iip/ows'),
     '1433': EpodgikAreaParser(name='węgrowski', url_code='wegrow'),
