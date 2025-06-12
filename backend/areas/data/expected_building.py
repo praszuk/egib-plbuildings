@@ -2860,7 +2860,7 @@ counties = {
         teryt='3063',
         lat=51.84684,
         lon=16.57777,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 32 – "zachodniopomorskie"
     '3201': AreaExpectedBuildingData(

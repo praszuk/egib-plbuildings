@@ -627,7 +627,9 @@ all_counties: Dict[str, AreaParser] = {
     '3062': GIPortalAreaParser(
         name='miasto Konin', base_url='https://ikerg.kosit.konin.eu/konin-egib'
     ),
-    '3063': GeoportalAreaParser(name='miasto Leszno', url_code='3063'),
+    '3063': GIPortalAreaParser(
+        name='miasto Leszno', base_url='https://imapa.leszno.pl/mleszno-egib'
+    ),
     # 32 – "zachodniopomorskie"
     '3201': WebEwidAreaParser(name='białogardzki', url_code='bialogardzki-wms'),
     '3202': GIPortalAreaParser(
