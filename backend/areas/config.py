@@ -228,7 +228,7 @@ all_counties: Dict[str, AreaParser] = {
     '1202': Geoportal2AreaParser(name='brzeski', url_code='brzesko'),
     '1203': WebEwidAreaParser(name='chrzanowski', url_code='chrzanowski', port=22443),
     '1204': WebEwidAreaParser(name='dąbrowski', url_code='dabrowski-wms'),
-    '1205': GeoportalAreaParser(name='gorlicki', url_code='1205'),
+    '1205': WebEwidAreaParser(name='gorlicki', url_code='gorlicki', port=4443),
     '1206': WebEwidAreaParser(
         name='krakowski', base_url='https://wms.powiat.krakow.pl:1518/iip/ows'
     ),
