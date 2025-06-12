@@ -1127,7 +1127,11 @@ counties = {
         teryt='1405',
         lat=52.09660,
         lon=20.61700,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
     ),
     '1406': AreaExpectedBuildingData(
         name='grójecki',

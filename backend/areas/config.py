@@ -260,7 +260,9 @@ all_counties: Dict[str, AreaParser] = {
     '1402': Geoportal2AreaParser(name='ciechanowski', url_code='ciechanow'),
     '1403': Geoportal2AreaParser(name='garwoliński', url_code='garwolinski', port=8443),
     '1404': Geoportal2AreaParser(name='gostyniński', url_code='gostynin'),
-    '1405': Geoportal2AreaParser(name='grodziski', url_code='grodzisk'),
+    '1405': GIPortalAreaParser(
+        name='grodziski', base_url='https://imapa.podgik-grodziskm.pl/grodziski-egib'
+    ),
     '1406': Geoportal2AreaParser(name='grójecki', url_code='grojec'),
     '1407': Geoportal2AreaParser(name='kozienicki', url_code='kozienicepowiat'),
     '1408': Geoportal2AreaParser(name='legionowski', url_code='powiat-legionowski'),
