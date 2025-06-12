@@ -214,7 +214,7 @@ all_counties: Dict[str, AreaParser] = {
     '1017': Geoportal2AreaParser(name='wieluński', url_code='wielun'),
     '1018': Geoportal2AreaParser(name='wieruszowski', url_code='wieruszow'),
     '1019': GeoportalAreaParser(name='zduńskowolski', url_code='1019'),
-    '1020': GeoportalAreaParser(name='zgierski', url_code='1020'),
+    '1020': WebEwidAreaParser(name='zgierski', url_code='zgierski-wms', port=743),
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
     '1061': GIPortalAreaParser(
         name='miasto Łódź', base_url='https://igeodeta.log.lodz.pl/lodz-egib'
