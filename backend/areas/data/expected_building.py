@@ -544,8 +544,8 @@ counties = {
     '0613': AreaExpectedBuildingData(
         name='parczewski',
         teryt='0613',
-        lat=51.63985,
-        lon=22.89702,
+        lat=51.63987,
+        lon=22.89634,
         expected_tags={'building': 'office'},
     ),
     '0614': AreaExpectedBuildingData(
@@ -588,7 +588,7 @@ counties = {
         teryt='0619',
         lat=51.54789,
         lon=23.55561,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     '0620': AreaExpectedBuildingData(  # gmina Szczebrzeszyn
         name='zamojski',
@@ -1127,7 +1127,11 @@ counties = {
         teryt='1405',
         lat=52.09660,
         lon=20.61700,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={
+            'building': 'office',
+            'building:levels': 4,
+            'building:levels:underground': 1,
+        },
     ),
     '1406': AreaExpectedBuildingData(
         name='grójecki',
@@ -1466,8 +1470,9 @@ counties = {
         lon=17.33416,
         expected_tags={
             'building': 'office',
-            'building:levels': 4,
-            'building:levels:underground': 1,
+            # no permissions to get levels for now – returns "BRAK UPRAWNIEŃ"
+            # 'building:levels': 4,
+            # 'building:levels:underground': 1,
         },
     ),
     '1608': AreaExpectedBuildingData(
@@ -1519,8 +1524,9 @@ counties = {
         lon=17.93054,
         expected_tags={
             'building': 'office',
-            'building:levels': 4,
-            'building:levels:underground': 1,
+            # no permissions to get levels for now – returns "BRAK UPRAWNIEŃ"
+            # 'building:levels': 4,
+            # 'building:levels:underground': 1,
         },
     ),
     # 18 – "podkarpackie"
@@ -1786,7 +1792,11 @@ counties = {
         teryt='2010',
         lat=52.42252,
         lon=22.86306,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '2011': AreaExpectedBuildingData(
         name='sokólski',
@@ -2379,8 +2389,8 @@ counties = {
     '2613': AreaExpectedBuildingData(
         name='włoszczowski',
         teryt='2613',
-        lat=50.84963,
-        lon=19.97492,
+        lat=50.85153,
+        lon=19.96935,
         expected_tags={'building': 'office'},
     ),
     '2661': AreaExpectedBuildingData(
@@ -2555,7 +2565,7 @@ counties = {
         teryt='3001',
         lat=52.99566,
         lon=16.91908,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 4},
     ),
     '3002': AreaExpectedBuildingData(
         name='czarnkowsko-trzcianecki',
@@ -2639,6 +2649,17 @@ counties = {
         lat=52.38779,
         lon=18.49674,
         expected_tags={'building': 'office'},
+    ),
+    '3011': AreaExpectedBuildingData(
+        name='kościański',
+        teryt='3011',
+        lat=52.08290,
+        lon=16.64127,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '3012': AreaExpectedBuildingData(
         name='krotoszyński',
@@ -2856,7 +2877,7 @@ counties = {
         teryt='3063',
         lat=51.84684,
         lon=16.57777,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     # 32 – "zachodniopomorskie"
     '3201': AreaExpectedBuildingData(

@@ -324,12 +324,10 @@ class Geoportal2AreaParser(BaseAreaParser):
         else:
             port_frag = f':{self.port}' if self.port else ''
             endpoint = f'https://{self.url_code}.geoportal2.pl{port_frag}/map/geoportal/wfs.php'
+
+        srs_name = f'EPSG:{self.custom_crs}' if self.custom_crs else self.DEFAULT_SRS_NAME
         return (
-            f'{endpoint}'
-            '?service=WFS'
-            '&REQUEST=GetFeature'
-            '&TYPENAMES=ewns:budynki'
-            f'&SRSNAME={self.DEFAULT_SRS_NAME}'
+            f'{endpoint}?service=WFS&REQUEST=GetFeature&TYPENAMES=ewns:budynki&SRSNAME={srs_name}'
         )
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
