@@ -575,6 +575,9 @@ all_counties: Dict[str, AreaParser] = {
         name='kolski', base_url='https://ikerg.starostwokolskie.pl/powiatkolski-egib'
     ),
     '3010': Geoportal2AreaParser(name='koniński', url_code='konin'),
+    '3011': GIPortalAreaParser(
+        name='kościański', base_url='https://wms.powiatkoscian.pl/koscian-egib'
+    ),
     '3012': GeoportalAreaParser(name='krotoszyński', url_code='3012'),
     '3013': WebEwidAreaParser(name='leszczyński', url_code='leszczynski', port=543),
     '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),

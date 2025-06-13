@@ -2650,6 +2650,17 @@ counties = {
         lon=18.49674,
         expected_tags={'building': 'office'},
     ),
+    '3011': AreaExpectedBuildingData(
+        name='kościański',
+        teryt='3011',
+        lat=52.08290,
+        lon=16.64127,
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
+    ),
     '3012': AreaExpectedBuildingData(
         name='krotoszyński',
         teryt='3012',
