@@ -544,8 +544,8 @@ counties = {
     '0613': AreaExpectedBuildingData(
         name='parczewski',
         teryt='0613',
-        lat=51.63985,
-        lon=22.89702,
+        lat=51.63987,
+        lon=22.89634,
         expected_tags={'building': 'office'},
     ),
     '0614': AreaExpectedBuildingData(
