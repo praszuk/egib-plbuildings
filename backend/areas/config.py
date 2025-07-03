@@ -313,7 +313,10 @@ all_counties: Dict[str, AreaParser] = {
     '1602': GIPortalAreaParser(
         name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
     ),
-    '1603': GeoportalAreaParser(name='kędzierzyńsko-kozielski', url_code='1603'),
+    '1603': GIPortalAreaParser(
+        name='kędzierzyńsko-kozielski',
+        base_url='https://ikerg.geo.powiat.kedzierzyn-kozle.pl/kedzierzynkozle-egib',
+    ),
     '1604': GIPortalAreaParser(
         name='kluczborski', base_url='https://ikerg.powiatkluczborski.eu/kluczbork-egib'
     ),
@@ -384,7 +387,7 @@ all_counties: Dict[str, AreaParser] = {
     '2004': Geoportal2AreaParser(name='grajewski', url_code='starostwograjewo'),
     '2005': Geoportal2AreaParser(name='hajnowski', url_code='hajnowka'),
     '2006': WebEwidAreaParser(name='kolneński', url_code='kolnenski-wms'),
-    '2007': GeoportalAreaParser(name='łomżyński', url_code='2007'),
+    '2007': WebEwidAreaParser(name='łomżyński', url_code='lomzynski-wms'),  # same as 2062
     '2008': Geoportal2AreaParser(name='moniecki', url_code='monki'),
     '2009': Geoportal2AreaParser(name='sejneński', url_code='sejny'),
     '2010': GIPortalAreaParser(
@@ -397,7 +400,7 @@ all_counties: Dict[str, AreaParser] = {
     '2061': WebEwidAreaParser(
         name='miasto Białystok', base_url='https://webewid-wms.um.bialystok.pl/iip/ows'
     ),
-    '2062': GeoportalAreaParser(name='miasto Łomża', url_code='2062'),
+    '2062': WebEwidAreaParser(name='miasto Łomża', url_code='lomzynski-wms'),  # same as 2007
     '2063': GeoportalAreaParser(
         name='miasto Suwałki',
         base_url='https://geoportal.um.suwalki.pl/ggp',
