@@ -313,7 +313,10 @@ all_counties: Dict[str, AreaParser] = {
     '1602': GIPortalAreaParser(
         name='głubczycki', base_url='https://ikerg.powiatglubczycki.pl/glubczyce-egib'
     ),
-    '1603': GeoportalAreaParser(name='kędzierzyńsko-kozielski', url_code='1603'),
+    '1603': GIPortalAreaParser(
+        name='kędzierzyńsko-kozielski',
+        base_url='https://ikerg.geo.powiat.kedzierzyn-kozle.pl/kedzierzynkozle-egib',
+    ),
     '1604': GIPortalAreaParser(
         name='kluczborski', base_url='https://ikerg.powiatkluczborski.eu/kluczbork-egib'
     ),
