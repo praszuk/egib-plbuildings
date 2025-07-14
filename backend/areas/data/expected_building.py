@@ -2323,7 +2323,7 @@ counties = {
         teryt='2603',
         lat=50.26743,
         lon=20.48658,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2604': AreaExpectedBuildingData(  # gmina Morawica
         name='kielecki',
@@ -2850,6 +2850,8 @@ counties = {
         lon=17.04817,
         expected_tags={
             'building': 'office',
+            'building:levels': 2,
+            'building:levels:underground': 1,
         },
     ),
     '3061': AreaExpectedBuildingData(
