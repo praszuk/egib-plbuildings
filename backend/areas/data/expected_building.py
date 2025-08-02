@@ -821,7 +821,7 @@ counties = {
         teryt='1011',
         lat=51.89282,
         lon=18.95548,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1012': AreaExpectedBuildingData(  # gmina Gomunice (Radomsko no data yet)
         name='radomszczański',
