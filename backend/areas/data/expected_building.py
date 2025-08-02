@@ -460,12 +460,12 @@ counties = {
         lon=23.08980,
         expected_tags={'building': 'yes'},  # empty
     ),
-    '0602': AreaExpectedBuildingData(  # gmina Tarnogród
+    '0602': AreaExpectedBuildingData(
         name='biłgorajski',
         teryt='0602',
-        lat=50.35931,
-        lon=22.74292,
-        expected_tags={'building': 'yes'},  # empty
+        lat=50.5309974,
+        lon=22.7166199,
+        expected_tags={'building': 'yes'},
     ),
     '0603': AreaExpectedBuildingData(  # gmina Rejowiec-Fabryczny
         name='chełmski',
