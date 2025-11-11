@@ -940,11 +940,11 @@ counties = {
             'building': 'office',
         },
     ),
-    '1202': AreaExpectedBuildingData(
+    '1202': AreaExpectedBuildingData(  # gmian Czchów, Brzesko lost tags
         name='brzeski',
         teryt='1202',
-        lat=49.96808,
-        lon=20.61328,
+        lat=49.83403,
+        lon=20.67201,
         expected_tags={'building': 'office'},
     ),
     '1203': AreaExpectedBuildingData(
