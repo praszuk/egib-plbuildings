@@ -532,7 +532,7 @@ all_counties: Dict[str, AreaParser] = {
         name='elbląski', base_url='https://ikerg.powiat.elblag.pl/elblaski-egib'
     ),
     '2805': Geoportal2AreaParser(name='ełcki', url_code='powiatelk'),
-    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko', gml_building_type_key='RODZAJ'),
+    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
     '2807': Geoportal2AreaParser(name='iławski', url_code='ilawa'),
     '2808': Geoportal2AreaParser(name='kętrzyński', url_code='powiatketrzynski'),
     '2809': Geoportal2AreaParser(name='lidzbarski', url_code='powiatlidzbarski'),
