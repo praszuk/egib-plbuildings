@@ -160,7 +160,11 @@ counties = {
         teryt='0218',
         lat=51.16290,
         lon=16.59712,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '0219': AreaExpectedBuildingData(
         name='świdnicki',
@@ -286,7 +290,11 @@ counties = {
         teryt='0403',
         lat=53.31413,
         lon=17.93781,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '0404': AreaExpectedBuildingData(
         name='chełmiński',
@@ -877,7 +885,7 @@ counties = {
         teryt='1019',
         lat=51.59866,
         lon=18.93762,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     '1020': AreaExpectedBuildingData(
         name='zgierski',
@@ -990,7 +998,11 @@ counties = {
         teryt='1209',
         lat=49.83607,
         lon=19.94218,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '1210': AreaExpectedBuildingData(
         name='nowosądecki',
@@ -1029,7 +1041,11 @@ counties = {
         teryt='1214',
         lat=50.19127,
         lon=20.29426,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '1215': AreaExpectedBuildingData(
         name='suski',
@@ -1812,7 +1828,7 @@ counties = {
         teryt='2012',
         lat=53.98874,
         lon=22.78396,
-        expected_tags={'building': 'office'},
+        expected_tags={'building': 'office', 'building:levels': 2},
     ),
     '2013': AreaExpectedBuildingData(  # gmina Sokoły (main city just missing data yet)
         name='wysokomazowiecki',
@@ -1982,7 +1998,11 @@ counties = {
         teryt='2216',
         lat=53.91887,
         lon=19.03212,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '2261': AreaExpectedBuildingData(
         name='miasto Gdańsk',
@@ -2478,7 +2498,11 @@ counties = {
         teryt='2810',
         lat=53.87659,
         lon=21.30455,
-        expected_tags={'building': 'office', 'building:levels': 2},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 2,
+            'building:levels:underground': 1,
+        },
     ),
     '2811': AreaExpectedBuildingData(
         name='nidzicki',
@@ -2541,7 +2565,11 @@ counties = {
         teryt='2819',
         lat=54.20739,
         lon=21.73810,
-        expected_tags={'building': 'office', 'building:levels': 2},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 2,
+            'building:levels:underground': 1,
+        },
     ),
     '2861': AreaExpectedBuildingData(
         name='miasto Elbląg',
@@ -2668,7 +2696,11 @@ counties = {
         teryt='3012',
         lat=51.69203,
         lon=17.43794,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '3013': AreaExpectedBuildingData(  # gmina Rydzyna
         name='leszczyński',
@@ -2684,7 +2716,11 @@ counties = {
         teryt='3014',
         lat=52.60663,
         lon=15.90180,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '3015': AreaExpectedBuildingData(
         name='nowotomyski',
@@ -3061,7 +3097,11 @@ counties = {
         teryt='3261',
         lat=54.18817,
         lon=16.19333,
-        expected_tags={'building': 'office'},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 5,
+            'building:levels:underground': 1,
+        },
     ),
     '3262': AreaExpectedBuildingData(
         name='miasto Szczecin',
