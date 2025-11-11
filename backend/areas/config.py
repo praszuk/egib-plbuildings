@@ -501,7 +501,7 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Rybnik', base_url='https://geodeta.gpue.rybnik.eu/rybnik-egib'
     ),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
-    '2475': GeoportalAreaParser(name='miasto Sosnowiec', url_code='2475'),
+    '2475': WebEwidAreaParser(name='miasto Sosnowiec', url_code='sosnowiec', port=9443),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
     '2477': WebEwidAreaParser(name='miasto Tychy', base_url='https://geowms.umtychy.pl/iip/ows'),
     '2478': WebEwidAreaParser(name='miasto Zabrze', base_url='https://wms.miastozabrze.pl/iip/ows'),
