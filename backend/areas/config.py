@@ -275,9 +275,7 @@ all_counties: Dict[str, AreaParser] = {
     '1415': Geoportal2AreaParser(name='ostrołęcki', url_code='powiatostrolecki'),
     '1416': Geoportal2AreaParser(name='ostrowski', url_code='ostrowmaz'),
     '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
-    '1418': EpodgikAreaParser(
-        name='piaseczyński', url_code='piaseczno', gml_building_type_key='RODZAJ'
-    ),
+    '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
     '1419': Geoportal2AreaParser(name='płocki', url_code='powiat-plock'),
     '1420': Geoportal2AreaParser(name='płoński', url_code='plonski'),
     '1421': EpodgikAreaParser(name='pruszkowski', url_code='pruszkow'),
