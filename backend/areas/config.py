@@ -676,7 +676,7 @@ communes = {
     '2402043': Geoportal2AreaParser(name='gmina Czechowice-Dziedzice', url_code='czechowice'),
     '2403011': Geoportal2AreaParser(name='miasto Cieszyn', url_code='miastocieszyn'),
     '2416021': GIPortalAreaParser(
-        name='miasto Zawiercie', base_url='https://wms.zawiercie.eu/zawiercie-egib'
+        name='miasto Zawiercie', base_url='https://wms.zawiercie.eu/cgi-bin/zawiercie-egib'
     ),
 }
 all_areas = all_counties | communes
