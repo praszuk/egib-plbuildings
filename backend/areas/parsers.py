@@ -358,6 +358,7 @@ class GIPortalAreaParser(BaseAreaParser):
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
+        # print(properties)
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
                 KST_NAME_CODE.get(properties.get(self.gml_building_type_key)), DEFAULT_BUILDING
@@ -533,11 +534,27 @@ class ChorzowAreaParser(BaseAreaParser):
 
 
 class KatowiceAreaParser(BaseAreaParser):
+    KATOWICE_NAME_CODE: Final = {
+        'budynek mieszkalny': 'm',
+        'budynek produkcyjny, usługowy i gospodarczy dla rolnictwa': 'g',
+        'budynek transportu i łączności': 't',
+        'budynek oświaty, nauki  kultury, sportowy': 'k',
+        'szpital, zakład opieki medycznej': 'z',
+        'budynek biurowy': 'b',
+        'budynek handlowo usługowy': 'h',
+        'budynek przemysłowy': 'p',
+        'zbiornik, silos i budynek magazynowy': 's',
+        'inny budynek niemieszkalny': 'i',
+        # Below non existing in KST
+        'garaż': 'i',
+        'budynek kultu religijnego': 'i',
+    }
+
     def __init__(self, *args, **kwargs):
         kwargs['custom_crs'] = 2177
         kwargs['gml_geometry_key'] = 'SHAPE'
         kwargs['gml_prefix'] = 'wms_egib_gugik'
-        kwargs['gml_building_type_key'] = 'FUNK_KOD'
+        kwargs['gml_building_type_key'] = 'RODZAJ'
 
         super().__init__(*args, **kwargs)
 
@@ -551,7 +568,8 @@ class KatowiceAreaParser(BaseAreaParser):
         tags: Dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                properties.get(self.gml_building_type_key), DEFAULT_BUILDING
+                self.KATOWICE_NAME_CODE.get(properties.get(self.gml_building_type_key)),
+                DEFAULT_BUILDING,
             )
             if building_levels := properties.get('KONDYGNACJE_NADZIEMNE'):
                 tags['building:levels'] = building_levels
