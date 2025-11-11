@@ -748,7 +748,7 @@ counties = {
         lat=51.94031,
         lon=15.51432,
         expected_tags={
-            'building': 'yes',
+            'building': 'office',
             'building:levels': 9,
             'building:levels:underground': 1,
         },
