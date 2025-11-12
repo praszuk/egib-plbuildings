@@ -184,13 +184,9 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Gorzów Wielkopolski',
         base_url='https://geoportal.wms.um.gorzow.pl/map/geoportal/wfs.php',
     ),
-    '0862': GeoportalAreaParser(
+    '0862': GIPortalAreaParser(
         name='miasto Zielona Góra',
-        base_url='https://gis.um.zielona-gora.pl/arcgis/services/zielona_gora_egib/serwer',
-        # url_typenames='budynki',
-        gml_member_prefix='gml',
-        gml_geometry_key='SHAPE',
-        custom_crs=2176,
+        base_url='https://imapa.um.zielona-gora.pl/zielona-egib',
     ),
     # 10 – "łódzkie"
     '1001': Geoportal2AreaParser(name='bełchatowski', url_code='belchatow'),
@@ -217,7 +213,7 @@ all_counties: Dict[str, AreaParser] = {
     '1020': WebEwidAreaParser(name='zgierski', url_code='zgierski-wms', port=743),
     '1021': Geoportal2AreaParser(name='brzeziński', url_code='brzeziny'),
     '1061': GIPortalAreaParser(
-        name='miasto Łódź', base_url='https://igeodeta.log.lodz.pl/lodz-egib'
+        name='miasto Łódź', base_url='https://igeodeta.log.lodz.pl/cgi-bin/lodz-egib'
     ),
     '1062': GIPortalAreaParser(
         name='miasto Piotrków Trybunalski', base_url='https://ikerg.piotrkow.pl/piotrkow-egib'
@@ -275,9 +271,7 @@ all_counties: Dict[str, AreaParser] = {
     '1415': Geoportal2AreaParser(name='ostrołęcki', url_code='powiatostrolecki'),
     '1416': Geoportal2AreaParser(name='ostrowski', url_code='ostrowmaz'),
     '1417': Geoportal2AreaParser(name='otwocki', url_code='powiat-otwocki'),
-    '1418': EpodgikAreaParser(
-        name='piaseczyński', url_code='piaseczno', gml_building_type_key='RODZAJ'
-    ),
+    '1418': EpodgikAreaParser(name='piaseczyński', url_code='piaseczno'),
     '1419': Geoportal2AreaParser(name='płocki', url_code='powiat-plock'),
     '1420': Geoportal2AreaParser(name='płoński', url_code='plonski'),
     '1421': EpodgikAreaParser(name='pruszkowski', url_code='pruszkow'),
@@ -503,7 +497,7 @@ all_counties: Dict[str, AreaParser] = {
         name='miasto Rybnik', base_url='https://geodeta.gpue.rybnik.eu/rybnik-egib'
     ),
     '2474': Geoportal2AreaParser(name='miasto Siemianowice Śląskie', url_code='siemianowice'),
-    '2475': GeoportalAreaParser(name='miasto Sosnowiec', url_code='2475'),
+    '2475': WebEwidAreaParser(name='miasto Sosnowiec', url_code='sosnowiec', port=9443),
     '2476': Geoportal2AreaParser(name='miasto Świętochłowice', url_code='swietochlowice'),
     '2477': WebEwidAreaParser(name='miasto Tychy', base_url='https://geowms.umtychy.pl/iip/ows'),
     '2478': WebEwidAreaParser(name='miasto Zabrze', base_url='https://wms.miastozabrze.pl/iip/ows'),
@@ -534,7 +528,7 @@ all_counties: Dict[str, AreaParser] = {
         name='elbląski', base_url='https://ikerg.powiat.elblag.pl/elblaski-egib'
     ),
     '2805': Geoportal2AreaParser(name='ełcki', url_code='powiatelk'),
-    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko', gml_building_type_key='RODZAJ'),
+    '2806': EpodgikAreaParser(name='giżycki', url_code='gizycko'),
     '2807': Geoportal2AreaParser(name='iławski', url_code='ilawa'),
     '2808': Geoportal2AreaParser(name='kętrzyński', url_code='powiatketrzynski'),
     '2809': Geoportal2AreaParser(name='lidzbarski', url_code='powiatlidzbarski'),
@@ -682,7 +676,7 @@ communes = {
     '2402043': Geoportal2AreaParser(name='gmina Czechowice-Dziedzice', url_code='czechowice'),
     '2403011': Geoportal2AreaParser(name='miasto Cieszyn', url_code='miastocieszyn'),
     '2416021': GIPortalAreaParser(
-        name='miasto Zawiercie', base_url='https://wms.zawiercie.eu/zawiercie-egib'
+        name='miasto Zawiercie', base_url='https://wms.zawiercie.eu/cgi-bin/zawiercie-egib'
     ),
 }
 all_areas = all_counties | communes
