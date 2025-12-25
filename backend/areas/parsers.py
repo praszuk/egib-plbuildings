@@ -236,12 +236,6 @@ class BaseAreaParser:
 
 
 class EpodgikAreaParser(BaseAreaParser):
-    def __init__(self, *args, **kwargs):
-        if 'gml_building_type_key' not in kwargs:
-            kwargs['gml_building_type_key'] = 'FUNKCJA'
-
-        super().__init__(*args, **kwargs)
-
     def build_buildings_url(self) -> str:
         return (
             f'https://wms.epodgik.pl/cgi-bin/{self.url_code}/wfs'

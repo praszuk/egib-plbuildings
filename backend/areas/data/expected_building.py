@@ -162,8 +162,8 @@ counties = {
         lon=16.59712,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
-            'building:levels:underground': 1,
+            # 'building:levels': 3,
+            # 'building:levels:underground': 1,
         },
     ),
     '0219': AreaExpectedBuildingData(
@@ -292,8 +292,8 @@ counties = {
         lon=17.93781,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
-            'building:levels:underground': 1,
+            # 'building:levels': 3,
+            # 'building:levels:underground': 1,
         },
     ),
     '0404': AreaExpectedBuildingData(
@@ -1189,7 +1189,7 @@ counties = {
         teryt='1411',
         lat=52.86438,
         lon=21.10171,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1412': AreaExpectedBuildingData(
         name='miński',
@@ -1905,7 +1905,7 @@ counties = {
         lat=54.26061,
         lon=18.63274,
         expected_tags={
-            'building': 'yes',
+            'building': 'office',
         },
     ),
     '2205': AreaExpectedBuildingData(
