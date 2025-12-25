@@ -95,7 +95,7 @@ all_counties: Dict[str, AreaParser] = {
     '0402': Geoportal2AreaParser(
         name='brodnicki', base_url='https://mapa.brodnica.com.pl/map/geoportal/wfs.php'
     ),
-    '0403': GeoportalAreaParser(name='bydgoski', url_code='0403'),
+    '0403': WebEwidAreaParser(name='bydgoski', url_code='bydgoski-wms'),
     '0404': WebEwidAreaParser(name='chełmiński', url_code='chelminski', port=44316),
     '0405': WebEwidAreaParser(name='golubsko-dobrzyński', url_code='golubsko-dobrzynski-wms'),
     '0406': WebEwidAreaParser(
