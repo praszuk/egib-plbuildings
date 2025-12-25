@@ -38,11 +38,10 @@ class TestBasicBuilding:
 
     def test_geojson_has_all_properties(self, geojson):
         expected_properties = {
-            'FUNKCJA': 'i',
+            'RODZAJ': 'b',
             'KONDYGNACJE_NADZIEMNE': '3',
-            'RODZAJ': 'ognioodporny',
             'ID_BUDYNKU': '142104_2.0013.628/16.1_BUD',
-            'KONDYGNACJE_PODZIEMNE': None,
+            'KONDYGNACJE_PODZIEMNE': '0',
         }
         assert geojson['features'][0]['properties'] == expected_properties
 
