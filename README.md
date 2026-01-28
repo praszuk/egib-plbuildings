@@ -12,6 +12,10 @@ POSTGRES_PORT=5432
 POSTGRES_DB=database_name
 POSTGRES_USER=database_user
 POSTGRES_PASSWORD=database_password
+# Optional docker volume dirs
+DB_DIR=
+CACHE_DIR=
+LOGS_DIR=
 ```
 
 ### Development 
