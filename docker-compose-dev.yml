@@ -12,7 +12,7 @@ services:
     networks:
         - egib-dev-net
     volumes:
-        - ${DB_DIR:-./.db}:/var/lib/postgresql/data
+        - ${DB_DIR:-./.db_dev}:/var/lib/postgresql/data
         - ./docker/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   backend:
     restart: always
