@@ -330,13 +330,9 @@ all_counties: Dict[str, AreaParser] = {
     '1610': GIPortalAreaParser(
         name='prudnicki', base_url='https://ikerg2.powiatprudnicki.pl/prudnik-egib'
     ),
-    '1611': GeoportalAreaParser(
+    '1611': GIPortalAreaParser(
         name='strzelecki',
-        base_url='https://mapy.powiatstrzelecki.pl/ggp',
-        url_typenames='budynki',
-        gml_prefix='WMS',
-        gml_geometry_key='MSGEOMETRY',
-        custom_crs=2177,
+        base_url='https://wms.powiatstrzelecki.pl/strzelecki-egib',
     ),
     '1661': GIPortalAreaParser(name='miasto Opole', base_url='https://wms.um.opole.pl/opole-egib'),
     # 18 – "podkarpackie"
