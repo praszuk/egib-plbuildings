@@ -324,13 +324,8 @@ all_counties: Dict[str, AreaParser] = {
     '1608': GIPortalAreaParser(
         name='oleski', base_url='https://giportal.powiatoleski.pl/olesno-egib'
     ),
-    '1609': GeoportalAreaParser(
-        name='opolski',
-        base_url='https://geodezja.powiatopolski.pl/ggp',
-        url_typenames='budynki',
-        gml_prefix='WMS',
-        gml_geometry_key='MSGEOMETRY',
-        custom_crs=2177,
+    '1609': GIPortalAreaParser(
+        name='opolski', base_url='https://wms.powiatopolski.pl/opolski-egib'
     ),
     '1610': GIPortalAreaParser(
         name='prudnicki', base_url='https://ikerg2.powiatprudnicki.pl/prudnik-egib'
