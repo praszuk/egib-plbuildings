@@ -64,7 +64,7 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '0216': WebEwidAreaParser(name='polkowicki', url_code='polkowicki-wms'),
     '0217': WebEwidAreaParser(name='strzeliński', url_code='strzelinski-wms'),
-    '0218': GeoportalAreaParser(name='średzki', url_code='0218'),
+    '0218': WebEwidAreaParser(name='średzki', url_code='sredzki-wms'),
     '0219': WebEwidAreaParser(name='świdnicki', url_code='swidnicki-wms'),
     '0220': WebEwidAreaParser(name='trzebnicki', url_code='trzebnicki-wms'),
     '0221': WebEwidAreaParser(name='wałbrzyski', url_code='walbrzyski-wms'),
@@ -178,7 +178,7 @@ all_counties: Dict[str, AreaParser] = {
         name='zielonogórski', base_url='https://giportal.powiat-zielonogorski.pl/zielonagora-egib'
     ),
     '0810': WebEwidAreaParser(name='żagański', url_code='zaganski-wms'),
-    '0811': Geoportal2AreaParser(name='żarski', url_code='zary'),
+    '0811': WebEwidAreaParser(name='żarski', base_url='https://wms.powiatzarski.pl/iip/ows'),
     '0812': Geoportal2AreaParser(name='wschowski', url_code='wschowa'),
     '0861': Geoportal2AreaParser(
         name='miasto Gorzów Wielkopolski',
@@ -566,7 +566,9 @@ all_counties: Dict[str, AreaParser] = {
     '3011': GIPortalAreaParser(
         name='kościański', base_url='https://wms.powiatkoscian.pl/koscian-egib'
     ),
-    '3012': GeoportalAreaParser(name='krotoszyński', url_code='3012'),
+    '3012': GIPortalAreaParser(
+        name='krotoszyński', base_url='https://wms.powiat-krotoszyn.pl/krotoszyn-egib'
+    ),
     '3013': WebEwidAreaParser(name='leszczyński', url_code='leszczynski', port=543),
     '3014': EpodgikAreaParser(name='międzychodzki', url_code='miedzychod'),
     '3015': GIPortalAreaParser(
@@ -667,7 +669,7 @@ communes = {
     '2402043': Geoportal2AreaParser(name='gmina Czechowice-Dziedzice', url_code='czechowice'),
     '2403011': Geoportal2AreaParser(name='miasto Cieszyn', url_code='miastocieszyn'),
     '2416021': GIPortalAreaParser(
-        name='miasto Zawiercie', base_url='https://wms.zawiercie.eu/cgi-bin/zawiercie-egib'
+        name='miasto Zawiercie', base_url='https://wms.zawiercie.eu/zawiercie-egib'
     ),
 }
 all_areas = all_counties | communes
