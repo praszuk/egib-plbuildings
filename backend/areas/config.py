@@ -9,7 +9,6 @@ from backend.areas.parsers import (
     Geoportal2AreaParser,
     GIPortalAreaParser,
     KatowiceAreaParser,
-    LublinAreaParser,
     WarszawaAreaParser,
     WebEwidAreaParser,
     WroclawAreaParser,
@@ -157,7 +156,7 @@ all_counties: Dict[str, AreaParser] = {
     '0620': Geoportal2AreaParser(name='zamojski', url_code='powiatzamojski'),
     '0661': Geoportal2AreaParser(name='miasto Biała Podlaska', url_code='bialapodlaska'),
     '0662': EpodgikAreaParser(name='miasto Chełm', url_code='mchelm'),
-    '0663': LublinAreaParser(name='miasto Lublin', custom_crs=2179),
+    '0663': WebEwidAreaParser(name='miasto Lublin', base_url='https://gis.lublin.eu/iip/ows/'),
     '0664': Geoportal2AreaParser(name='miasto Zamość', url_code='zamosc'),
     # 08 – "lubuskie"
     '0801': Geoportal2AreaParser(name='gorzowski', url_code='powiatgorzowski'),

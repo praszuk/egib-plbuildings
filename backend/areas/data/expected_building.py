@@ -624,7 +624,7 @@ counties = {
         teryt='0663',
         lat=51.25096,
         lon=22.55472,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={'building': 'office'},
     ),
     '0664': AreaExpectedBuildingData(
         name='miasto Zamość',
@@ -1326,7 +1326,7 @@ counties = {
         teryt='1430',
         lat=51.22660,
         lon=20.85913,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1432': AreaExpectedBuildingData(
         name='warszawski zachodni',
@@ -2213,7 +2213,7 @@ counties = {
         teryt='2464',
         lat=50.80972,
         lon=19.11406,
-        expected_tags={'building': 'yes'},  # broken descriptional data
+        expected_tags={'building': 'office'},
     ),
     '2465': AreaExpectedBuildingData(
         name='miasto Dąbrowa Górnicza',
