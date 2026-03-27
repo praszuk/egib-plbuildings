@@ -352,11 +352,12 @@ class GIPortalAreaParser(BaseAreaParser):
 
     def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
         tags: Dict[str, Any] = {}
-        # print(properties)
         try:
-            tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                KST_NAME_CODE.get(properties.get(self.gml_building_type_key)), DEFAULT_BUILDING
-            )
+            building_type = properties.get(self.gml_building_type_key) or ''
+            if len(building_type) != 1:
+                building_type = KST_NAME_CODE.get(building_type)
+
+            tags['building'] = BUILDING_KST_CODE_TYPE.get(building_type, DEFAULT_BUILDING)
             if 'KONDYGNACJE_NADZIEMNE' in properties:
                 tags['building:levels'] = properties.get('KONDYGNACJE_NADZIEMNE')
 
