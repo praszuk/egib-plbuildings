@@ -624,7 +624,7 @@ counties = {
         teryt='0663',
         lat=51.25096,
         lon=22.55472,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={'building': 'office'},
     ),
     '0664': AreaExpectedBuildingData(
         name='miasto Zamość',

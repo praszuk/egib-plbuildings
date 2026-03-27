@@ -468,36 +468,6 @@ class WroclawAreaParser(BaseAreaParser):
         return tags
 
 
-class LublinAreaParser(BaseAreaParser):
-    def build_buildings_url(self) -> str:
-        return (
-            'https://gis.lublin.eu/opendata/wfs'
-            '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:budynki'
-        )
-
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
-        try:
-            building_type = properties.get(self.gml_building_type_key, '')
-            if len(building_type) in (2, 3):
-                try:
-                    building_levels = int(building_type[1:])
-                except ValueError:
-                    building_levels = None
-            else:
-                building_levels = 1
-
-            building_type = BUILDING_KST_CODE_TYPE.get(building_type[0], DEFAULT_BUILDING)
-            tags['building'] = building_type
-            if building_levels:
-                tags['building:levels'] = building_levels
-
-        except KeyError as e:
-            raise InvalidKeyParserError(e)
-
-        return tags
-
-
 class ChorzowAreaParser(BaseAreaParser):
     def __init__(self, *args, **kwargs):
         kwargs['custom_crs'] = 2177
