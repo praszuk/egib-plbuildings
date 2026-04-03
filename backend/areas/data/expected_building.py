@@ -665,8 +665,9 @@ counties = {
         lon=15.71958,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
-            'building:levels:underground': 1,
+            # Server doesn't return levels anymore
+            # 'building:levels': 3,
+            # 'building:levels:underground': 1,
         },
     ),
     '0805': AreaExpectedBuildingData(
@@ -2000,8 +2001,9 @@ counties = {
         lon=19.03212,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
-            'building:levels:underground': 1,
+            # Server doesn't return levels anymore
+            # 'building:levels': 3,
+            # 'building:levels:underground': 1,
         },
     ),
     '2261': AreaExpectedBuildingData(
@@ -2038,7 +2040,7 @@ counties = {
         teryt='2401',
         lat=50.31494,
         lon=19.13189,
-        expected_tags={'building': 'yes'},
+        expected_tags={'building': 'office'},
     ),
     '2402': AreaExpectedBuildingData(  # gmina Wilamowice
         name='bielski',
@@ -2268,7 +2270,7 @@ counties = {
         teryt='2471',
         lat=50.37508,
         lon=18.94434,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2472': AreaExpectedBuildingData(
         name='miasto Ruda Śląska',
@@ -2378,7 +2380,7 @@ counties = {
         teryt='2608',
         lat=50.51864,
         lon=20.52370,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2609': AreaExpectedBuildingData(
         name='sandomierski',
@@ -2404,9 +2406,10 @@ counties = {
     '2612': AreaExpectedBuildingData(
         name='staszowski',
         teryt='2612',
-        lat=50.56410,
-        lon=21.16478,
-        expected_tags={'building': 'office'},
+        lat=50.56345,
+        lon=21.18036,
+        # low building data coverage, using shop instead of gov office
+        expected_tags={'building': 'retail'},
     ),
     '2613': AreaExpectedBuildingData(
         name='włoszczowski',
@@ -2791,8 +2794,7 @@ counties = {
         teryt='3021',
         lat=52.39727,
         lon=17.22575,
-        # not empty, but broken/descriptional building type
-        expected_tags={'building': 'yes', 'building:levels': 3},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     '3022': AreaExpectedBuildingData(
         name='rawicki',
