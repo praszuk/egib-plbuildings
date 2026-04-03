@@ -2406,9 +2406,10 @@ counties = {
     '2612': AreaExpectedBuildingData(
         name='staszowski',
         teryt='2612',
-        lat=50.56410,
-        lon=21.16478,
-        expected_tags={'building': 'office'},
+        lat=50.56345,
+        lon=21.18036,
+        # low building data coverage, using shop instead of gov office
+        expected_tags={'building': 'retail'},
     ),
     '2613': AreaExpectedBuildingData(
         name='włoszczowski',
