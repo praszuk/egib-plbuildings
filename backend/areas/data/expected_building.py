@@ -2038,7 +2038,7 @@ counties = {
         teryt='2401',
         lat=50.31494,
         lon=19.13189,
-        expected_tags={'building': 'yes'},
+        expected_tags={'building': 'office'},
     ),
     '2402': AreaExpectedBuildingData(  # gmina Wilamowice
         name='bielski',
@@ -2268,7 +2268,7 @@ counties = {
         teryt='2471',
         lat=50.37508,
         lon=18.94434,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2472': AreaExpectedBuildingData(
         name='miasto Ruda Śląska',
@@ -2378,7 +2378,7 @@ counties = {
         teryt='2608',
         lat=50.51864,
         lon=20.52370,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '2609': AreaExpectedBuildingData(
         name='sandomierski',
@@ -2791,8 +2791,7 @@ counties = {
         teryt='3021',
         lat=52.39727,
         lon=17.22575,
-        # not empty, but broken/descriptional building type
-        expected_tags={'building': 'yes', 'building:levels': 3},
+        expected_tags={'building': 'office', 'building:levels': 3},
     ),
     '3022': AreaExpectedBuildingData(
         name='rawicki',
