@@ -1,4 +1,4 @@
-.PHONY: install format format-check lint lint-check clean update
+.PHONY: install format format-check lint lint-check clean compile-deps upgrade-deps
 
 SHELL := /bin/bash
 VENV=.venv
@@ -30,6 +30,9 @@ clean:
 	if [ -d ".git" ]; then $(PYTHON) -m pre_commit uninstall; fi
 	rm -rf .pytest_cache .counties_geoms.pickle __pycache__ $(VENV)
 
-update:
+compile-deps:
+	pip-compile-multi --no-upgrade -d $(APP_DIR)/requirements/
+
+upgrade-deps:
 	for filename in $(APP_DIR)/requirements/*.in; do pur -r $$filename; done
 	pip-compile-multi -d $(APP_DIR)/requirements/
