@@ -141,7 +141,6 @@ class BaseAreaParser:
                     for polygon in polygons:
                         gml_geom = etree.tostring(polygon).decode('utf-8')
                         geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
-                        geometry.FlattenTo2D()
 
                         # Reproject to 4326
                         if self.custom_crs and self.custom_crs != 4326:
@@ -490,53 +489,6 @@ class ChorzowAreaParser(BaseAreaParser):
                 properties.get(self.gml_building_type_key), DEFAULT_BUILDING
             )
             if building_levels := properties.get('KONDYGN'):
-                tags['building:levels'] = building_levels
-
-        except KeyError as e:
-            raise InvalidKeyParserError(e)
-
-        return tags
-
-
-class KatowiceAreaParser(BaseAreaParser):
-    KATOWICE_NAME_CODE: Final = {
-        'budynek mieszkalny': 'm',
-        'budynek produkcyjny, usługowy i gospodarczy dla rolnictwa': 'g',
-        'budynek transportu i łączności': 't',
-        'budynek oświaty, nauki  kultury, sportowy': 'k',
-        'szpital, zakład opieki medycznej': 'z',
-        'budynek biurowy': 'b',
-        'budynek handlowo usługowy': 'h',
-        'budynek przemysłowy': 'p',
-        'zbiornik, silos i budynek magazynowy': 's',
-        'inny budynek niemieszkalny': 'i',
-        # Below non existing in KST
-        'garaż': 'i',
-        'budynek kultu religijnego': 'i',
-    }
-
-    def __init__(self, *args, **kwargs):
-        kwargs['custom_crs'] = 2177
-        kwargs['gml_geometry_key'] = 'SHAPE'
-        kwargs['gml_prefix'] = 'wms_egib_gugik'
-        kwargs['gml_building_type_key'] = 'RODZAJ'
-
-        super().__init__(*args, **kwargs)
-
-    def build_buildings_url(self) -> str:
-        return (
-            'https://emapa.katowice.eu/arcgis/services/wms_egib_gugik/MapServer/WFSServer'
-            '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=wms_egib_gugik:budynki'
-        )
-
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
-        try:
-            tags['building'] = BUILDING_KST_CODE_TYPE.get(
-                self.KATOWICE_NAME_CODE.get(properties.get(self.gml_building_type_key)),
-                DEFAULT_BUILDING,
-            )
-            if building_levels := properties.get('KONDYGNACJE_NADZIEMNE'):
                 tags['building:levels'] = building_levels
 
         except KeyError as e:
