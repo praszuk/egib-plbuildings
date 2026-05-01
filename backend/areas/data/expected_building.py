@@ -795,7 +795,7 @@ counties = {
         teryt='1006',
         lat=51.74597,
         lon=19.81302,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'residential'},
     ),
     '1007': AreaExpectedBuildingData(  # gmina Sławno (Opoczno no data yet)
         name='opoczyński',
@@ -1169,7 +1169,7 @@ counties = {
         teryt='1408',
         lat=52.42186,
         lon=20.93909,
-        expected_tags={'building': 'yes'},  # empty
+        expected_tags={'building': 'office'},
     ),
     '1409': AreaExpectedBuildingData(
         name='lipski',
