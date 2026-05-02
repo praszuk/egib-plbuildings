@@ -1,4 +1,5 @@
 from backend.areas.parsers import WarszawaAreaParser
+from backend.areas.config import all_areas
 
 
 class TestGmlToGeojsonParser:
@@ -6,3 +7,8 @@ class TestGmlToGeojsonParser:
         gml_content = load_gml('warszawa', 'gml_multisurface_multiple_polygons.xml')
         geojson = WarszawaAreaParser(name='test').parse_gml_to_geojson(gml_content)
         assert len(geojson['features']) == 2
+
+    def test_gml_3d_flatten_to_2d(self, load_gml):
+        gml_content = load_gml('katowice', 'gml_basic_building_3d.xml')
+        geojson = all_areas['2469'].parse_gml_to_geojson(gml_content)
+        assert len(geojson['features'][0]['geometry']['coordinates'][0][0]) == 2
