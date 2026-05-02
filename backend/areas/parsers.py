@@ -141,6 +141,7 @@ class BaseAreaParser:
                     for polygon in polygons:
                         gml_geom = etree.tostring(polygon).decode('utf-8')
                         geometry: ogr.Geometry = ogr.CreateGeometryFromGML(gml_geom)
+                        geometry.FlattenTo2D()  # some areas return 3 dimension coords e.g. Katowice
 
                         # Reproject to 4326
                         if self.custom_crs and self.custom_crs != 4326:
