@@ -4,19 +4,12 @@ API server which is used by [josm-plbuildings-server](https://github.com/praszuk
 and parse it to OSM format.
 
 ## How to use it
-### Example .env file
+
+Copy `example.env` to `.env`:
+```commandline
+cp example.env .env
 ```
-# Database
-POSTGRES_HOST=db
-POSTGRES_PORT=5432
-POSTGRES_DB=database_name
-POSTGRES_USER=database_user
-POSTGRES_PASSWORD=database_password
-# Optional docker volume dirs
-DB_DIR=
-CACHE_DIR=
-LOGS_DIR=
-```
+and change (at least db pass).
 
 ### Development 
 For development, you can install all dependencies using: 
