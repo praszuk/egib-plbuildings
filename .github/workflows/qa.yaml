@@ -3,7 +3,7 @@ name: Quality Assurance
 on: [push, pull_request]
 
 jobs:
-  checks:
+  qa:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
