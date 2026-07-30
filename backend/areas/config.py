@@ -410,7 +410,7 @@ all_counties: Dict[str, AreaParser] = {
     ),
     '2214': WebEwidAreaParser(name='tczewski', base_url='https://wms.powiat.tczew.pl/iip/ows'),
     '2215': EpodgikAreaParser(name='wejherowski', url_code='wejherowo'),
-    '2216': GeoportalAreaParser(name='sztumski', url_code='2216'),
+    '2216': WebEwidAreaParser(name='sztumski', url_code='sztumski-wms'),
     '2261': WebEwidAreaParser(
         name='miasto Gdańsk', base_url='https://ewid-wms.gdansk.gda.pl/iip/ows'
     ),
