@@ -1197,7 +1197,11 @@ counties = {
         teryt='1412',
         lat=52.18138,
         lon=21.55919,
-        expected_tags={'building': 'office', 'building:levels': 3},
+        expected_tags={
+            'building': 'office',
+            'building:levels': 3,
+            'building:levels:underground': 1,
+        },
     ),
     '1413': AreaExpectedBuildingData(
         name='mławski',
