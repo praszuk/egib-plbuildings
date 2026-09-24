@@ -1,15 +1,13 @@
 import asyncio
-
 from unittest.mock import patch
 
 import pytest
 
-
 from backend.areas.config import all_counties
 from backend.models.area_import import ResultStatus
 from backend.tasks.import_buildings import (
-    area_import_in_parallel,
     ImportResult,
+    area_import_in_parallel,
 )
 
 
@@ -24,7 +22,7 @@ def test_failed_two_attempts_downloading_error_then_success(db):
     ) as mock_area_attempt_func:
         asyncio.run(
             area_import_in_parallel(
-                [list(all_counties.keys())[0]],
+                [next(iter(all_counties.keys()))],
                 delay_between_attempts=0.001,
                 max_attempts_per_area=3,
             )
@@ -40,7 +38,7 @@ def test_failed_one_attempt_but_with_parameter_to_max_one_attempt(db):
     ) as mock_area_attempt_func:
         asyncio.run(
             area_import_in_parallel(
-                [list(all_counties.keys())[0]],
+                [next(iter(all_counties.keys()))],
                 delay_between_attempts=0.001,
                 max_attempts_per_area=1,
             )
@@ -55,7 +53,7 @@ def test_failed_data_check_error_three_attempts_no_tags_improvement(db):
         side_effect=[ImportResult(teryt='123', status=ResultStatus.DATA_CHECK_ERROR)] * 5,
     ) as mock_area_attempt_func:
         asyncio.run(
-            area_import_in_parallel([list(all_counties.keys())[0]], delay_between_attempts=0.001)
+            area_import_in_parallel([next(iter(all_counties.keys()))], delay_between_attempts=0.001)
         )
         assert mock_area_attempt_func.call_count == 5
 

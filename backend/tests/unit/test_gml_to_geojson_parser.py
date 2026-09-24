@@ -1,5 +1,5 @@
-from backend.areas.parsers import WarszawaAreaParser
 from backend.areas.config import all_areas
+from backend.areas.parsers import WarszawaAreaParser
 
 
 class TestGmlToGeojsonParser:

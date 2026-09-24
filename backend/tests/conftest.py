@@ -1,3 +1,6 @@
+from os import environ, path
+from unittest.mock import patch
+
 import httpx
 import pytest
 from fastapi.testclient import TestClient
@@ -5,14 +8,10 @@ from httpx import ASGITransport
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-from os import path, environ
-from unittest.mock import patch
-
 from backend.core.config import settings
 from backend.database.base import Base
 from backend.database.session import get_db
 from backend.main import app
-
 
 TEST_DB_NAME = 'test_db'
 TEST_DB_URL = 'postgresql://{}:{}@{}/{}'.format(
@@ -69,7 +68,7 @@ def db(setup_db):
 
     Base.metadata.create_all(bind=engine)
 
-    Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)  # noqa
+    Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db_session = Session()
 
     def override_get_db():

@@ -1,21 +1,20 @@
 import asyncio
 import datetime
-
 from contextlib import contextmanager
 from dataclasses import dataclass
 
 from httpx import AsyncClient, HTTPError, Timeout
-from sqlalchemy import insert, bindparam
+from sqlalchemy import bindparam, insert
 
-from backend.areas.data.expected_building import all_areas_data
 from backend.areas.config import all_areas
+from backend.areas.data.expected_building import all_areas_data
 from backend.areas.finder import area_finder
 from backend.areas.parsers import BaseAreaParser
 from backend.core.logger import default_logger
-from backend.models.building import Building
-from backend.models.area_import import AreaImport, ResultStatus
 from backend.database.session import get_db
 from backend.exceptions import ParserError
+from backend.models.area_import import AreaImport, ResultStatus
+from backend.models.building import Building
 
 
 @dataclass
@@ -53,10 +52,7 @@ class ImportResult:
         if not self.data_check_result_tags:
             return False
 
-        if self.data_check_result_tags == {'building': 'yes'}:  # common fail
-            return False
-
-        return True
+        return self.data_check_result_tags != {'building': 'yes'}  # common fail
 
 
 async def area_import_attempt(area_parser: BaseAreaParser, teryt: str) -> ImportResult | None:
@@ -221,9 +217,9 @@ async def area_import_in_parallel(
 
 if __name__ == '__main__':
     import argparse
-    import yaml
+    from logging import DEBUG, config
 
-    from logging import config, DEBUG
+    import yaml
 
     area_finder.load_data()
 

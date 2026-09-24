@@ -1,13 +1,13 @@
-from typing import Any, Dict
+from typing import Any
 
 from sqlalchemy import select
-from sqlalchemy.sql import func
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import func
 
 from backend.models.building import Building
 
 
-async def get_building_at(db: Session, lat: float, lon: float) -> Dict[str, Any]:
+async def get_building_at(db: Session, lat: float, lon: float) -> dict[str, Any]:
     # fmt: off
     query = (
         select(

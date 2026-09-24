@@ -1,4 +1,4 @@
-from IPython import get_ipython  # noqa
+from IPython import get_ipython
 
 ipython = get_ipython()
 ipython.run_line_magic('load_ext', 'autoreload')

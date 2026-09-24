@@ -2,7 +2,6 @@ import pytest
 
 from backend.areas.parsers import EpodgikAreaParser
 
-
 area = EpodgikAreaParser('test_area', 'test_url_code')
 
 

@@ -1,10 +1,8 @@
 from logging.config import fileConfig
-from typing import Optional, Literal
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from typing import Literal, Optional
 
 from alembic import context
+from sqlalchemy import engine_from_config, pool
 from sqlalchemy.sql.schema import SchemaItem
 
 from backend.core.config import settings
@@ -34,8 +32,8 @@ IGNORE_TABLES: list[str] = ['spatial_ref_sys']
 
 
 def include_object(
-    object: SchemaItem,  # noqa
-    name: Optional[str],
+    object: SchemaItem,
+    name: str | None,
     type_: Literal[
         'schema',
         'table',
@@ -44,7 +42,7 @@ def include_object(
         'unique_constraint',
         'foreign_key_constraint',
     ],
-    reflected: bool,  # noqa
+    reflected: bool,
     compare_to: Optional[SchemaItem],  # noqa
 ) -> bool:
     if type_ == 'table' and (name in IGNORE_TABLES or object.info.get('skip_autogenerate', False)):
