@@ -1,10 +1,9 @@
 import json
 import pickle
-
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any
 
-from osgeo import ogr, osr  # noqa
+from osgeo import ogr, osr
 
 from backend.core.config import settings
 from backend.core.logger import default_logger
@@ -25,18 +24,18 @@ class AreaGeometry:
     # __getstate__ and __setstate__ are not needed at all, but without them
     # GDAL prints errors on deserialization
     # 'ERROR 1: Empty geometries cannot be constructed'
-    def __getstate__(self) -> Dict[str, Any]:
+    def __getstate__(self) -> dict[str, Any]:
         return {'geom': self.geom.ExportToWkb()}
 
-    def __setstate__(self, state: Dict[str, Any]) -> None:
+    def __setstate__(self, state: dict[str, Any]) -> None:
         object.__setattr__(self, 'geom', ogr.CreateGeometryFromWkb(state['geom']))
 
 
 class AreaFinder:
     def __init__(self) -> None:
-        self._county_geoms: Dict[str, AreaGeometry] = {}
-        self._commune_geoms: Dict[str, AreaGeometry] = {}
-        self._county_communes: Dict[str, List[str]] = {}
+        self._county_geoms: dict[str, AreaGeometry] = {}
+        self._commune_geoms: dict[str, AreaGeometry] = {}
+        self._county_communes: dict[str, list[str]] = {}
 
     def load_data(self) -> None:
         def _load(area_type, cache_file, data_file):
@@ -83,7 +82,7 @@ class AreaFinder:
                 pickle.dump(self._county_geoms, f)
             with open(settings.COMMUNES_GEOM_CACHE_FILENAME, 'wb') as f:
                 pickle.dump(self._commune_geoms, f)
-        except (IOError, pickle.PickleError):
+        except (OSError, pickle.PickleError):
             default_logger.exception('Error at serializing areas geometries to cache file.')
 
     def area_at(self, lat: float, lon: float) -> str:
@@ -145,8 +144,8 @@ class AreaFinder:
 
     @staticmethod
     def parse_area_geojson_to_area_geoms(
-        geojson: Dict[str, Any], teryt_key: str = TERYT_KEY
-    ) -> Dict[str, AreaGeometry]:
+        geojson: dict[str, Any], teryt_key: str = TERYT_KEY
+    ) -> dict[str, AreaGeometry]:
         """
         :param geojson: features where each one is different areas
         cooridnates should be in WGS84 projection (EPSG:4326)

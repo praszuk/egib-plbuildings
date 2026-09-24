@@ -1,8 +1,7 @@
+from sqlalchemy import Sequence, case, func, select
 from sqlalchemy.orm import Session
-from sqlalchemy import case, func, select, Sequence
 
-from backend.models.area_import import AreaImport
-from backend.models.area_import import ResultStatus
+from backend.models.area_import import AreaImport, ResultStatus
 
 
 async def list_latest_area_imports(db: Session) -> Sequence[AreaImport]:

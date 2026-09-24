@@ -1,5 +1,5 @@
-from sqlalchemy import Column, BigInteger, String, JSON
 from geoalchemy2 import Geometry
+from sqlalchemy import JSON, BigInteger, Column, String
 
 from backend.database.base import Base
 

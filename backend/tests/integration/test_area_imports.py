@@ -2,10 +2,9 @@ from unittest.mock import patch
 
 import pytest
 
-from backend.areas.parsers import BaseAreaParser
 from backend.areas.config import all_areas
-from backend.models.area_import import AreaImport
-from backend.models.area_import import ResultStatus
+from backend.areas.parsers import BaseAreaParser
+from backend.models.area_import import AreaImport, ResultStatus
 
 
 @pytest.mark.anyio

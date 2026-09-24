@@ -1,16 +1,18 @@
 from enum import Enum
 
 from sqlalchemy import (
-    Column,
-    BigInteger,
-    Float,
     JSON,
-    String,
-    DateTime,
-    func,
+    BigInteger,
     Boolean,
-    Enum as ColEnum,
     CheckConstraint,
+    Column,
+    DateTime,
+    Float,
+    String,
+    func,
+)
+from sqlalchemy import (
+    Enum as ColEnum,
 )
 from sqlalchemy.ext.hybrid import hybrid_property
 

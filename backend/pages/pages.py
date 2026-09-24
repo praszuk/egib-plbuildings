@@ -2,8 +2,8 @@ import hashlib
 from pathlib import Path
 
 from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 from backend.core.config import settings
 

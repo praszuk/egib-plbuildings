@@ -1,6 +1,6 @@
 import pytest
 
-from backend.areas.parsers import Geoportal2AreaParser, DEFAULT_BUILDING
+from backend.areas.parsers import DEFAULT_BUILDING, Geoportal2AreaParser
 
 area = Geoportal2AreaParser('test_area', 'test_url_code')
 

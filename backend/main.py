@@ -6,10 +6,10 @@ from pythonjsonlogger.json import JsonFormatter
 from starlette.requests import Request
 
 from backend.api.v1.api import api_router
+from backend.areas.finder import area_finder
 from backend.core.config import settings
 from backend.core.logger import access_logger
-from backend.areas.finder import area_finder
-from backend.pages.pages import pages_router, generate_manifest
+from backend.pages.pages import generate_manifest, pages_router
 
 
 @asynccontextmanager
@@ -55,7 +55,7 @@ async def log_access(request: Request, call_next):
 
 class AccessJsonFormatter(JsonFormatter):
     def add_fields(self, log_record, record, message_dict):
-        super(AccessJsonFormatter, self).add_fields(log_record, record, message_dict)
+        super().add_fields(log_record, record, message_dict)
         log_record['client_addr'] = log_record.get('client_addr', 'Unknown')
         log_record['request_line'] = log_record.get('request_line', 'Unknown')
         log_record['status_code'] = log_record.get('status_code', 'Unknown')

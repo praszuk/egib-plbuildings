@@ -2,7 +2,6 @@ import pytest
 
 from backend.models.building import Building
 
-
 MOCK_AREA_TERYT_VALUE = '1421'
 
 

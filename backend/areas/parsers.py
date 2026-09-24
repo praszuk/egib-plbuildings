@@ -1,18 +1,16 @@
 from __future__ import annotations
 
 import json
-from typing import Any, List, Dict, Tuple
-from urllib.parse import urlparse, parse_qs, urlencode
+from abc import abstractmethod
+from typing import Any, Final
+from urllib.parse import parse_qs, urlencode, urlparse
 
 from lxml import etree
 from lxml.etree import XMLSyntaxError
-from osgeo import ogr, osr  # noqa
+from osgeo import ogr, osr
 from osgeo.ogr import Geometry
 
 from backend.exceptions import InvalidKeyParserError, ParserError
-from abc import abstractmethod
-
-from typing import Final
 
 DEFAULT_BUILDING: Final = 'yes'
 
@@ -86,11 +84,11 @@ class BaseAreaParser:
         pass
 
     @abstractmethod
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
         pass
 
     def parse_gml_to_geojson(self, gml_content: str) -> dict[str, Any]:
-        features: List[Dict[str, Any]] = []
+        features: list[dict[str, Any]] = []
 
         geoms_and_props = self.parse_gml_to_geometries_and_properties(gml_content)
         for geometry, properties in geoms_and_props:
@@ -107,8 +105,8 @@ class BaseAreaParser:
 
     def parse_gml_to_geometries_and_properties(
         self, gml_content: str
-    ) -> List[Tuple[Geometry, Dict[str, Any]]]:
-        geometries_and_properties: List[Tuple[Geometry, Dict[str, Any]]] = []
+    ) -> list[tuple[Geometry, dict[str, Any]]]:
+        geometries_and_properties: list[tuple[Geometry, dict[str, Any]]] = []
 
         try:
             parser = etree.XMLParser(recover=True)
@@ -168,14 +166,14 @@ class BaseAreaParser:
 
         return geometries_and_properties
 
-    def replace_properties_with_osm_tags(self, geojson: Dict[str, Any]) -> None:
+    def replace_properties_with_osm_tags(self, geojson: dict[str, Any]) -> None:
         for index, feature in enumerate(geojson['features']):
             properties = feature['properties']
             tags = self.parse_properties_to_osm_tags(properties)
             geojson['features'][index]['properties'] = self.clean_tags(tags)
 
     @staticmethod
-    def clean_tags(osm_tags: Dict[str, Any]) -> Dict[str, Any]:
+    def clean_tags(osm_tags: dict[str, Any]) -> dict[str, Any]:
         """
         Skip empty tags.
         Parse building levels as numbers and reject errors.
@@ -246,8 +244,8 @@ class EpodgikAreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
                 properties.get(self.gml_building_type_key), DEFAULT_BUILDING
@@ -288,8 +286,8 @@ class GeoportalAreaParser(BaseAreaParser):
             f'?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES={self.url_typenames}'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             building_type = properties.get(self.gml_building_type_key, '')
             if len(building_type) != 1:
@@ -324,8 +322,8 @@ class Geoportal2AreaParser(BaseAreaParser):
             f'{endpoint}?service=WFS&REQUEST=GetFeature&TYPENAMES=ewns:budynki&SRSNAME={srs_name}'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
                 properties.get(self.gml_building_type_key), DEFAULT_BUILDING
@@ -350,8 +348,8 @@ class GIPortalAreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             building_type = properties.get(self.gml_building_type_key) or ''
             if len(building_type) != 1:
@@ -384,8 +382,8 @@ class WarszawaAreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
                 properties.get(self.gml_building_type_key), DEFAULT_BUILDING
@@ -420,8 +418,8 @@ class WebEwidAreaParser(BaseAreaParser):
     def build_buildings_url(self) -> str:
         return merge_url_query_params(self.buildings_url(), {'SRSNAME': self.DEFAULT_SRS_NAME})
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
                 properties.get(self.gml_building_type_key), DEFAULT_BUILDING
@@ -449,8 +447,8 @@ class WroclawAreaParser(BaseAreaParser):
             f'&SRSNAME={self.DEFAULT_SRS_NAME}'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
 
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
@@ -483,8 +481,8 @@ class ChorzowAreaParser(BaseAreaParser):
             '?service=WFS&version=2.0.0&REQUEST=GetFeature&TYPENAMES=chorzow_workspace:budynki'
         )
 
-    def parse_properties_to_osm_tags(self, properties: Dict[str, Any]) -> Dict[str, Any]:
-        tags: Dict[str, Any] = {}
+    def parse_properties_to_osm_tags(self, properties: dict[str, Any]) -> dict[str, Any]:
+        tags: dict[str, Any] = {}
         try:
             tags['building'] = BUILDING_KST_CODE_TYPE.get(
                 properties.get(self.gml_building_type_key), DEFAULT_BUILDING

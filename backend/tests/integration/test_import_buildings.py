@@ -1,11 +1,12 @@
 import asyncio
-import pytest
 from unittest.mock import AsyncMock, patch
 
-from backend.areas.data.expected_building import all_areas_data, AreaExpectedBuildingData
+import pytest
+
+from backend.areas.data.expected_building import AreaExpectedBuildingData, all_areas_data
 from backend.areas.parsers import WarszawaAreaParser
-from backend.models.building import Building
 from backend.models.area_import import AreaImport, ResultStatus
+from backend.models.building import Building
 from backend.tasks.import_buildings import area_import_in_parallel
 
 
