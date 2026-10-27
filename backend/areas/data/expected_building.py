@@ -1440,7 +1440,8 @@ counties = {
         lon=17.82206,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
+            'building:levels': 4,
+            'building:levels:underground': 1,
         },
     ),
     '1603': AreaExpectedBuildingData(
@@ -1506,6 +1507,7 @@ counties = {
         expected_tags={
             'building': 'office',
             'building:levels': 3,
+            'building:levels:underground': 1,
         },
     ),
     '1609': AreaExpectedBuildingData(  # gmina Prószków
