@@ -886,7 +886,7 @@ counties = {
         teryt='1019',
         lat=51.59866,
         lon=18.93762,
-        expected_tags={'building': 'office', 'building:levels': 2},
+        expected_tags={'building': 'office'},  # , 'building:levels': 2},  levels lost
     ),
     '1020': AreaExpectedBuildingData(
         name='zgierski',
