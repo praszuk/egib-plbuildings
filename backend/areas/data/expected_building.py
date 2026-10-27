@@ -886,7 +886,7 @@ counties = {
         teryt='1019',
         lat=51.59866,
         lon=18.93762,
-        expected_tags={'building': 'office', 'building:levels': 2},
+        expected_tags={'building': 'office'},  # , 'building:levels': 2},  levels lost
     ),
     '1020': AreaExpectedBuildingData(
         name='zgierski',
@@ -1440,7 +1440,8 @@ counties = {
         lon=17.82206,
         expected_tags={
             'building': 'office',
-            'building:levels': 3,
+            'building:levels': 4,
+            'building:levels:underground': 1,
         },
     ),
     '1603': AreaExpectedBuildingData(
@@ -1506,6 +1507,7 @@ counties = {
         expected_tags={
             'building': 'office',
             'building:levels': 3,
+            'building:levels:underground': 1,
         },
     ),
     '1609': AreaExpectedBuildingData(  # gmina Prószków
