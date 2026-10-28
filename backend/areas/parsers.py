@@ -60,10 +60,10 @@ class BaseAreaParser:
     def __init__(
         self,
         name: str,
-        url_code: str = None,
-        base_url: str = None,
+        url_code: str | None = None,
+        base_url: str | None = None,
         port: int | None = None,
-        custom_crs: int = None,
+        custom_crs: int | None = None,
         gml_prefix: str = 'ms',
         gml_member_prefix: str = 'wfs',
         gml_geometry_key: str = 'msGeometry',

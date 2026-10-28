@@ -45,10 +45,9 @@ def include_object(
     reflected: bool,
     compare_to: Optional[SchemaItem],  # noqa
 ) -> bool:
-    if type_ == 'table' and (name in IGNORE_TABLES or object.info.get('skip_autogenerate', False)):
-        return False
-
-    return True
+    return not (
+        type_ == 'table' and (name in IGNORE_TABLES or object.info.get('skip_autogenerate', False))
+    )
 
 
 def run_migrations_offline() -> None:

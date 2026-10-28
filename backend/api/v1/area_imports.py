@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -29,7 +31,9 @@ def convert_to_area_import_schema(db_area_import: AreaImportModel) -> AreaImport
 
 
 @router.get('/latest')
-async def get_latest_area_imports(db: Session = Depends(get_db)) -> list[AreaImportSchema]:
+async def get_latest_area_imports(
+    db: Annotated[Session, Depends(get_db)],
+) -> list[AreaImportSchema]:
     db_latest_area_imports = await list_latest_area_imports(db)
     return [
         convert_to_area_import_schema(db_area_import) for db_area_import in db_latest_area_imports
@@ -37,7 +41,9 @@ async def get_latest_area_imports(db: Session = Depends(get_db)) -> list[AreaImp
 
 
 @router.get('/stable')
-async def get_stable_area_imports(db: Session = Depends(get_db)) -> list[AreaImportSchema]:
+async def get_stable_area_imports(
+    db: Annotated[Session, Depends(get_db)],
+) -> list[AreaImportSchema]:
     db_stable_area_imports = await list_stable_area_imports(db)
     return [
         convert_to_area_import_schema(db_area_import) for db_area_import in db_stable_area_imports
