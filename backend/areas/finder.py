@@ -49,7 +49,8 @@ class AreaFinder:
                 default_logger.exception(f'Cache file with {area_type} geometries is damaged.')
 
             default_logger.info(f'Generating {area_type} geometries using GeoJSON {data_file}')
-            geojson = json.load(open(data_file, 'r'))
+            with open(data_file, 'r') as json_file:
+                geojson = json.load(json_file)
             return self.parse_area_geojson_to_area_geoms(geojson)
 
         self._county_geoms.update(
@@ -68,7 +69,7 @@ class AreaFinder:
         default_logger.info(f'Completed loading {len(self._commune_geoms)} communes geometries.')
 
     def generate_county_communes(self):
-        for commune_teryt in self._commune_geoms.keys():
+        for commune_teryt in self._commune_geoms:
             county_teryt = commune_teryt[:4]
             if county_teryt not in self._county_communes:
                 self._county_communes[county_teryt] = []

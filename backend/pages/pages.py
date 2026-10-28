@@ -23,7 +23,7 @@ def generate_manifest():
     for file_path in absolute_static_dir.rglob('*.*'):
         relative_path_name = str(file_path.relative_to(absolute_static_dir))
 
-        if relative_path_name.startswith('.') or relative_path_name.startswith('__'):
+        if relative_path_name.startswith(('.', '__')):
             continue
 
         with file_path.open('rb') as f:

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -12,6 +12,6 @@ router = APIRouter()
 
 @router.get('/')
 async def get_building_at(
-    location: Location = Depends(Location), db: Session = Depends(get_db)
+    location: Annotated[Location, Depends(Location)], db: Annotated[Session, Depends(get_db)]
 ) -> dict[str, Any]:
     return await building.get_building_at(db, location.lat, location.lon)

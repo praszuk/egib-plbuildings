@@ -71,6 +71,6 @@ def test_failed_data_check_error_one_attempt_tags_improvement(db):
         ),
     ):
         asyncio.run(
-            area_import_in_parallel([list(all_counties.keys())[0]], delay_between_attempts=0.001)
+            area_import_in_parallel([next(iter(all_counties.keys()))], delay_between_attempts=0.001)
         )
         assert mock_area_attempt_func.call_count == 1
